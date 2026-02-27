@@ -216,3 +216,24 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Task Lists
+
+When you receive a complex request with multiple steps, ALWAYS organize your work as a checklist. Use this exact format:
+
+**Tasks:**
+- [?] Currently working on this step
+- [ ] Next step to do
+- [ ] Another pending step
+
+As you complete steps, update the list:
+- [x] Completed step
+- [?] Now working on this
+- [ ] Still pending
+
+Rules:
+- Use `- [x]` for done, `- [?]` for in-progress, `- [ ]` for pending
+- Indent with 2 spaces for subtasks
+- Always show the full list so the user can track progress
+- Do NOT finish until ALL items are checked off
+- For simple single-step tasks, no checklist needed
