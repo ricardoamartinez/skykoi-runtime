@@ -2,6 +2,7 @@ import { spawn } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { resolveAgentConfig } from "../agents/agent-scope.js";
 import { resolveBrowserConfig } from "../browser/config.js";
@@ -850,6 +851,784 @@ async function handleInvoke(
       await sendInvokeResult(client, frame, {
         ok: false,
         error: { code: "INVALID_REQUEST", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── screen.snap ──────────────────────────────────────────────────────
+  if (command === "screen.snap") {
+    try {
+      const params = decodeParams<{ display?: string; format?: string; quality?: number }>(frame.paramsJSON);
+      const display = params.display || process.env.DISPLAY || ":0";
+      const format = params.format === "jpg" || params.format === "jpeg" ? "jpg" : "png";
+      const tmpFile = path.join(os.tmpdir(), `screen-snap-${crypto.randomUUID()}.${format}`);
+      const platform = process.platform;
+
+      let cmd: string[];
+      if (platform === "darwin") {
+        cmd = ["screencapture", "-x", "-t", format, tmpFile];
+      } else if (platform === "win32") {
+        // PowerShell screenshot
+        const psScript = `
+Add-Type -AssemblyName System.Windows.Forms,System.Drawing
+$bounds = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+$bmp = New-Object System.Drawing.Bitmap($bounds.Width, $bounds.Height)
+$g = [System.Drawing.Graphics]::FromImage($bmp)
+$g.CopyFromScreen($bounds.Location, [System.Drawing.Point]::Empty, $bounds.Size)
+$bmp.Save('${tmpFile.replace(/\\/g, "\\\\")}')
+$g.Dispose()
+$bmp.Dispose()`;
+        cmd = ["powershell", "-NoProfile", "-Command", psScript];
+      } else {
+        // Linux with import (ImageMagick)
+        cmd = ["bash", "-c", `DISPLAY=${display} import -window root ${tmpFile}`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 15000 });
+        proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`screenshot failed (exit ${code})`)));
+        proc.on("error", reject);
+      });
+
+      const buffer = await fsPromises.readFile(tmpFile);
+      await fsPromises.rm(tmpFile, { force: true }).catch(() => {});
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({
+          format,
+          size: buffer.length,
+          encoding: "base64",
+          data: buffer.toString("base64"),
+        }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── clipboard.read / clipboard.write ───────────────────────────────
+  if (command === "clipboard.read") {
+    try {
+      const platform = process.platform;
+      let cmd: string[];
+      if (platform === "darwin") {
+        cmd = ["pbpaste"];
+      } else if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command", "Get-Clipboard"];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        cmd = ["bash", "-c", `DISPLAY=${display} xclip -selection clipboard -o 2>/dev/null || DISPLAY=${display} xsel --clipboard --output 2>/dev/null || echo ""`];
+      }
+      const text = await new Promise<string>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 5000 });
+        let out = "";
+        proc.stdout?.on("data", (d: Buffer) => { out += d.toString(); });
+        proc.on("close", () => resolve(out));
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ text }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "clipboard.write") {
+    try {
+      const params = decodeParams<{ text: string }>(frame.paramsJSON);
+      if (typeof params.text !== "string") throw new Error("INVALID_REQUEST: text required");
+      const platform = process.platform;
+      let cmd: string[];
+      if (platform === "darwin") {
+        cmd = ["pbcopy"];
+      } else if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command", `Set-Clipboard -Value $input`];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        cmd = ["bash", "-c", `DISPLAY=${display} xclip -selection clipboard 2>/dev/null || DISPLAY=${display} xsel --clipboard --input 2>/dev/null`];
+      }
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 5000 });
+        proc.stdin?.write(params.text);
+        proc.stdin?.end();
+        proc.on("close", () => resolve());
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ written: true, length: params.text.length }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── process.list / process.kill ────────────────────────────────────
+  if (command === "process.list") {
+    try {
+      const params = decodeParams<{ filter?: string; limit?: number }>(frame.paramsJSON);
+      const platform = process.platform;
+      let cmd: string[];
+      if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command", "Get-Process | Select-Object Id,ProcessName,CPU,WorkingSet64 | ConvertTo-Json -Depth 2"];
+      } else {
+        cmd = ["ps", "aux", "--no-headers"];
+      }
+      const output = await new Promise<string>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 10000 });
+        let out = "";
+        proc.stdout?.on("data", (d: Buffer) => { out += d.toString(); });
+        proc.on("close", () => resolve(out));
+        proc.on("error", reject);
+      });
+
+      let processes: Array<{ pid: number; name: string; cpu?: string; mem?: string }>;
+      if (platform === "win32") {
+        try {
+          const raw = JSON.parse(output);
+          const arr = Array.isArray(raw) ? raw : [raw];
+          processes = arr.map((p: { Id: number; ProcessName: string; CPU: number; WorkingSet64: number }) => ({
+            pid: p.Id,
+            name: p.ProcessName,
+            cpu: String(p.CPU ?? 0),
+            mem: String(Math.round((p.WorkingSet64 ?? 0) / 1024 / 1024)) + "MB",
+          }));
+        } catch { processes = []; }
+      } else {
+        processes = output.trim().split("\n").filter(Boolean).map((line) => {
+          const parts = line.trim().split(/\s+/);
+          return { pid: parseInt(parts[1], 10), name: parts[10] || parts[1], cpu: parts[2], mem: parts[3] };
+        });
+      }
+
+      const filter = params.filter?.toLowerCase();
+      if (filter) {
+        processes = processes.filter((p) => p.name.toLowerCase().includes(filter));
+      }
+      const limit = params.limit && params.limit > 0 ? params.limit : 100;
+      processes = processes.slice(0, limit);
+
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ count: processes.length, processes }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "process.kill") {
+    try {
+      const params = decodeParams<{ pid?: number; name?: string; signal?: string }>(frame.paramsJSON);
+      if (!params.pid && !params.name) throw new Error("INVALID_REQUEST: pid or name required");
+      const signal = params.signal || "SIGTERM";
+
+      if (params.pid) {
+        process.kill(params.pid, signal as NodeJS.Signals);
+        await sendInvokeResult(client, frame, {
+          ok: true,
+          payloadJSON: JSON.stringify({ killed: true, pid: params.pid, signal }),
+        });
+      } else {
+        const platform = process.platform;
+        let cmd: string[];
+        if (platform === "win32") {
+          cmd = ["powershell", "-NoProfile", "-Command", `Stop-Process -Name "${params.name}" -Force`];
+        } else {
+          cmd = ["pkill", "-f", params.name!];
+        }
+        await new Promise<void>((resolve, reject) => {
+          const proc = spawn(cmd[0], cmd.slice(1), { timeout: 5000 });
+          proc.on("close", () => resolve());
+          proc.on("error", reject);
+        });
+        await sendInvokeResult(client, frame, {
+          ok: true,
+          payloadJSON: JSON.stringify({ killed: true, name: params.name, signal }),
+        });
+      }
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── system.info ────────────────────────────────────────────────────
+  if (command === "system.info") {
+    try {
+      const cpus = os.cpus();
+      const totalMem = os.totalmem();
+      const freeMem = os.freemem();
+      const uptimeSecs = os.uptime();
+
+      // Disk usage
+      let diskInfo: { total?: string; free?: string; used?: string } = {};
+      try {
+        const platform = process.platform;
+        if (platform === "win32") {
+          const out = await new Promise<string>((resolve, reject) => {
+            const proc = spawn("powershell", ["-NoProfile", "-Command",
+              "Get-PSDrive C | Select-Object Used,Free | ConvertTo-Json"], { timeout: 5000 });
+            let data = "";
+            proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+            proc.on("close", () => resolve(data));
+            proc.on("error", reject);
+          });
+          const d = JSON.parse(out);
+          diskInfo = {
+            total: String(Math.round((d.Used + d.Free) / 1024 / 1024 / 1024)) + "GB",
+            free: String(Math.round(d.Free / 1024 / 1024 / 1024)) + "GB",
+            used: String(Math.round(d.Used / 1024 / 1024 / 1024)) + "GB",
+          };
+        } else {
+          const out = await new Promise<string>((resolve, reject) => {
+            const proc = spawn("df", ["-h", "/"], { timeout: 5000 });
+            let data = "";
+            proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+            proc.on("close", () => resolve(data));
+            proc.on("error", reject);
+          });
+          const lines = out.trim().split("\n");
+          if (lines.length > 1) {
+            const parts = lines[1].split(/\s+/);
+            diskInfo = { total: parts[1], used: parts[2], free: parts[3] };
+          }
+        }
+      } catch { /* disk info optional */ }
+
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({
+          hostname: os.hostname(),
+          platform: process.platform,
+          arch: process.arch,
+          os: `${os.type()} ${os.release()}`,
+          cpuModel: cpus[0]?.model || "unknown",
+          cpuCores: cpus.length,
+          totalMemory: `${Math.round(totalMem / 1024 / 1024)}MB`,
+          freeMemory: `${Math.round(freeMem / 1024 / 1024)}MB`,
+          usedMemory: `${Math.round((totalMem - freeMem) / 1024 / 1024)}MB`,
+          disk: diskInfo,
+          uptime: `${Math.floor(uptimeSecs / 3600)}h ${Math.floor((uptimeSecs % 3600) / 60)}m`,
+          nodeVersion: process.version,
+          pid: process.pid,
+        }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── network.info ───────────────────────────────────────────────────
+  if (command === "network.info") {
+    try {
+      const interfaces = os.networkInterfaces();
+      const nets: Array<{ name: string; address: string; family: string; mac: string; internal: boolean }> = [];
+      for (const [name, addrs] of Object.entries(interfaces)) {
+        if (!addrs) continue;
+        for (const addr of addrs) {
+          nets.push({
+            name,
+            address: addr.address,
+            family: addr.family,
+            mac: addr.mac,
+            internal: addr.internal,
+          });
+        }
+      }
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({
+          hostname: os.hostname(),
+          interfaces: nets,
+        }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── display.list ───────────────────────────────────────────────────
+  if (command === "display.list") {
+    try {
+      const platform = process.platform;
+      let displays: Array<{ name: string; resolution?: string; primary?: boolean }> = [];
+
+      if (platform === "win32") {
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("powershell", ["-NoProfile", "-Command",
+            "[System.Windows.Forms.Screen]::AllScreens | ForEach-Object { @{ DeviceName=$_.DeviceName; Bounds=\"$($_.Bounds.Width)x$($_.Bounds.Height)\"; Primary=$_.Primary } } | ConvertTo-Json"], { timeout: 5000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        try {
+          const raw = JSON.parse(out);
+          const arr = Array.isArray(raw) ? raw : [raw];
+          displays = arr.map((d: { DeviceName: string; Bounds: string; Primary: boolean }) => ({
+            name: d.DeviceName,
+            resolution: d.Bounds,
+            primary: d.Primary,
+          }));
+        } catch { /* parse failed */ }
+      } else if (platform === "darwin") {
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("system_profiler", ["SPDisplaysDataType", "-json"], { timeout: 10000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        try {
+          const raw = JSON.parse(out);
+          const gpus = raw.SPDisplaysDataType || [];
+          for (const gpu of gpus) {
+            for (const disp of gpu.spdisplays_ndrvs || []) {
+              displays.push({
+                name: disp._name || "Display",
+                resolution: disp._spdisplays_resolution || "unknown",
+                primary: disp.spdisplays_main === "spdisplays_yes",
+              });
+            }
+          }
+        } catch { /* parse failed */ }
+      } else {
+        // Linux — xrandr
+        const display = process.env.DISPLAY || ":0";
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("bash", ["-c", `DISPLAY=${display} xrandr --query 2>/dev/null || echo "no display"`], { timeout: 5000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        const lines = out.split("\n");
+        for (const line of lines) {
+          const match = line.match(/^(\S+)\s+connected\s+(primary\s+)?(\d+x\d+)/);
+          if (match) {
+            displays.push({
+              name: match[1],
+              resolution: match[3],
+              primary: !!match[2],
+            });
+          }
+        }
+      }
+
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ displays }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── input.type / input.key / input.click ───────────────────────────
+  if (command === "input.type") {
+    try {
+      const params = decodeParams<{ text: string; delay?: number }>(frame.paramsJSON);
+      if (typeof params.text !== "string") throw new Error("INVALID_REQUEST: text required");
+      const platform = process.platform;
+      let cmd: string[];
+
+      if (platform === "darwin") {
+        // osascript keystroke
+        const escaped = params.text.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+        cmd = ["osascript", "-e", `tell application "System Events" to keystroke "${escaped}"`];
+      } else if (platform === "win32") {
+        const escaped = params.text.replace(/'/g, "''");
+        cmd = ["powershell", "-NoProfile", "-Command",
+          `Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('${escaped}')`];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        cmd = ["bash", "-c", `DISPLAY=${display} xdotool type --clearmodifiers -- "${params.text.replace(/"/g, '\\"')}"`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 10000 });
+        proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`input.type failed (exit ${code})`)));
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ typed: true, length: params.text.length }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "input.key") {
+    try {
+      const params = decodeParams<{ key: string; modifiers?: string[] }>(frame.paramsJSON);
+      if (typeof params.key !== "string") throw new Error("INVALID_REQUEST: key required");
+      const platform = process.platform;
+      const mods = Array.isArray(params.modifiers) ? params.modifiers : [];
+      let cmd: string[];
+
+      if (platform === "darwin") {
+        const modStr = mods.map((m) => {
+          if (m === "ctrl" || m === "control") return "control down";
+          if (m === "alt" || m === "option") return "option down";
+          if (m === "shift") return "shift down";
+          if (m === "cmd" || m === "command") return "command down";
+          return `${m} down`;
+        }).join(", ");
+        const using = modStr ? ` using {${modStr}}` : "";
+        cmd = ["osascript", "-e", `tell application "System Events" to key code ${params.key}${using}`];
+      } else if (platform === "win32") {
+        // Map modifiers to SendKeys format
+        let keyStr = "";
+        if (mods.includes("ctrl") || mods.includes("control")) keyStr += "^";
+        if (mods.includes("alt")) keyStr += "%";
+        if (mods.includes("shift")) keyStr += "+";
+        keyStr += `{${params.key}}`;
+        cmd = ["powershell", "-NoProfile", "-Command",
+          `Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('${keyStr}')`];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        const modStr = mods.map((m) => `${m}+`).join("");
+        cmd = ["bash", "-c", `DISPLAY=${display} xdotool key --clearmodifiers ${modStr}${params.key}`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 5000 });
+        proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`input.key failed (exit ${code})`)));
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ pressed: true, key: params.key, modifiers: mods }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "input.click") {
+    try {
+      const params = decodeParams<{ x: number; y: number; button?: string; doubleClick?: boolean }>(frame.paramsJSON);
+      if (typeof params.x !== "number" || typeof params.y !== "number") throw new Error("INVALID_REQUEST: x and y required");
+      const button = params.button || "left";
+      const double = params.doubleClick ? true : false;
+      const platform = process.platform;
+      let cmd: string[];
+
+      if (platform === "darwin") {
+        const clickType = double ? "double click" : "click";
+        cmd = ["osascript", "-e", `tell application "System Events" to ${clickType} at {${params.x}, ${params.y}}`];
+      } else if (platform === "win32") {
+        const psScript = `
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Cursor]::Position = New-Object System.Drawing.Point(${params.x}, ${params.y})
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class Mouse {
+    [DllImport("user32.dll")] public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+}
+"@
+[Mouse]::mouse_event(0x0002, 0, 0, 0, 0)
+[Mouse]::mouse_event(0x0004, 0, 0, 0, 0)
+${double ? "[Mouse]::mouse_event(0x0002, 0, 0, 0, 0)\n[Mouse]::mouse_event(0x0004, 0, 0, 0, 0)" : ""}`;
+        cmd = ["powershell", "-NoProfile", "-Command", psScript];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        const btnNum = button === "right" ? "3" : button === "middle" ? "2" : "1";
+        const clickCmd = double
+          ? `xdotool mousemove ${params.x} ${params.y} click --repeat 2 ${btnNum}`
+          : `xdotool mousemove ${params.x} ${params.y} click ${btnNum}`;
+        cmd = ["bash", "-c", `DISPLAY=${display} ${clickCmd}`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 5000 });
+        proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`input.click failed (exit ${code})`)));
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ clicked: true, x: params.x, y: params.y, button, doubleClick: double }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── app.launch / app.list ──────────────────────────────────────────
+  if (command === "app.launch") {
+    try {
+      const params = decodeParams<{ name: string; args?: string[] }>(frame.paramsJSON);
+      if (!params.name) throw new Error("INVALID_REQUEST: name required");
+      const platform = process.platform;
+      let cmd: string[];
+
+      if (platform === "darwin") {
+        const args = params.args?.length ? ["-a", params.name, "--args", ...params.args] : ["-a", params.name];
+        cmd = ["open", ...args];
+      } else if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command", `Start-Process "${params.name}" ${params.args?.map(a => `"${a}"`).join(" ") || ""}`];
+      } else {
+        const display = process.env.DISPLAY || ":0";
+        const argStr = params.args?.join(" ") || "";
+        cmd = ["bash", "-c", `DISPLAY=${display} nohup ${params.name} ${argStr} > /dev/null 2>&1 &`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 10000, detached: platform !== "win32" });
+        proc.unref?.();
+        proc.on("close", () => resolve());
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ launched: true, name: params.name }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "app.list") {
+    try {
+      const platform = process.platform;
+      let apps: Array<{ name: string; path?: string }> = [];
+
+      if (platform === "darwin") {
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("bash", ["-c", "ls /Applications/*.app | sed 's|/Applications/||;s|.app||'"], { timeout: 5000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        apps = out.trim().split("\n").filter(Boolean).map((name) => ({ name, path: `/Applications/${name}.app` }));
+      } else if (platform === "win32") {
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("powershell", ["-NoProfile", "-Command",
+            "Get-StartApps | Select-Object Name,AppID | ConvertTo-Json -Depth 2"], { timeout: 15000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        try {
+          const raw = JSON.parse(out);
+          const arr = Array.isArray(raw) ? raw : [raw];
+          apps = arr.map((a: { Name: string; AppID: string }) => ({ name: a.Name, path: a.AppID }));
+        } catch { /* parse failed */ }
+      } else {
+        // Linux — check .desktop files
+        const out = await new Promise<string>((resolve, reject) => {
+          const proc = spawn("bash", ["-c",
+            "find /usr/share/applications /usr/local/share/applications ~/.local/share/applications -name '*.desktop' -exec grep -l '^Name=' {} \\; 2>/dev/null | head -100 | while read f; do grep '^Name=' \"$f\" | head -1 | sed 's/Name=//'; done"],
+            { timeout: 10000 });
+          let data = "";
+          proc.stdout?.on("data", (d: Buffer) => { data += d.toString(); });
+          proc.on("close", () => resolve(data));
+          proc.on("error", reject);
+        });
+        apps = out.trim().split("\n").filter(Boolean).map((name) => ({ name }));
+      }
+
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ count: apps.length, apps }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── audio.play / audio.record ──────────────────────────────────────
+  if (command === "audio.play") {
+    try {
+      const params = decodeParams<{ path?: string; data?: string; encoding?: string; url?: string }>(frame.paramsJSON);
+      let audioFile: string;
+
+      if (params.url) {
+        // Download URL to temp file
+        audioFile = path.join(os.tmpdir(), `audio-play-${crypto.randomUUID()}`);
+        await new Promise<void>((resolve, reject) => {
+          const cmd = process.platform === "win32"
+            ? ["powershell", "-NoProfile", "-Command", `Invoke-WebRequest -Uri '${params.url}' -OutFile '${audioFile}'`]
+            : ["curl", "-sL", "-o", audioFile, params.url!];
+          const proc = spawn(cmd[0], cmd.slice(1), { timeout: 30000 });
+          proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`download failed (exit ${code})`)));
+          proc.on("error", reject);
+        });
+      } else if (params.data) {
+        audioFile = path.join(os.tmpdir(), `audio-play-${crypto.randomUUID()}.wav`);
+        const encoding = params.encoding === "utf8" ? "utf8" as const : "base64" as const;
+        await fsPromises.writeFile(audioFile, Buffer.from(params.data, encoding));
+      } else if (params.path) {
+        audioFile = path.resolve(params.path);
+      } else {
+        throw new Error("INVALID_REQUEST: path, data, or url required");
+      }
+
+      const platform = process.platform;
+      let cmd: string[];
+      if (platform === "darwin") {
+        cmd = ["afplay", audioFile];
+      } else if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command",
+          `(New-Object System.Media.SoundPlayer '${audioFile}').PlaySync()`];
+      } else {
+        cmd = ["bash", "-c", `aplay "${audioFile}" 2>/dev/null || paplay "${audioFile}" 2>/dev/null || ffplay -nodisp -autoexit "${audioFile}" 2>/dev/null`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: 60000 });
+        proc.on("close", () => resolve());
+        proc.on("error", reject);
+      });
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({ played: true }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  if (command === "audio.record") {
+    try {
+      const params = decodeParams<{ durationMs?: number; format?: string }>(frame.paramsJSON);
+      const duration = params.durationMs && params.durationMs > 0 ? params.durationMs : 5000;
+      const durationSecs = Math.ceil(duration / 1000);
+      const format = params.format === "mp3" ? "mp3" : "wav";
+      const tmpFile = path.join(os.tmpdir(), `audio-rec-${crypto.randomUUID()}.${format}`);
+      const platform = process.platform;
+      let cmd: string[];
+
+      if (platform === "darwin") {
+        cmd = ["bash", "-c", `rec -q "${tmpFile}" trim 0 ${durationSecs} 2>/dev/null || ffmpeg -f avfoundation -i ":0" -t ${durationSecs} "${tmpFile}" -y 2>/dev/null`];
+      } else if (platform === "win32") {
+        cmd = ["powershell", "-NoProfile", "-Command",
+          `ffmpeg -f dshow -i audio="Microphone" -t ${durationSecs} "${tmpFile}" -y 2>$null`];
+      } else {
+        cmd = ["bash", "-c", `arecord -d ${durationSecs} -f cd "${tmpFile}" 2>/dev/null || ffmpeg -f pulse -i default -t ${durationSecs} "${tmpFile}" -y 2>/dev/null || ffmpeg -f alsa -i default -t ${durationSecs} "${tmpFile}" -y 2>/dev/null`];
+      }
+
+      await new Promise<void>((resolve, reject) => {
+        const proc = spawn(cmd[0], cmd.slice(1), { timeout: (durationSecs + 5) * 1000 });
+        proc.on("close", (code) => code === 0 ? resolve() : reject(new Error(`recording failed (exit ${code})`)));
+        proc.on("error", reject);
+      });
+
+      const buffer = await fsPromises.readFile(tmpFile);
+      await fsPromises.rm(tmpFile, { force: true }).catch(() => {});
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({
+          format,
+          durationMs: duration,
+          size: buffer.length,
+          encoding: "base64",
+          data: buffer.toString("base64"),
+        }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
+      });
+    }
+    return;
+  }
+
+  // ── file.watch ─────────────────────────────────────────────────────
+  if (command === "file.watch") {
+    try {
+      const params = decodeParams<{ path: string; durationMs?: number }>(frame.paramsJSON);
+      if (!params.path) throw new Error("INVALID_REQUEST: path required");
+      const watchPath = path.resolve(params.path);
+      const duration = params.durationMs && params.durationMs > 0 ? params.durationMs : 10000;
+      const events: Array<{ event: string; filename: string | null; time: string }> = [];
+
+      await new Promise<void>((resolve) => {
+        const watcher = fs.watch(watchPath, { recursive: false }, (eventType, filename) => {
+          events.push({ event: eventType, filename: filename ?? null, time: new Date().toISOString() });
+        });
+        setTimeout(() => {
+          watcher.close();
+          resolve();
+        }, Math.min(duration, 30000)); // cap at 30s
+      });
+
+      await sendInvokeResult(client, frame, {
+        ok: true,
+        payloadJSON: JSON.stringify({
+          path: watchPath,
+          durationMs: duration,
+          events,
+        }),
+      });
+    } catch (err) {
+      await sendInvokeResult(client, frame, {
+        ok: false,
+        error: { code: "INTERNAL", message: String(err) },
       });
     }
     return;
