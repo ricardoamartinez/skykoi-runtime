@@ -22,6 +22,7 @@ import {
   parseAgentSessionKey,
 } from "../routing/session-key.js";
 import { getSlashCommands } from "./commands.js";
+import { setAssistantLabel } from "./components/assistant-message.js";
 import { ChatLog } from "./components/chat-log.js";
 import { CustomEditor } from "./components/custom-editor.js";
 import { GatewayChatClient } from "./gateway-chat.js";
@@ -320,16 +321,21 @@ export async function runTui(opts: TuiOptions) {
 
   currentSessionKey = resolveSessionKey(initialSessionInput);
 
+  const busyStates = new Set(["sending", "waiting", "streaming", "running"]);
+
   const updateHeader = () => {
     const sessionLabel = formatSessionKey(currentSessionKey);
     const agentLabel = formatAgentLabel(currentAgentId);
+    const agentName = agentNames.get(currentAgentId) || currentAgentId;
+    setAssistantLabel(agentName);
     const dot = theme.dim(" · ");
+    const isBusy = busyStates.has(activityStatus);
+    const statusDot = isBusy ? theme.accent("●") : theme.online("●");
+    const statusLabel = isBusy ? theme.dim("Working") : theme.dim("Online");
     header.setText(
-      `${theme.header("⚡ Synurex")}${dot}${theme.accentSoft(agentLabel)}${dot}${theme.dim(sessionLabel)}`,
+      `${theme.header("⚡ Synurex")}${dot}${theme.accentSoft(agentLabel)}${dot}${statusDot} ${statusLabel}${dot}${theme.dim(sessionLabel)}`,
     );
   };
-
-  const busyStates = new Set(["sending", "waiting", "streaming", "running"]);
   let statusText: Text | null = null;
   let statusLoader: Loader | null = null;
 
@@ -472,6 +478,7 @@ export async function runTui(opts: TuiOptions) {
       statusText?.setText(theme.dim(text));
     }
     lastActivityStatus = activityStatus;
+    updateHeader();
   };
 
   const setConnectionStatus = (text: string, ttlMs?: number) => {
@@ -670,9 +677,9 @@ export async function runTui(opts: TuiOptions) {
       if (!reconnected) {
         // Welcome banner on first connect
         const bannerArt = formatCliBannerArt({ richTty: true });
-        const subtitle = `${theme.dim("Wishing Engine")}`;
+        const subtitle = theme.accentSoft("Wishing Engine");
         const hint = theme.dim("Type a wish below to begin");
-        chatLog.addChild(new Text(`\n${bannerArt}\n${subtitle}\n${hint}`, 1, 1));
+        chatLog.addChild(new Text(`\n${bannerArt}\n\n  ${subtitle}\n  ${hint}`, 1, 1));
       }
       await loadHistory();
       setConnectionStatus(reconnected ? "gateway reconnected" : "gateway connected", 4000);

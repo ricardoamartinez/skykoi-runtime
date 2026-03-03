@@ -18,6 +18,28 @@ type ToolResult = {
 
 const PREVIEW_LINES = 12;
 
+type BgFn = (line: string) => string;
+
+function resolveToolBg(toolName: string): { pending: BgFn; success: BgFn } {
+  const key = toolName.toLowerCase();
+  if (key === "system_run" || key === "exec" || key === "bash" || key.includes("process")) {
+    return { pending: theme.toolExecBg, success: theme.toolSuccessBg };
+  }
+  if (key === "read" || key === "glob" || key === "grep" || key === "search") {
+    return { pending: theme.toolReadBg, success: theme.toolSuccessBg };
+  }
+  if (key === "write" || key === "edit" || key === "attach") {
+    return { pending: theme.toolWriteBg, success: theme.toolSuccessBg };
+  }
+  if (key.includes("web") || key.includes("fetch") || key.includes("http")) {
+    return { pending: theme.toolWebBg, success: theme.toolSuccessBg };
+  }
+  if (key.includes("browser") || key.includes("canvas") || key.includes("screen")) {
+    return { pending: theme.toolBrowserBg, success: theme.toolSuccessBg };
+  }
+  return { pending: theme.toolPendingBg, success: theme.toolSuccessBg };
+}
+
 function formatArgs(toolName: string, args: unknown): string {
   const display = resolveToolDisplay({ name: toolName, args });
   const detail = formatToolDetail(display);
@@ -107,12 +129,13 @@ export class ToolExecutionComponent extends Container {
   }
 
   private refresh() {
-    const bg = this.isPartial
-      ? theme.toolPendingBg
+    const toolBg = resolveToolBg(this.toolName);
+    const bgFn = this.isPartial
+      ? toolBg.pending
       : this.isError
         ? theme.toolErrorBg
-        : theme.toolSuccessBg;
-    this.box.setBgFn((line) => bg(line));
+        : toolBg.success;
+    this.box.setBgFn((line) => bgFn(line));
 
     const display = resolveToolDisplay({
       name: this.toolName,

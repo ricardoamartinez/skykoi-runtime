@@ -3,9 +3,22 @@ import chalk from "chalk";
 import { markdownTheme, theme } from "../theme/theme.js";
 
 function buildDivider(label: string, width = 60): string {
-  const dashes = "─".repeat(Math.max(0, Math.floor((width - label.length - 2) / 2)));
-  const right = "─".repeat(Math.max(0, width - label.length - 2 - dashes.length));
-  return `${theme.border(dashes)} ${theme.accent(label)} ${theme.border(right)}`;
+  const dashLen = Math.max(0, width - label.length - 2);
+  const dashes = "─".repeat(dashLen);
+  return `${theme.dim(label.toUpperCase())} ${theme.border(dashes)}`;
+}
+
+function formatTime(): string {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  return theme.dim(`${h}:${m}`);
+}
+
+let _agentLabel = "synurex";
+
+export function setAssistantLabel(label: string) {
+  _agentLabel = label || "synurex";
 }
 
 export class AssistantMessageComponent extends Container {
@@ -13,7 +26,7 @@ export class AssistantMessageComponent extends Container {
 
   constructor(text: string) {
     super();
-    const divider = buildDivider("synurex");
+    const divider = `${buildDivider(_agentLabel)} ${formatTime()}`;
     this.body = new Markdown(text, 1, 0, markdownTheme, {
       color: (line) => theme.fg(line),
     });
