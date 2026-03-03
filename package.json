@@ -1,6 +1,6 @@
 {
   "name": "synurex",
-  "version": "2026.3.3",
+  "version": "2026.3.3-7",
   "description": "Synurex â€” AI agent runtime. Multi-channel gateway CLI with RPC agent. Forked from Synurex.",
   "keywords": [
     "synurex",
@@ -83,7 +83,6 @@
     "Synurex:rpc": "node scripts/run-node.mjs agent --mode rpc --json",
     "plugins:sync": "node --import tsx scripts/sync-plugin-versions.ts",
     "prepack": "pnpm build && pnpm ui:build",
-    "prepare": "command -v git >/dev/null 2>&1 && git config core.hooksPath git-hooks || exit 0",
     "protocol:check": "pnpm protocol:gen && pnpm protocol:gen:swift && git diff --exit-code -- dist/protocol.schema.json apps/macos/Sources/SynurexProtocol/GatewayModels.swift",
     "protocol:gen": "node --import tsx scripts/protocol-gen.ts",
     "protocol:gen:swift": "node --import tsx scripts/protocol-gen-swift.ts",

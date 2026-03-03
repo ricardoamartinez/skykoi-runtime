@@ -36,6 +36,7 @@ export function registerPreActionHooks(program: Command, programVersion: string)
       isTruthyEnvValue(process.env.SYNUREX_HIDE_BANNER) ||
       commandPath[0] === "update" ||
       commandPath[0] === "completion" ||
+      commandPath[0] === "tui" ||
       (commandPath[0] === "plugins" && commandPath[1] === "update");
     if (!hideBanner) {
       await emitCliBanner(programVersion);
