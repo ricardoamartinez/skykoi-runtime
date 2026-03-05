@@ -10,7 +10,7 @@ import { note } from "../terminal/note.js";
 
 export async function noteSecurityWarnings(cfg: SKYKOIConfig) {
   const warnings: string[] = [];
-  const auditHint = `- Run: ${formatCliCommand("SKYKOI security audit --deep")}`;
+  const auditHint = `- Run: ${formatCliCommand("skykoi security audit --deep")}`;
 
   // ===========================================
   // GATEWAY NETWORK EXPOSURE CHECK
@@ -48,11 +48,11 @@ export async function noteSecurityWarnings(cfg: SKYKOIConfig) {
       const authFixLines =
         resolvedAuth.mode === "password"
           ? [
-              `  Fix: ${formatCliCommand("SKYKOI configure")} to set a password`,
-              `  Or switch to token: ${formatCliCommand("SKYKOI config set gateway.auth.mode token")}`,
+              `  Fix: ${formatCliCommand("skykoi configure")} to set a password`,
+              `  Or switch to token: ${formatCliCommand("skykoi config set gateway.auth.mode token")}`,
             ]
           : [
-              `  Fix: ${formatCliCommand("SKYKOI doctor --fix")} to generate a token`,
+              `  Fix: ${formatCliCommand("skykoi doctor --fix")} to generate a token`,
               `  Or set token directly: ${formatCliCommand(
                 "SKYKOI config set gateway.auth.mode token",
               )}`,
@@ -60,7 +60,7 @@ export async function noteSecurityWarnings(cfg: SKYKOIConfig) {
       warnings.push(
         `- CRITICAL: Gateway bound to ${bindDescriptor} without authentication.`,
         `  Anyone on your network (or internet if port-forwarded) can fully control your agent.`,
-        `  Fix: ${formatCliCommand("SKYKOI config set gateway.bind loopback")}`,
+        `  Fix: ${formatCliCommand("skykoi config set gateway.bind loopback")}`,
         ...authFixLines,
       );
     } else {

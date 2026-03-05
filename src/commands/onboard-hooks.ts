@@ -15,7 +15,7 @@ export async function setupInternalHooks(
       "Hooks let you automate actions when agent commands are issued.",
       "Example: Save session context to memory when you issue /new.",
       "",
-      "Learn more: https://docs.SKYKOI.com/hooks",
+      "Learn more: https://docs.skykoi.com/hooks",
     ].join("\n"),
     "Hooks",
   );
@@ -74,9 +74,9 @@ export async function setupInternalHooks(
       `Enabled ${selected.length} hook${selected.length > 1 ? "s" : ""}: ${selected.join(", ")}`,
       "",
       "You can manage hooks later with:",
-      `  ${formatCliCommand("SKYKOI hooks list")}`,
-      `  ${formatCliCommand("SKYKOI hooks enable <name>")}`,
-      `  ${formatCliCommand("SKYKOI hooks disable <name>")}`,
+      `  ${formatCliCommand("skykoi hooks list")}`,
+      `  ${formatCliCommand("skykoi hooks enable <name>")}`,
+      `  ${formatCliCommand("skykoi hooks disable <name>")}`,
     ].join("\n"),
     "Hooks Configured",
   );

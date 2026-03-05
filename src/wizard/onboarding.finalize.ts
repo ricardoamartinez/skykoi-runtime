@@ -220,8 +220,8 @@ export async function finalizeOnboardingWizard(
       await prompter.note(
         [
           "Docs:",
-          "https://docs.SKYKOI.com/gateway/health",
-          "https://docs.SKYKOI.com/gateway/troubleshooting",
+          "https://docs.skykoi.com/gateway/health",
+          "https://docs.skykoi.com/gateway/troubleshooting",
         ].join("\n"),
         "Health check help",
       );
@@ -284,7 +284,7 @@ export async function finalizeOnboardingWizard(
         : undefined,
       `Gateway WS: ${links.wsUrl}`,
       gatewayStatusLine,
-      "Docs: https://docs.SKYKOI.com/web/control-ui",
+      "Docs: https://docs.skykoi.com/web/control-ui",
     ]
       .filter(Boolean)
       .join("\n"),
@@ -313,11 +313,11 @@ export async function finalizeOnboardingWizard(
     await prompter.note(
       [
         "Gateway token: shared auth for the Gateway + Control UI.",
-        "Stored in: ~/.SKYKOI/SKYKOI.json (gateway.auth.token) or SKYKOI_GATEWAY_TOKEN.",
-        `View token: ${formatCliCommand("SKYKOI config get gateway.auth.token")}`,
-        `Generate token: ${formatCliCommand("SKYKOI doctor --generate-gateway-token")}`,
+        "Stored in: ~/.skykoi/skykoi.json (gateway.auth.token) or SKYKOI_GATEWAY_TOKEN.",
+        `View token: ${formatCliCommand("skykoi config get gateway.auth.token")}`,
+        `Generate token: ${formatCliCommand("skykoi doctor --generate-gateway-token")}`,
         "Web UI stores a copy in this browser's localStorage (SKYKOI.control.settings.v1).",
-        `Open the dashboard anytime: ${formatCliCommand("SKYKOI dashboard --no-open")}`,
+        `Open the dashboard anytime: ${formatCliCommand("skykoi dashboard --no-open")}`,
         "If prompted: paste the token into Control UI settings (or use the tokenized dashboard URL).",
       ].join("\n"),
       "Token",
@@ -376,7 +376,7 @@ export async function finalizeOnboardingWizard(
       );
     } else {
       await prompter.note(
-        `When you're ready: ${formatCliCommand("SKYKOI dashboard --no-open")}`,
+        `When you're ready: ${formatCliCommand("skykoi dashboard --no-open")}`,
         "Later",
       );
     }
@@ -387,13 +387,13 @@ export async function finalizeOnboardingWizard(
   await prompter.note(
     [
       "Back up your agent workspace.",
-      "Docs: https://docs.SKYKOI.com/concepts/agent-workspace",
+      "Docs: https://docs.skykoi.com/concepts/agent-workspace",
     ].join("\n"),
     "Workspace backup",
   );
 
   await prompter.note(
-    "Running agents on your computer is risky — harden your setup: https://docs.SKYKOI.com/security",
+    "Running agents on your computer is risky — harden your setup: https://docs.skykoi.com/security",
     "Security",
   );
 
@@ -491,7 +491,7 @@ export async function finalizeOnboardingWizard(
           webSearchKey
             ? "API key: stored in config (tools.web.search.apiKey)."
             : "API key: provided via BRAVE_API_KEY env var (Gateway environment).",
-          "Docs: https://docs.SKYKOI.com/tools/web",
+          "Docs: https://docs.skykoi.com/tools/web",
         ].join("\n")
       : [
           "If you want your agent to be able to search the web, you’ll need an API key.",
@@ -499,11 +499,11 @@ export async function finalizeOnboardingWizard(
           "SKYKOI uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
           "",
           "Set it up interactively:",
-          `- Run: ${formatCliCommand("SKYKOI configure --section web")}`,
+          `- Run: ${formatCliCommand("skykoi configure --section web")}`,
           "- Enable web_search and paste your Brave Search API key",
           "",
           "Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).",
-          "Docs: https://docs.SKYKOI.com/tools/web",
+          "Docs: https://docs.skykoi.com/tools/web",
         ].join("\n"),
     "Web search (optional)",
   );

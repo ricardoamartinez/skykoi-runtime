@@ -30,7 +30,7 @@ type SandboxExplainOptions = {
   json: boolean;
 };
 
-const SANDBOX_DOCS_URL = "https://docs.SKYKOI.com/sandbox";
+const SANDBOX_DOCS_URL = "https://docs.skykoi.com/sandbox";
 
 function normalizeExplainSessionKey(params: {
   cfg: SKYKOIConfig;
@@ -331,7 +331,7 @@ export async function sandboxExplainCommand(
     lines.push(`  - ${key}`);
   }
   lines.push("");
-  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.SKYKOI.com/sandbox")}`);
+  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.skykoi.com/sandbox")}`);
 
   runtime.log(`${lines.join("\n")}\n`);
 }

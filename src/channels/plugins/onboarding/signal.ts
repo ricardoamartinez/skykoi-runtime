@@ -300,9 +300,9 @@ export const signalOnboardingAdapter: ChannelOnboardingAdapter = {
 
     await prompter.note(
       [
-        'Link device with: signal-cli link -n "SKYKOI"',
+        'Link device with: signal-cli link -n "skykoi"',
         "Scan QR in Signal → Linked Devices",
-        `Then run: ${formatCliCommand("SKYKOI gateway call channels.status --params '{\"probe\":true}'")}`,
+        `Then run: ${formatCliCommand("skykoi gateway call channels.status --params '{\"probe\":true}'")}`,
         `Docs: ${formatDocsLink("/signal", "signal")}`,
       ].join("\n"),
       "Signal next steps",

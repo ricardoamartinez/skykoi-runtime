@@ -16,7 +16,7 @@ describe("resolveWorkspaceTemplateDir", () => {
   it("resolves templates from package root when module url is dist-rooted", async () => {
     resetWorkspaceTemplateDirCache();
     const root = await makeTempRoot();
-    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "SKYKOI" }));
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "skykoi" }));
 
     const templatesDir = path.join(root, "docs", "reference", "templates");
     await fs.mkdir(templatesDir, { recursive: true });

@@ -1,13 +1,13 @@
 // Default service labels (canonical + legacy compatibility)
-export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.SKYKOI.gateway";
+export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.skykoi.gateway";
 export const GATEWAY_SYSTEMD_SERVICE_NAME = "SKYKOI-gateway";
 export const GATEWAY_WINDOWS_TASK_NAME = "SKYKOI Gateway";
-export const GATEWAY_SERVICE_MARKER = "SKYKOI";
+export const GATEWAY_SERVICE_MARKER = "skykoi";
 export const GATEWAY_SERVICE_KIND = "gateway";
-export const NODE_LAUNCH_AGENT_LABEL = "ai.SKYKOI.node";
+export const NODE_LAUNCH_AGENT_LABEL = "ai.skykoi.node";
 export const NODE_SYSTEMD_SERVICE_NAME = "SKYKOI-node";
 export const NODE_WINDOWS_TASK_NAME = "SKYKOI Node";
-export const NODE_SERVICE_MARKER = "SKYKOI";
+export const NODE_SERVICE_MARKER = "skykoi";
 export const NODE_SERVICE_KIND = "node";
 export const NODE_WINDOWS_TASK_SCRIPT_NAME = "node.cmd";
 export const LEGACY_GATEWAY_LAUNCH_AGENT_LABELS: string[] = [];
@@ -32,7 +32,7 @@ export function resolveGatewayLaunchAgentLabel(profile?: string): string {
   if (!normalized) {
     return GATEWAY_LAUNCH_AGENT_LABEL;
   }
-  return `ai.SKYKOI.${normalized}`;
+  return `ai.skykoi.${normalized}`;
 }
 
 export function resolveLegacyGatewayLaunchAgentLabels(profile?: string): string[] {

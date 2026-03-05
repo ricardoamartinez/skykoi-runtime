@@ -37,7 +37,7 @@ function setSlackDmPolicy(cfg: SKYKOIConfig, dmPolicy: DmPolicy) {
 }
 
 function buildSlackManifest(botName: string) {
-  const safeName = botName.trim() || "SKYKOI";
+  const safeName = botName.trim() || "skykoi";
   const manifest = {
     display_information: {
       name: safeName,
@@ -370,7 +370,7 @@ export const slackOnboardingAdapter: ChannelOnboardingAdapter = {
     const slackBotName = String(
       await prompter.text({
         message: "Slack bot display name (used for manifest)",
-        initialValue: "SKYKOI",
+        initialValue: "skykoi",
       }),
     ).trim();
     if (!accountConfigured) {

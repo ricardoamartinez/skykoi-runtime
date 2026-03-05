@@ -304,7 +304,7 @@ describeLive("gateway live (cli backend)", () => {
         },
       },
     };
-    const tempConfigPath = path.join(tempDir, "SKYKOI.json");
+    const tempConfigPath = path.join(tempDir, "skykoi.json");
     await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
     process.env.SKYKOI_CONFIG_PATH = tempConfigPath;
 

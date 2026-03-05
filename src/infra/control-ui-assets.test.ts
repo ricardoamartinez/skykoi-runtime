@@ -68,7 +68,7 @@ describe("control UI assets helpers", () => {
   it("resolves control-ui root for dist/gateway bundle argv1", async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-ui-"));
     try {
-      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "SKYKOI" }));
+      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "skykoi" }));
       await fs.mkdir(path.join(tmp, "dist", "gateway"), { recursive: true });
       await fs.mkdir(path.join(tmp, "dist", "control-ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "dist", "gateway", "control-ui.js"), "export {};\n");
@@ -100,12 +100,12 @@ describe("control UI assets helpers", () => {
   it("resolves dist control-ui index path from package root argv1", async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-ui-"));
     try {
-      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "SKYKOI" }));
-      await fs.writeFile(path.join(tmp, "SKYKOI.mjs"), "export {};\n");
+      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "skykoi" }));
+      await fs.writeFile(path.join(tmp, "skykoi.mjs"), "export {};\n");
       await fs.mkdir(path.join(tmp, "dist", "control-ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "dist", "control-ui", "index.html"), "<html></html>\n");
 
-      expect(await resolveControlUiDistIndexPath(path.join(tmp, "SKYKOI.mjs"))).toBe(
+      expect(await resolveControlUiDistIndexPath(path.join(tmp, "skykoi.mjs"))).toBe(
         path.join(tmp, "dist", "control-ui", "index.html"),
       );
     } finally {
@@ -116,12 +116,12 @@ describe("control UI assets helpers", () => {
   it("resolves control-ui root for package entrypoint argv1", async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-ui-"));
     try {
-      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "SKYKOI" }));
-      await fs.writeFile(path.join(tmp, "SKYKOI.mjs"), "export {};\n");
+      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "skykoi" }));
+      await fs.writeFile(path.join(tmp, "skykoi.mjs"), "export {};\n");
       await fs.mkdir(path.join(tmp, "dist", "control-ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "dist", "control-ui", "index.html"), "<html></html>\n");
 
-      expect(resolveControlUiRootSync({ argv1: path.join(tmp, "SKYKOI.mjs") })).toBe(
+      expect(resolveControlUiRootSync({ argv1: path.join(tmp, "skykoi.mjs") })).toBe(
         path.join(tmp, "dist", "control-ui"),
       );
     } finally {
@@ -133,14 +133,14 @@ describe("control UI assets helpers", () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-ui-"));
     try {
       const binDir = path.join(tmp, "node_modules", ".bin");
-      const pkgRoot = path.join(tmp, "node_modules", "SKYKOI");
+      const pkgRoot = path.join(tmp, "node_modules", "skykoi");
       await fs.mkdir(binDir, { recursive: true });
       await fs.mkdir(path.join(pkgRoot, "dist", "control-ui"), { recursive: true });
-      await fs.writeFile(path.join(binDir, "SKYKOI"), "#!/usr/bin/env node\n");
-      await fs.writeFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "SKYKOI" }));
+      await fs.writeFile(path.join(binDir, "skykoi"), "#!/usr/bin/env node\n");
+      await fs.writeFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "skykoi" }));
       await fs.writeFile(path.join(pkgRoot, "dist", "control-ui", "index.html"), "<html></html>\n");
 
-      expect(await resolveControlUiDistIndexPath(path.join(binDir, "SKYKOI"))).toBe(
+      expect(await resolveControlUiDistIndexPath(path.join(binDir, "skykoi"))).toBe(
         path.join(pkgRoot, "dist", "control-ui", "index.html"),
       );
     } finally {
@@ -151,13 +151,13 @@ describe("control UI assets helpers", () => {
   it("resolves via fallback when package root resolution fails but package name matches", async () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-ui-"));
     try {
-      // Package named "SKYKOI" but resolveSKYKOIPackageRoot failed for other reasons
-      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "SKYKOI" }));
-      await fs.writeFile(path.join(tmp, "SKYKOI.mjs"), "export {};\n");
+      // Package named "skykoi" but resolveSKYKOIPackageRoot failed for other reasons
+      await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "skykoi" }));
+      await fs.writeFile(path.join(tmp, "skykoi.mjs"), "export {};\n");
       await fs.mkdir(path.join(tmp, "dist", "control-ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "dist", "control-ui", "index.html"), "<html></html>\n");
 
-      expect(await resolveControlUiDistIndexPath(path.join(tmp, "SKYKOI.mjs"))).toBe(
+      expect(await resolveControlUiDistIndexPath(path.join(tmp, "skykoi.mjs"))).toBe(
         path.join(tmp, "dist", "control-ui", "index.html"),
       );
     } finally {

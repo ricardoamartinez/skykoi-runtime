@@ -542,8 +542,8 @@ export async function modelsStatusCommand(
     for (const provider of missingProvidersInUse) {
       const hint =
         provider === "anthropic"
-          ? `Run \`claude setup-token\`, then \`${formatCliCommand("SKYKOI models auth setup-token")}\` or \`${formatCliCommand("SKYKOI configure")}\`.`
-          : `Run \`${formatCliCommand("SKYKOI configure")}\` or set an API key env var.`;
+          ? `Run \`claude setup-token\`, then \`${formatCliCommand("skykoi models auth setup-token")}\` or \`${formatCliCommand("skykoi configure")}\`.`
+          : `Run \`${formatCliCommand("skykoi configure")}\` or set an API key env var.`;
       runtime.log(`- ${theme.heading(provider)} ${hint}`);
     }
   }

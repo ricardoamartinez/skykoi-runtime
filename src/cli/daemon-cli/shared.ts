@@ -169,7 +169,7 @@ export function renderRuntimeHints(
     }
   })();
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("SKYKOI gateway install", env)}`);
+    hints.push(`Service not installed. Run: ${formatCliCommand("skykoi gateway install", env)}`);
     if (fileLog) {
       hints.push(`File logs: ${fileLog}`);
     }
@@ -196,8 +196,8 @@ export function renderRuntimeHints(
 
 export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.env): string[] {
   const base = [
-    formatCliCommand("SKYKOI gateway install", env),
-    formatCliCommand("SKYKOI gateway", env),
+    formatCliCommand("skykoi gateway install", env),
+    formatCliCommand("skykoi gateway", env),
   ];
   const profile = env.SKYKOI_PROFILE;
   switch (process.platform) {

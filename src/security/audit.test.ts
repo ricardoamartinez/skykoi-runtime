@@ -139,7 +139,7 @@ describe("security audit", () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-security-audit-win-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
-    const configPath = path.join(stateDir, "SKYKOI.json");
+    const configPath = path.join(stateDir, "skykoi.json");
     await fs.writeFile(configPath, "{}\n", "utf-8");
 
     const user = "DESKTOP-TEST\\Tester";
@@ -176,7 +176,7 @@ describe("security audit", () => {
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-security-audit-win-open-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
-    const configPath = path.join(stateDir, "SKYKOI.json");
+    const configPath = path.join(stateDir, "skykoi.json");
     await fs.writeFile(configPath, "{}\n", "utf-8");
 
     const user = "DESKTOP-TEST\\Tester";
@@ -831,8 +831,8 @@ describe("security audit", () => {
       config: cfg,
       includeFilesystem: false,
       includeChannelSecurity: false,
-      stateDir: "/Users/test/Dropbox/.SKYKOI",
-      configPath: "/Users/test/Dropbox/.SKYKOI/SKYKOI.json",
+      stateDir: "/Users/test/Dropbox/.skykoi",
+      configPath: "/Users/test/Dropbox/.skykoi/skykoi.json",
     });
 
     expect(res.findings).toEqual(
@@ -857,7 +857,7 @@ describe("security audit", () => {
       await fs.chmod(includePath, 0o644);
     }
 
-    const configPath = path.join(stateDir, "SKYKOI.json");
+    const configPath = path.join(stateDir, "skykoi.json");
     await fs.writeFile(configPath, `{ "$include": "./extra.json5" }\n`, "utf-8");
     await fs.chmod(configPath, 0o600);
 
@@ -930,7 +930,7 @@ describe("security audit", () => {
         includeFilesystem: true,
         includeChannelSecurity: false,
         stateDir,
-        configPath: path.join(stateDir, "SKYKOI.json"),
+        configPath: path.join(stateDir, "skykoi.json"),
       });
 
       expect(res.findings).toEqual(
@@ -983,7 +983,7 @@ describe("security audit", () => {
         includeFilesystem: true,
         includeChannelSecurity: false,
         stateDir,
-        configPath: path.join(stateDir, "SKYKOI.json"),
+        configPath: path.join(stateDir, "skykoi.json"),
       });
 
       expect(res.findings).toEqual(

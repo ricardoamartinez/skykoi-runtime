@@ -122,11 +122,11 @@ const UPDATE_QUIPS = [
 ];
 
 const MAX_LOG_CHARS = 8000;
-const DEFAULT_PACKAGE_NAME = "SKYKOI";
+const DEFAULT_PACKAGE_NAME = "skykoi";
 const CORE_PACKAGE_NAMES = new Set([DEFAULT_PACKAGE_NAME]);
 const CLI_NAME = resolveCliName();
 const SKYKOI_REPO_URL = "https://github.com/SKYKOI/SKYKOI.git";
-const DEFAULT_GIT_DIR = path.join(os.homedir(), ".SKYKOI");
+const DEFAULT_GIT_DIR = path.join(os.homedir(), ".skykoi");
 
 function normalizeTag(value?: string | null): string | null {
   if (!value) {
@@ -212,7 +212,7 @@ async function pathExists(targetPath: string): Promise<boolean> {
 }
 
 async function tryWriteCompletionCache(root: string, jsonMode: boolean): Promise<void> {
-  const binPath = path.join(root, "SKYKOI.mjs");
+  const binPath = path.join(root, "skykoi.mjs");
   if (!(await pathExists(binPath))) {
     return;
   }
@@ -277,7 +277,7 @@ async function tryInstallShellCompletion(opts: {
       if (!opts.skipPrompt) {
         defaultRuntime.log(
           theme.muted(
-            `Skipped. Run \`${replaceCliName(formatCliCommand("SKYKOI completion --install"), CLI_NAME)}\` later to enable.`,
+            `Skipped. Run \`${replaceCliName(formatCliCommand("skykoi completion --install"), CLI_NAME)}\` later to enable.`,
           ),
         );
       }
@@ -952,7 +952,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.reason === "not-git-install") {
       defaultRuntime.log(
         theme.warn(
-          `Skipped: this SKYKOI install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("SKYKOI doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("SKYKOI gateway restart"), CLI_NAME)}\`.`,
+          `Skipped: this SKYKOI install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("skykoi doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("skykoi gateway restart"), CLI_NAME)}\`.`,
         ),
       );
       defaultRuntime.log(
@@ -1090,7 +1090,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
         defaultRuntime.log(theme.warn(`Daemon restart failed: ${String(err)}`));
         defaultRuntime.log(
           theme.muted(
-            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("SKYKOI gateway restart"), CLI_NAME)}`,
+            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("skykoi gateway restart"), CLI_NAME)}`,
           ),
         );
       }
@@ -1100,13 +1100,13 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.mode === "npm" || result.mode === "pnpm") {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("SKYKOI doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("SKYKOI gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("skykoi doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("skykoi gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     } else {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("SKYKOI gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("skykoi gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     }
@@ -1301,7 +1301,7 @@ ${theme.heading("Notes:")}
   - Downgrades require confirmation (can break configuration)
   - Skips update if the working directory has uncommitted changes
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.SKYKOI.com/cli/update")}`;
+${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.skykoi.com/cli/update")}`;
     })
     .action(async (opts) => {
       try {
@@ -1325,7 +1325,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.SKYKOI.com/cli/upd
     .option("--timeout <seconds>", "Timeout for each update step in seconds (default: 1200)")
     .addHelpText(
       "after",
-      `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.SKYKOI.com/cli/update")}\n`,
+      `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.skykoi.com/cli/update")}\n`,
     )
     .action(async (opts) => {
       try {
@@ -1354,7 +1354,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.SKYKOI.com/cli/upd
           "- Shows current update channel (stable/beta/dev) and source",
         )}\n${theme.muted("- Includes git tag/branch/SHA for source checkouts")}\n\n${theme.muted(
           "Docs:",
-        )} ${formatDocsLink("/cli/update", "docs.SKYKOI.com/cli/update")}`,
+        )} ${formatDocsLink("/cli/update", "docs.skykoi.com/cli/update")}`,
     )
     .action(async (opts) => {
       try {

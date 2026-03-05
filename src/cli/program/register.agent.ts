@@ -68,7 +68,7 @@ ${formatHelpExamples([
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.SKYKOI.com/cli/agent")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.skykoi.com/cli/agent")}`,
     )
     .action(async (opts) => {
       const verboseLevel = typeof opts.verbose === "string" ? opts.verbose.toLowerCase() : "";
@@ -86,7 +86,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.SKYKOI.com/cli/agen
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.SKYKOI.com/cli/agents")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.skykoi.com/cli/agents")}\n`,
     );
 
   agents
@@ -155,14 +155,14 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.SKYKOI.com/cli/agen
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['SKYKOI agents set-identity --agent main --name "SKYKOI" --emoji "🦞"', "Set name + emoji."],
+  ['SKYKOI agents set-identity --agent main --name "skykoi" --emoji "🦞"', "Set name + emoji."],
   ["SKYKOI agents set-identity --agent main --avatar avatars/SKYKOI.png", "Set avatar path."],
   [
-    "SKYKOI agents set-identity --workspace ~/.SKYKOI/workspace --from-identity",
+    "SKYKOI agents set-identity --workspace ~/.skykoi/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "SKYKOI agents set-identity --identity-file ~/.SKYKOI/workspace/IDENTITY.md --agent main",
+    "SKYKOI agents set-identity --identity-file ~/.skykoi/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

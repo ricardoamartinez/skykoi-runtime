@@ -376,7 +376,7 @@ function collectBrowserControlFindings(cfg: SKYKOIConfig): SecurityAuditFinding[
       severity: "warn",
       title: "Browser control config looks invalid",
       detail: String(err),
-      remediation: `Fix browser.cdpUrl in ${resolveConfigPath()} and re-run "${formatCliCommand("SKYKOI security audit --deep")}".`,
+      remediation: `Fix browser.cdpUrl in ${resolveConfigPath()} and re-run "${formatCliCommand("skykoi security audit --deep")}".`,
     });
     return findings;
   }
@@ -983,7 +983,7 @@ export async function runSecurityAudit(opts: SecurityAuditOptions): Promise<Secu
       severity: "warn",
       title: "Gateway probe failed (deep)",
       detail: deep.gateway.error ?? "gateway unreachable",
-      remediation: `Run "${formatCliCommand("SKYKOI status --all")}" to debug connectivity/auth, then re-run "${formatCliCommand("SKYKOI security audit --deep")}".`,
+      remediation: `Run "${formatCliCommand("skykoi status --all")}" to debug connectivity/auth, then re-run "${formatCliCommand("skykoi security audit --deep")}".`,
     });
   }
 

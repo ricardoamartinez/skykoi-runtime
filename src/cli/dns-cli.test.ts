@@ -6,9 +6,9 @@ describe("dns cli", () => {
   it("prints setup info (no apply)", async () => {
     const log = vi.spyOn(console, "log").mockImplementation(() => {});
     const program = buildProgram();
-    await program.parseAsync(["dns", "setup", "--domain", "SKYKOI.internal"], { from: "user" });
+    await program.parseAsync(["dns", "setup", "--domain", "skykoi.internal"], { from: "user" });
     const output = log.mock.calls.map((call) => call.join(" ")).join("\n");
     expect(output).toContain("DNS setup");
-    expect(output).toContain("SKYKOI.internal");
+    expect(output).toContain("skykoi.internal");
   });
 });

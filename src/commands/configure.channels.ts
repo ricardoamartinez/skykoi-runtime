@@ -25,7 +25,7 @@ export async function removeChannelConfigWizard(
       note(
         [
           "No channel config found in SKYKOI.json.",
-          `Tip: \`${formatCliCommand("SKYKOI channels status")}\` shows what is configured and enabled.`,
+          `Tip: \`${formatCliCommand("skykoi channels status")}\` shows what is configured and enabled.`,
         ].join("\n"),
         "Remove channel",
       );

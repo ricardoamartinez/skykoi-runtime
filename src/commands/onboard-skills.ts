@@ -175,9 +175,9 @@ export async function setupSkills(
         runtime.log(result.stdout.trim());
       }
       runtime.log(
-        `Tip: run \`${formatCliCommand("SKYKOI doctor")}\` to review skills + requirements.`,
+        `Tip: run \`${formatCliCommand("skykoi doctor")}\` to review skills + requirements.`,
       );
-      runtime.log("Docs: https://docs.SKYKOI.com/skills");
+      runtime.log("Docs: https://docs.skykoi.com/skills");
     }
   }
 

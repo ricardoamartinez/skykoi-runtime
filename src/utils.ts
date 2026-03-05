@@ -253,7 +253,7 @@ export function resolveConfigDir(
   if (override) {
     return resolveUserPath(override);
   }
-  const newDir = path.join(homedir(), ".SKYKOI");
+  const newDir = path.join(homedir(), ".skykoi");
   try {
     const hasNew = fs.existsSync(newDir);
     if (hasNew) {

@@ -178,7 +178,7 @@ export function resolveAgentWorkspaceDir(cfg: SKYKOIConfig, agentId: string) {
     }
     return DEFAULT_AGENT_WORKSPACE_DIR;
   }
-  return path.join(os.homedir(), ".SKYKOI", `workspace-${id}`);
+  return path.join(os.homedir(), ".skykoi", `workspace-${id}`);
 }
 
 export function resolveAgentDir(cfg: SKYKOIConfig, agentId: string) {

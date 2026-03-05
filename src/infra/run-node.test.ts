@@ -30,7 +30,7 @@ describe("run-node script", () => {
         await fs.writeFile(path.join(tmp, "src", "index.ts"), "export {};\n", "utf-8");
         await fs.writeFile(
           path.join(tmp, "package.json"),
-          JSON.stringify({ name: "SKYKOI" }),
+          JSON.stringify({ name: "skykoi" }),
           "utf-8",
         );
         await fs.writeFile(
@@ -41,11 +41,11 @@ describe("run-node script", () => {
         await fs.writeFile(indexPath, "<html>sentinel</html>\n", "utf-8");
 
         await fs.writeFile(
-          path.join(tmp, "SKYKOI.mjs"),
+          path.join(tmp, "skykoi.mjs"),
           "#!/usr/bin/env node\nif (process.argv.includes('--version')) console.log('9.9.9-test');\n",
           "utf-8",
         );
-        await fs.chmod(path.join(tmp, "SKYKOI.mjs"), 0o755);
+        await fs.chmod(path.join(tmp, "skykoi.mjs"), 0o755);
 
         const fakePnpm = `#!/usr/bin/env node
 const fs = require("node:fs");

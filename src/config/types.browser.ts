@@ -4,7 +4,7 @@ export type BrowserProfileConfig = {
   /** CDP URL for this profile (use for remote Chrome). */
   cdpUrl?: string;
   /** Profile driver (default: SKYKOI). */
-  driver?: "SKYKOI" | "extension";
+  driver?: "skykoi" | "extension";
   /** Profile color (hex). Auto-assigned at creation. */
   color: string;
 };

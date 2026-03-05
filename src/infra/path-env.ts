@@ -58,7 +58,7 @@ function candidateBinDirs(opts: EnsureSKYKOIPathOpts): string[] {
   // Bundled macOS app: `SKYKOI` lives next to the executable (process.execPath).
   try {
     const execDir = path.dirname(execPath);
-    const siblingCli = path.join(execDir, "SKYKOI");
+    const siblingCli = path.join(execDir, "skykoi");
     if (isExecutable(siblingCli)) {
       candidates.push(execDir);
     }
@@ -69,7 +69,7 @@ function candidateBinDirs(opts: EnsureSKYKOIPathOpts): string[] {
   // Project-local installs (best effort): if a `node_modules/.bin/SKYKOI` exists near cwd,
   // include it. This helps when running under launchd or other minimal PATH environments.
   const localBinDir = path.join(cwd, "node_modules", ".bin");
-  if (isExecutable(path.join(localBinDir, "SKYKOI"))) {
+  if (isExecutable(path.join(localBinDir, "skykoi"))) {
     candidates.push(localBinDir);
   }
 

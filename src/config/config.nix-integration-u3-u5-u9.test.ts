@@ -35,7 +35,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.SKYKOI when env not set", async () => {
+    it("STATE_DIR defaults to ~/.skykoi when env not set", async () => {
       await withEnvOverride({ SKYKOI_STATE_DIR: undefined }, async () => {
         const { STATE_DIR } = await import("./config.js");
         expect(STATE_DIR).toMatch(/\.SKYKOI$/);
@@ -49,7 +49,7 @@ describe("Nix integration (U3, U5, U9)", () => {
       });
     });
 
-    it("CONFIG_PATH defaults to ~/.SKYKOI/SKYKOI.json when env not set", async () => {
+    it("CONFIG_PATH defaults to ~/.skykoi/skykoi.json when env not set", async () => {
       await withEnvOverride(
         { SKYKOI_CONFIG_PATH: undefined, SKYKOI_STATE_DIR: undefined },
         async () => {
@@ -60,17 +60,17 @@ describe("Nix integration (U3, U5, U9)", () => {
     });
 
     it("CONFIG_PATH respects SKYKOI_CONFIG_PATH override", async () => {
-      await withEnvOverride({ SKYKOI_CONFIG_PATH: "/nix/store/abc/SKYKOI.json" }, async () => {
+      await withEnvOverride({ SKYKOI_CONFIG_PATH: "/nix/store/abc/skykoi.json" }, async () => {
         const { CONFIG_PATH } = await import("./config.js");
-        expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/SKYKOI.json"));
+        expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/skykoi.json"));
       });
     });
 
     it("CONFIG_PATH expands ~ in SKYKOI_CONFIG_PATH override", async () => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ SKYKOI_CONFIG_PATH: "~/.SKYKOI/custom.json" }, async () => {
+        await withEnvOverride({ SKYKOI_CONFIG_PATH: "~/.skykoi/custom.json" }, async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(home, ".SKYKOI", "custom.json"));
+          expect(CONFIG_PATH).toBe(path.join(home, ".skykoi", "custom.json"));
         });
       });
     });
@@ -83,7 +83,7 @@ describe("Nix integration (U3, U5, U9)", () => {
         },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "SKYKOI.json"));
+          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "skykoi.json"));
         },
       );
     });
@@ -92,7 +92,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U5b: tilde expansion for config paths", () => {
     it("expands ~ in common path-ish config fields", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".SKYKOI");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         const pluginDir = path.join(home, "plugins", "demo-plugin");
         await fs.mkdir(pluginDir, { recursive: true });
@@ -114,7 +114,7 @@ describe("Nix integration (U3, U5, U9)", () => {
           "utf-8",
         );
         await fs.writeFile(
-          path.join(configDir, "SKYKOI.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify(
             {
               plugins: {
@@ -128,7 +128,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                   {
                     id: "main",
                     workspace: "~/ws-agent",
-                    agentDir: "~/.SKYKOI/agents/main",
+                    agentDir: "~/.skykoi/agents/main",
                     sandbox: { workspaceRoot: "~/sandbox-root" },
                   },
                 ],
@@ -137,7 +137,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                 whatsapp: {
                   accounts: {
                     personal: {
-                      authDir: "~/.SKYKOI/credentials/wa-personal",
+                      authDir: "~/.skykoi/credentials/wa-personal",
                     },
                   },
                 },
@@ -157,11 +157,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         expect(cfg.agents?.defaults?.workspace).toBe(path.join(home, "ws-default"));
         expect(cfg.agents?.list?.[0]?.workspace).toBe(path.join(home, "ws-agent"));
         expect(cfg.agents?.list?.[0]?.agentDir).toBe(
-          path.join(home, ".SKYKOI", "agents", "main"),
+          path.join(home, ".skykoi", "agents", "main"),
         );
         expect(cfg.agents?.list?.[0]?.sandbox?.workspaceRoot).toBe(path.join(home, "sandbox-root"));
         expect(cfg.channels?.whatsapp?.accounts?.personal?.authDir).toBe(
-          path.join(home, ".SKYKOI", "credentials", "wa-personal"),
+          path.join(home, ".skykoi", "credentials", "wa-personal"),
         );
       });
     });
@@ -193,10 +193,10 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U9: telegram.tokenFile schema validation", () => {
     it("accepts config with only botToken", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".SKYKOI");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "SKYKOI.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: { telegram: { botToken: "123:ABC" } },
           }),
@@ -213,10 +213,10 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with only tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".SKYKOI");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "SKYKOI.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: { telegram: { tokenFile: "/run/agenix/telegram-token" } },
           }),
@@ -233,10 +233,10 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with both botToken and tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".SKYKOI");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "SKYKOI.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: {
               telegram: {

@@ -1,4 +1,4 @@
-const warningFilterKey = Symbol.for("SKYKOI.warning-filter");
+const warningFilterKey = Symbol.for("skykoi.warning-filter");
 
 type Warning = Error & {
   code?: string;

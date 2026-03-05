@@ -68,7 +68,7 @@ describe("Agent-specific sandbox config", () => {
           sandbox: {
             mode: "all",
             scope: "agent",
-            workspaceRoot: "~/.SKYKOI/sandboxes", // Global default
+            workspaceRoot: "~/.skykoi/sandboxes", // Global default
           },
         },
         list: [

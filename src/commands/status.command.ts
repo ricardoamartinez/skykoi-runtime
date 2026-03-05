@@ -459,8 +459,8 @@ export async function statusCommand(
       runtime.log(theme.muted(`… +${sorted.length - shown.length} more`));
     }
   }
-  runtime.log(theme.muted(`Full report: ${formatCliCommand("SKYKOI security audit")}`));
-  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("SKYKOI security audit --deep")}`));
+  runtime.log(theme.muted(`Full report: ${formatCliCommand("skykoi security audit")}`));
+  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("skykoi security audit --deep")}`));
 
   runtime.log("");
   runtime.log(theme.heading("Channels"));
@@ -624,8 +624,8 @@ export async function statusCommand(
   }
 
   runtime.log("");
-  runtime.log("FAQ: https://docs.SKYKOI.com/faq");
-  runtime.log("Troubleshooting: https://docs.SKYKOI.com/troubleshooting");
+  runtime.log("FAQ: https://docs.skykoi.com/faq");
+  runtime.log("Troubleshooting: https://docs.skykoi.com/troubleshooting");
   runtime.log("");
   const updateHint = formatUpdateAvailableHint(update);
   if (updateHint) {
@@ -633,11 +633,11 @@ export async function statusCommand(
     runtime.log("");
   }
   runtime.log("Next steps:");
-  runtime.log(`  Need to share?      ${formatCliCommand("SKYKOI status --all")}`);
-  runtime.log(`  Need to debug live? ${formatCliCommand("SKYKOI logs --follow")}`);
+  runtime.log(`  Need to share?      ${formatCliCommand("skykoi status --all")}`);
+  runtime.log(`  Need to debug live? ${formatCliCommand("skykoi logs --follow")}`);
   if (gatewayReachable) {
-    runtime.log(`  Need to test channels? ${formatCliCommand("SKYKOI status --deep")}`);
+    runtime.log(`  Need to test channels? ${formatCliCommand("skykoi status --deep")}`);
   } else {
-    runtime.log(`  Fix reachability first: ${formatCliCommand("SKYKOI gateway probe")}`);
+    runtime.log(`  Fix reachability first: ${formatCliCommand("skykoi gateway probe")}`);
   }
 }

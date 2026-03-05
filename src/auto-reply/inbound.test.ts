@@ -307,11 +307,11 @@ describe("mention helpers", () => {
       },
     });
     expect(regexes).toHaveLength(1);
-    expect(regexes[0]?.test("SKYKOI")).toBe(true);
+    expect(regexes[0]?.test("skykoi")).toBe(true);
   });
 
   it("normalizes zero-width characters", () => {
-    expect(normalizeMentionText("open\u200bclaw")).toBe("SKYKOI");
+    expect(normalizeMentionText("open\u200bclaw")).toBe("skykoi");
   });
 
   it("matches patterns case-insensitively", () => {

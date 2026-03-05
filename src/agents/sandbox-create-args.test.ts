@@ -33,7 +33,7 @@ describe("buildSandboxCreateArgs", () => {
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
-      labels: { "SKYKOI.sandboxBrowser": "1" },
+      labels: { "skykoi.sandboxBrowser": "1" },
     });
 
     expect(args).toEqual(
@@ -42,13 +42,13 @@ describe("buildSandboxCreateArgs", () => {
         "--name",
         "SKYKOI-sbx-test",
         "--label",
-        "SKYKOI.sandbox=1",
+        "skykoi.sandbox=1",
         "--label",
         "SKYKOI.sessionKey=main",
         "--label",
         "SKYKOI.createdAtMs=1700000000000",
         "--label",
-        "SKYKOI.sandboxBrowser=1",
+        "skykoi.sandboxBrowser=1",
         "--read-only",
         "--tmpfs",
         "/tmp",

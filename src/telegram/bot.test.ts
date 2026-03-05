@@ -1159,7 +1159,7 @@ describe("createTelegramBot", () => {
         reply_to_message: {
           message_id: 42,
           text: "original reply",
-          from: { id: 999, first_name: "SKYKOI" },
+          from: { id: 999, first_name: "skykoi" },
         },
       },
       me: { id: 999, username: "SKYKOI_bot" },

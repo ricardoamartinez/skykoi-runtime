@@ -30,13 +30,13 @@ export function registerBrowserCli(program: Command) {
           true,
         )}\n\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/browser",
-          "docs.SKYKOI.com/cli/browser",
+          "docs.skykoi.com/cli/browser",
         )}\n`,
     )
     .action(() => {
       browser.outputHelp();
       defaultRuntime.error(
-        danger(`Missing subcommand. Try: "${formatCliCommand("SKYKOI browser status")}"`),
+        danger(`Missing subcommand. Try: "${formatCliCommand("skykoi browser status")}"`),
       );
       defaultRuntime.exit(1);
     });

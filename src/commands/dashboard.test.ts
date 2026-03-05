@@ -41,7 +41,7 @@ function resetRuntime() {
 
 function mockSnapshot(token = "abc") {
   mocks.readConfigFileSnapshot.mockResolvedValue({
-    path: "/tmp/SKYKOI.json",
+    path: "/tmp/skykoi.json",
     exists: true,
     raw: "{}",
     parsed: {},

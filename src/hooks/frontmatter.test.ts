@@ -41,7 +41,7 @@ name: session-memory
 description: "Save session context"
 metadata:
   {
-    "SKYKOI": {
+    "skykoi": {
       "emoji": "💾",
       "events": ["command:new"]
     }
@@ -68,7 +68,7 @@ name: command-logger
 description: "Log all command events"
 metadata:
   {
-    "SKYKOI":
+    "skykoi":
       {
         "emoji": "📝",
         "events": ["command"],
@@ -92,12 +92,12 @@ metadata:
   it("handles single-line metadata (inline JSON)", () => {
     const content = `---
 name: simple-hook
-metadata: {"SKYKOI": {"events": ["test"]}}
+metadata: {"skykoi": {"events": ["test"]}}
 ---
 `;
     const result = parseFrontmatter(content);
     expect(result.name).toBe("simple-hook");
-    expect(result.metadata).toBe('{"SKYKOI": {"events": ["test"]}}');
+    expect(result.metadata).toBe('{"skykoi": {"events": ["test"]}}');
   });
 
   it("handles mixed single-line and multi-line values", () => {
@@ -107,7 +107,7 @@ description: "A hook with mixed values"
 homepage: https://example.com
 metadata:
   {
-    "SKYKOI": {
+    "skykoi": {
       "events": ["command:new"]
     }
   }
@@ -236,7 +236,7 @@ description: "Save session context to memory when /new command is issued"
 homepage: https://docs.SKYKOI.ai/hooks#session-memory
 metadata:
   {
-    "SKYKOI":
+    "skykoi":
       {
         "emoji": "💾",
         "events": ["command:new"],

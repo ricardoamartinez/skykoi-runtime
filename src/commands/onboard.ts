@@ -44,8 +44,8 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
     runtime.error(
       [
         "Non-interactive onboarding requires explicit risk acknowledgement.",
-        "Read: https://docs.SKYKOI.com/security",
-        `Re-run with: ${formatCliCommand("SKYKOI onboard --non-interactive --accept-risk ...")}`,
+        "Read: https://docs.skykoi.com/security",
+        `Re-run with: ${formatCliCommand("skykoi onboard --non-interactive --accept-risk ...")}`,
       ].join("\n"),
     );
     runtime.exit(1);
@@ -66,7 +66,7 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
         "Windows detected — SKYKOI runs great on WSL2!",
         "Native Windows might be trickier.",
         "Quick setup: wsl --install (one command, one reboot)",
-        "Guide: https://docs.SKYKOI.com/windows",
+        "Guide: https://docs.skykoi.com/windows",
       ].join("\n"),
     );
   }

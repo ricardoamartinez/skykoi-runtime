@@ -27,7 +27,7 @@ const runtime: RuntimeEnv = {
 };
 
 const baseSnapshot = {
-  path: "/tmp/SKYKOI.json",
+  path: "/tmp/skykoi.json",
   exists: true,
   raw: "{}",
   parsed: {},
@@ -82,7 +82,7 @@ describe("agents set-identity command", () => {
     };
     const main = written.agents?.list?.find((entry) => entry.id === "main");
     expect(main?.identity).toEqual({
-      name: "SKYKOI",
+      name: "skykoi",
       theme: "helpful sloth",
       emoji: ":)",
       avatar: "avatars/SKYKOI.png",

@@ -192,7 +192,7 @@ const readUsageFromSessionLog = (
       model?: string;
     }
   | undefined => {
-  // Transcripts are stored at the session file path (fallback: ~/.SKYKOI/sessions/<SessionId>.jsonl)
+  // Transcripts are stored at the session file path (fallback: ~/.skykoi/sessions/<SessionId>.jsonl)
   if (!sessionId) {
     return undefined;
   }

@@ -88,7 +88,7 @@ async function setupGatewayTestHome() {
   tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.SKYKOI_STATE_DIR = path.join(tempHome, ".SKYKOI");
+  process.env.SKYKOI_STATE_DIR = path.join(tempHome, ".skykoi");
   delete process.env.SKYKOI_CONFIG_PATH;
 }
 
@@ -111,7 +111,7 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   applyGatewaySkipEnv();
   tempConfigRoot = options.uniqueConfigRoot
     ? await fs.mkdtemp(path.join(tempHome, "SKYKOI-test-"))
-    : path.join(tempHome, ".SKYKOI-test");
+    : path.join(tempHome, ".skykoi-test");
   setTestConfigRoot(tempConfigRoot);
   sessionStoreSaveDelayMs.value = 0;
   testTailnetIPv4.value = undefined;

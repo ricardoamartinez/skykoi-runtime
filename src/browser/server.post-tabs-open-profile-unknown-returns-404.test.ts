@@ -93,7 +93,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
         color: "#FF4500",
         attachOnly: cfgAttachOnly,
         headless: true,
-        defaultProfile: "SKYKOI",
+        defaultProfile: "skykoi",
         profiles: {
           SKYKOI: { cdpPort: testPort + 1, color: "#FF4500" },
         },
@@ -369,11 +369,11 @@ describe("profile CRUD endpoints", () => {
     await startBrowserControlServerFromConfig();
     const base = `http://127.0.0.1:${testPort}`;
 
-    // "SKYKOI" already exists as the default profile
+    // "skykoi" already exists as the default profile
     const result = await realFetch(`${base}/profiles/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: "SKYKOI" }),
+      body: JSON.stringify({ name: "skykoi" }),
     });
     expect(result.status).toBe(409);
     const body = (await result.json()) as { error: string };

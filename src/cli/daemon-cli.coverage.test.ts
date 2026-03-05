@@ -89,7 +89,7 @@ describe("daemon-cli coverage", () => {
 
   beforeEach(() => {
     process.env.SKYKOI_STATE_DIR = "/tmp/SKYKOI-cli-state";
-    process.env.SKYKOI_CONFIG_PATH = "/tmp/SKYKOI-cli-state/SKYKOI.json";
+    process.env.SKYKOI_CONFIG_PATH = "/tmp/SKYKOI-cli-state/skykoi.json";
     delete process.env.SKYKOI_GATEWAY_PORT;
     delete process.env.SKYKOI_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
@@ -150,7 +150,7 @@ describe("daemon-cli coverage", () => {
       environment: {
         SKYKOI_PROFILE: "dev",
         SKYKOI_STATE_DIR: "/tmp/SKYKOI-daemon-state",
-        SKYKOI_CONFIG_PATH: "/tmp/SKYKOI-daemon-state/SKYKOI.json",
+        SKYKOI_CONFIG_PATH: "/tmp/SKYKOI-daemon-state/skykoi.json",
         SKYKOI_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",

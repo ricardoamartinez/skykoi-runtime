@@ -77,7 +77,7 @@ function makeCfg(home: string) {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: join(home, "SKYKOI"),
+        workspace: join(home, "skykoi"),
       },
     },
     channels: {
@@ -199,7 +199,7 @@ describe("trigger handling", () => {
         makeCfg(home),
       );
       const text = Array.isArray(res) ? res[0]?.text : res?.text;
-      expect(text).toContain("SKYKOI");
+      expect(text).toContain("skykoi");
       expect(runEmbeddedPiAgent).not.toHaveBeenCalled();
     });
   });

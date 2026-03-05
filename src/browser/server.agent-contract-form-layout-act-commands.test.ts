@@ -95,7 +95,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
         color: "#FF4500",
         attachOnly: cfgAttachOnly,
         headless: true,
-        defaultProfile: "SKYKOI",
+        defaultProfile: "skykoi",
         profiles: {
           SKYKOI: { cdpPort: testPort + 1, color: "#FF4500" },
         },

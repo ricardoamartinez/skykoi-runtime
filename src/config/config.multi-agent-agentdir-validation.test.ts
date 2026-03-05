@@ -26,16 +26,16 @@ describe("multi-agent agentDir validation", () => {
 
   it("throws on shared agentDir during loadConfig()", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".SKYKOI");
+      const configDir = path.join(home, ".skykoi");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "SKYKOI.json"),
+        path.join(configDir, "skykoi.json"),
         JSON.stringify(
           {
             agents: {
               list: [
-                { id: "a", agentDir: "~/.SKYKOI/agents/shared/agent" },
-                { id: "b", agentDir: "~/.SKYKOI/agents/shared/agent" },
+                { id: "a", agentDir: "~/.skykoi/agents/shared/agent" },
+                { id: "b", agentDir: "~/.skykoi/agents/shared/agent" },
               ],
             },
             bindings: [{ agentId: "a", match: { channel: "telegram" } }],

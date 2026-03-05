@@ -46,7 +46,7 @@ ${formatHelpExamples([
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.SKYKOI.com/cli/message")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.skykoi.com/cli/message")}`,
     )
     .action(() => {
       message.help({ error: true });

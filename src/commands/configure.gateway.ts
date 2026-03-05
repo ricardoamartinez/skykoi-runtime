@@ -144,7 +144,7 @@ export async function promptGatewayConfig(
   let tailscaleResetOnExit = false;
   if (tailscaleMode !== "off") {
     note(
-      ["Docs:", "https://docs.SKYKOI.com/gateway/tailscale", "https://docs.SKYKOI.com/web"].join(
+      ["Docs:", "https://docs.skykoi.com/gateway/tailscale", "https://docs.skykoi.com/web"].join(
         "\n",
       ),
       "Tailscale",

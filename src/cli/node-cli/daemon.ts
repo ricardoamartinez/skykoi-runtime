@@ -47,7 +47,7 @@ type NodeDaemonStatusOptions = {
 };
 
 function renderNodeServiceStartHints(): string[] {
-  const base = [formatCliCommand("SKYKOI node install"), formatCliCommand("SKYKOI node start")];
+  const base = [formatCliCommand("skykoi node install"), formatCliCommand("skykoi node start")];
   switch (process.platform) {
     case "darwin":
       return [
@@ -173,7 +173,7 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
     });
     if (!json) {
       defaultRuntime.log(`Node service already ${service.loadedText}.`);
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("SKYKOI node install --force")}`);
+      defaultRuntime.log(`Reinstall with: ${formatCliCommand("skykoi node install --force")}`);
     }
     return;
   }

@@ -77,7 +77,7 @@ describe("hooks install (e2e)", () => {
         "---",
         'name: "hello-hook"',
         'description: "Test hook"',
-        'metadata: {"SKYKOI":{"events":["command:new"]}}',
+        'metadata: {"skykoi":{"events":["command:new"]}}',
         "---",
         "",
         "# Hello Hook",

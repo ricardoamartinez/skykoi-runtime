@@ -42,7 +42,7 @@ describe("registerSubCliCommands", () => {
   });
 
   it("registers only the primary placeholder and dispatches", async () => {
-    process.argv = ["node", "SKYKOI", "acp"];
+    process.argv = ["node", "skykoi", "acp"];
     const program = new Command();
     registerSubCliCommands(program, process.argv);
 
@@ -55,7 +55,7 @@ describe("registerSubCliCommands", () => {
   });
 
   it("registers placeholders for all subcommands when no primary", () => {
-    process.argv = ["node", "SKYKOI"];
+    process.argv = ["node", "skykoi"];
     const program = new Command();
     registerSubCliCommands(program, process.argv);
 
@@ -66,9 +66,9 @@ describe("registerSubCliCommands", () => {
   });
 
   it("re-parses argv for lazy subcommands", async () => {
-    process.argv = ["node", "SKYKOI", "nodes", "list"];
+    process.argv = ["node", "skykoi", "nodes", "list"];
     const program = new Command();
-    program.name("SKYKOI");
+    program.name("skykoi");
     registerSubCliCommands(program, process.argv);
 
     expect(program.commands.map((cmd) => cmd.name())).toEqual(["nodes"]);
@@ -80,9 +80,9 @@ describe("registerSubCliCommands", () => {
   });
 
   it("replaces placeholder when registering a subcommand by name", async () => {
-    process.argv = ["node", "SKYKOI", "acp", "--help"];
+    process.argv = ["node", "skykoi", "acp", "--help"];
     const program = new Command();
-    program.name("SKYKOI");
+    program.name("skykoi");
     registerSubCliCommands(program, process.argv);
 
     await registerSubCliByName(program, "acp");
@@ -90,7 +90,7 @@ describe("registerSubCliCommands", () => {
     const names = program.commands.map((cmd) => cmd.name());
     expect(names.filter((name) => name === "acp")).toHaveLength(1);
 
-    await program.parseAsync(["node", "SKYKOI", "acp"], { from: "user" });
+    await program.parseAsync(["node", "skykoi", "acp"], { from: "user" });
     expect(registerAcpCli).toHaveBeenCalledTimes(1);
     expect(acpAction).toHaveBeenCalledTimes(1);
   });

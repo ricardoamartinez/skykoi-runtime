@@ -97,7 +97,7 @@ describe("gateway server models + voicewake", () => {
     const prevHomeDrive = process.env.HOMEDRIVE;
     const prevHomePath = process.env.HOMEPATH;
     process.env.HOME = homeDir;
-    process.env.SKYKOI_STATE_DIR = path.join(homeDir, ".SKYKOI");
+    process.env.SKYKOI_STATE_DIR = path.join(homeDir, ".skykoi");
     process.env.USERPROFILE = homeDir;
     if (process.platform === "win32") {
       const parsed = path.parse(homeDir);
@@ -144,7 +144,7 @@ describe("gateway server models + voicewake", () => {
 
       const initial = await rpcReq<{ triggers: string[] }>(ws, "voicewake.get");
       expect(initial.ok).toBe(true);
-      expect(initial.payload?.triggers).toEqual(["SKYKOI", "claude", "computer"]);
+      expect(initial.payload?.triggers).toEqual(["skykoi", "claude", "computer"]);
 
       const changedP = onceMessage<{
         type: "event";
@@ -170,7 +170,7 @@ describe("gateway server models + voicewake", () => {
       expect(after.payload?.triggers).toEqual(["hi", "there"]);
 
       const onDisk = JSON.parse(
-        await fs.readFile(path.join(homeDir, ".SKYKOI", "settings", "voicewake.json"), "utf8"),
+        await fs.readFile(path.join(homeDir, ".skykoi", "settings", "voicewake.json"), "utf8"),
       ) as { triggers?: unknown; updatedAtMs?: unknown };
       expect(onDisk.triggers).toEqual(["hi", "there"]);
       expect(typeof onDisk.updatedAtMs).toBe("number");
@@ -202,7 +202,7 @@ describe("gateway server models + voicewake", () => {
     const first = await firstEventP;
     expect(first.event).toBe("voicewake.changed");
     expect((first.payload as { triggers?: unknown } | undefined)?.triggers).toEqual([
-      "SKYKOI",
+      "skykoi",
       "claude",
       "computer",
     ]);
@@ -212,14 +212,14 @@ describe("gateway server models + voicewake", () => {
       (o) => o.type === "event" && o.event === "voicewake.changed",
     );
     const setRes = await rpcReq<{ triggers: string[] }>(ws, "voicewake.set", {
-      triggers: ["SKYKOI", "computer"],
+      triggers: ["skykoi", "computer"],
     });
     expect(setRes.ok).toBe(true);
 
     const broadcast = await broadcastP;
     expect(broadcast.event).toBe("voicewake.changed");
     expect((broadcast.payload as { triggers?: unknown } | undefined)?.triggers).toEqual([
-      "SKYKOI",
+      "skykoi",
       "computer",
     ]);
 

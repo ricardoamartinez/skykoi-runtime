@@ -49,17 +49,17 @@ describe("gateway e2e", () => {
       const token = `test-${randomUUID()}`;
       process.env.SKYKOI_GATEWAY_TOKEN = token;
 
-      const workspaceDir = path.join(tempHome, "SKYKOI");
+      const workspaceDir = path.join(tempHome, "skykoi");
       await fs.mkdir(workspaceDir, { recursive: true });
 
       const nonceA = randomUUID();
       const nonceB = randomUUID();
-      const toolProbePath = path.join(workspaceDir, `.SKYKOI-tool-probe.${nonceA}.txt`);
+      const toolProbePath = path.join(workspaceDir, `.skykoi-tool-probe.${nonceA}.txt`);
       await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-      const configDir = path.join(tempHome, ".SKYKOI");
+      const configDir = path.join(tempHome, ".skykoi");
       await fs.mkdir(configDir, { recursive: true });
-      const configPath = path.join(configDir, "SKYKOI.json");
+      const configPath = path.join(configDir, "skykoi.json");
 
       const cfg = {
         agents: { defaults: { workspace: workspaceDir } },

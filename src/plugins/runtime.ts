@@ -16,7 +16,7 @@ const createEmptyRegistry = (): PluginRegistry => ({
   diagnostics: [],
 });
 
-const REGISTRY_STATE = Symbol.for("SKYKOI.pluginRegistryState");
+const REGISTRY_STATE = Symbol.for("skykoi.pluginRegistryState");
 
 type RegistryState = {
   registry: PluginRegistry | null;

@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 
 declare const __SKYKOI_VERSION__: string | undefined;
-const CORE_PACKAGE_NAME = "SKYKOI";
+const CORE_PACKAGE_NAME = "skykoi";
 
 const PACKAGE_JSON_CANDIDATES = [
   "../package.json",

@@ -38,5 +38,5 @@ export function resolveGatewayStateDir(env: Record<string, string | undefined>):
   }
   const home = resolveHomeDir(env);
   const suffix = resolveGatewayProfileSuffix(env.SKYKOI_PROFILE);
-  return path.join(home, `.SKYKOI${suffix}`);
+  return path.join(home, `.skykoi${suffix}`);
 }

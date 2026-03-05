@@ -228,7 +228,7 @@ export async function maybeRepairGatewayDaemon(params: {
   if (process.platform === "darwin") {
     const label = resolveGatewayLaunchAgentLabel((process.env.SKYKOI_PROFILE));
     note(
-      `LaunchAgent loaded; stopping requires "${formatCliCommand("SKYKOI gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
+      `LaunchAgent loaded; stopping requires "${formatCliCommand("skykoi gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
       "Gateway",
     );
   }

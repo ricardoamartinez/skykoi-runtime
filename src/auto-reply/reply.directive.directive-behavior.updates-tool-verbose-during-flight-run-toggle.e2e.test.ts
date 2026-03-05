@@ -27,8 +27,8 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        SKYKOI_AGENT_DIR: (home) => path.join(home, ".SKYKOI", "agent"),
-        PI_CODING_AGENT_DIR: (home) => path.join(home, ".SKYKOI", "agent"),
+        SKYKOI_AGENT_DIR: (home) => path.join(home, ".skykoi", "agent"),
+        PI_CODING_AGENT_DIR: (home) => path.join(home, ".skykoi", "agent"),
       },
       prefix: "SKYKOI-reply-",
     },
@@ -101,7 +101,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "SKYKOI"),
+              workspace: path.join(home, "skykoi"),
             },
           },
           channels: { whatsapp: { allowFrom: ["*"] } },
@@ -159,7 +159,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "SKYKOI"),
+              workspace: path.join(home, "skykoi"),
             },
           },
           channels: { whatsapp: { allowFrom: ["*"] } },
@@ -174,7 +174,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "SKYKOI"),
+              workspace: path.join(home, "skykoi"),
             },
           },
           channels: { whatsapp: { allowFrom: ["*"] } },
@@ -199,7 +199,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: { primary: "anthropic/claude-opus-4-5" },
-              workspace: path.join(home, "SKYKOI"),
+              workspace: path.join(home, "skykoi"),
               models: {
                 "anthropic/claude-opus-4-5": {},
                 "openai/gpt-4.1-mini": {},
@@ -231,7 +231,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: { primary: "anthropic/claude-opus-4-5" },
-              workspace: path.join(home, "SKYKOI"),
+              workspace: path.join(home, "skykoi"),
               models: {
                 "anthropic/claude-opus-4-5": {},
                 "openai/gpt-4.1-mini": {},

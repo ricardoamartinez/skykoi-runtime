@@ -1,8 +1,8 @@
 import path from "node:path";
 
-export const DEFAULT_CLI_NAME = "SKYKOI";
+export const DEFAULT_CLI_NAME = "skykoi";
 
-const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "SKYKOI", "SKYKOI"]);
+const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "skykoi", "skykoi"]);
 const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(SKYKOI|SKYKOI)\b/;
 
 export function resolveCliName(argv: string[] = process.argv): string {

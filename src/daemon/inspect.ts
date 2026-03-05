@@ -15,7 +15,7 @@ export type ExtraGatewayService = {
   label: string;
   detail: string;
   scope: "user" | "system";
-  marker?: "SKYKOI" | "moltbot";
+  marker?: "skykoi" | "moltbot";
   legacy?: boolean;
 };
 
@@ -23,7 +23,7 @@ export type FindExtraGatewayServicesOptions = {
   deep?: boolean;
 };
 
-const EXTRA_MARKERS = ["SKYKOI", "moltbot"] as const;
+const EXTRA_MARKERS = ["skykoi", "moltbot"] as const;
 const execFileAsync = promisify(execFile);
 
 export function renderGatewayServiceCleanupHints(
@@ -95,7 +95,7 @@ function isSKYKOIGatewayLaunchdService(label: string, contents: string): boolean
   if (!lowerContents.includes("gateway")) {
     return false;
   }
-  return label.startsWith("ai.SKYKOI.");
+  return label.startsWith("ai.skykoi.");
 }
 
 function isSKYKOIGatewaySystemdService(name: string, contents: string): boolean {
@@ -177,7 +177,7 @@ async function scanLaunchdDir(params: {
         label,
         detail: `plist: ${fullPath}`,
         scope: params.scope,
-        marker: isLegacyLabel(label) ? "SKYKOI" : "moltbot",
+        marker: isLegacyLabel(label) ? "skykoi" : "moltbot",
         legacy: true,
       });
       continue;
@@ -185,7 +185,7 @@ async function scanLaunchdDir(params: {
     if (isIgnoredLaunchdLabel(label)) {
       continue;
     }
-    if (marker === "SKYKOI" && isSKYKOIGatewayLaunchdService(label, contents)) {
+    if (marker === "skykoi" && isSKYKOIGatewayLaunchdService(label, contents)) {
       continue;
     }
     results.push({
@@ -194,7 +194,7 @@ async function scanLaunchdDir(params: {
       detail: `plist: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "SKYKOI" || isLegacyLabel(label),
+      legacy: marker !== "skykoi" || isLegacyLabel(label),
     });
   }
 
@@ -232,7 +232,7 @@ async function scanSystemdDir(params: {
     if (!marker) {
       continue;
     }
-    if (marker === "SKYKOI" && isSKYKOIGatewaySystemdService(name, contents)) {
+    if (marker === "skykoi" && isSKYKOIGatewaySystemdService(name, contents)) {
       continue;
     }
     results.push({
@@ -241,7 +241,7 @@ async function scanSystemdDir(params: {
       detail: `unit: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "SKYKOI",
+      legacy: marker !== "skykoi",
     });
   }
 
@@ -435,7 +435,7 @@ export async function findExtraGatewayServices(
         detail: task.taskToRun ? `task: ${name}, run: ${task.taskToRun}` : name,
         scope: "system",
         marker,
-        legacy: marker !== "SKYKOI",
+        legacy: marker !== "skykoi",
       });
     }
     return results;

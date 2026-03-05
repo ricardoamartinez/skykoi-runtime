@@ -65,7 +65,7 @@ function createHarness(overrides?: {
     channelsConfig: overrides?.channelsConfig,
     slashCommand: {
       enabled: true,
-      name: "SKYKOI",
+      name: "skykoi",
       ephemeral: true,
       sessionPrefix: "slack:slash",
     },

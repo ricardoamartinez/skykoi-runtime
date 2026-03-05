@@ -153,8 +153,8 @@ async function maybeMigrateLegacyConfig(): Promise<string[]> {
     return changes;
   }
 
-  const targetDir = path.join(home, ".SKYKOI");
-  const targetPath = path.join(targetDir, "SKYKOI.json");
+  const targetDir = path.join(home, ".skykoi");
+  const targetPath = path.join(targetDir, "skykoi.json");
   try {
     await fs.access(targetPath);
     return changes;
@@ -246,7 +246,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
       }
     } else {
       fixHints.push(
-        `Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply legacy migrations.`,
+        `Run "${formatCliCommand("skykoi doctor --fix")}" to apply legacy migrations.`,
       );
     }
   }
@@ -259,7 +259,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = normalized.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply these changes.`);
+      fixHints.push(`Run "${formatCliCommand("skykoi doctor --fix")}" to apply these changes.`);
     }
   }
 
@@ -271,7 +271,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = autoEnable.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply these changes.`);
+      fixHints.push(`Run "${formatCliCommand("skykoi doctor --fix")}" to apply these changes.`);
     }
   }
 

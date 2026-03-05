@@ -16,8 +16,8 @@ describe("browser config", () => {
     expect(profile?.cdpPort).toBe(18792);
     expect(profile?.cdpUrl).toBe("http://127.0.0.1:18792");
 
-    const SKYKOI = resolveProfile(resolved, "SKYKOI");
-    expect(SKYKOI?.driver).toBe("SKYKOI");
+    const SKYKOI = resolveProfile(resolved, "skykoi");
+    expect(SKYKOI?.driver).toBe("skykoi");
     expect(SKYKOI?.cdpPort).toBe(18800);
     expect(SKYKOI?.cdpUrl).toBe("http://127.0.0.1:18800");
     expect(resolved.remoteCdpTimeoutMs).toBe(1500);
@@ -35,7 +35,7 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19004);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19004");
 
-      const SKYKOI = resolveProfile(resolved, "SKYKOI");
+      const SKYKOI = resolveProfile(resolved, "skykoi");
       expect(SKYKOI?.cdpPort).toBe(19012);
       expect(SKYKOI?.cdpUrl).toBe("http://127.0.0.1:19012");
     } finally {
@@ -58,7 +58,7 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19014);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19014");
 
-      const SKYKOI = resolveProfile(resolved, "SKYKOI");
+      const SKYKOI = resolveProfile(resolved, "skykoi");
       expect(SKYKOI?.cdpPort).toBe(19022);
       expect(SKYKOI?.cdpUrl).toBe("http://127.0.0.1:19022");
     } finally {
@@ -97,7 +97,7 @@ describe("browser config", () => {
     const resolved = resolveBrowserConfig({
       cdpUrl: "http://example.com:9222",
     });
-    const profile = resolveProfile(resolved, "SKYKOI");
+    const profile = resolveProfile(resolved, "skykoi");
     expect(profile?.cdpIsLoopback).toBe(false);
   });
 
@@ -105,7 +105,7 @@ describe("browser config", () => {
     const resolved = resolveBrowserConfig({
       cdpUrl: "http://example.com:9222",
     });
-    const profile = resolveProfile(resolved, "SKYKOI");
+    const profile = resolveProfile(resolved, "skykoi");
     expect(profile?.cdpPort).toBe(9222);
     expect(profile?.cdpUrl).toBe("http://example.com:9222");
     expect(profile?.cdpIsLoopback).toBe(false);
@@ -147,6 +147,6 @@ describe("browser config", () => {
       },
     });
     expect(resolveProfile(resolved, "chrome")).toBe(null);
-    expect(resolved.defaultProfile).toBe("SKYKOI");
+    expect(resolved.defaultProfile).toBe("skykoi");
   });
 });

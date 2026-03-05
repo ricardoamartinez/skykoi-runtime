@@ -1,4 +1,4 @@
-export const PROJECT_NAME = "SKYKOI" as const;
+export const PROJECT_NAME = "skykoi" as const;
 
 export const LEGACY_PROJECT_NAMES = [] as const;
 

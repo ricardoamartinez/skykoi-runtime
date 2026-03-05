@@ -62,7 +62,7 @@ describe("docker-setup.sh", () => {
       DOCKER_STUB_LOG: logPath,
       SKYKOI_GATEWAY_TOKEN: "test-token",
       SKYKOI_CONFIG_DIR: join(rootDir, "config"),
-      SKYKOI_WORKSPACE_DIR: join(rootDir, "SKYKOI"),
+      SKYKOI_WORKSPACE_DIR: join(rootDir, "skykoi"),
     };
     delete env.SKYKOI_DOCKER_APT_PACKAGES;
     delete env.SKYKOI_EXTRA_MOUNTS;
@@ -113,7 +113,7 @@ describe("docker-setup.sh", () => {
       SKYKOI_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
       SKYKOI_GATEWAY_TOKEN: "test-token",
       SKYKOI_CONFIG_DIR: join(rootDir, "config"),
-      SKYKOI_WORKSPACE_DIR: join(rootDir, "SKYKOI"),
+      SKYKOI_WORKSPACE_DIR: join(rootDir, "skykoi"),
       SKYKOI_EXTRA_MOUNTS: "",
       SKYKOI_HOME_VOLUME: "",
     };

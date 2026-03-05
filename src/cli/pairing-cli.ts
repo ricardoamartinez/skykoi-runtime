@@ -57,7 +57,7 @@ export function registerPairingCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/pairing", "docs.SKYKOI.com/cli/pairing")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/pairing", "docs.skykoi.com/cli/pairing")}\n`,
     );
 
   pairing
@@ -119,12 +119,12 @@ export function registerPairingCli(program: Command) {
       const resolvedCode = opts.channel ? codeOrChannel : code;
       if (!opts.channel && !code) {
         throw new Error(
-          `Usage: ${formatCliCommand("SKYKOI pairing approve <channel> <code>")} (or: ${formatCliCommand("SKYKOI pairing approve --channel <channel> <code>")})`,
+          `Usage: ${formatCliCommand("skykoi pairing approve <channel> <code>")} (or: ${formatCliCommand("skykoi pairing approve --channel <channel> <code>")})`,
         );
       }
       if (opts.channel && code != null) {
         throw new Error(
-          `Too many arguments. Use: ${formatCliCommand("SKYKOI pairing approve --channel <channel> <code>")}`,
+          `Too many arguments. Use: ${formatCliCommand("skykoi pairing approve --channel <channel> <code>")}`,
         );
       }
       const channel = parseChannel(channelRaw, channels);

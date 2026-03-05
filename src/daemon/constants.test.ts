@@ -14,7 +14,7 @@ describe("resolveGatewayLaunchAgentLabel", () => {
   it("returns default label when no profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel();
     expect(result).toBe(GATEWAY_LAUNCH_AGENT_LABEL);
-    expect(result).toBe("ai.SKYKOI.gateway");
+    expect(result).toBe("ai.skykoi.gateway");
   });
 
   it("returns default label when profile is undefined", () => {
@@ -34,17 +34,17 @@ describe("resolveGatewayLaunchAgentLabel", () => {
 
   it("returns profile-specific label when profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel("dev");
-    expect(result).toBe("ai.SKYKOI.dev");
+    expect(result).toBe("ai.skykoi.dev");
   });
 
   it("returns profile-specific label for custom profile", () => {
     const result = resolveGatewayLaunchAgentLabel("work");
-    expect(result).toBe("ai.SKYKOI.work");
+    expect(result).toBe("ai.skykoi.work");
   });
 
   it("trims whitespace from profile", () => {
     const result = resolveGatewayLaunchAgentLabel("  staging  ");
-    expect(result).toBe("ai.SKYKOI.staging");
+    expect(result).toBe("ai.skykoi.staging");
   });
 
   it("returns default label for empty string profile", () => {

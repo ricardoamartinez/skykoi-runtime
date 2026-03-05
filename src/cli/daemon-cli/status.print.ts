@@ -102,7 +102,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     }
     defaultRuntime.error(
       warnText(
-        `Recommendation: run "${formatCliCommand("SKYKOI doctor")}" (or "${formatCliCommand("SKYKOI doctor --repair")}").`,
+        `Recommendation: run "${formatCliCommand("skykoi doctor")}" (or "${formatCliCommand("skykoi doctor --repair")}").`,
       ),
     );
   }
@@ -136,7 +136,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
       );
       defaultRuntime.error(
         errorText(
-          `Fix: rerun \`${formatCliCommand("SKYKOI gateway install --force")}\` from the same --profile / SKYKOI_STATE_DIR you expect.`,
+          `Fix: rerun \`${formatCliCommand("skykoi gateway install --force")}\` from the same --profile / SKYKOI_STATE_DIR you expect.`,
         ),
       );
     }
@@ -241,7 +241,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
       ),
     );
     defaultRuntime.error(
-      errorText(`Then reinstall: ${formatCliCommand("SKYKOI gateway install")}`),
+      errorText(`Then reinstall: ${formatCliCommand("skykoi gateway install")}`),
     );
     spacer();
   }
@@ -316,6 +316,6 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     spacer();
   }
 
-  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("SKYKOI status")}`);
-  defaultRuntime.log(`${label("Troubleshooting:")} https://docs.SKYKOI.com/troubleshooting`);
+  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("skykoi status")}`);
+  defaultRuntime.log(`${label("Troubleshooting:")} https://docs.skykoi.com/troubleshooting`);
 }

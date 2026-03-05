@@ -14,119 +14,119 @@ import {
 
 describe("argv helpers", () => {
   it("detects help/version flags", () => {
-    expect(hasHelpOrVersion(["node", "SKYKOI", "--help"])).toBe(true);
-    expect(hasHelpOrVersion(["node", "SKYKOI", "-V"])).toBe(true);
-    expect(hasHelpOrVersion(["node", "SKYKOI", "status"])).toBe(false);
+    expect(hasHelpOrVersion(["node", "skykoi", "--help"])).toBe(true);
+    expect(hasHelpOrVersion(["node", "skykoi", "-V"])).toBe(true);
+    expect(hasHelpOrVersion(["node", "skykoi", "status"])).toBe(false);
   });
 
   it("extracts command path ignoring flags and terminator", () => {
-    expect(getCommandPath(["node", "SKYKOI", "status", "--json"], 2)).toEqual(["status"]);
-    expect(getCommandPath(["node", "SKYKOI", "agents", "list"], 2)).toEqual(["agents", "list"]);
-    expect(getCommandPath(["node", "SKYKOI", "status", "--", "ignored"], 2)).toEqual(["status"]);
+    expect(getCommandPath(["node", "skykoi", "status", "--json"], 2)).toEqual(["status"]);
+    expect(getCommandPath(["node", "skykoi", "agents", "list"], 2)).toEqual(["agents", "list"]);
+    expect(getCommandPath(["node", "skykoi", "status", "--", "ignored"], 2)).toEqual(["status"]);
   });
 
   it("returns primary command", () => {
-    expect(getPrimaryCommand(["node", "SKYKOI", "agents", "list"])).toBe("agents");
-    expect(getPrimaryCommand(["node", "SKYKOI"])).toBeNull();
+    expect(getPrimaryCommand(["node", "skykoi", "agents", "list"])).toBe("agents");
+    expect(getPrimaryCommand(["node", "skykoi"])).toBeNull();
   });
 
   it("parses boolean flags and ignores terminator", () => {
-    expect(hasFlag(["node", "SKYKOI", "status", "--json"], "--json")).toBe(true);
-    expect(hasFlag(["node", "SKYKOI", "--", "--json"], "--json")).toBe(false);
+    expect(hasFlag(["node", "skykoi", "status", "--json"], "--json")).toBe(true);
+    expect(hasFlag(["node", "skykoi", "--", "--json"], "--json")).toBe(false);
   });
 
   it("extracts flag values with equals and missing values", () => {
-    expect(getFlagValue(["node", "SKYKOI", "status", "--timeout", "5000"], "--timeout")).toBe(
+    expect(getFlagValue(["node", "skykoi", "status", "--timeout", "5000"], "--timeout")).toBe(
       "5000",
     );
-    expect(getFlagValue(["node", "SKYKOI", "status", "--timeout=2500"], "--timeout")).toBe(
+    expect(getFlagValue(["node", "skykoi", "status", "--timeout=2500"], "--timeout")).toBe(
       "2500",
     );
-    expect(getFlagValue(["node", "SKYKOI", "status", "--timeout"], "--timeout")).toBeNull();
-    expect(getFlagValue(["node", "SKYKOI", "status", "--timeout", "--json"], "--timeout")).toBe(
+    expect(getFlagValue(["node", "skykoi", "status", "--timeout"], "--timeout")).toBeNull();
+    expect(getFlagValue(["node", "skykoi", "status", "--timeout", "--json"], "--timeout")).toBe(
       null,
     );
-    expect(getFlagValue(["node", "SKYKOI", "--", "--timeout=99"], "--timeout")).toBeUndefined();
+    expect(getFlagValue(["node", "skykoi", "--", "--timeout=99"], "--timeout")).toBeUndefined();
   });
 
   it("parses verbose flags", () => {
-    expect(getVerboseFlag(["node", "SKYKOI", "status", "--verbose"])).toBe(true);
-    expect(getVerboseFlag(["node", "SKYKOI", "status", "--debug"])).toBe(false);
-    expect(getVerboseFlag(["node", "SKYKOI", "status", "--debug"], { includeDebug: true })).toBe(
+    expect(getVerboseFlag(["node", "skykoi", "status", "--verbose"])).toBe(true);
+    expect(getVerboseFlag(["node", "skykoi", "status", "--debug"])).toBe(false);
+    expect(getVerboseFlag(["node", "skykoi", "status", "--debug"], { includeDebug: true })).toBe(
       true,
     );
   });
 
   it("parses positive integer flag values", () => {
-    expect(getPositiveIntFlagValue(["node", "SKYKOI", "status"], "--timeout")).toBeUndefined();
+    expect(getPositiveIntFlagValue(["node", "skykoi", "status"], "--timeout")).toBeUndefined();
     expect(
-      getPositiveIntFlagValue(["node", "SKYKOI", "status", "--timeout"], "--timeout"),
+      getPositiveIntFlagValue(["node", "skykoi", "status", "--timeout"], "--timeout"),
     ).toBeNull();
     expect(
-      getPositiveIntFlagValue(["node", "SKYKOI", "status", "--timeout", "5000"], "--timeout"),
+      getPositiveIntFlagValue(["node", "skykoi", "status", "--timeout", "5000"], "--timeout"),
     ).toBe(5000);
     expect(
-      getPositiveIntFlagValue(["node", "SKYKOI", "status", "--timeout", "nope"], "--timeout"),
+      getPositiveIntFlagValue(["node", "skykoi", "status", "--timeout", "nope"], "--timeout"),
     ).toBeUndefined();
   });
 
   it("builds parse argv from raw args", () => {
     const nodeArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node", "skykoi", "status"],
     });
-    expect(nodeArgv).toEqual(["node", "SKYKOI", "status"]);
+    expect(nodeArgv).toEqual(["node", "skykoi", "status"]);
 
     const versionedNodeArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node-22", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node-22", "skykoi", "status"],
     });
-    expect(versionedNodeArgv).toEqual(["node-22", "SKYKOI", "status"]);
+    expect(versionedNodeArgv).toEqual(["node-22", "skykoi", "status"]);
 
     const versionedNodeWindowsArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node-22.2.0.exe", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node-22.2.0.exe", "skykoi", "status"],
     });
-    expect(versionedNodeWindowsArgv).toEqual(["node-22.2.0.exe", "SKYKOI", "status"]);
+    expect(versionedNodeWindowsArgv).toEqual(["node-22.2.0.exe", "skykoi", "status"]);
 
     const versionedNodePatchlessArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node-22.2", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node-22.2", "skykoi", "status"],
     });
-    expect(versionedNodePatchlessArgv).toEqual(["node-22.2", "SKYKOI", "status"]);
+    expect(versionedNodePatchlessArgv).toEqual(["node-22.2", "skykoi", "status"]);
 
     const versionedNodeWindowsPatchlessArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node-22.2.exe", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node-22.2.exe", "skykoi", "status"],
     });
-    expect(versionedNodeWindowsPatchlessArgv).toEqual(["node-22.2.exe", "SKYKOI", "status"]);
+    expect(versionedNodeWindowsPatchlessArgv).toEqual(["node-22.2.exe", "skykoi", "status"]);
 
     const versionedNodeWithPathArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["/usr/bin/node-22.2.0", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["/usr/bin/node-22.2.0", "skykoi", "status"],
     });
-    expect(versionedNodeWithPathArgv).toEqual(["/usr/bin/node-22.2.0", "SKYKOI", "status"]);
+    expect(versionedNodeWithPathArgv).toEqual(["/usr/bin/node-22.2.0", "skykoi", "status"]);
 
     const nodejsArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["nodejs", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["nodejs", "skykoi", "status"],
     });
-    expect(nodejsArgv).toEqual(["nodejs", "SKYKOI", "status"]);
+    expect(nodejsArgv).toEqual(["nodejs", "skykoi", "status"]);
 
     const nonVersionedNodeArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["node-dev", "SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["node-dev", "skykoi", "status"],
     });
-    expect(nonVersionedNodeArgv).toEqual(["node", "SKYKOI", "node-dev", "SKYKOI", "status"]);
+    expect(nonVersionedNodeArgv).toEqual(["node", "skykoi", "node-dev", "skykoi", "status"]);
 
     const directArgv = buildParseArgv({
-      programName: "SKYKOI",
-      rawArgs: ["SKYKOI", "status"],
+      programName: "skykoi",
+      rawArgs: ["skykoi", "status"],
     });
-    expect(directArgv).toEqual(["node", "SKYKOI", "status"]);
+    expect(directArgv).toEqual(["node", "skykoi", "status"]);
 
     const bunArgv = buildParseArgv({
-      programName: "SKYKOI",
+      programName: "skykoi",
       rawArgs: ["bun", "src/entry.ts", "status"],
     });
     expect(bunArgv).toEqual(["bun", "src/entry.ts", "status"]);
@@ -134,20 +134,20 @@ describe("argv helpers", () => {
 
   it("builds parse argv from fallback args", () => {
     const fallbackArgv = buildParseArgv({
-      programName: "SKYKOI",
+      programName: "skykoi",
       fallbackArgv: ["status"],
     });
-    expect(fallbackArgv).toEqual(["node", "SKYKOI", "status"]);
+    expect(fallbackArgv).toEqual(["node", "skykoi", "status"]);
   });
 
   it("decides when to migrate state", () => {
-    expect(shouldMigrateState(["node", "SKYKOI", "status"])).toBe(false);
-    expect(shouldMigrateState(["node", "SKYKOI", "health"])).toBe(false);
-    expect(shouldMigrateState(["node", "SKYKOI", "sessions"])).toBe(false);
-    expect(shouldMigrateState(["node", "SKYKOI", "memory", "status"])).toBe(false);
-    expect(shouldMigrateState(["node", "SKYKOI", "agent", "--message", "hi"])).toBe(false);
-    expect(shouldMigrateState(["node", "SKYKOI", "agents", "list"])).toBe(true);
-    expect(shouldMigrateState(["node", "SKYKOI", "message", "send"])).toBe(true);
+    expect(shouldMigrateState(["node", "skykoi", "status"])).toBe(false);
+    expect(shouldMigrateState(["node", "skykoi", "health"])).toBe(false);
+    expect(shouldMigrateState(["node", "skykoi", "sessions"])).toBe(false);
+    expect(shouldMigrateState(["node", "skykoi", "memory", "status"])).toBe(false);
+    expect(shouldMigrateState(["node", "skykoi", "agent", "--message", "hi"])).toBe(false);
+    expect(shouldMigrateState(["node", "skykoi", "agents", "list"])).toBe(true);
+    expect(shouldMigrateState(["node", "skykoi", "message", "send"])).toBe(true);
   });
 
   it("reuses command path for migrate state decisions", () => {

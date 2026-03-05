@@ -147,7 +147,7 @@ export async function configureGatewayForOnboarding(
   let tailscaleResetOnExit = flow === "quickstart" ? quickstartGateway.tailscaleResetOnExit : false;
   if (tailscaleMode !== "off" && flow !== "quickstart") {
     await prompter.note(
-      ["Docs:", "https://docs.SKYKOI.com/gateway/tailscale", "https://docs.SKYKOI.com/web"].join(
+      ["Docs:", "https://docs.skykoi.com/gateway/tailscale", "https://docs.skykoi.com/web"].join(
         "\n",
       ),
       "Tailscale",

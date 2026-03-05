@@ -289,7 +289,7 @@ describe("bonjour-discovery", () => {
     await discoverGatewayBeacons({
       platform: "darwin",
       timeoutMs: 1,
-      domains: ["local", "SKYKOI.internal"],
+      domains: ["local", "skykoi.internal"],
       run: run as unknown as typeof runCommandWithTimeout,
     });
 

@@ -7,7 +7,7 @@ describe("parseCliProfileArgs", () => {
   it("leaves gateway --dev for subcommands", () => {
     const res = parseCliProfileArgs([
       "node",
-      "SKYKOI",
+      "skykoi",
       "gateway",
       "--dev",
       "--allow-unconfigured",
@@ -16,39 +16,39 @@ describe("parseCliProfileArgs", () => {
       throw new Error(res.error);
     }
     expect(res.profile).toBeNull();
-    expect(res.argv).toEqual(["node", "SKYKOI", "gateway", "--dev", "--allow-unconfigured"]);
+    expect(res.argv).toEqual(["node", "skykoi", "gateway", "--dev", "--allow-unconfigured"]);
   });
 
   it("still accepts global --dev before subcommand", () => {
-    const res = parseCliProfileArgs(["node", "SKYKOI", "--dev", "gateway"]);
+    const res = parseCliProfileArgs(["node", "skykoi", "--dev", "gateway"]);
     if (!res.ok) {
       throw new Error(res.error);
     }
     expect(res.profile).toBe("dev");
-    expect(res.argv).toEqual(["node", "SKYKOI", "gateway"]);
+    expect(res.argv).toEqual(["node", "skykoi", "gateway"]);
   });
 
   it("parses --profile value and strips it", () => {
-    const res = parseCliProfileArgs(["node", "SKYKOI", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs(["node", "skykoi", "--profile", "work", "status"]);
     if (!res.ok) {
       throw new Error(res.error);
     }
     expect(res.profile).toBe("work");
-    expect(res.argv).toEqual(["node", "SKYKOI", "status"]);
+    expect(res.argv).toEqual(["node", "skykoi", "status"]);
   });
 
   it("rejects missing profile value", () => {
-    const res = parseCliProfileArgs(["node", "SKYKOI", "--profile"]);
+    const res = parseCliProfileArgs(["node", "skykoi", "--profile"]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (dev first)", () => {
-    const res = parseCliProfileArgs(["node", "SKYKOI", "--dev", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs(["node", "skykoi", "--dev", "--profile", "work", "status"]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (profile first)", () => {
-    const res = parseCliProfileArgs(["node", "SKYKOI", "--profile", "work", "--dev", "status"]);
+    const res = parseCliProfileArgs(["node", "skykoi", "--profile", "work", "--dev", "status"]);
     expect(res.ok).toBe(false);
   });
 });
@@ -61,10 +61,10 @@ describe("applyCliProfileEnv", () => {
       env,
       homedir: () => "/home/peter",
     });
-    const expectedStateDir = path.join("/home/peter", ".SKYKOI-dev");
+    const expectedStateDir = path.join("/home/peter", ".skykoi-dev");
     expect(env.SKYKOI_PROFILE).toBe("dev");
     expect(env.SKYKOI_STATE_DIR).toBe(expectedStateDir);
-    expect(env.SKYKOI_CONFIG_PATH).toBe(path.join(expectedStateDir, "SKYKOI.json"));
+    expect(env.SKYKOI_CONFIG_PATH).toBe(path.join(expectedStateDir, "skykoi.json"));
     expect(env.SKYKOI_GATEWAY_PORT).toBe("19001");
   });
 
@@ -80,59 +80,59 @@ describe("applyCliProfileEnv", () => {
     });
     expect(env.SKYKOI_STATE_DIR).toBe("/custom");
     expect(env.SKYKOI_GATEWAY_PORT).toBe("19099");
-    expect(env.SKYKOI_CONFIG_PATH).toBe(path.join("/custom", "SKYKOI.json"));
+    expect(env.SKYKOI_CONFIG_PATH).toBe(path.join("/custom", "skykoi.json"));
   });
 });
 
 describe("formatCliCommand", () => {
   it("returns command unchanged when no profile is set", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", {})).toBe("SKYKOI doctor --fix");
+    expect(formatCliCommand("skykoi doctor --fix", {})).toBe("SKYKOI doctor --fix");
   });
 
   it("returns command unchanged when profile is default", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", { SKYKOI_PROFILE: "default" })).toBe(
+    expect(formatCliCommand("skykoi doctor --fix", { SKYKOI_PROFILE: "default" })).toBe(
       "SKYKOI doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is Default (case-insensitive)", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", { SKYKOI_PROFILE: "Default" })).toBe(
+    expect(formatCliCommand("skykoi doctor --fix", { SKYKOI_PROFILE: "Default" })).toBe(
       "SKYKOI doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is invalid", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", { SKYKOI_PROFILE: "bad profile" })).toBe(
+    expect(formatCliCommand("skykoi doctor --fix", { SKYKOI_PROFILE: "bad profile" })).toBe(
       "SKYKOI doctor --fix",
     );
   });
 
   it("returns command unchanged when --profile is already present", () => {
     expect(
-      formatCliCommand("SKYKOI --profile work doctor --fix", { SKYKOI_PROFILE: "work" }),
+      formatCliCommand("skykoi --profile work doctor --fix", { SKYKOI_PROFILE: "work" }),
     ).toBe("SKYKOI --profile work doctor --fix");
   });
 
   it("returns command unchanged when --dev is already present", () => {
-    expect(formatCliCommand("SKYKOI --dev doctor", { SKYKOI_PROFILE: "dev" })).toBe(
+    expect(formatCliCommand("skykoi --dev doctor", { SKYKOI_PROFILE: "dev" })).toBe(
       "SKYKOI --dev doctor",
     );
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", { SKYKOI_PROFILE: "work" })).toBe(
+    expect(formatCliCommand("skykoi doctor --fix", { SKYKOI_PROFILE: "work" })).toBe(
       "SKYKOI --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("SKYKOI doctor --fix", { SKYKOI_PROFILE: "  jbSKYKOI  " })).toBe(
+    expect(formatCliCommand("skykoi doctor --fix", { SKYKOI_PROFILE: "  jbSKYKOI  " })).toBe(
       "SKYKOI --profile jbSKYKOI doctor --fix",
     );
   });
 
   it("handles command with no args after SKYKOI", () => {
-    expect(formatCliCommand("SKYKOI", { SKYKOI_PROFILE: "test" })).toBe(
+    expect(formatCliCommand("skykoi", { SKYKOI_PROFILE: "test" })).toBe(
       "SKYKOI --profile test",
     );
   });

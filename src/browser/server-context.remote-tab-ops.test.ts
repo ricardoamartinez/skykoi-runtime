@@ -12,7 +12,7 @@ vi.mock("./chrome.js", () => ({
 }));
 
 function makeState(
-  profile: "remote" | "SKYKOI",
+  profile: "remote" | "skykoi",
 ): BrowserServerState & { profiles: Map<string, { lastTargetId?: string | null }> } {
   return {
     // oxlint-disable-next-line typescript/no-explicit-any
@@ -277,12 +277,12 @@ describe("browser server-context tab selection state", () => {
     global.fetch = fetchMock;
 
     const { createBrowserRouteContext } = await import("./server-context.js");
-    const state = makeState("SKYKOI");
+    const state = makeState("skykoi");
     const ctx = createBrowserRouteContext({ getState: () => state });
-    const SKYKOI = ctx.forProfile("SKYKOI");
+    const SKYKOI = ctx.forProfile("skykoi");
 
     const opened = await SKYKOI.openTab("https://created.example");
     expect(opened.targetId).toBe("CREATED");
-    expect(state.profiles.get("SKYKOI")?.lastTargetId).toBe("CREATED");
+    expect(state.profiles.get("skykoi")?.lastTargetId).toBe("CREATED");
   });
 });

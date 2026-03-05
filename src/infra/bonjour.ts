@@ -40,7 +40,7 @@ function isDisabledByEnv() {
 
 function safeServiceName(name: string) {
   const trimmed = name.trim();
-  return trimmed.length > 0 ? trimmed : "SKYKOI";
+  return trimmed.length > 0 ? trimmed : "skykoi";
 }
 
 function prettifyInstanceName(name: string) {
@@ -96,12 +96,12 @@ export async function startGatewayBonjourAdvertiser(
   // Keep only the first label and normalize away a trailing `.local`.
   const hostnameRaw =
     process.env.SKYKOI_MDNS_HOSTNAME?.trim() ||
-    "SKYKOI";
+    "skykoi";
   const hostname =
     hostnameRaw
       .replace(/\.local$/i, "")
       .split(".")[0]
-      .trim() || "SKYKOI";
+      .trim() || "skykoi";
   const instanceName =
     typeof opts.instanceName === "string" && opts.instanceName.trim()
       ? opts.instanceName.trim()

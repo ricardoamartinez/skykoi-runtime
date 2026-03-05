@@ -12,9 +12,9 @@ export function resolveDefaultAgentWorkspaceDir(
 ): string {
   const profile = env.SKYKOI_PROFILE?.trim();
   if (profile && profile.toLowerCase() !== "default") {
-    return path.join(homedir(), ".SKYKOI", `workspace-${profile}`);
+    return path.join(homedir(), ".skykoi", `workspace-${profile}`);
   }
-  return path.join(homedir(), ".SKYKOI", "workspace");
+  return path.join(homedir(), ".skykoi", "workspace");
 }
 
 export const DEFAULT_AGENT_WORKSPACE_DIR = resolveDefaultAgentWorkspaceDir();

@@ -86,7 +86,7 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
       if (!json) {
         defaultRuntime.log(`Gateway service already ${service.loadedText}.`);
         defaultRuntime.log(
-          `Reinstall with: ${formatCliCommand("SKYKOI gateway install --force")}`,
+          `Reinstall with: ${formatCliCommand("skykoi gateway install --force")}`,
         );
       }
       return;

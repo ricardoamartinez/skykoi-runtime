@@ -34,7 +34,7 @@ beforeEach(() => {
     durationMs: 0,
   });
   legacyReadConfigFileSnapshot.mockReset().mockResolvedValue({
-    path: "/tmp/SKYKOI.json",
+    path: "/tmp/skykoi.json",
     exists: false,
     raw: null,
     parsed: {},
@@ -133,7 +133,7 @@ const runCommandWithTimeout = vi.fn().mockResolvedValue({
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 
 const legacyReadConfigFileSnapshot = vi.fn().mockResolvedValue({
-  path: "/tmp/SKYKOI.json",
+  path: "/tmp/skykoi.json",
   exists: false,
   raw: null,
   parsed: {},
@@ -180,7 +180,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
-    CONFIG_PATH: "/tmp/SKYKOI.json",
+    CONFIG_PATH: "/tmp/skykoi.json",
     createConfigIO,
     readConfigFileSnapshot,
     writeConfigFile,
@@ -328,7 +328,7 @@ vi.mock("./doctor-state-migrations.js", () => ({
 describe("doctor command", () => {
   it("migrates routing.allowFrom to channels.whatsapp.allowFrom", { timeout: 60_000 }, async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/SKYKOI.json",
+      path: "/tmp/skykoi.json",
       exists: true,
       raw: "{}",
       parsed: { routing: { allowFrom: ["+15555550123"] } },
@@ -372,7 +372,7 @@ describe("doctor command", () => {
 
   it("skips legacy gateway services migration", { timeout: 60_000 }, async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/SKYKOI.json",
+      path: "/tmp/skykoi.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -426,7 +426,7 @@ describe("doctor command", () => {
     });
 
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/SKYKOI.json",
+      path: "/tmp/skykoi.json",
       exists: true,
       raw: "{}",
       parsed: {},

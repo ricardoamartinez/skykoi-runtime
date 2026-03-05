@@ -158,14 +158,14 @@ describe("resolveSlackThreadTs", () => {
 
 describe("buildSlackSlashCommandMatcher", () => {
   it("matches with or without a leading slash", () => {
-    const matcher = buildSlackSlashCommandMatcher("SKYKOI");
+    const matcher = buildSlackSlashCommandMatcher("skykoi");
 
-    expect(matcher.test("SKYKOI")).toBe(true);
+    expect(matcher.test("skykoi")).toBe(true);
     expect(matcher.test("/SKYKOI")).toBe(true);
   });
 
   it("does not match similar names", () => {
-    const matcher = buildSlackSlashCommandMatcher("SKYKOI");
+    const matcher = buildSlackSlashCommandMatcher("skykoi");
 
     expect(matcher.test("/SKYKOI-bot")).toBe(false);
     expect(matcher.test("SKYKOI-bot")).toBe(false);

@@ -93,7 +93,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
         color: "#FF4500",
         attachOnly: cfgAttachOnly,
         headless: true,
-        defaultProfile: "SKYKOI",
+        defaultProfile: "skykoi",
         profiles: {
           SKYKOI: { cdpPort: testPort + 1, color: "#FF4500" },
         },
@@ -394,7 +394,7 @@ describe("backward compatibility (profile parameter)", () => {
     };
     expect(status.running).toBe(false);
     // Should use default profile (SKYKOI)
-    expect(status.profile).toBe("SKYKOI");
+    expect(status.profile).toBe("skykoi");
   });
 
   it("POST /start without profile uses default profile", async () => {
@@ -407,7 +407,7 @@ describe("backward compatibility (profile parameter)", () => {
       profile?: string;
     };
     expect(result.ok).toBe(true);
-    expect(result.profile).toBe("SKYKOI");
+    expect(result.profile).toBe("skykoi");
   });
 
   it("POST /stop without profile uses default profile", async () => {
@@ -422,7 +422,7 @@ describe("backward compatibility (profile parameter)", () => {
       profile?: string;
     };
     expect(result.ok).toBe(true);
-    expect(result.profile).toBe("SKYKOI");
+    expect(result.profile).toBe("skykoi");
   });
 
   it("GET /tabs without profile uses default profile", async () => {
@@ -465,7 +465,7 @@ describe("backward compatibility (profile parameter)", () => {
     };
     expect(Array.isArray(result.profiles)).toBe(true);
     // Should at least have the default SKYKOI profile
-    expect(result.profiles.some((p) => p.name === "SKYKOI")).toBe(true);
+    expect(result.profiles.some((p) => p.name === "skykoi")).toBe(true);
   });
 
   it("GET /tabs?profile=SKYKOI returns tabs for specified profile", async () => {

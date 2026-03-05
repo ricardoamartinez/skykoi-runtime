@@ -36,7 +36,7 @@ describe("buildWorkspaceSkillStatus", () => {
       name: "status-skill",
       description: "Needs setup",
       metadata:
-        '{"SKYKOI":{"requires":{"bins":["fakebin"],"env":["ENV_KEY"],"config":["browser.enabled"]},"install":[{"id":"brew","kind":"brew","formula":"fakebin","bins":["fakebin"],"label":"Install fakebin"}]}}',
+        '{"skykoi":{"requires":{"bins":["fakebin"],"env":["ENV_KEY"],"config":["browser.enabled"]},"install":[{"id":"brew","kind":"brew","formula":"fakebin","bins":["fakebin"],"label":"Install fakebin"}]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {
@@ -60,7 +60,7 @@ describe("buildWorkspaceSkillStatus", () => {
       dir: skillDir,
       name: "os-skill",
       description: "Darwin only",
-      metadata: '{"SKYKOI":{"os":["darwin"]}}',
+      metadata: '{"skykoi":{"os":["darwin"]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {
@@ -119,7 +119,7 @@ describe("buildWorkspaceSkillStatus", () => {
       name: "install-skill",
       description: "OS-specific installs",
       metadata:
-        '{"SKYKOI":{"requires":{"bins":["missing-bin"]},"install":[{"id":"mac","kind":"download","os":["darwin"],"url":"https://example.com/mac.tar.bz2"},{"id":"linux","kind":"download","os":["linux"],"url":"https://example.com/linux.tar.bz2"},{"id":"win","kind":"download","os":["win32"],"url":"https://example.com/win.tar.bz2"}]}}',
+        '{"skykoi":{"requires":{"bins":["missing-bin"]},"install":[{"id":"mac","kind":"download","os":["darwin"],"url":"https://example.com/mac.tar.bz2"},{"id":"linux","kind":"download","os":["linux"],"url":"https://example.com/linux.tar.bz2"},{"id":"win","kind":"download","os":["win32"],"url":"https://example.com/win.tar.bz2"}]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {

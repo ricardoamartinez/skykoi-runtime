@@ -121,10 +121,10 @@ describe("jidToE164", () => {
 });
 
 describe("resolveConfigDir", () => {
-  it("prefers ~/.SKYKOI when legacy dir is missing", async () => {
+  it("prefers ~/.skykoi when legacy dir is missing", async () => {
     const root = await fs.promises.mkdtemp(path.join(os.tmpdir(), "SKYKOI-config-dir-"));
     try {
-      const newDir = path.join(root, ".SKYKOI");
+      const newDir = path.join(root, ".skykoi");
       await fs.promises.mkdir(newDir, { recursive: true });
       const resolved = resolveConfigDir({} as NodeJS.ProcessEnv, () => root);
       expect(resolved).toBe(newDir);
@@ -158,7 +158,7 @@ describe("resolveUserPath", () => {
   });
 
   it("expands ~/ to home dir", () => {
-    expect(resolveUserPath("~/SKYKOI")).toBe(path.resolve(os.homedir(), "SKYKOI"));
+    expect(resolveUserPath("~/SKYKOI")).toBe(path.resolve(os.homedir(), "skykoi"));
   });
 
   it("resolves relative paths", () => {

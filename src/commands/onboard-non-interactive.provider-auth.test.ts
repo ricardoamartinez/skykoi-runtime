@@ -79,7 +79,7 @@ async function withOnboardEnv(
   delete process.env.SKYKOI_GATEWAY_PASSWORD;
 
   const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
-  const configPath = path.join(tempHome, "SKYKOI.json");
+  const configPath = path.join(tempHome, "skykoi.json");
   process.env.HOME = tempHome;
   process.env.SKYKOI_STATE_DIR = tempHome;
   process.env.SKYKOI_CONFIG_PATH = configPath;

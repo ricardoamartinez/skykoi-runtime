@@ -71,7 +71,7 @@ export function resolveSessionTranscriptCandidates(
     candidates.push(resolveSessionTranscriptPath(sessionId, agentId));
   }
   const home = os.homedir();
-  candidates.push(path.join(home, ".SKYKOI", "sessions", `${sessionId}.jsonl`));
+  candidates.push(path.join(home, ".skykoi", "sessions", `${sessionId}.jsonl`));
   return candidates;
 }
 

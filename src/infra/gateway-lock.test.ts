@@ -9,7 +9,7 @@ import { acquireGatewayLock, GatewayLockError } from "./gateway-lock.js";
 
 async function makeEnv() {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-gateway-lock-"));
-  const configPath = path.join(dir, "SKYKOI.json");
+  const configPath = path.join(dir, "skykoi.json");
   await fs.writeFile(configPath, "{}", "utf8");
   await fs.mkdir(resolveGatewayLockDir(), { recursive: true });
   return {

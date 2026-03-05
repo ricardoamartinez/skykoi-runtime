@@ -129,7 +129,7 @@ export async function maybeRemoveDeprecatedCliAuthProfiles(
   const lines = ["Deprecated external CLI auth profiles detected (no longer supported):"];
   if (deprecated.has(CLAUDE_CLI_PROFILE_ID)) {
     lines.push(
-      `- ${CLAUDE_CLI_PROFILE_ID} (Anthropic): use setup-token → ${formatCliCommand("SKYKOI models auth setup-token")}`,
+      `- ${CLAUDE_CLI_PROFILE_ID} (Anthropic): use setup-token → ${formatCliCommand("skykoi models auth setup-token")}`,
     );
   }
   if (deprecated.has(CODEX_CLI_PROFILE_ID)) {
@@ -208,16 +208,16 @@ type AuthIssue = {
 
 function formatAuthIssueHint(issue: AuthIssue): string | null {
   if (issue.provider === "anthropic" && issue.profileId === CLAUDE_CLI_PROFILE_ID) {
-    return `Deprecated profile. Use ${formatCliCommand("SKYKOI models auth setup-token")} or ${formatCliCommand(
+    return `Deprecated profile. Use ${formatCliCommand("skykoi models auth setup-token")} or ${formatCliCommand(
       "SKYKOI configure",
     )}.`;
   }
   if (issue.provider === "openai-codex" && issue.profileId === CODEX_CLI_PROFILE_ID) {
     return `Deprecated profile. Use ${formatCliCommand(
       "SKYKOI models auth login --provider openai-codex",
-    )} or ${formatCliCommand("SKYKOI configure")}.`;
+    )} or ${formatCliCommand("skykoi configure")}.`;
   }
-  return `Re-auth via \`${formatCliCommand("SKYKOI configure")}\` or \`${formatCliCommand("SKYKOI onboard")}\`.`;
+  return `Re-auth via \`${formatCliCommand("skykoi configure")}\` or \`${formatCliCommand("skykoi onboard")}\`.`;
 }
 
 function formatAuthIssueLine(issue: AuthIssue): string {

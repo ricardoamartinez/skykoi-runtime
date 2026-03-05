@@ -199,8 +199,8 @@ export function formatControlUiSshHint(params: {
     localUrl,
     authedUrl,
     "Docs:",
-    "https://docs.SKYKOI.com/gateway/remote",
-    "https://docs.SKYKOI.com/web/control-ui",
+    "https://docs.skykoi.com/gateway/remote",
+    "https://docs.skykoi.com/web/control-ui",
   ]
     .filter(Boolean)
     .join("\n");

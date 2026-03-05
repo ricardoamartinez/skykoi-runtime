@@ -91,7 +91,7 @@ describe("workspace path resolution", () => {
           await editTool?.execute("ws-edit", {
             path: testFile,
             oldText: "world",
-            newText: "SKYKOI",
+            newText: "skykoi",
           });
 
           const updated = await fs.readFile(path.join(workspaceDir, testFile), "utf8");

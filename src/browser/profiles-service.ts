@@ -20,7 +20,7 @@ export type CreateProfileParams = {
   name: string;
   color?: string;
   cdpUrl?: string;
-  driver?: "SKYKOI" | "extension";
+  driver?: "skykoi" | "extension";
 };
 
 export type CreateProfileResult = {

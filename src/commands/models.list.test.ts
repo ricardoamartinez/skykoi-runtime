@@ -19,7 +19,7 @@ const modelRegistryState = {
 };
 
 vi.mock("../config/config.js", () => ({
-  CONFIG_PATH: "/tmp/SKYKOI.json",
+  CONFIG_PATH: "/tmp/skykoi.json",
   STATE_DIR: "/tmp/SKYKOI-state",
   loadConfig,
 }));

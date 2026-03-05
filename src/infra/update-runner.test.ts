@@ -35,7 +35,7 @@ describe("runGatewayUpdate", () => {
 
   beforeEach(async () => {
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-update-"));
-    await fs.writeFile(path.join(tempDir, "SKYKOI.mjs"), "export {};\n", "utf-8");
+    await fs.writeFile(path.join(tempDir, "skykoi.mjs"), "export {};\n", "utf-8");
   });
 
   afterEach(async () => {
@@ -46,7 +46,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
     const { runner, calls } = createRunner({
@@ -71,7 +71,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
     const { runner, calls } = createRunner({
@@ -104,7 +104,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     const uiIndexPath = path.join(tempDir, "dist", "control-ui", "index.html");
@@ -124,7 +124,7 @@ describe("runGatewayUpdate", () => {
       "pnpm install": { stdout: "" },
       "pnpm build": { stdout: "" },
       "pnpm ui:build": { stdout: "" },
-      [`${process.execPath} ${path.join(tempDir, "SKYKOI.mjs")} doctor --non-interactive`]: {
+      [`${process.execPath} ${path.join(tempDir, "skykoi.mjs")} doctor --non-interactive`]: {
         stdout: "",
       },
     });
@@ -144,7 +144,7 @@ describe("runGatewayUpdate", () => {
   it("skips update when no git root", async () => {
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "skykoi", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     await fs.writeFile(path.join(tempDir, "pnpm-lock.yaml"), "", "utf-8");
@@ -168,11 +168,11 @@ describe("runGatewayUpdate", () => {
 
   it("updates global npm installs when detected", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "SKYKOI");
+    const pkgRoot = path.join(nodeModules, "skykoi");
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -189,7 +189,7 @@ describe("runGatewayUpdate", () => {
       if (key === "npm i -g SKYKOI@latest") {
         await fs.writeFile(
           path.join(pkgRoot, "package.json"),
-          JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+          JSON.stringify({ name: "skykoi", version: "2.0.0" }),
           "utf-8",
         );
         return { stdout: "ok", stderr: "", code: 0 };
@@ -215,11 +215,11 @@ describe("runGatewayUpdate", () => {
 
   it("uses update channel for global npm installs when tag is omitted", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "SKYKOI");
+    const pkgRoot = path.join(nodeModules, "skykoi");
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -236,7 +236,7 @@ describe("runGatewayUpdate", () => {
       if (key === "npm i -g SKYKOI@beta") {
         await fs.writeFile(
           path.join(pkgRoot, "package.json"),
-          JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+          JSON.stringify({ name: "skykoi", version: "2.0.0" }),
           "utf-8",
         );
         return { stdout: "ok", stderr: "", code: 0 };
@@ -263,13 +263,13 @@ describe("runGatewayUpdate", () => {
 
   it("cleans stale npm rename dirs before global update", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "SKYKOI");
-    const staleDir = path.join(nodeModules, ".SKYKOI-stale");
+    const pkgRoot = path.join(nodeModules, "skykoi");
+    const staleDir = path.join(nodeModules, ".skykoi-stale");
     await fs.mkdir(staleDir, { recursive: true });
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -305,11 +305,11 @@ describe("runGatewayUpdate", () => {
 
   it("updates global npm installs with tag override", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "SKYKOI");
+    const pkgRoot = path.join(nodeModules, "skykoi");
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -326,7 +326,7 @@ describe("runGatewayUpdate", () => {
       if (key === "npm i -g SKYKOI@beta") {
         await fs.writeFile(
           path.join(pkgRoot, "package.json"),
-          JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+          JSON.stringify({ name: "skykoi", version: "2.0.0" }),
           "utf-8",
         );
         return { stdout: "ok", stderr: "", code: 0 };
@@ -358,11 +358,11 @@ describe("runGatewayUpdate", () => {
 
     try {
       const bunGlobalRoot = path.join(bunInstall, "install", "global", "node_modules");
-      const pkgRoot = path.join(bunGlobalRoot, "SKYKOI");
+      const pkgRoot = path.join(bunGlobalRoot, "skykoi");
       await fs.mkdir(pkgRoot, { recursive: true });
       await fs.writeFile(
         path.join(pkgRoot, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "1.0.0" }),
         "utf-8",
       );
 
@@ -382,7 +382,7 @@ describe("runGatewayUpdate", () => {
         if (key === "bun add -g SKYKOI@latest") {
           await fs.writeFile(
             path.join(pkgRoot, "package.json"),
-            JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+            JSON.stringify({ name: "skykoi", version: "2.0.0" }),
             "utf-8",
           );
           return { stdout: "ok", stderr: "", code: 0 };
@@ -434,10 +434,10 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
-    await fs.rm(path.join(tempDir, "SKYKOI.mjs"), { force: true });
+    await fs.rm(path.join(tempDir, "skykoi.mjs"), { force: true });
 
     const stableTag = "v1.0.1-1";
     const { runner } = createRunner({
@@ -468,7 +468,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     const uiIndexPath = path.join(tempDir, "dist", "control-ui", "index.html");
@@ -513,7 +513,7 @@ describe("runGatewayUpdate", () => {
         return { stdout: "", stderr: "", code: 0 };
       }
       if (
-        key === `${process.execPath} ${path.join(tempDir, "SKYKOI.mjs")} doctor --non-interactive`
+        key === `${process.execPath} ${path.join(tempDir, "skykoi.mjs")} doctor --non-interactive`
       ) {
         await fs.rm(path.join(tempDir, "dist", "control-ui"), { recursive: true, force: true });
         return { stdout: "", stderr: "", code: 0 };
@@ -532,7 +532,7 @@ describe("runGatewayUpdate", () => {
     expect(uiBuildCount).toBe(2);
     expect(await pathExists(uiIndexPath)).toBe(true);
     expect(calls).toContain(
-      `${process.execPath} ${path.join(tempDir, "SKYKOI.mjs")} doctor --non-interactive`,
+      `${process.execPath} ${path.join(tempDir, "skykoi.mjs")} doctor --non-interactive`,
     );
   });
 
@@ -540,7 +540,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "SKYKOI", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "skykoi", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     const uiIndexPath = path.join(tempDir, "dist", "control-ui", "index.html");
@@ -584,7 +584,7 @@ describe("runGatewayUpdate", () => {
         return { stdout: "", stderr: "", code: 0 };
       }
       if (
-        key === `${process.execPath} ${path.join(tempDir, "SKYKOI.mjs")} doctor --non-interactive`
+        key === `${process.execPath} ${path.join(tempDir, "skykoi.mjs")} doctor --non-interactive`
       ) {
         await fs.rm(path.join(tempDir, "dist", "control-ui"), { recursive: true, force: true });
         return { stdout: "", stderr: "", code: 0 };

@@ -29,7 +29,7 @@ describe("resolveBundledSkillsDir", () => {
     delete process.env.SKYKOI_BUNDLED_SKILLS_DIR;
 
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-bundled-"));
-    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "SKYKOI" }));
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "skykoi" }));
 
     await writeSkill(path.join(root, "skills", "peekaboo"), "peekaboo");
 

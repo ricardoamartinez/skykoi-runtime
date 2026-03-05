@@ -132,7 +132,7 @@ export function buildSandboxCreateArgs(params: {
 }) {
   const createdAtMs = params.createdAtMs ?? Date.now();
   const args = ["create", "--name", params.name];
-  args.push("--label", "SKYKOI.sandbox=1");
+  args.push("--label", "skykoi.sandbox=1");
   args.push("--label", `SKYKOI.sessionKey=${params.scopeKey}`);
   args.push("--label", `SKYKOI.createdAtMs=${createdAtMs}`);
   if (params.configHash) {
@@ -259,7 +259,7 @@ async function readContainerConfigHash(containerName: string): Promise<string | 
     }
     return raw;
   };
-  return await readLabel("SKYKOI.configHash");
+  return await readLabel("skykoi.configHash");
 }
 
 function formatSandboxRecreateHint(params: { scope: SandboxConfig["scope"]; sessionKey: string }) {
@@ -270,7 +270,7 @@ function formatSandboxRecreateHint(params: { scope: SandboxConfig["scope"]; sess
     const agentId = resolveSandboxAgentId(params.sessionKey) ?? "main";
     return formatCliCommand(`SKYKOI sandbox recreate --agent ${agentId}`);
   }
-  return formatCliCommand("SKYKOI sandbox recreate --all");
+  return formatCliCommand("skykoi sandbox recreate --all");
 }
 
 export async function ensureSandboxContainer(params: {

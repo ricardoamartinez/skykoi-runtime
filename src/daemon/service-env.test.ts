@@ -225,12 +225,12 @@ describe("buildServiceEnvironment", () => {
     }
     expect(env.SKYKOI_GATEWAY_PORT).toBe("18789");
     expect(env.SKYKOI_GATEWAY_TOKEN).toBe("secret");
-    expect(env.SKYKOI_SERVICE_MARKER).toBe("SKYKOI");
+    expect(env.SKYKOI_SERVICE_MARKER).toBe("skykoi");
     expect(env.SKYKOI_SERVICE_KIND).toBe("gateway");
     expect(typeof env.SKYKOI_SERVICE_VERSION).toBe("string");
     expect(env.SKYKOI_SYSTEMD_UNIT).toBe("SKYKOI-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.SKYKOI.gateway");
+      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.skykoi.gateway");
     }
   });
 
@@ -241,7 +241,7 @@ describe("buildServiceEnvironment", () => {
     });
     expect(env.SKYKOI_SYSTEMD_UNIT).toBe("SKYKOI-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.SKYKOI.work");
+      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.skykoi.work");
     }
   });
 });

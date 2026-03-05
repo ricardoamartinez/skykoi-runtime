@@ -253,7 +253,7 @@ describe("provider usage loading", () => {
     await withTempHome(
       async (tempHome) => {
         const agentDir = path.join(
-          process.env.SKYKOI_STATE_DIR ?? path.join(tempHome, ".SKYKOI"),
+          process.env.SKYKOI_STATE_DIR ?? path.join(tempHome, ".skykoi"),
           "agents",
           "main",
           "agent",
@@ -328,7 +328,7 @@ describe("provider usage loading", () => {
       },
       {
         env: {
-          SKYKOI_STATE_DIR: (home) => path.join(home, ".SKYKOI"),
+          SKYKOI_STATE_DIR: (home) => path.join(home, ".skykoi"),
         },
         prefix: "SKYKOI-provider-usage-",
       },

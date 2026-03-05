@@ -16,10 +16,10 @@ export function resolveIsNixMode(env: NodeJS.ProcessEnv = process.env): boolean 
 
 export const isNixMode = resolveIsNixMode();
 
-const LEGACY_STATE_DIRNAMES = [".moltbot", ".moldbot"] as const;
-const NEW_STATE_DIRNAME = ".SKYKOI";
-const CONFIG_FILENAME = "SKYKOI.json";
-const LEGACY_CONFIG_FILENAMES = ["moltbot.json", "moldbot.json"] as const;
+const LEGACY_STATE_DIRNAMES = [".moltbot", ".moldbot", ".synurex"] as const;
+const NEW_STATE_DIRNAME = ".skykoi";
+const CONFIG_FILENAME = "skykoi.json";
+const LEGACY_CONFIG_FILENAMES = ["synurex.json", "moltbot.json", "moldbot.json"] as const;
 
 function legacyStateDirs(homedir: () => string = os.homedir): string[] {
   return LEGACY_STATE_DIRNAMES.map((dir) => path.join(homedir(), dir));
@@ -44,7 +44,7 @@ export function resolveNewStateDir(homedir: () => string = os.homedir): string {
 /**
  * State directory for mutable data (sessions, logs, caches).
  * Can be overridden via SKYKOI_STATE_DIR.
- * Default: ~/.SKYKOI
+ * Default: ~/.skykoi
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
@@ -90,7 +90,7 @@ export const STATE_DIR = resolveStateDir();
 /**
  * Config file path (JSON5).
  * Can be overridden via SKYKOI_CONFIG_PATH.
- * Default: ~/.SKYKOI/SKYKOI.json (or $SKYKOI_STATE_DIR/SKYKOI.json)
+ * Default: ~/.skykoi/skykoi.json (or $SKYKOI_STATE_DIR/skykoi.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
@@ -202,7 +202,7 @@ export const DEFAULT_GATEWAY_PORT = 18789;
 export function resolveGatewayLockDir(tmpdir: () => string = os.tmpdir): string {
   const base = tmpdir();
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
-  const suffix = uid != null ? `SKYKOI-${uid}` : "SKYKOI";
+  const suffix = uid != null ? `skykoi-${uid}` : "skykoi";
   return path.join(base, suffix);
 }
 

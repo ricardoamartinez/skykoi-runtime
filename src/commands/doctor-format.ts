@@ -82,10 +82,10 @@ export function buildGatewayRuntimeHints(
     hints.push(
       `LaunchAgent label cached but plist missing. Clear with: launchctl bootout gui/$UID/${label}`,
     );
-    hints.push(`Then reinstall: ${formatCliCommand("SKYKOI gateway install", env)}`);
+    hints.push(`Then reinstall: ${formatCliCommand("skykoi gateway install", env)}`);
   }
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("SKYKOI gateway install", env)}`);
+    hints.push(`Service not installed. Run: ${formatCliCommand("skykoi gateway install", env)}`);
     if (fileLog) {
       hints.push(`File logs: ${fileLog}`);
     }

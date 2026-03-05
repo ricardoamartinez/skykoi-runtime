@@ -87,7 +87,7 @@ describe("applyExtraParamsToAgent", () => {
     expect(calls).toHaveLength(1);
     expect(calls[0]?.headers).toEqual({
       "HTTP-Referer": "https://SKYKOI.ai",
-      "X-Title": "SKYKOI",
+      "X-Title": "skykoi",
       "X-Custom": "1",
     });
   });

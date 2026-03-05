@@ -327,7 +327,7 @@ export function discoverSKYKOIPlugins(params: {
   }
   if (workspaceDir) {
     const workspaceRoot = resolveUserPath(workspaceDir);
-    const workspaceExtDirs = [path.join(workspaceRoot, ".SKYKOI", "extensions")];
+    const workspaceExtDirs = [path.join(workspaceRoot, ".skykoi", "extensions")];
     for (const dir of workspaceExtDirs) {
       discoverInDirectory({
         dir,

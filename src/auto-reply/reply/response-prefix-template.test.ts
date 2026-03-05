@@ -51,14 +51,14 @@ describe("resolveResponsePrefixTemplate", () => {
 
   it("resolves {identity.name} variable", () => {
     const result = resolveResponsePrefixTemplate("[{identity.name}]", {
-      identityName: "SKYKOI",
+      identityName: "skykoi",
     });
     expect(result).toBe("[SKYKOI]");
   });
 
   it("resolves {identityName} as alias", () => {
     const result = resolveResponsePrefixTemplate("[{identityName}]", {
-      identityName: "SKYKOI",
+      identityName: "skykoi",
     });
     expect(result).toBe("[SKYKOI]");
   });
@@ -103,7 +103,7 @@ describe("resolveResponsePrefixTemplate", () => {
     const result = resolveResponsePrefixTemplate(
       "[{identity.name}] {provider}/{model} (think:{thinkingLevel})",
       {
-        identityName: "SKYKOI",
+        identityName: "skykoi",
         provider: "anthropic",
         model: "claude-opus-4-5",
         thinkingLevel: "high",

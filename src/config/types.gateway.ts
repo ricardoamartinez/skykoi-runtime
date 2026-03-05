@@ -15,7 +15,7 @@ export type GatewayTlsConfig = {
 
 export type WideAreaDiscoveryConfig = {
   enabled?: boolean;
-  /** Optional unicast DNS-SD domain (e.g. "SKYKOI.internal"). */
+  /** Optional unicast DNS-SD domain (e.g. "skykoi.internal"). */
   domain?: string;
 };
 
@@ -38,7 +38,7 @@ export type DiscoveryConfig = {
 
 export type CanvasHostConfig = {
   enabled?: boolean;
-  /** Directory to serve (default: ~/.SKYKOI/workspace/canvas). */
+  /** Directory to serve (default: ~/.skykoi/workspace/canvas). */
   root?: string;
   /** HTTP port to listen on (default: 18793). */
   port?: number;

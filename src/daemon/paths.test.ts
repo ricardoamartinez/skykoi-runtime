@@ -5,17 +5,17 @@ import { resolveGatewayStateDir } from "./paths.js";
 describe("resolveGatewayStateDir", () => {
   it("uses the default state dir when no overrides are set", () => {
     const env = { HOME: "/Users/test" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".SKYKOI"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".skykoi"));
   });
 
   it("appends the profile suffix when set", () => {
     const env = { HOME: "/Users/test", SKYKOI_PROFILE: "rescue" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".SKYKOI-rescue"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".skykoi-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
     const env = { HOME: "/Users/test", SKYKOI_PROFILE: "Default" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".SKYKOI"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".skykoi"));
   });
 
   it("uses SKYKOI_STATE_DIR when provided", () => {

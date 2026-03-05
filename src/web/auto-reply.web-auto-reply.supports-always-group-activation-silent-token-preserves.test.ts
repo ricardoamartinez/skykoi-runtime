@@ -248,7 +248,7 @@ describe("web auto-reply", () => {
 
     expect(resolver).not.toHaveBeenCalled();
 
-    // Text-based mentionPatterns still work (user can type "SKYKOI" explicitly).
+    // Text-based mentionPatterns still work (user can type "skykoi" explicitly).
     await capturedOnMessage?.({
       body: "SKYKOI ping",
       from: "123@g.us",

@@ -182,7 +182,7 @@ export async function applyAuthChoiceOpenAI(
       spin.stop("OpenAI OAuth failed");
       params.runtime.error(String(err));
       await params.prompter.note(
-        "Trouble with OAuth? See https://docs.SKYKOI.com/start/faq",
+        "Trouble with OAuth? See https://docs.skykoi.com/start/faq",
         "OAuth help",
       );
     }

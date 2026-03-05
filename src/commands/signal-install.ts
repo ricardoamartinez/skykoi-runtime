@@ -121,7 +121,7 @@ export async function installSignalCli(runtime: RuntimeEnv): Promise<SignalInsta
   const apiUrl = "https://api.github.com/repos/AsamK/signal-cli/releases/latest";
   const response = await fetch(apiUrl, {
     headers: {
-      "User-Agent": "SKYKOI",
+      "User-Agent": "skykoi",
       Accept: "application/vnd.github+json",
     },
   });

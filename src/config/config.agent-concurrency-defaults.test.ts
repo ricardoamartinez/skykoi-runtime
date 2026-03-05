@@ -43,10 +43,10 @@ describe("agent concurrency defaults", () => {
 
   it("injects defaults on load", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".SKYKOI");
+      const configDir = path.join(home, ".skykoi");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "SKYKOI.json"),
+        path.join(configDir, "skykoi.json"),
         JSON.stringify({}, null, 2),
         "utf-8",
       );

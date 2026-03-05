@@ -10,7 +10,7 @@ describe("ensureSKYKOICliOnPath", () => {
     try {
       const appBinDir = path.join(tmp, "AppBin");
       await fs.mkdir(appBinDir, { recursive: true });
-      const cliPath = path.join(appBinDir, "SKYKOI");
+      const cliPath = path.join(appBinDir, "skykoi");
       await fs.writeFile(cliPath, "#!/bin/sh\necho ok\n", "utf-8");
       await fs.chmod(cliPath, 0o755);
 
@@ -71,13 +71,13 @@ describe("ensureSKYKOICliOnPath", () => {
     try {
       const appBinDir = path.join(tmp, "AppBin");
       await fs.mkdir(appBinDir, { recursive: true });
-      const appCli = path.join(appBinDir, "SKYKOI");
+      const appCli = path.join(appBinDir, "skykoi");
       await fs.writeFile(appCli, "#!/bin/sh\necho ok\n", "utf-8");
       await fs.chmod(appCli, 0o755);
 
       const localBinDir = path.join(tmp, "node_modules", ".bin");
       await fs.mkdir(localBinDir, { recursive: true });
-      const localCli = path.join(localBinDir, "SKYKOI");
+      const localCli = path.join(localBinDir, "skykoi");
       await fs.writeFile(localCli, "#!/bin/sh\necho ok\n", "utf-8");
       await fs.chmod(localCli, 0o755);
 

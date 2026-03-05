@@ -128,7 +128,7 @@ export function resolveOutboundTarget(params: {
     return {
       ok: false,
       error: new Error(
-        `Delivering to WebChat is not supported via \`${formatCliCommand("SKYKOI agent")}\`; use WhatsApp/Telegram or run with --deliver=false.`,
+        `Delivering to WebChat is not supported via \`${formatCliCommand("skykoi agent")}\`; use WhatsApp/Telegram or run with --deliver=false.`,
       ),
     };
   }

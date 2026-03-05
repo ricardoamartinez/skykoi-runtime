@@ -89,7 +89,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.SKYKOI${suffix}`);
+  return path.join(homedir(), `.skykoi${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -115,8 +115,8 @@ export function applyCliProfileEnv(params: {
   }
 
   if (!env.SKYKOI_CONFIG_PATH?.trim() && !env.SKYKOI_CONFIG_PATH?.trim()) {
-    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "SKYKOI.json");
-    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "SKYKOI.json");
+    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "skykoi.json");
+    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "skykoi.json");
   }
 
   if (profile === "dev" && !env.SKYKOI_GATEWAY_PORT?.trim() && !env.SKYKOI_GATEWAY_PORT?.trim()) {

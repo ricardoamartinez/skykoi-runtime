@@ -102,7 +102,7 @@ export function registerBrowserExtensionCommands(
             `- "Load unpacked" → select: ${displayPath}`,
             `- Pin "SKYKOI Browser Relay", then click it on the tab (badge shows ON)`,
             "",
-            `${theme.muted("Docs:")} ${formatDocsLink("/tools/chrome-extension", "docs.SKYKOI.com/tools/chrome-extension")}`,
+            `${theme.muted("Docs:")} ${formatDocsLink("/tools/chrome-extension", "docs.skykoi.com/tools/chrome-extension")}`,
           ].join("\n"),
         ),
       );
@@ -118,8 +118,8 @@ export function registerBrowserExtensionCommands(
         defaultRuntime.error(
           danger(
             [
-              `Chrome extension is not installed. Run: "${formatCliCommand("SKYKOI browser extension install")}"`,
-              `Docs: ${formatDocsLink("/tools/chrome-extension", "docs.SKYKOI.com/tools/chrome-extension")}`,
+              `Chrome extension is not installed. Run: "${formatCliCommand("skykoi browser extension install")}"`,
+              `Docs: ${formatDocsLink("/tools/chrome-extension", "docs.skykoi.com/tools/chrome-extension")}`,
             ].join("\n"),
           ),
         );

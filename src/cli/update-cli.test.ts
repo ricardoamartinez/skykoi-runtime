@@ -236,7 +236,7 @@ describe("update-cli", () => {
     try {
       await fs.writeFile(
         path.join(tempDir, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "1.0.0" }),
         "utf-8",
       );
 
@@ -301,7 +301,7 @@ describe("update-cli", () => {
     try {
       await fs.writeFile(
         path.join(tempDir, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "1.0.0" }),
         "utf-8",
       );
 
@@ -354,7 +354,7 @@ describe("update-cli", () => {
     try {
       await fs.writeFile(
         path.join(tempDir, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "1.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "1.0.0" }),
         "utf-8",
       );
 
@@ -533,7 +533,7 @@ describe("update-cli", () => {
       setTty(false);
       await fs.writeFile(
         path.join(tempDir, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "2.0.0" }),
         "utf-8",
       );
 
@@ -586,7 +586,7 @@ describe("update-cli", () => {
       setTty(false);
       await fs.writeFile(
         path.join(tempDir, "package.json"),
-        JSON.stringify({ name: "SKYKOI", version: "2.0.0" }),
+        JSON.stringify({ name: "skykoi", version: "2.0.0" }),
         "utf-8",
       );
 

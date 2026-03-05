@@ -80,7 +80,7 @@ const DEFAULT_TIMEOUT_MS = 20 * 60_000;
 const MAX_LOG_CHARS = 8000;
 const PREFLIGHT_MAX_COMMITS = 10;
 const START_DIRS = ["cwd", "argv1", "process"];
-const DEFAULT_PACKAGE_NAME = "SKYKOI";
+const DEFAULT_PACKAGE_NAME = "skykoi";
 const CORE_PACKAGE_NAMES = new Set([DEFAULT_PACKAGE_NAME]);
 
 function normalizeDir(value?: string | null) {
@@ -750,7 +750,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
     );
     steps.push(uiBuildStep);
 
-    const doctorEntry = path.join(gitRoot, "SKYKOI.mjs");
+    const doctorEntry = path.join(gitRoot, "skykoi.mjs");
     const doctorEntryExists = await fs
       .stat(doctorEntry)
       .then(() => true)

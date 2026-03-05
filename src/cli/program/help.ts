@@ -37,11 +37,11 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     .version(ctx.programVersion)
     .option(
       "--dev",
-      "Dev profile: isolate state under ~/.SKYKOI-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
+      "Dev profile: isolate state under ~/.skykoi-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates SKYKOI_STATE_DIR/SKYKOI_CONFIG_PATH under ~/.SKYKOI-<name>)",
+      "Use a named profile (isolates SKYKOI_STATE_DIR/SKYKOI_CONFIG_PATH under ~/.skykoi-<name>)",
     );
 
   program.option("--no-color", "Disable ANSI colors", false);
@@ -92,7 +92,7 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     if (command !== program) {
       return "";
     }
-    const docs = formatDocsLink("/cli", "docs.SKYKOI.com/cli");
+    const docs = formatDocsLink("/cli", "docs.skykoi.com/cli");
     return `\n${theme.heading("Examples:")}\n${fmtExamples}\n\n${theme.muted("Docs:")} ${docs}\n`;
   });
 }

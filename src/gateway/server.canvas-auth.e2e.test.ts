@@ -14,7 +14,7 @@ async function withTempConfig(params: { cfg: unknown; run: () => Promise<void> }
   const prevDisableCache = process.env.SKYKOI_DISABLE_CONFIG_CACHE;
 
   const dir = await mkdtemp(path.join(os.tmpdir(), "SKYKOI-canvas-auth-test-"));
-  const configPath = path.join(dir, "SKYKOI.json");
+  const configPath = path.join(dir, "skykoi.json");
 
   process.env.SKYKOI_CONFIG_PATH = configPath;
   process.env.SKYKOI_DISABLE_CONFIG_CACHE = "1";

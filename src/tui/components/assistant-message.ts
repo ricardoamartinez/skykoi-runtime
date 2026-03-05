@@ -15,10 +15,10 @@ function formatTime(): string {
   return theme.dim(`${h}:${m}`);
 }
 
-let _agentLabel = "SKYKOI";
+let _agentLabel = "skykoi";
 
 export function setAssistantLabel(label: string) {
-  _agentLabel = label || "SKYKOI";
+  _agentLabel = label || "skykoi";
 }
 
 export class AssistantMessageComponent extends Container {

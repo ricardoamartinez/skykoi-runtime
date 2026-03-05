@@ -192,7 +192,7 @@ async function noteChannelPrimer(
   await prompter.note(
     [
       "DM security: default is pairing; unknown DMs get a pairing code.",
-      `Approve with: ${formatCliCommand("SKYKOI pairing approve <channel> <code>")}`,
+      `Approve with: ${formatCliCommand("skykoi pairing approve <channel> <code>")}`,
       'Public DMs require dmPolicy="open" + allowFrom=["*"].',
       'Multi-user DMs: set session.dmScope="per-channel-peer" (or "per-account-channel-peer" for multi-account channels) to isolate sessions.',
       `Docs: ${formatDocsLink("/start/pairing", "start/pairing")}`,
@@ -616,7 +616,7 @@ export async function setupChannels(
         {
           value: "__skip__",
           label: "Skip for now",
-          hint: `You can add channels later via \`${formatCliCommand("SKYKOI channels add")}\``,
+          hint: `You can add channels later via \`${formatCliCommand("skykoi channels add")}\``,
         },
       ],
       initialValue: quickstartDefault,

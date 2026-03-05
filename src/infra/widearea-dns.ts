@@ -104,8 +104,8 @@ export type WideAreaGatewayZoneOpts = {
 };
 
 function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string {
-  const hostname = os.hostname().split(".")[0] ?? "SKYKOI";
-  const hostLabel = dnsLabel(opts.hostLabel ?? hostname, "SKYKOI");
+  const hostname = os.hostname().split(".")[0] ?? "skykoi";
+  const hostLabel = dnsLabel(opts.hostLabel ?? hostname, "skykoi");
   const instanceLabel = dnsLabel(opts.instanceLabel ?? `${hostname}-gateway`, "SKYKOI-gw");
   const domain = normalizeWideAreaDomain(opts.domain) ?? "local.";
 

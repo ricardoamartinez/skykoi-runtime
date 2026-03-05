@@ -21,7 +21,7 @@ description: |
 name: session-memory
 metadata:
   {
-    "SKYKOI":
+    "skykoi":
       {
         "emoji": "disk",
         "events": ["command:new"],
@@ -39,11 +39,11 @@ metadata:
   it("preserves inline JSON values", () => {
     const content = `---
 name: inline-json
-metadata: {"SKYKOI": {"events": ["test"]}}
+metadata: {"skykoi": {"events": ["test"]}}
 ---
 `;
     const result = parseFrontmatterBlock(content);
-    expect(result.metadata).toBe('{"SKYKOI": {"events": ["test"]}}');
+    expect(result.metadata).toBe('{"skykoi": {"events": ["test"]}}');
   });
 
   it("stringifies YAML objects and arrays", () => {

@@ -86,21 +86,21 @@ export function renderGatewayServiceStopHints(env: NodeJS.ProcessEnv = process.e
   switch (process.platform) {
     case "darwin":
       return [
-        `Tip: ${formatCliCommand("SKYKOI gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: launchctl bootout gui/$UID/${resolveGatewayLaunchAgentLabel(profile)}`,
       ];
     case "linux":
       return [
-        `Tip: ${formatCliCommand("SKYKOI gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: systemctl --user stop ${resolveGatewaySystemdServiceName(profile)}.service`,
       ];
     case "win32":
       return [
-        `Tip: ${formatCliCommand("SKYKOI gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: schtasks /End /TN "${resolveGatewayWindowsTaskName(profile)}"`,
       ];
     default:
-      return [`Tip: ${formatCliCommand("SKYKOI gateway stop")}`];
+      return [`Tip: ${formatCliCommand("skykoi gateway stop")}`];
   }
 }
 

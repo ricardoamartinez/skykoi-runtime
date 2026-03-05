@@ -9,10 +9,10 @@ import {
 
 const ROOT_DIR = path.parse(process.cwd()).root;
 const CONFIG_DIR = path.join(ROOT_DIR, "config");
-const ETC_SKYKOI_DIR = path.join(ROOT_DIR, "etc", "SKYKOI");
+const ETC_SKYKOI_DIR = path.join(ROOT_DIR, "etc", "skykoi");
 const SHARED_DIR = path.join(ROOT_DIR, "shared");
 
-const DEFAULT_BASE_PATH = path.join(CONFIG_DIR, "SKYKOI.json");
+const DEFAULT_BASE_PATH = path.join(CONFIG_DIR, "skykoi.json");
 
 function configPath(...parts: string[]) {
   return path.join(CONFIG_DIR, ...parts);
@@ -281,7 +281,7 @@ describe("resolveConfigIncludes", () => {
   it("resolves parent directory references", () => {
     const files = { [sharedPath("common.json")]: { shared: true } };
     const obj = { $include: "../../shared/common.json" };
-    expect(resolve(obj, files, configPath("sub", "SKYKOI.json"))).toEqual({
+    expect(resolve(obj, files, configPath("sub", "skykoi.json"))).toEqual({
       shared: true,
     });
   });

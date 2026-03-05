@@ -76,7 +76,7 @@ export function registerChannelsCli(program: Command) {
       () =>
         `\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/channels",
-          "docs.SKYKOI.com/cli/channels",
+          "docs.skykoi.com/cli/channels",
         )}\n`,
     );
 

@@ -14,7 +14,7 @@ export type ResolveBonjourCliPathOptions = {
 export function formatBonjourInstanceName(displayName: string) {
   const trimmed = displayName.trim();
   if (!trimmed) {
-    return "SKYKOI";
+    return "skykoi";
   }
   if (/SKYKOI/i.test(trimmed)) {
     return trimmed;
@@ -40,7 +40,7 @@ export function resolveBonjourCliPath(opts: ResolveBonjourCliPathOptions = {}): 
 
   const execPath = opts.execPath ?? process.execPath;
   const execDir = path.dirname(execPath);
-  const siblingCli = path.join(execDir, "SKYKOI");
+  const siblingCli = path.join(execDir, "skykoi");
   if (isFile(siblingCli)) {
     return siblingCli;
   }
@@ -56,7 +56,7 @@ export function resolveBonjourCliPath(opts: ResolveBonjourCliPathOptions = {}): 
   if (isFile(distCli)) {
     return distCli;
   }
-  const binCli = path.join(cwd, "bin", "SKYKOI");
+  const binCli = path.join(cwd, "bin", "skykoi");
   if (isFile(binCli)) {
     return binCli;
   }

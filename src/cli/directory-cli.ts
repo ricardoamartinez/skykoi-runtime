@@ -46,7 +46,7 @@ export function registerDirectoryCli(program: Command) {
       () =>
         `\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/directory",
-          "docs.SKYKOI.com/cli/directory",
+          "docs.skykoi.com/cli/directory",
         )}\n`,
     )
     .action(() => {

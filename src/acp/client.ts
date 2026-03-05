@@ -80,7 +80,7 @@ export async function createAcpClient(opts: AcpClientOptions = {}): Promise<AcpC
   const log = verbose ? (msg: string) => console.error(`[acp-client] ${msg}`) : () => {};
 
   ensureSKYKOICliOnPath({ cwd });
-  const serverCommand = opts.serverCommand ?? "SKYKOI";
+  const serverCommand = opts.serverCommand ?? "skykoi";
   const serverArgs = buildServerArgs(opts);
 
   log(`spawning: ${serverCommand} ${serverArgs.join(" ")}`);

@@ -48,23 +48,23 @@ describe("state + config path candidates", () => {
     const home = "/home/test";
     const candidates = resolveDefaultConfigCandidates({} as NodeJS.ProcessEnv, () => home);
     const expected = [
-      path.join(home, ".SKYKOI", "SKYKOI.json"),
-      path.join(home, ".SKYKOI", "moltbot.json"),
-      path.join(home, ".SKYKOI", "moldbot.json"),
-      path.join(home, ".moltbot", "SKYKOI.json"),
+      path.join(home, ".skykoi", "skykoi.json"),
+      path.join(home, ".skykoi", "moltbot.json"),
+      path.join(home, ".skykoi", "moldbot.json"),
+      path.join(home, ".moltbot", "skykoi.json"),
       path.join(home, ".moltbot", "moltbot.json"),
       path.join(home, ".moltbot", "moldbot.json"),
-      path.join(home, ".moldbot", "SKYKOI.json"),
+      path.join(home, ".moldbot", "skykoi.json"),
       path.join(home, ".moldbot", "moltbot.json"),
       path.join(home, ".moldbot", "moldbot.json"),
     ];
     expect(candidates).toEqual(expected);
   });
 
-  it("prefers ~/.SKYKOI when it exists and legacy dir is missing", async () => {
+  it("prefers ~/.skykoi when it exists and legacy dir is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-state-"));
     try {
-      const newDir = path.join(root, ".SKYKOI");
+      const newDir = path.join(root, ".skykoi");
       await fs.mkdir(newDir, { recursive: true });
       const resolved = resolveStateDir({} as NodeJS.ProcessEnv, () => root);
       expect(resolved).toBe(newDir);
@@ -82,9 +82,9 @@ describe("state + config path candidates", () => {
     const previousSKYKOIConfig = process.env.SKYKOI_CONFIG_PATH;
     const previousSKYKOIState = process.env.SKYKOI_STATE_DIR;
     try {
-      const legacyDir = path.join(root, ".SKYKOI");
+      const legacyDir = path.join(root, ".skykoi");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyPath = path.join(legacyDir, "SKYKOI.json");
+      const legacyPath = path.join(legacyDir, "skykoi.json");
       await fs.writeFile(legacyPath, "{}", "utf-8");
 
       process.env.HOME = root;
@@ -149,15 +149,15 @@ describe("state + config path candidates", () => {
   it("respects state dir overrides when config is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-config-override-"));
     try {
-      const legacyDir = path.join(root, ".SKYKOI");
+      const legacyDir = path.join(root, ".skykoi");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyConfig = path.join(legacyDir, "SKYKOI.json");
+      const legacyConfig = path.join(legacyDir, "skykoi.json");
       await fs.writeFile(legacyConfig, "{}", "utf-8");
 
       const overrideDir = path.join(root, "override");
       const env = { SKYKOI_STATE_DIR: overrideDir } as NodeJS.ProcessEnv;
       const resolved = resolveConfigPath(env, overrideDir, () => root);
-      expect(resolved).toBe(path.join(overrideDir, "SKYKOI.json"));
+      expect(resolved).toBe(path.join(overrideDir, "skykoi.json"));
     } finally {
       await fs.rm(root, { recursive: true, force: true });
     }
