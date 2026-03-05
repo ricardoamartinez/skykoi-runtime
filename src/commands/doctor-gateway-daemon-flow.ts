@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorOptions, DoctorPrompter } from "./doctor-prompter.js";
 import { formatCliCommand } from "../cli/command-format.js";
@@ -86,7 +86,7 @@ async function maybeRepairLaunchAgentBootstrap(params: {
 }
 
 export async function maybeRepairGatewayDaemon(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   runtime: RuntimeEnv;
   prompter: DoctorPrompter;
   options: DoctorOptions;
@@ -120,7 +120,7 @@ export async function maybeRepairGatewayDaemon(params: {
     await maybeRepairLaunchAgentBootstrap({
       env: {
         ...process.env,
-        SYNUREX_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+        SKYKOI_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
       },
       title: "Node",
       runtime: params.runtime,
@@ -175,7 +175,7 @@ export async function maybeRepairGatewayDaemon(params: {
         const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
           env: process.env,
           port,
-          token: params.cfg.gateway?.auth?.token ?? (process.env.SYNUREX_GATEWAY_TOKEN),
+          token: params.cfg.gateway?.auth?.token ?? (process.env.SKYKOI_GATEWAY_TOKEN),
           runtime: daemonRuntime,
           warn: (message, title) => note(message, title),
           config: params.cfg,
@@ -226,9 +226,9 @@ export async function maybeRepairGatewayDaemon(params: {
   }
 
   if (process.platform === "darwin") {
-    const label = resolveGatewayLaunchAgentLabel((process.env.SYNUREX_PROFILE));
+    const label = resolveGatewayLaunchAgentLabel((process.env.SKYKOI_PROFILE));
     note(
-      `LaunchAgent loaded; stopping requires "${formatCliCommand("synurex gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
+      `LaunchAgent loaded; stopping requires "${formatCliCommand("SKYKOI gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
       "Gateway",
     );
   }

@@ -1,7 +1,7 @@
 ---
 read_when:
   - 你需要多个隔离的智能体（工作区 + 路由 + 认证）
-summary: "`Synurex agents` 的 CLI 参考（列出/添加/删除/设置身份）"
+summary: "`SKYKOI agents` 的 CLI 参考（列出/添加/删除/设置身份）"
 title: agents
 x-i18n:
   generated_at: "2026-02-01T19:58:38Z"
@@ -12,7 +12,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `Synurex agents`
+# `SKYKOI agents`
 
 管理隔离的智能体（工作区 + 认证 + 路由）。
 
@@ -24,18 +24,18 @@ x-i18n:
 ## 示例
 
 ```bash
-Synurex agents list
-Synurex agents add work --workspace ~/.synurex/workspace-work
-Synurex agents set-identity --workspace ~/.synurex/workspace --from-identity
-Synurex agents set-identity --agent main --avatar avatars/Synurex.png
-Synurex agents delete work
+SKYKOI agents list
+SKYKOI agents add work --workspace ~/.SKYKOI/workspace-work
+SKYKOI agents set-identity --workspace ~/.SKYKOI/workspace --from-identity
+SKYKOI agents set-identity --agent main --avatar avatars/SKYKOI.png
+SKYKOI agents delete work
 ```
 
 ## 身份文件
 
 每个智能体工作区可以在工作区根目录包含一个 `IDENTITY.md`：
 
-- 示例路径：`~/.synurex/workspace/IDENTITY.md`
+- 示例路径：`~/.SKYKOI/workspace/IDENTITY.md`
 - `set-identity --from-identity` 从工作区根目录读取（或从显式指定的 `--identity-file` 读取）
 
 头像路径相对于工作区根目录解析。
@@ -52,13 +52,13 @@ Synurex agents delete work
 从 `IDENTITY.md` 加载：
 
 ```bash
-Synurex agents set-identity --workspace ~/.synurex/workspace --from-identity
+SKYKOI agents set-identity --workspace ~/.SKYKOI/workspace --from-identity
 ```
 
 显式覆盖字段：
 
 ```bash
-Synurex agents set-identity --agent main --name "Synurex" --emoji "🦞" --avatar avatars/Synurex.png
+SKYKOI agents set-identity --agent main --name "SKYKOI" --emoji "🦞" --avatar avatars/SKYKOI.png
 ```
 
 配置示例：
@@ -70,10 +70,10 @@ Synurex agents set-identity --agent main --name "Synurex" --emoji "🦞" --avata
       {
         id: "main",
         identity: {
-          name: "Synurex",
+          name: "SKYKOI",
           theme: "space lobster",
           emoji: "🦞",
-          avatar: "avatars/Synurex.png",
+          avatar: "avatars/SKYKOI.png",
         },
       },
     ],

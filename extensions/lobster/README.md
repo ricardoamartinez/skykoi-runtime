@@ -5,7 +5,7 @@ Adds the `lobster` agent tool as an **optional** plugin tool.
 ## What this is
 
 - Lobster is a standalone workflow shell (typed JSON-first pipelines + approvals/resume).
-- This plugin integrates Lobster with Synurex _without core changes_.
+- This plugin integrates Lobster with SKYKOI _without core changes_.
 
 ## Enable
 
@@ -30,19 +30,19 @@ Enable it in an agent allowlist:
 }
 ```
 
-## Using `Synurex.invoke` (Lobster → Synurex tools)
+## Using `SKYKOI.invoke` (Lobster → SKYKOI tools)
 
-Some Lobster pipelines may include a `Synurex.invoke` step to call back into Synurex tools/plugins (for example: `gog` for Google Workspace, `gh` for GitHub, `message.send`, etc.).
+Some Lobster pipelines may include a `SKYKOI.invoke` step to call back into SKYKOI tools/plugins (for example: `gog` for Google Workspace, `gh` for GitHub, `message.send`, etc.).
 
-For this to work, the Synurex Gateway must expose the tool bridge endpoint and the target tool must be allowed by policy:
+For this to work, the SKYKOI Gateway must expose the tool bridge endpoint and the target tool must be allowed by policy:
 
-- Synurex provides an HTTP endpoint: `POST /tools/invoke`.
+- SKYKOI provides an HTTP endpoint: `POST /tools/invoke`.
 - The request is gated by **gateway auth** (e.g. `Authorization: Bearer …` when token auth is enabled).
-- The invoked tool is gated by **tool policy** (global + per-agent + provider + group policy). If the tool is not allowed, Synurex returns `404 Tool not available`.
+- The invoked tool is gated by **tool policy** (global + per-agent + provider + group policy). If the tool is not allowed, SKYKOI returns `404 Tool not available`.
 
 ### Allowlisting recommended
 
-To avoid letting workflows call arbitrary tools, set a tight allowlist on the agent that will be used by `Synurex.invoke`.
+To avoid letting workflows call arbitrary tools, set a tight allowlist on the agent that will be used by `SKYKOI.invoke`.
 
 Example (allow only a small set of tools):
 

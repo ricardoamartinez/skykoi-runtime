@@ -10,16 +10,16 @@ title: "Logging"
 
 For a user-facing overview (CLI + Control UI + config), see [/logging](/logging).
 
-Synurex has two log “surfaces”:
+SKYKOI has two log “surfaces”:
 
 - **Console output** (what you see in the terminal / Debug UI).
 - **File logs** (JSON lines) written by the gateway logger.
 
 ## File-based logger
 
-- Default rolling log file is under `/tmp/Synurex/` (one file per day): `Synurex-YYYY-MM-DD.log`
+- Default rolling log file is under `/tmp/SKYKOI/` (one file per day): `SKYKOI-YYYY-MM-DD.log`
   - Date uses the gateway host's local timezone.
-- The log file path and level can be configured via `~/.synurex/synurex.json`:
+- The log file path and level can be configured via `~/.SKYKOI/SKYKOI.json`:
   - `logging.file`
   - `logging.level`
 
@@ -29,7 +29,7 @@ The Control UI Logs tab tails this file via the gateway (`logs.tail`).
 CLI can do the same:
 
 ```bash
-Synurex logs --follow
+SKYKOI logs --follow
 ```
 
 **Verbose vs. log levels**
@@ -73,7 +73,7 @@ The gateway prints WebSocket protocol logs in two modes:
 
 ### WS log style
 
-`Synurex gateway` supports a per-gateway style switch:
+`SKYKOI gateway` supports a per-gateway style switch:
 
 - `--ws-log auto` (default): normal mode is optimized; verbose mode uses compact output
 - `--ws-log compact`: compact output (paired request/response) when verbose
@@ -84,13 +84,13 @@ Examples:
 
 ```bash
 # optimized (only errors/slow)
-Synurex gateway
+SKYKOI gateway
 
 # show all WS traffic (paired)
-Synurex gateway --verbose --ws-log compact
+SKYKOI gateway --verbose --ws-log compact
 
 # show all WS traffic (full meta)
-Synurex gateway --verbose --ws-log full
+SKYKOI gateway --verbose --ws-log full
 ```
 
 ## Console formatting (subsystem logging)

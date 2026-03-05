@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type {
   SandboxToolPolicy,
   SandboxToolPolicyResolved,
@@ -69,7 +69,7 @@ export function isToolAllowed(policy: SandboxToolPolicy, name: string) {
 }
 
 export function resolveSandboxToolPolicyForAgent(
-  cfg?: SynurexConfig,
+  cfg?: SKYKOIConfig,
   agentId?: string,
 ): SandboxToolPolicyResolved {
   const agentConfig = cfg && agentId ? resolveAgentConfig(cfg, agentId) : undefined;

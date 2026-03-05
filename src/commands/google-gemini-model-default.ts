@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { AgentModelListConfig } from "../config/types.js";
 
 export const GOOGLE_GEMINI_DEFAULT_MODEL = "google/gemini-3-pro-preview";
@@ -13,8 +13,8 @@ function resolvePrimaryModel(model?: AgentModelListConfig | string): string | un
   return undefined;
 }
 
-export function applyGoogleGeminiModelDefault(cfg: SynurexConfig): {
-  next: SynurexConfig;
+export function applyGoogleGeminiModelDefault(cfg: SKYKOIConfig): {
+  next: SKYKOIConfig;
   changed: boolean;
 } {
   const current = resolvePrimaryModel(cfg.agents?.defaults?.model)?.trim();

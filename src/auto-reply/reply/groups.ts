@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { GroupKeyResolution, SessionEntry } from "../../config/sessions.js";
 import type { TemplateContext } from "../templating.js";
 import { getChannelDock } from "../../channels/dock.js";
@@ -29,7 +29,7 @@ function extractGroupId(raw: string | undefined | null): string | undefined {
 }
 
 export function resolveGroupRequireMention(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   ctx: TemplateContext;
   groupResolution?: GroupKeyResolution;
 }): boolean {
@@ -60,7 +60,7 @@ export function defaultGroupActivation(requireMention: boolean): "always" | "men
 }
 
 export function buildGroupIntro(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   sessionCtx: TemplateContext;
   sessionEntry?: SessionEntry;
   defaultActivation: "always" | "mention";
@@ -107,7 +107,7 @@ export function buildGroupIntro(params: {
     : undefined;
   const silenceLine =
     activation === "always"
-      ? `If no response is needed, reply with exactly "${params.silentToken}" (and nothing else) so Synurex stays silent. Do not add any other words, punctuation, tags, markdown/code blocks, or explanations.`
+      ? `If no response is needed, reply with exactly "${params.silentToken}" (and nothing else) so SKYKOI stays silent. Do not add any other words, punctuation, tags, markdown/code blocks, or explanations.`
       : undefined;
   const cautionLine =
     activation === "always"

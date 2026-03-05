@@ -855,7 +855,7 @@ export function attachGatewayWsMessageHandler(params: {
           type: "hello-ok",
           protocol: PROTOCOL_VERSION,
           server: {
-            version: process.env.SYNUREX_VERSION ?? process.env.npm_package_version ?? "dev",
+            version: process.env.SKYKOI_VERSION ?? process.env.npm_package_version ?? "dev",
             commit: process.env.GIT_COMMIT,
             host: os.hostname(),
             connId,

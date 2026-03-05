@@ -8,7 +8,7 @@ import {
   extensionForMime,
   extractOriginalFilename,
   getFileExtension,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 
 /**
  * Detect MIME type from URL extension or data URL.

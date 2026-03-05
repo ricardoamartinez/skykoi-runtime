@@ -4,7 +4,7 @@ description: Edit PDFs with natural-language instructions using the nano-pdf CLI
 homepage: https://pypi.org/project/nano-pdf/
 metadata:
   {
-    "Synurex":
+    "SKYKOI":
       {
         "emoji": "📄",
         "requires": { "bins": ["nano-pdf"] },

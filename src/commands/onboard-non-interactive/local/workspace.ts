@@ -1,10 +1,10 @@
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SKYKOIConfig } from "../../../config/config.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { resolveUserPath } from "../../../utils.js";
 
 export function resolveNonInteractiveWorkspaceDir(params: {
   opts: OnboardOptions;
-  baseConfig: SynurexConfig;
+  baseConfig: SKYKOIConfig;
   defaultWorkspaceDir: string;
 }) {
   const raw = (

@@ -113,7 +113,7 @@ export async function appendAssistantMessageToSessionTranscript(params: {
     role: "assistant",
     content: [{ type: "text", text: mirrorText }],
     api: "openai-responses",
-    provider: "synurex",
+    provider: "SKYKOI",
     model: "delivery-mirror",
     usage: {
       input: 0,

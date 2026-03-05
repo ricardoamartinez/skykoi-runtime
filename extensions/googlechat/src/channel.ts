@@ -15,9 +15,9 @@ import {
   type ChannelDock,
   type ChannelMessageActionAdapter,
   type ChannelPlugin,
-  type SynurexConfig,
-} from "Synurex/plugin-sdk";
-import { GoogleChatConfigSchema } from "Synurex/plugin-sdk";
+  type SKYKOIConfig,
+} from "SKYKOI/plugin-sdk";
+import { GoogleChatConfigSchema } from "SKYKOI/plugin-sdk";
 import {
   listGoogleChatAccountIds,
   resolveDefaultGoogleChatAccountId,
@@ -347,7 +347,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
               ...configPatch,
             },
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       return {
         ...next,
@@ -366,7 +366,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
   },
   outbound: {

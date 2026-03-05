@@ -9,7 +9,7 @@ title: "Logging"
 
 # Logging
 
-Synurex logs in two places:
+SKYKOI logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -21,16 +21,16 @@ levels and formats.
 
 By default, the Gateway writes a rolling log file under:
 
-`/tmp/Synurex/Synurex-YYYY-MM-DD.log`
+`/tmp/SKYKOI/SKYKOI-YYYY-MM-DD.log`
 
 The date uses the gateway host's local timezone.
 
-You can override this in `~/.synurex/synurex.json`:
+You can override this in `~/.SKYKOI/SKYKOI.json`:
 
 ```json
 {
   "logging": {
-    "file": "/path/to/Synurex.log"
+    "file": "/path/to/SKYKOI.log"
   }
 }
 ```
@@ -42,7 +42,7 @@ You can override this in `~/.synurex/synurex.json`:
 Use the CLI to tail the gateway log file via RPC:
 
 ```bash
-Synurex logs --follow
+SKYKOI logs --follow
 ```
 
 Output modes:
@@ -63,7 +63,7 @@ In JSON mode, the CLI emits `type`-tagged objects:
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-Synurex doctor
+SKYKOI doctor
 ```
 
 ### Control UI (web)
@@ -76,7 +76,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-Synurex channels logs --channel whatsapp
+SKYKOI channels logs --channel whatsapp
 ```
 
 ## Log formats
@@ -98,13 +98,13 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 ## Configuring logging
 
-All logging configuration lives under `logging` in `~/.synurex/synurex.json`.
+All logging configuration lives under `logging` in `~/.SKYKOI/SKYKOI.json`.
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/Synurex/Synurex-YYYY-MM-DD.log",
+    "file": "/tmp/SKYKOI/SKYKOI-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -150,7 +150,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- Synurex exports via **OTLP/HTTP (protobuf)** today.
+- SKYKOI exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 
@@ -210,7 +210,7 @@ Flags are case-insensitive and support wildcards (e.g. `telegram.*` or `*`).
 Env override (one-off):
 
 ```
-SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
+SKYKOI_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Notes:
@@ -240,7 +240,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "Synurex-gateway",
+      "serviceName": "SKYKOI-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -253,7 +253,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
 Notes:
 
-- You can also enable the plugin with `Synurex plugins enable diagnostics-otel`.
+- You can also enable the plugin with `SKYKOI plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
   counters/histograms (webhooks, queueing, session state, queue depth/wait).
@@ -267,60 +267,60 @@ Notes:
 
 Model usage:
 
-- `Synurex.tokens` (counter, attrs: `Synurex.token`, `Synurex.channel`,
-  `Synurex.provider`, `Synurex.model`)
-- `Synurex.cost.usd` (counter, attrs: `Synurex.channel`, `Synurex.provider`,
-  `Synurex.model`)
-- `Synurex.run.duration_ms` (histogram, attrs: `Synurex.channel`,
-  `Synurex.provider`, `Synurex.model`)
-- `Synurex.context.tokens` (histogram, attrs: `Synurex.context`,
-  `Synurex.channel`, `Synurex.provider`, `Synurex.model`)
+- `SKYKOI.tokens` (counter, attrs: `SKYKOI.token`, `SKYKOI.channel`,
+  `SKYKOI.provider`, `SKYKOI.model`)
+- `SKYKOI.cost.usd` (counter, attrs: `SKYKOI.channel`, `SKYKOI.provider`,
+  `SKYKOI.model`)
+- `SKYKOI.run.duration_ms` (histogram, attrs: `SKYKOI.channel`,
+  `SKYKOI.provider`, `SKYKOI.model`)
+- `SKYKOI.context.tokens` (histogram, attrs: `SKYKOI.context`,
+  `SKYKOI.channel`, `SKYKOI.provider`, `SKYKOI.model`)
 
 Message flow:
 
-- `Synurex.webhook.received` (counter, attrs: `Synurex.channel`,
-  `Synurex.webhook`)
-- `Synurex.webhook.error` (counter, attrs: `Synurex.channel`,
-  `Synurex.webhook`)
-- `Synurex.webhook.duration_ms` (histogram, attrs: `Synurex.channel`,
-  `Synurex.webhook`)
-- `Synurex.message.queued` (counter, attrs: `Synurex.channel`,
-  `Synurex.source`)
-- `Synurex.message.processed` (counter, attrs: `Synurex.channel`,
-  `Synurex.outcome`)
-- `Synurex.message.duration_ms` (histogram, attrs: `Synurex.channel`,
-  `Synurex.outcome`)
+- `SKYKOI.webhook.received` (counter, attrs: `SKYKOI.channel`,
+  `SKYKOI.webhook`)
+- `SKYKOI.webhook.error` (counter, attrs: `SKYKOI.channel`,
+  `SKYKOI.webhook`)
+- `SKYKOI.webhook.duration_ms` (histogram, attrs: `SKYKOI.channel`,
+  `SKYKOI.webhook`)
+- `SKYKOI.message.queued` (counter, attrs: `SKYKOI.channel`,
+  `SKYKOI.source`)
+- `SKYKOI.message.processed` (counter, attrs: `SKYKOI.channel`,
+  `SKYKOI.outcome`)
+- `SKYKOI.message.duration_ms` (histogram, attrs: `SKYKOI.channel`,
+  `SKYKOI.outcome`)
 
 Queues + sessions:
 
-- `Synurex.queue.lane.enqueue` (counter, attrs: `Synurex.lane`)
-- `Synurex.queue.lane.dequeue` (counter, attrs: `Synurex.lane`)
-- `Synurex.queue.depth` (histogram, attrs: `Synurex.lane` or
-  `Synurex.channel=heartbeat`)
-- `Synurex.queue.wait_ms` (histogram, attrs: `Synurex.lane`)
-- `Synurex.session.state` (counter, attrs: `Synurex.state`, `Synurex.reason`)
-- `Synurex.session.stuck` (counter, attrs: `Synurex.state`)
-- `Synurex.session.stuck_age_ms` (histogram, attrs: `Synurex.state`)
-- `Synurex.run.attempt` (counter, attrs: `Synurex.attempt`)
+- `SKYKOI.queue.lane.enqueue` (counter, attrs: `SKYKOI.lane`)
+- `SKYKOI.queue.lane.dequeue` (counter, attrs: `SKYKOI.lane`)
+- `SKYKOI.queue.depth` (histogram, attrs: `SKYKOI.lane` or
+  `SKYKOI.channel=heartbeat`)
+- `SKYKOI.queue.wait_ms` (histogram, attrs: `SKYKOI.lane`)
+- `SKYKOI.session.state` (counter, attrs: `SKYKOI.state`, `SKYKOI.reason`)
+- `SKYKOI.session.stuck` (counter, attrs: `SKYKOI.state`)
+- `SKYKOI.session.stuck_age_ms` (histogram, attrs: `SKYKOI.state`)
+- `SKYKOI.run.attempt` (counter, attrs: `SKYKOI.attempt`)
 
 ### Exported spans (names + key attributes)
 
-- `Synurex.model.usage`
-  - `Synurex.channel`, `Synurex.provider`, `Synurex.model`
-  - `Synurex.sessionKey`, `Synurex.sessionId`
-  - `Synurex.tokens.*` (input/output/cache_read/cache_write/total)
-- `Synurex.webhook.processed`
-  - `Synurex.channel`, `Synurex.webhook`, `Synurex.chatId`
-- `Synurex.webhook.error`
-  - `Synurex.channel`, `Synurex.webhook`, `Synurex.chatId`,
-    `Synurex.error`
-- `Synurex.message.processed`
-  - `Synurex.channel`, `Synurex.outcome`, `Synurex.chatId`,
-    `Synurex.messageId`, `Synurex.sessionKey`, `Synurex.sessionId`,
-    `Synurex.reason`
-- `Synurex.session.stuck`
-  - `Synurex.state`, `Synurex.ageMs`, `Synurex.queueDepth`,
-    `Synurex.sessionKey`, `Synurex.sessionId`
+- `SKYKOI.model.usage`
+  - `SKYKOI.channel`, `SKYKOI.provider`, `SKYKOI.model`
+  - `SKYKOI.sessionKey`, `SKYKOI.sessionId`
+  - `SKYKOI.tokens.*` (input/output/cache_read/cache_write/total)
+- `SKYKOI.webhook.processed`
+  - `SKYKOI.channel`, `SKYKOI.webhook`, `SKYKOI.chatId`
+- `SKYKOI.webhook.error`
+  - `SKYKOI.channel`, `SKYKOI.webhook`, `SKYKOI.chatId`,
+    `SKYKOI.error`
+- `SKYKOI.message.processed`
+  - `SKYKOI.channel`, `SKYKOI.outcome`, `SKYKOI.chatId`,
+    `SKYKOI.messageId`, `SKYKOI.sessionKey`, `SKYKOI.sessionId`,
+    `SKYKOI.reason`
+- `SKYKOI.session.stuck`
+  - `SKYKOI.state`, `SKYKOI.ageMs`, `SKYKOI.queueDepth`,
+    `SKYKOI.sessionKey`, `SKYKOI.sessionId`
 
 ### Sampling + flushing
 
@@ -344,7 +344,7 @@ Queues + sessions:
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `Synurex doctor` first.
+- **Gateway not reachable?** Run `SKYKOI doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

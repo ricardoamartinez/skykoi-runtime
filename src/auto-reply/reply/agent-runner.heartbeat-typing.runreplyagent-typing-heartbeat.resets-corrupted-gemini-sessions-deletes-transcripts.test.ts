@@ -122,9 +122,9 @@ function createMinimalRun(params?: {
 
 describe("runReplyAgent typing (heartbeat)", () => {
   it("resets corrupted Gemini sessions and deletes transcripts", async () => {
-    const prevStateDir = process.env.SYNUREX_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "Synurex-session-reset-"));
-    process.env.SYNUREX_STATE_DIR = stateDir;
+    const prevStateDir = process.env.SKYKOI_STATE_DIR;
+    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "SKYKOI-session-reset-"));
+    process.env.SKYKOI_STATE_DIR = stateDir;
     try {
       const sessionId = "session-corrupt";
       const storePath = path.join(stateDir, "sessions", "sessions.json");
@@ -162,16 +162,16 @@ describe("runReplyAgent typing (heartbeat)", () => {
       expect(persisted.main).toBeUndefined();
     } finally {
       if (prevStateDir) {
-        process.env.SYNUREX_STATE_DIR = prevStateDir;
+        process.env.SKYKOI_STATE_DIR = prevStateDir;
       } else {
-        delete process.env.SYNUREX_STATE_DIR;
+        delete process.env.SKYKOI_STATE_DIR;
       }
     }
   });
   it("keeps sessions intact on other errors", async () => {
-    const prevStateDir = process.env.SYNUREX_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "Synurex-session-noreset-"));
-    process.env.SYNUREX_STATE_DIR = stateDir;
+    const prevStateDir = process.env.SKYKOI_STATE_DIR;
+    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "SKYKOI-session-noreset-"));
+    process.env.SKYKOI_STATE_DIR = stateDir;
     try {
       const sessionId = "session-ok";
       const storePath = path.join(stateDir, "sessions", "sessions.json");
@@ -207,9 +207,9 @@ describe("runReplyAgent typing (heartbeat)", () => {
       expect(persisted.main).toBeDefined();
     } finally {
       if (prevStateDir) {
-        process.env.SYNUREX_STATE_DIR = prevStateDir;
+        process.env.SKYKOI_STATE_DIR = prevStateDir;
       } else {
-        delete process.env.SYNUREX_STATE_DIR;
+        delete process.env.SKYKOI_STATE_DIR;
       }
     }
   });

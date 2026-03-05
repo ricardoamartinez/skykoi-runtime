@@ -1,8 +1,8 @@
 import type { AnyAgentTool } from "../agents/tools/common.js";
-import type { SynurexPluginToolContext } from "./types.js";
+import type { SKYKOIPluginToolContext } from "./types.js";
 import { normalizeToolName } from "../agents/tool-policy.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { loadSynurexPlugins } from "./loader.js";
+import { loadSKYKOIPlugins } from "./loader.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -41,11 +41,11 @@ function isOptionalToolAllowed(params: {
 }
 
 export function resolvePluginTools(params: {
-  context: SynurexPluginToolContext;
+  context: SKYKOIPluginToolContext;
   existingToolNames?: Set<string>;
   toolAllowlist?: string[];
 }): AnyAgentTool[] {
-  const registry = loadSynurexPlugins({
+  const registry = loadSKYKOIPlugins({
     config: params.context.config,
     workspaceDir: params.context.workspaceDir,
     logger: {

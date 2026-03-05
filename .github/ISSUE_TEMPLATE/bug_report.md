@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a problem or unexpected behavior in Synurex.
+about: Report a problem or unexpected behavior in SKYKOI.
 title: "[Bug]: "
 labels: bug
 ---
@@ -25,7 +25,7 @@ What actually happened?
 
 ## Environment
 
-- Synurex version:
+- SKYKOI version:
 - OS:
 - Install method (pnpm/npx/docker/etc):
 

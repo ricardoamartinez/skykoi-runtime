@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { AnyAgentTool } from "./common.js";
 import { fetchWithSsrFGuard } from "../../infra/net/fetch-guard.js";
 import { SsrFBlockedError } from "../../infra/net/ssrf.js";
@@ -56,7 +56,7 @@ const WebFetchSchema = Type.Object({
   ),
 });
 
-type WebFetchConfig = NonNullable<SynurexConfig["tools"]>["web"] extends infer Web
+type WebFetchConfig = NonNullable<SKYKOIConfig["tools"]>["web"] extends infer Web
   ? Web extends { fetch?: infer Fetch }
     ? Fetch
     : undefined
@@ -73,7 +73,7 @@ type FirecrawlFetchConfig =
     }
   | undefined;
 
-function resolveFetchConfig(cfg?: SynurexConfig): WebFetchConfig {
+function resolveFetchConfig(cfg?: SKYKOIConfig): WebFetchConfig {
   const fetch = cfg?.tools?.web?.fetch;
   if (!fetch || typeof fetch !== "object") {
     return undefined;
@@ -627,7 +627,7 @@ function resolveFirecrawlEndpoint(baseUrl: string): string {
 }
 
 export function createWebFetchTool(options?: {
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   sandboxed?: boolean;
 }): AnyAgentTool | null {
   const fetch = resolveFetchConfig(options?.config);

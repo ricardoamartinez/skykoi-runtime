@@ -79,26 +79,26 @@ export async function writeSessionStore(params: {
 async function setupGatewayTestHome() {
   previousHome = process.env.HOME;
   previousUserProfile = process.env.USERPROFILE;
-  previousStateDir = process.env.SYNUREX_STATE_DIR;
-  previousConfigPath = process.env.SYNUREX_CONFIG_PATH;
-  previousSkipBrowserControl = process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER;
-  previousSkipGmailWatcher = process.env.SYNUREX_SKIP_GMAIL_WATCHER;
-  previousSkipCanvasHost = process.env.SYNUREX_SKIP_CANVAS_HOST;
-  previousBundledPluginsDir = process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-gateway-home-"));
+  previousStateDir = process.env.SKYKOI_STATE_DIR;
+  previousConfigPath = process.env.SKYKOI_CONFIG_PATH;
+  previousSkipBrowserControl = process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER;
+  previousSkipGmailWatcher = process.env.SKYKOI_SKIP_GMAIL_WATCHER;
+  previousSkipCanvasHost = process.env.SKYKOI_SKIP_CANVAS_HOST;
+  previousBundledPluginsDir = process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.SYNUREX_STATE_DIR = path.join(tempHome, ".synurex");
-  delete process.env.SYNUREX_CONFIG_PATH;
+  process.env.SKYKOI_STATE_DIR = path.join(tempHome, ".SKYKOI");
+  delete process.env.SKYKOI_CONFIG_PATH;
 }
 
 function applyGatewaySkipEnv() {
-  process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER = "1";
-  process.env.SYNUREX_SKIP_GMAIL_WATCHER = "1";
-  process.env.SYNUREX_SKIP_CANVAS_HOST = "1";
-  process.env.SYNUREX_BUNDLED_PLUGINS_DIR = tempHome
-    ? path.join(tempHome, "Synurex-test-no-bundled-extensions")
-    : "Synurex-test-no-bundled-extensions";
+  process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER = "1";
+  process.env.SKYKOI_SKIP_GMAIL_WATCHER = "1";
+  process.env.SKYKOI_SKIP_CANVAS_HOST = "1";
+  process.env.SKYKOI_BUNDLED_PLUGINS_DIR = tempHome
+    ? path.join(tempHome, "SKYKOI-test-no-bundled-extensions")
+    : "SKYKOI-test-no-bundled-extensions";
 }
 
 async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
@@ -110,8 +110,8 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   }
   applyGatewaySkipEnv();
   tempConfigRoot = options.uniqueConfigRoot
-    ? await fs.mkdtemp(path.join(tempHome, "Synurex-test-"))
-    : path.join(tempHome, ".synurex-test");
+    ? await fs.mkdtemp(path.join(tempHome, "SKYKOI-test-"))
+    : path.join(tempHome, ".SKYKOI-test");
   setTestConfigRoot(tempConfigRoot);
   sessionStoreSaveDelayMs.value = 0;
   testTailnetIPv4.value = undefined;
@@ -165,34 +165,34 @@ async function cleanupGatewayTestHome(options: { restoreEnv: boolean }) {
       process.env.USERPROFILE = previousUserProfile;
     }
     if (previousStateDir === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = previousStateDir;
+      process.env.SKYKOI_STATE_DIR = previousStateDir;
     }
     if (previousConfigPath === undefined) {
-      delete process.env.SYNUREX_CONFIG_PATH;
+      delete process.env.SKYKOI_CONFIG_PATH;
     } else {
-      process.env.SYNUREX_CONFIG_PATH = previousConfigPath;
+      process.env.SKYKOI_CONFIG_PATH = previousConfigPath;
     }
     if (previousSkipBrowserControl === undefined) {
-      delete process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER;
+      delete process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER;
     } else {
-      process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER = previousSkipBrowserControl;
+      process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER = previousSkipBrowserControl;
     }
     if (previousSkipGmailWatcher === undefined) {
-      delete process.env.SYNUREX_SKIP_GMAIL_WATCHER;
+      delete process.env.SKYKOI_SKIP_GMAIL_WATCHER;
     } else {
-      process.env.SYNUREX_SKIP_GMAIL_WATCHER = previousSkipGmailWatcher;
+      process.env.SKYKOI_SKIP_GMAIL_WATCHER = previousSkipGmailWatcher;
     }
     if (previousSkipCanvasHost === undefined) {
-      delete process.env.SYNUREX_SKIP_CANVAS_HOST;
+      delete process.env.SKYKOI_SKIP_CANVAS_HOST;
     } else {
-      process.env.SYNUREX_SKIP_CANVAS_HOST = previousSkipCanvasHost;
+      process.env.SKYKOI_SKIP_CANVAS_HOST = previousSkipCanvasHost;
     }
     if (previousBundledPluginsDir === undefined) {
-      delete process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
+      delete process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.SYNUREX_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
+      process.env.SKYKOI_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
     }
   }
   if (options.restoreEnv && tempHome) {
@@ -292,7 +292,7 @@ export async function startGatewayServer(port: number, opts?: GatewayServerOptio
 
 export async function startServerWithClient(token?: string, opts?: GatewayServerOptions) {
   let port = await getFreePort();
-  const prev = process.env.SYNUREX_GATEWAY_TOKEN;
+  const prev = process.env.SKYKOI_GATEWAY_TOKEN;
   if (typeof token === "string") {
     testState.gatewayAuth = { mode: "token", token };
   }
@@ -302,9 +302,9 @@ export async function startServerWithClient(token?: string, opts?: GatewayServer
       ? (testState.gatewayAuth as { token?: string }).token
       : undefined);
   if (fallbackToken === undefined) {
-    delete process.env.SYNUREX_GATEWAY_TOKEN;
+    delete process.env.SKYKOI_GATEWAY_TOKEN;
   } else {
-    process.env.SYNUREX_GATEWAY_TOKEN = fallbackToken;
+    process.env.SKYKOI_GATEWAY_TOKEN = fallbackToken;
   }
 
   let server: Awaited<ReturnType<typeof startGatewayServer>> | null = null;
@@ -406,13 +406,13 @@ export async function connectReq(
       ? undefined
       : typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
         ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-        : process.env.SYNUREX_GATEWAY_TOKEN;
+        : process.env.SKYKOI_GATEWAY_TOKEN;
   const defaultPassword =
     opts?.skipDefaultAuth === true
       ? undefined
       : typeof (testState.gatewayAuth as { password?: unknown } | undefined)?.password === "string"
         ? ((testState.gatewayAuth as { password?: string }).password ?? undefined)
-        : process.env.SYNUREX_GATEWAY_PASSWORD;
+        : process.env.SKYKOI_GATEWAY_PASSWORD;
   const token = opts?.token ?? defaultToken;
   const password = opts?.password ?? defaultPassword;
   const requestedScopes = Array.isArray(opts?.scopes) ? opts?.scopes : [];

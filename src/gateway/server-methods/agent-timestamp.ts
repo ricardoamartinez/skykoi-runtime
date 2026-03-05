@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/types.js";
+import type { SKYKOIConfig } from "../../config/types.js";
 import { resolveUserTimezone } from "../../agents/date-time.js";
 import { formatZonedTimestamp } from "../../auto-reply/envelope.js";
 
@@ -71,9 +71,9 @@ export function injectTimestamp(message: string, opts?: TimestampInjectionOption
 }
 
 /**
- * Build TimestampInjectionOptions from an SynurexConfig.
+ * Build TimestampInjectionOptions from an SKYKOIConfig.
  */
-export function timestampOptsFromConfig(cfg: SynurexConfig): TimestampInjectionOptions {
+export function timestampOptsFromConfig(cfg: SKYKOIConfig): TimestampInjectionOptions {
   return {
     timezone: resolveUserTimezone(cfg.agents?.defaults?.userTimezone),
   };

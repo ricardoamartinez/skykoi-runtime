@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { TelegramAccountConfig } from "../config/types.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { listBoundAccountIds, resolveDefaultAgentBoundAccountId } from "../routing/bindings.js";
@@ -6,7 +6,7 @@ import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.j
 import { resolveTelegramToken } from "./token.js";
 
 const debugAccounts = (...args: unknown[]) => {
-  if (isTruthyEnvValue(process.env.SYNUREX_DEBUG_TELEGRAM_ACCOUNTS)) {
+  if (isTruthyEnvValue(process.env.SKYKOI_DEBUG_TELEGRAM_ACCOUNTS)) {
     console.warn("[telegram:accounts]", ...args);
   }
 };
@@ -20,7 +20,7 @@ export type ResolvedTelegramAccount = {
   config: TelegramAccountConfig;
 };
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SKYKOIConfig): string[] {
   const accounts = cfg.channels?.telegram?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -35,7 +35,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return [...ids];
 }
 
-export function listTelegramAccountIds(cfg: SynurexConfig): string[] {
+export function listTelegramAccountIds(cfg: SKYKOIConfig): string[] {
   const ids = Array.from(
     new Set([...listConfiguredAccountIds(cfg), ...listBoundAccountIds(cfg, "telegram")]),
   );
@@ -46,7 +46,7 @@ export function listTelegramAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultTelegramAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultTelegramAccountId(cfg: SKYKOIConfig): string {
   const boundDefault = resolveDefaultAgentBoundAccountId(cfg, "telegram");
   if (boundDefault) {
     return boundDefault;
@@ -59,7 +59,7 @@ export function resolveDefaultTelegramAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
 ): TelegramAccountConfig | undefined {
   const accounts = cfg.channels?.telegram?.accounts;
@@ -75,7 +75,7 @@ function resolveAccountConfig(
   return matchKey ? (accounts[matchKey] as TelegramAccountConfig | undefined) : undefined;
 }
 
-function mergeTelegramAccountConfig(cfg: SynurexConfig, accountId: string): TelegramAccountConfig {
+function mergeTelegramAccountConfig(cfg: SKYKOIConfig, accountId: string): TelegramAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.telegram ??
     {}) as TelegramAccountConfig & { accounts?: unknown };
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -83,7 +83,7 @@ function mergeTelegramAccountConfig(cfg: SynurexConfig, accountId: string): Tele
 }
 
 export function resolveTelegramAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId?: string | null;
 }): ResolvedTelegramAccount {
   const hasExplicitAccountId = Boolean(params.accountId?.trim());
@@ -132,7 +132,7 @@ export function resolveTelegramAccount(params: {
   return fallback;
 }
 
-export function listEnabledTelegramAccounts(cfg: SynurexConfig): ResolvedTelegramAccount[] {
+export function listEnabledTelegramAccounts(cfg: SKYKOIConfig): ResolvedTelegramAccount[] {
   return listTelegramAccountIds(cfg)
     .map((accountId) => resolveTelegramAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

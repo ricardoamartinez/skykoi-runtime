@@ -1,4 +1,4 @@
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { loginQwenPortalOAuth } from "./oauth.js";
 
 const PROVIDER_ID = "qwen-portal";

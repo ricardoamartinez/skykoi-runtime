@@ -8,7 +8,7 @@ import {
 } from "../../agents/model-selection.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import {
-  type SynurexConfig,
+  type SKYKOIConfig,
   readConfigFileSnapshot,
   writeConfigFile,
 } from "../../config/config.js";
@@ -44,8 +44,8 @@ export const formatMs = (value?: number | null) => {
 };
 
 export async function updateConfig(
-  mutator: (cfg: SynurexConfig) => SynurexConfig,
-): Promise<SynurexConfig> {
+  mutator: (cfg: SKYKOIConfig) => SKYKOIConfig,
+): Promise<SKYKOIConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = snapshot.issues.map((issue) => `- ${issue.path}: ${issue.message}`).join("\n");
@@ -56,7 +56,7 @@ export async function updateConfig(
   return next;
 }
 
-export function resolveModelTarget(params: { raw: string; cfg: SynurexConfig }): {
+export function resolveModelTarget(params: { raw: string; cfg: SKYKOIConfig }): {
   provider: string;
   model: string;
 } {
@@ -75,7 +75,7 @@ export function resolveModelTarget(params: { raw: string; cfg: SynurexConfig }):
   return resolved.ref;
 }
 
-export function buildAllowlistSet(cfg: SynurexConfig): Set<string> {
+export function buildAllowlistSet(cfg: SKYKOIConfig): Set<string> {
   const allowed = new Set<string>();
   const models = cfg.agents?.defaults?.models ?? {};
   for (const raw of Object.keys(models)) {
@@ -100,7 +100,7 @@ export function normalizeAlias(alias: string): string {
 }
 
 export function resolveKnownAgentId(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   rawAgentId?: string | null;
 }): string | undefined {
   const raw = params.rawAgentId?.trim();
@@ -111,7 +111,7 @@ export function resolveKnownAgentId(params: {
   const knownAgents = listAgentIds(params.cfg);
   if (!knownAgents.includes(agentId)) {
     throw new Error(
-      `Unknown agent id "${raw}". Use "${formatCliCommand("synurex agents list")}" to see configured agents.`,
+      `Unknown agent id "${raw}". Use "${formatCliCommand("SKYKOI agents list")}" to see configured agents.`,
     );
   }
   return agentId;

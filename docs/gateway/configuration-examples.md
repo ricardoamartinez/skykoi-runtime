@@ -1,9 +1,9 @@
 ---
-summary: "Schema-accurate configuration examples for common Synurex setups"
+summary: "Schema-accurate configuration examples for common SKYKOI setups"
 read_when:
-  - Learning how to configure Synurex
+  - Learning how to configure SKYKOI
   - Looking for configuration examples
-  - Setting up Synurex for the first time
+  - Setting up SKYKOI for the first time
 title: "Configuration Examples"
 ---
 
@@ -17,12 +17,12 @@ Examples below are aligned with the current config schema. For the exhaustive re
 
 ```json5
 {
-  agent: { workspace: "~/.synurex/workspace" },
+  agent: { workspace: "~/.SKYKOI/workspace" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
 
-Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
+Save to `~/.SKYKOI/SKYKOI.json` and you can DM the bot from that number.
 
 ### Recommended starter
 
@@ -34,7 +34,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
     emoji: "🦞",
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.SKYKOI/workspace",
     model: { primary: "anthropic/claude-sonnet-4-5" },
   },
   channels: {
@@ -89,7 +89,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
   // Logging
   logging: {
     level: "info",
-    file: "/tmp/Synurex/Synurex.log",
+    file: "/tmp/SKYKOI/SKYKOI.log",
     consoleLevel: "info",
     consoleStyle: "pretty",
     redactSensitive: "tools",
@@ -97,7 +97,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
 
   // Message formatting
   messages: {
-    messagePrefix: "[Synurex]",
+    messagePrefix: "[SKYKOI]",
     responsePrefix: ">",
     ackReaction: "👀",
     ackReactionScope: "group-mentions",
@@ -106,7 +106,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
   // Routing + queue
   routing: {
     groupChat: {
-      mentionPatterns: ["@Synurex", "Synurex"],
+      mentionPatterns: ["@SKYKOI", "SKYKOI"],
       historyLimit: 50,
     },
     queue: {
@@ -159,7 +159,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
       discord: { mode: "idle", idleMinutes: 10080 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.synurex/agents/default/sessions/sessions.json",
+    store: "~/.SKYKOI/agents/default/sessions/sessions.json",
     typingIntervalSeconds: 5,
     sendPolicy: {
       default: "allow",
@@ -192,7 +192,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
       dm: { enabled: true, allowFrom: ["steipete"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-Synurex",
+          slug: "friends-of-SKYKOI",
           requireMention: false,
           channels: {
             general: { allow: true },
@@ -212,7 +212,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
       dm: { enabled: true, allowFrom: ["U123"] },
       slashCommand: {
         enabled: true,
-        name: "Synurex",
+        name: "SKYKOI",
         sessionPrefix: "slack:slash",
         ephemeral: true,
       },
@@ -222,7 +222,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
   // Agent runtime
   agents: {
     defaults: {
-      workspace: "~/.synurex/workspace",
+      workspace: "~/.SKYKOI/workspace",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-5",
@@ -275,9 +275,9 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
       sandbox: {
         mode: "non-main",
         perSession: true,
-        workspaceRoot: "~/.synurex/sandboxes",
+        workspaceRoot: "~/.SKYKOI/sandboxes",
         docker: {
-          image: "Synurex-sandbox:bookworm-slim",
+          image: "SKYKOI-sandbox:bookworm-slim",
           workdir: "/workspace",
           readOnlyRoot: true,
           tmpfs: ["/tmp", "/var/tmp", "/run"],
@@ -342,7 +342,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
   // Cron jobs
   cron: {
     enabled: true,
-    store: "~/.synurex/cron/cron.json",
+    store: "~/.SKYKOI/cron/cron.json",
     maxConcurrentRuns: 2,
   },
 
@@ -352,7 +352,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.synurex/hooks",
+    transformsDir: "~/.SKYKOI/hooks",
     mappings: [
       {
         id: "gmail-hook",
@@ -372,7 +372,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
       },
     ],
     gmail: {
-      account: "Synurex@gmail.com",
+      account: "SKYKOI@gmail.com",
       label: "INBOX",
       topic: "projects/<project-id>/topics/gog-gmail-watch",
       subscription: "gog-gmail-watch-push",
@@ -391,7 +391,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
     mode: "local",
     port: 18789,
     bind: "loopback",
-    controlUi: { enabled: true, basePath: "/Synurex" },
+    controlUi: { enabled: true, basePath: "/SKYKOI" },
     auth: {
       mode: "token",
       token: "gateway-token",
@@ -429,7 +429,7 @@ Save to `~/.synurex/synurex.json` and you can DM the bot from that number.
 
 ```json5
 {
-  agent: { workspace: "~/.synurex/workspace" },
+  agent: { workspace: "~/.SKYKOI/workspace" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -493,7 +493,7 @@ If more than one person can DM your bot (multiple entries in `allowFrom`, pairin
     },
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.SKYKOI/workspace",
     model: {
       primary: "anthropic/claude-sonnet-4-5",
       fallbacks: ["anthropic/claude-opus-4-6"],
@@ -532,7 +532,7 @@ If more than one person can DM your bot (multiple entries in `allowFrom`, pairin
     },
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.SKYKOI/workspace",
     model: {
       primary: "anthropic/claude-opus-4-6",
       fallbacks: ["minimax/MiniMax-M2.1"],
@@ -550,7 +550,7 @@ If more than one person can DM your bot (multiple entries in `allowFrom`, pairin
     theme: "professional assistant",
   },
   agent: {
-    workspace: "~/work-Synurex",
+    workspace: "~/work-SKYKOI",
     elevated: { enabled: false },
   },
   channels: {
@@ -571,7 +571,7 @@ If more than one person can DM your bot (multiple entries in `allowFrom`, pairin
 ```json5
 {
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.SKYKOI/workspace",
     model: { primary: "lmstudio/minimax-m2.1-gs32" },
   },
   models: {

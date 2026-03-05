@@ -8,7 +8,7 @@ title: "acp"
 
 # acp
 
-Run the ACP (Agent Client Protocol) bridge that talks to a Synurex Gateway.
+Run the ACP (Agent Client Protocol) bridge that talks to a SKYKOI Gateway.
 
 This command speaks ACP over stdio for IDEs and forwards prompts to the Gateway
 over WebSocket. It keeps ACP sessions mapped to Gateway session keys.
@@ -16,19 +16,19 @@ over WebSocket. It keeps ACP sessions mapped to Gateway session keys.
 ## Usage
 
 ```bash
-Synurex acp
+SKYKOI acp
 
 # Remote Gateway
-Synurex acp --url wss://gateway-host:18789 --token <token>
+SKYKOI acp --url wss://gateway-host:18789 --token <token>
 
 # Attach to an existing session key
-Synurex acp --session agent:main:main
+SKYKOI acp --session agent:main:main
 
 # Attach by label (must already exist)
-Synurex acp --session-label "support inbox"
+SKYKOI acp --session-label "support inbox"
 
 # Reset the session key before the first prompt
-Synurex acp --session agent:main:main --reset-session
+SKYKOI acp --session agent:main:main --reset-session
 ```
 
 ## ACP client (debug)
@@ -37,35 +37,35 @@ Use the built-in ACP client to sanity-check the bridge without an IDE.
 It spawns the ACP bridge and lets you type prompts interactively.
 
 ```bash
-Synurex acp client
+SKYKOI acp client
 
 # Point the spawned bridge at a remote Gateway
-Synurex acp client --server-args --url wss://gateway-host:18789 --token <token>
+SKYKOI acp client --server-args --url wss://gateway-host:18789 --token <token>
 
-# Override the server command (default: Synurex)
-Synurex acp client --server "node" --server-args Synurex.mjs acp --url ws://127.0.0.1:19001
+# Override the server command (default: SKYKOI)
+SKYKOI acp client --server "node" --server-args SKYKOI.mjs acp --url ws://127.0.0.1:19001
 ```
 
 ## How to use this
 
 Use ACP when an IDE (or other client) speaks Agent Client Protocol and you want
-it to drive a Synurex Gateway session.
+it to drive a SKYKOI Gateway session.
 
 1. Ensure the Gateway is running (local or remote).
 2. Configure the Gateway target (config or flags).
-3. Point your IDE to run `Synurex acp` over stdio.
+3. Point your IDE to run `SKYKOI acp` over stdio.
 
 Example config (persisted):
 
 ```bash
-Synurex config set gateway.remote.url wss://gateway-host:18789
-Synurex config set gateway.remote.token <token>
+SKYKOI config set gateway.remote.url wss://gateway-host:18789
+SKYKOI config set gateway.remote.token <token>
 ```
 
 Example direct run (no config write):
 
 ```bash
-Synurex acp --url wss://gateway-host:18789 --token <token>
+SKYKOI acp --url wss://gateway-host:18789 --token <token>
 ```
 
 ## Selecting agents
@@ -75,9 +75,9 @@ ACP does not pick agents directly. It routes by the Gateway session key.
 Use agent-scoped session keys to target a specific agent:
 
 ```bash
-Synurex acp --session agent:main:main
-Synurex acp --session agent:design:main
-Synurex acp --session agent:qa:bug-123
+SKYKOI acp --session agent:main:main
+SKYKOI acp --session agent:design:main
+SKYKOI acp --session agent:qa:bug-123
 ```
 
 Each ACP session maps to a single Gateway session key. One agent can have many
@@ -91,9 +91,9 @@ Add a custom ACP agent in `~/.config/zed/settings.json` (or use Zed’s Settings
 ```json
 {
   "agent_servers": {
-    "Synurex ACP": {
+    "SKYKOI ACP": {
       "type": "custom",
-      "command": "Synurex",
+      "command": "SKYKOI",
       "args": ["acp"],
       "env": {}
     }
@@ -106,9 +106,9 @@ To target a specific Gateway or agent:
 ```json
 {
   "agent_servers": {
-    "Synurex ACP": {
+    "SKYKOI ACP": {
       "type": "custom",
-      "command": "Synurex",
+      "command": "SKYKOI",
       "args": [
         "acp",
         "--url",
@@ -124,7 +124,7 @@ To target a specific Gateway or agent:
 }
 ```
 
-In Zed, open the Agent panel and select “Synurex ACP” to start a thread.
+In Zed, open the Agent panel and select “SKYKOI ACP” to start a thread.
 
 ## Session mapping
 
@@ -164,7 +164,7 @@ Learn more about session keys at [/concepts/session](/concepts/session).
 ### `acp client` options
 
 - `--cwd <dir>`: working directory for the ACP session.
-- `--server <command>`: ACP server command (default: `Synurex`).
+- `--server <command>`: ACP server command (default: `SKYKOI`).
 - `--server-args <args...>`: extra arguments passed to the ACP server.
 - `--server-verbose`: enable verbose logging on the ACP server.
 - `--verbose, -v`: verbose client logging.

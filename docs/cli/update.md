@@ -1,29 +1,29 @@
 ---
-summary: "CLI reference for `Synurex update` (safe-ish source update + gateway auto-restart)"
+summary: "CLI reference for `SKYKOI update` (safe-ish source update + gateway auto-restart)"
 read_when:
   - You want to update a source checkout safely
   - You need to understand `--update` shorthand behavior
 title: "update"
 ---
 
-# `Synurex update`
+# `SKYKOI update`
 
-Safely update Synurex and switch between stable/beta/dev channels.
+Safely update SKYKOI and switch between stable/beta/dev channels.
 
 If you installed via **npm/pnpm** (global install, no git metadata), updates happen via the package manager flow in [Updating](/install/updating).
 
 ## Usage
 
 ```bash
-Synurex update
-Synurex update status
-Synurex update wizard
-Synurex update --channel beta
-Synurex update --channel dev
-Synurex update --tag beta
-Synurex update --no-restart
-Synurex update --json
-Synurex --update
+SKYKOI update
+SKYKOI update status
+SKYKOI update wizard
+SKYKOI update --channel beta
+SKYKOI update --channel dev
+SKYKOI update --tag beta
+SKYKOI update --no-restart
+SKYKOI update --json
+SKYKOI --update
 ```
 
 ## Options
@@ -41,9 +41,9 @@ Note: downgrades require confirmation because older versions can break configura
 Show the active update channel + git tag/branch/SHA (for source checkouts), plus update availability.
 
 ```bash
-Synurex update status
-Synurex update status --json
-Synurex update status --timeout 10
+SKYKOI update status
+SKYKOI update status --json
+SKYKOI update status --timeout 10
 ```
 
 Options:
@@ -59,10 +59,10 @@ offers to create one.
 
 ## What it does
 
-When you switch channels explicitly (`--channel ...`), Synurex also keeps the
+When you switch channels explicitly (`--channel ...`), SKYKOI also keeps the
 install method aligned:
 
-- `dev` → ensures a git checkout (default: `~/Synurex`, override with `SYNUREX_GIT_DIR`),
+- `dev` → ensures a git checkout (default: `~/SKYKOI`, override with `SKYKOI_GIT_DIR`),
   updates it, and installs the global CLI from that checkout.
 - `stable`/`beta` → installs from npm using the matching dist-tag.
 
@@ -83,16 +83,16 @@ High-level:
 5. Rebases onto the selected commit (dev only).
 6. Installs deps (pnpm preferred; npm fallback).
 7. Builds + builds the Control UI.
-8. Runs `Synurex doctor` as the final “safe update” check.
+8. Runs `SKYKOI doctor` as the final “safe update” check.
 9. Syncs plugins to the active channel (dev uses bundled extensions; stable/beta uses npm) and updates npm-installed plugins.
 
 ## `--update` shorthand
 
-`Synurex --update` rewrites to `Synurex update` (useful for shells and launcher scripts).
+`SKYKOI --update` rewrites to `SKYKOI update` (useful for shells and launcher scripts).
 
 ## See also
 
-- `Synurex doctor` (offers to run update first on git checkouts)
+- `SKYKOI doctor` (offers to run update first on git checkouts)
 - [Development channels](/install/development-channels)
 - [Updating](/install/updating)
 - [CLI reference](/cli)

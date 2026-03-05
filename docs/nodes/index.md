@@ -13,7 +13,7 @@ A **node** is a companion device (macOS/iOS/Android/headless) that connects to t
 
 Legacy transport: [Bridge protocol](/gateway/bridge-protocol) (TCP JSONL; deprecated/removed for current nodes).
 
-macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `Synurex nodes …` works against this Mac).
+macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `SKYKOI nodes …` works against this Mac).
 
 Notes:
 
@@ -29,17 +29,17 @@ creates a device pairing request for `role: node`. Approve via the devices CLI (
 Quick CLI:
 
 ```bash
-Synurex devices list
-Synurex devices approve <requestId>
-Synurex devices reject <requestId>
-Synurex nodes status
-Synurex nodes describe --node <idOrNameOrIp>
+SKYKOI devices list
+SKYKOI devices approve <requestId>
+SKYKOI devices reject <requestId>
+SKYKOI nodes status
+SKYKOI nodes describe --node <idOrNameOrIp>
 ```
 
 Notes:
 
 - `nodes status` marks a node as **paired** when its device pairing role includes `node`.
-- `node.pair.*` (CLI: `Synurex nodes pending/approve/reject`) is a separate gateway-owned
+- `node.pair.*` (CLI: `SKYKOI nodes pending/approve/reject`) is a separate gateway-owned
   node pairing store; it does **not** gate the WS `connect` handshake.
 
 ## Remote node host (system.run)
@@ -52,14 +52,14 @@ forwards `exec` calls to the **node host** when `host=node` is selected.
 
 - **Gateway host**: receives messages, runs the model, routes tool calls.
 - **Node host**: executes `system.run`/`system.which` on the node machine.
-- **Approvals**: enforced on the node host via `~/.synurex/exec-approvals.json`.
+- **Approvals**: enforced on the node host via `~/.SKYKOI/exec-approvals.json`.
 
 ### Start a node host (foreground)
 
 On the node machine:
 
 ```bash
-Synurex node run --host <gateway-host> --port 18789 --display-name "Build Node"
+SKYKOI node run --host <gateway-host> --port 18789 --display-name "Build Node"
 ```
 
 ### Remote gateway via SSH tunnel (loopback bind)
@@ -75,20 +75,20 @@ Example (node host -> gateway host):
 ssh -N -L 18790:127.0.0.1:18789 user@gateway-host
 
 # Terminal B: export the gateway token and connect through the tunnel
-export SYNUREX_GATEWAY_TOKEN="<gateway-token>"
-Synurex node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
+export SKYKOI_GATEWAY_TOKEN="<gateway-token>"
+SKYKOI node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
 ```
 
 Notes:
 
-- The token is `gateway.auth.token` from the gateway config (`~/.synurex/synurex.json` on the gateway host).
-- `Synurex node run` reads `SYNUREX_GATEWAY_TOKEN` for auth.
+- The token is `gateway.auth.token` from the gateway config (`~/.SKYKOI/SKYKOI.json` on the gateway host).
+- `SKYKOI node run` reads `SKYKOI_GATEWAY_TOKEN` for auth.
 
 ### Start a node host (service)
 
 ```bash
-Synurex node install --host <gateway-host> --port 18789 --display-name "Build Node"
-Synurex node restart
+SKYKOI node install --host <gateway-host> --port 18789 --display-name "Build Node"
+SKYKOI node restart
 ```
 
 ### Pair + name
@@ -96,35 +96,35 @@ Synurex node restart
 On the gateway host:
 
 ```bash
-Synurex nodes pending
-Synurex nodes approve <requestId>
-Synurex nodes list
+SKYKOI nodes pending
+SKYKOI nodes approve <requestId>
+SKYKOI nodes list
 ```
 
 Naming options:
 
-- `--display-name` on `Synurex node run` / `Synurex node install` (persists in `~/.synurex/node.json` on the node).
-- `Synurex nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
+- `--display-name` on `SKYKOI node run` / `SKYKOI node install` (persists in `~/.SKYKOI/node.json` on the node).
+- `SKYKOI nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
 
 ### Allowlist the commands
 
 Exec approvals are **per node host**. Add allowlist entries from the gateway:
 
 ```bash
-Synurex approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
-Synurex approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
+SKYKOI approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
+SKYKOI approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
 ```
 
-Approvals live on the node host at `~/.synurex/exec-approvals.json`.
+Approvals live on the node host at `~/.SKYKOI/exec-approvals.json`.
 
 ### Point exec at the node
 
 Configure defaults (gateway config):
 
 ```bash
-Synurex config set tools.exec.host node
-Synurex config set tools.exec.security allowlist
-Synurex config set tools.exec.node "<id-or-name>"
+SKYKOI config set tools.exec.host node
+SKYKOI config set tools.exec.security allowlist
+SKYKOI config set tools.exec.node "<id-or-name>"
 ```
 
 Or per session:
@@ -147,7 +147,7 @@ Related:
 Low-level (raw RPC):
 
 ```bash
-Synurex nodes invoke --node <idOrNameOrIp> --command canvas.eval --params '{"javaScript":"location.href"}'
+SKYKOI nodes invoke --node <idOrNameOrIp> --command canvas.eval --params '{"javaScript":"location.href"}'
 ```
 
 Higher-level helpers exist for the common “give the agent a MEDIA attachment” workflows.
@@ -159,17 +159,17 @@ If the node is showing the Canvas (WebView), `canvas.snapshot` returns `{ format
 CLI helper (writes to a temp file and prints `MEDIA:<path>`):
 
 ```bash
-Synurex nodes canvas snapshot --node <idOrNameOrIp> --format png
-Synurex nodes canvas snapshot --node <idOrNameOrIp> --format jpg --max-width 1200 --quality 0.9
+SKYKOI nodes canvas snapshot --node <idOrNameOrIp> --format png
+SKYKOI nodes canvas snapshot --node <idOrNameOrIp> --format jpg --max-width 1200 --quality 0.9
 ```
 
 ### Canvas controls
 
 ```bash
-Synurex nodes canvas present --node <idOrNameOrIp> --target https://example.com
-Synurex nodes canvas hide --node <idOrNameOrIp>
-Synurex nodes canvas navigate https://example.com --node <idOrNameOrIp>
-Synurex nodes canvas eval --node <idOrNameOrIp> --js "document.title"
+SKYKOI nodes canvas present --node <idOrNameOrIp> --target https://example.com
+SKYKOI nodes canvas hide --node <idOrNameOrIp>
+SKYKOI nodes canvas navigate https://example.com --node <idOrNameOrIp>
+SKYKOI nodes canvas eval --node <idOrNameOrIp> --js "document.title"
 ```
 
 Notes:
@@ -180,9 +180,9 @@ Notes:
 ### A2UI (Canvas)
 
 ```bash
-Synurex nodes canvas a2ui push --node <idOrNameOrIp> --text "Hello"
-Synurex nodes canvas a2ui push --node <idOrNameOrIp> --jsonl ./payload.jsonl
-Synurex nodes canvas a2ui reset --node <idOrNameOrIp>
+SKYKOI nodes canvas a2ui push --node <idOrNameOrIp> --text "Hello"
+SKYKOI nodes canvas a2ui push --node <idOrNameOrIp> --jsonl ./payload.jsonl
+SKYKOI nodes canvas a2ui reset --node <idOrNameOrIp>
 ```
 
 Notes:
@@ -194,16 +194,16 @@ Notes:
 Photos (`jpg`):
 
 ```bash
-Synurex nodes camera list --node <idOrNameOrIp>
-Synurex nodes camera snap --node <idOrNameOrIp>            # default: both facings (2 MEDIA lines)
-Synurex nodes camera snap --node <idOrNameOrIp> --facing front
+SKYKOI nodes camera list --node <idOrNameOrIp>
+SKYKOI nodes camera snap --node <idOrNameOrIp>            # default: both facings (2 MEDIA lines)
+SKYKOI nodes camera snap --node <idOrNameOrIp> --facing front
 ```
 
 Video clips (`mp4`):
 
 ```bash
-Synurex nodes camera clip --node <idOrNameOrIp> --duration 10s
-Synurex nodes camera clip --node <idOrNameOrIp> --duration 3000 --no-audio
+SKYKOI nodes camera clip --node <idOrNameOrIp> --duration 10s
+SKYKOI nodes camera clip --node <idOrNameOrIp> --duration 3000 --no-audio
 ```
 
 Notes:
@@ -217,8 +217,8 @@ Notes:
 Nodes expose `screen.record` (mp4). Example:
 
 ```bash
-Synurex nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10
-Synurex nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10 --no-audio
+SKYKOI nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10
+SKYKOI nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10 --no-audio
 ```
 
 Notes:
@@ -236,8 +236,8 @@ Nodes expose `location.get` when Location is enabled in settings.
 CLI helper:
 
 ```bash
-Synurex nodes location get --node <idOrNameOrIp>
-Synurex nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
+SKYKOI nodes location get --node <idOrNameOrIp>
+SKYKOI nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
 ```
 
 Notes:
@@ -253,7 +253,7 @@ Android nodes can expose `sms.send` when the user grants **SMS** permission and 
 Low-level invoke:
 
 ```bash
-Synurex nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from Synurex"}'
+SKYKOI nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from SKYKOI"}'
 ```
 
 Notes:
@@ -269,8 +269,8 @@ The headless node host exposes `system.run`, `system.which`, and `system.execApp
 Examples:
 
 ```bash
-Synurex nodes run --node <idOrNameOrIp> -- echo "Hello from mac node"
-Synurex nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway ready"
+SKYKOI nodes run --node <idOrNameOrIp> -- echo "Hello from mac node"
+SKYKOI nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway ready"
 ```
 
 Notes:
@@ -282,7 +282,7 @@ Notes:
 - macOS nodes drop `PATH` overrides; headless node hosts only accept `PATH` when it prepends the node host PATH.
 - On macOS node mode, `system.run` is gated by exec approvals in the macOS app (Settings → Exec approvals).
   Ask/allowlist/full behave the same as the headless node host; denied prompts return `SYSTEM_RUN_DENIED`.
-- On headless node host, `system.run` is gated by exec approvals (`~/.synurex/exec-approvals.json`).
+- On headless node host, `system.run` is gated by exec approvals (`~/.SKYKOI/exec-approvals.json`).
 
 ## Exec node binding
 
@@ -292,21 +292,21 @@ This sets the default node for `exec host=node` (and can be overridden per agent
 Global default:
 
 ```bash
-Synurex config set tools.exec.node "node-id-or-name"
+SKYKOI config set tools.exec.node "node-id-or-name"
 ```
 
 Per-agent override:
 
 ```bash
-Synurex config get agents.list
-Synurex config set agents.list[0].tools.exec.node "node-id-or-name"
+SKYKOI config get agents.list
+SKYKOI config set agents.list[0].tools.exec.node "node-id-or-name"
 ```
 
 Unset to allow any node:
 
 ```bash
-Synurex config unset tools.exec.node
-Synurex config unset agents.list[0].tools.exec.node
+SKYKOI config unset tools.exec.node
+SKYKOI config unset agents.list[0].tools.exec.node
 ```
 
 ## Permissions map
@@ -315,28 +315,28 @@ Nodes may include a `permissions` map in `node.list` / `node.describe`, keyed by
 
 ## Headless node host (cross-platform)
 
-Synurex can run a **headless node host** (no UI) that connects to the Gateway
+SKYKOI can run a **headless node host** (no UI) that connects to the Gateway
 WebSocket and exposes `system.run` / `system.which`. This is useful on Linux/Windows
 or for running a minimal node alongside a server.
 
 Start it:
 
 ```bash
-Synurex node run --host <gateway-host> --port 18789
+SKYKOI node run --host <gateway-host> --port 18789
 ```
 
 Notes:
 
 - Pairing is still required (the Gateway will show a node approval prompt).
-- The node host stores its node id, token, display name, and gateway connection info in `~/.synurex/node.json`.
-- Exec approvals are enforced locally via `~/.synurex/exec-approvals.json`
+- The node host stores its node id, token, display name, and gateway connection info in `~/.SKYKOI/node.json`.
+- Exec approvals are enforced locally via `~/.SKYKOI/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host prefers the companion app exec host when reachable and falls
-  back to local execution if the app is unavailable. Set `SYNUREX_NODE_EXEC_HOST=app` to require
-  the app, or `SYNUREX_NODE_EXEC_FALLBACK=0` to disable fallback.
+  back to local execution if the app is unavailable. Set `SKYKOI_NODE_EXEC_HOST=app` to require
+  the app, or `SKYKOI_NODE_EXEC_FALLBACK=0` to disable fallback.
 - Add `--tls` / `--tls-fingerprint` when the Gateway WS uses TLS.
 
 ## Mac node mode
 
-- The macOS menubar app connects to the Gateway WS server as a node (so `Synurex nodes …` works against this Mac).
+- The macOS menubar app connects to the Gateway WS server as a node (so `SKYKOI nodes …` works against this Mac).
 - In remote mode, the app opens an SSH tunnel for the Gateway port and connects to `localhost`.

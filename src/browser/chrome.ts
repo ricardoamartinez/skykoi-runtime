@@ -14,13 +14,13 @@ import {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 import {
-  decorateSynurexProfile,
+  decorateSKYKOIProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
 import {
-  DEFAULT_SYNUREX_BROWSER_COLOR,
-  DEFAULT_SYNUREX_BROWSER_PROFILE_NAME,
+  DEFAULT_SKYKOI_BROWSER_COLOR,
+  DEFAULT_SKYKOI_BROWSER_PROFILE_NAME,
 } from "./constants.js";
 
 const log = createSubsystemLogger("browser").child("chrome");
@@ -33,7 +33,7 @@ export {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 export {
-  decorateSynurexProfile,
+  decorateSKYKOIProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
@@ -59,7 +59,7 @@ function resolveBrowserExecutable(resolved: ResolvedBrowserConfig): BrowserExecu
   return resolveBrowserExecutableForPlatform(resolved, process.platform);
 }
 
-export function resolveSynurexUserDataDir(profileName = DEFAULT_SYNUREX_BROWSER_PROFILE_NAME) {
+export function resolveSKYKOIUserDataDir(profileName = DEFAULT_SKYKOI_BROWSER_PROFILE_NAME) {
   return path.join(CONFIG_DIR, "browser", profileName, "user-data");
 }
 
@@ -160,7 +160,7 @@ export async function isChromeCdpReady(
   return await canOpenWebSocket(wsUrl, handshakeTimeoutMs);
 }
 
-export async function launchSynurexChrome(
+export async function launchSKYKOIChrome(
   resolved: ResolvedBrowserConfig,
   profile: ResolvedBrowserProfile,
 ): Promise<RunningChrome> {
@@ -176,13 +176,13 @@ export async function launchSynurexChrome(
     );
   }
 
-  const userDataDir = resolveSynurexUserDataDir(profile.name);
+  const userDataDir = resolveSKYKOIUserDataDir(profile.name);
   fs.mkdirSync(userDataDir, { recursive: true });
 
   const needsDecorate = !isProfileDecorated(
     userDataDir,
     profile.name,
-    (profile.color ?? DEFAULT_SYNUREX_BROWSER_COLOR).toUpperCase(),
+    (profile.color ?? DEFAULT_SKYKOI_BROWSER_COLOR).toUpperCase(),
   );
 
   // First launch to create preference files if missing, then decorate and relaunch.
@@ -260,20 +260,20 @@ export async function launchSynurexChrome(
 
   if (needsDecorate) {
     try {
-      decorateSynurexProfile(userDataDir, {
+      decorateSKYKOIProfile(userDataDir, {
         name: profile.name,
         color: profile.color,
       });
-      log.info(`🦞 Synurex browser profile decorated (${profile.color})`);
+      log.info(`🦞 SKYKOI browser profile decorated (${profile.color})`);
     } catch (err) {
-      log.warn(`Synurex browser profile decoration failed: ${String(err)}`);
+      log.warn(`SKYKOI browser profile decoration failed: ${String(err)}`);
     }
   }
 
   try {
     ensureProfileCleanExit(userDataDir);
   } catch (err) {
-    log.warn(`Synurex browser clean-exit prefs failed: ${String(err)}`);
+    log.warn(`SKYKOI browser clean-exit prefs failed: ${String(err)}`);
   }
 
   const proc = spawnOnce();
@@ -299,7 +299,7 @@ export async function launchSynurexChrome(
 
   const pid = proc.pid ?? -1;
   log.info(
-    `🦞 Synurex browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
+    `🦞 SKYKOI browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
   );
 
   return {
@@ -312,7 +312,7 @@ export async function launchSynurexChrome(
   };
 }
 
-export async function stopSynurexChrome(running: RunningChrome, timeoutMs = 2500) {
+export async function stopSKYKOIChrome(running: RunningChrome, timeoutMs = 2500) {
   const proc = running.proc;
   if (proc.killed) {
     return;

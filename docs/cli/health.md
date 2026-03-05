@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `Synurex health` (gateway health endpoint via RPC)"
+summary: "CLI reference for `SKYKOI health` (gateway health endpoint via RPC)"
 read_when:
   - You want to quickly check the running Gateway’s health
 title: "health"
 ---
 
-# `Synurex health`
+# `SKYKOI health`
 
 Fetch health from the running Gateway.
 
 ```bash
-Synurex health
-Synurex health --json
-Synurex health --verbose
+SKYKOI health
+SKYKOI health --json
+SKYKOI health --verbose
 ```
 
 Notes:

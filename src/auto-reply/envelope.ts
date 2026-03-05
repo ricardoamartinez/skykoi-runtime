@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveUserTimezone } from "../agents/date-time.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import { resolveSenderLabel, type SenderLabelParams } from "../channels/sender-label.js";
@@ -45,7 +45,7 @@ type ResolvedEnvelopeTimezone =
   | { mode: "local" }
   | { mode: "iana"; timeZone: string };
 
-export function resolveEnvelopeFormatOptions(cfg?: SynurexConfig): EnvelopeFormatOptions {
+export function resolveEnvelopeFormatOptions(cfg?: SKYKOIConfig): EnvelopeFormatOptions {
   const defaults = cfg?.agents?.defaults;
   return {
     timezone: defaults?.envelopeTimezone,

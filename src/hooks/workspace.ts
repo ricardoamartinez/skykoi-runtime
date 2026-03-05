@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type {
   Hook,
   HookEligibilityContext,
@@ -15,7 +15,7 @@ import { resolveBundledHooksDir } from "./bundled-dir.js";
 import { shouldIncludeHook } from "./config.js";
 import {
   parseFrontmatter,
-  resolveSynurexMetadata,
+  resolveSKYKOIMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
 
@@ -25,7 +25,7 @@ type HookPackageManifest = {
 
 function filterHookEntries(
   entries: HookEntry[],
-  config?: SynurexConfig,
+  config?: SKYKOIConfig,
   eligibility?: HookEligibilityContext,
 ): HookEntry[] {
   return entries.filter((entry) => shouldIncludeHook({ entry, config, eligibility }));
@@ -182,7 +182,7 @@ export function loadHookEntriesFromDir(params: {
         pluginId: params.pluginId,
       },
       frontmatter,
-      metadata: resolveSynurexMetadata(frontmatter),
+      metadata: resolveSKYKOIMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
     return entry;
@@ -192,7 +192,7 @@ export function loadHookEntriesFromDir(params: {
 function loadHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: SynurexConfig;
+    config?: SKYKOIConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
   },
@@ -208,23 +208,23 @@ function loadHookEntries(
   const bundledHooks = bundledHooksDir
     ? loadHooksFromDir({
         dir: bundledHooksDir,
-        source: "Synurex-bundled",
+        source: "SKYKOI-bundled",
       })
     : [];
   const extraHooks = extraDirs.flatMap((dir) => {
     const resolved = resolveUserPath(dir);
     return loadHooksFromDir({
       dir: resolved,
-      source: "Synurex-workspace", // Extra dirs treated as workspace
+      source: "SKYKOI-workspace", // Extra dirs treated as workspace
     });
   });
   const managedHooks = loadHooksFromDir({
     dir: managedHooksDir,
-    source: "Synurex-managed",
+    source: "SKYKOI-managed",
   });
   const workspaceHooks = loadHooksFromDir({
     dir: workspaceHooksDir,
-    source: "Synurex-workspace",
+    source: "SKYKOI-workspace",
   });
 
   const merged = new Map<string, Hook>();
@@ -253,7 +253,7 @@ function loadHookEntries(
     return {
       hook,
       frontmatter,
-      metadata: resolveSynurexMetadata(frontmatter),
+      metadata: resolveSKYKOIMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
   });
@@ -262,7 +262,7 @@ function loadHookEntries(
 export function buildWorkspaceHookSnapshot(
   workspaceDir: string,
   opts?: {
-    config?: SynurexConfig;
+    config?: SKYKOIConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
     entries?: HookEntry[];
@@ -286,7 +286,7 @@ export function buildWorkspaceHookSnapshot(
 export function loadWorkspaceHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: SynurexConfig;
+    config?: SKYKOIConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
   },

@@ -14,7 +14,7 @@ describe("resolveGatewayLaunchAgentLabel", () => {
   it("returns default label when no profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel();
     expect(result).toBe(GATEWAY_LAUNCH_AGENT_LABEL);
-    expect(result).toBe("ai.synurex.gateway");
+    expect(result).toBe("ai.SKYKOI.gateway");
   });
 
   it("returns default label when profile is undefined", () => {
@@ -34,17 +34,17 @@ describe("resolveGatewayLaunchAgentLabel", () => {
 
   it("returns profile-specific label when profile is set", () => {
     const result = resolveGatewayLaunchAgentLabel("dev");
-    expect(result).toBe("ai.synurex.dev");
+    expect(result).toBe("ai.SKYKOI.dev");
   });
 
   it("returns profile-specific label for custom profile", () => {
     const result = resolveGatewayLaunchAgentLabel("work");
-    expect(result).toBe("ai.synurex.work");
+    expect(result).toBe("ai.SKYKOI.work");
   });
 
   it("trims whitespace from profile", () => {
     const result = resolveGatewayLaunchAgentLabel("  staging  ");
-    expect(result).toBe("ai.synurex.staging");
+    expect(result).toBe("ai.SKYKOI.staging");
   });
 
   it("returns default label for empty string profile", () => {
@@ -62,7 +62,7 @@ describe("resolveGatewaySystemdServiceName", () => {
   it("returns default service name when no profile is set", () => {
     const result = resolveGatewaySystemdServiceName();
     expect(result).toBe(GATEWAY_SYSTEMD_SERVICE_NAME);
-    expect(result).toBe("Synurex-gateway");
+    expect(result).toBe("SKYKOI-gateway");
   });
 
   it("returns default service name when profile is undefined", () => {
@@ -82,17 +82,17 @@ describe("resolveGatewaySystemdServiceName", () => {
 
   it("returns profile-specific service name when profile is set", () => {
     const result = resolveGatewaySystemdServiceName("dev");
-    expect(result).toBe("Synurex-gateway-dev");
+    expect(result).toBe("SKYKOI-gateway-dev");
   });
 
   it("returns profile-specific service name for custom profile", () => {
     const result = resolveGatewaySystemdServiceName("production");
-    expect(result).toBe("Synurex-gateway-production");
+    expect(result).toBe("SKYKOI-gateway-production");
   });
 
   it("trims whitespace from profile", () => {
     const result = resolveGatewaySystemdServiceName("  test  ");
-    expect(result).toBe("Synurex-gateway-test");
+    expect(result).toBe("SKYKOI-gateway-test");
   });
 
   it("returns default service name for empty string profile", () => {
@@ -110,7 +110,7 @@ describe("resolveGatewayWindowsTaskName", () => {
   it("returns default task name when no profile is set", () => {
     const result = resolveGatewayWindowsTaskName();
     expect(result).toBe(GATEWAY_WINDOWS_TASK_NAME);
-    expect(result).toBe("Synurex Gateway");
+    expect(result).toBe("SKYKOI Gateway");
   });
 
   it("returns default task name when profile is undefined", () => {
@@ -130,17 +130,17 @@ describe("resolveGatewayWindowsTaskName", () => {
 
   it("returns profile-specific task name when profile is set", () => {
     const result = resolveGatewayWindowsTaskName("dev");
-    expect(result).toBe("Synurex Gateway (dev)");
+    expect(result).toBe("SKYKOI Gateway (dev)");
   });
 
   it("returns profile-specific task name for custom profile", () => {
     const result = resolveGatewayWindowsTaskName("work");
-    expect(result).toBe("Synurex Gateway (work)");
+    expect(result).toBe("SKYKOI Gateway (work)");
   });
 
   it("trims whitespace from profile", () => {
     const result = resolveGatewayWindowsTaskName("  ci  ");
-    expect(result).toBe("Synurex Gateway (ci)");
+    expect(result).toBe("SKYKOI Gateway (ci)");
   });
 
   it("returns default task name for empty string profile", () => {
@@ -175,24 +175,24 @@ describe("resolveGatewayProfileSuffix", () => {
 
 describe("formatGatewayServiceDescription", () => {
   it("returns default description when no profile/version", () => {
-    expect(formatGatewayServiceDescription()).toBe("Synurex Gateway");
+    expect(formatGatewayServiceDescription()).toBe("SKYKOI Gateway");
   });
 
   it("includes profile when set", () => {
     expect(formatGatewayServiceDescription({ profile: "work" })).toBe(
-      "Synurex Gateway (profile: work)",
+      "SKYKOI Gateway (profile: work)",
     );
   });
 
   it("includes version when set", () => {
     expect(formatGatewayServiceDescription({ version: "2026.1.10" })).toBe(
-      "Synurex Gateway (v2026.1.10)",
+      "SKYKOI Gateway (v2026.1.10)",
     );
   });
 
   it("includes profile and version when set", () => {
     expect(formatGatewayServiceDescription({ profile: "dev", version: "1.2.3" })).toBe(
-      "Synurex Gateway (profile: dev, v1.2.3)",
+      "SKYKOI Gateway (profile: dev, v1.2.3)",
     );
   });
 });

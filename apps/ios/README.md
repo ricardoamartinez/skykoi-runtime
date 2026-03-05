@@ -1,4 +1,4 @@
-# SYNUREX (iOS)
+# SKYKOI (iOS)
 
 Internal-only SwiftUI app scaffold.
 
@@ -11,11 +11,11 @@ brew install swiftformat swiftlint
 ```bash
 cd apps/ios
 xcodegen generate
-open SYNUREX.xcodeproj
+open SKYKOI.xcodeproj
 ```
 
 ## Shared packages
-- `../shared/SYNUREXKit` — shared types/constants used by iOS (and later macOS bridge + gateway routing).
+- `../shared/SKYKOIKit` — shared types/constants used by iOS (and later macOS bridge + gateway routing).
 
 ## fastlane
 ```bash

@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
 import { collectChannelStatusIssues } from "../infra/channels-status-issues.js";
@@ -8,7 +8,7 @@ import { healthCommand } from "./health.js";
 
 export async function checkGatewayHealth(params: {
   runtime: RuntimeEnv;
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   timeoutMs?: number;
 }) {
   const gatewayDetails = buildGatewayConnectionDetails({ config: params.cfg });

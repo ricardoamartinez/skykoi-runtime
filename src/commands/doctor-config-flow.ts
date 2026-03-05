@@ -1,11 +1,11 @@
 import type { ZodIssue } from "zod";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { DoctorOptions } from "./doctor-prompter.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import {
-  SynurexSchema,
+  SKYKOISchema,
   CONFIG_PATH,
   migrateLegacyConfig,
   readConfigFileSnapshot,
@@ -73,11 +73,11 @@ function resolvePathTarget(root: unknown, path: Array<string | number>): unknown
   return current;
 }
 
-function stripUnknownConfigKeys(config: SynurexConfig): {
-  config: SynurexConfig;
+function stripUnknownConfigKeys(config: SKYKOIConfig): {
+  config: SKYKOIConfig;
   removed: string[];
 } {
-  const parsed = SynurexSchema.safeParse(config);
+  const parsed = SKYKOISchema.safeParse(config);
   if (parsed.success) {
     return { config, removed: [] };
   }
@@ -109,7 +109,7 @@ function stripUnknownConfigKeys(config: SynurexConfig): {
   return { config: next, removed };
 }
 
-function noteOpencodeProviderOverrides(cfg: SynurexConfig) {
+function noteOpencodeProviderOverrides(cfg: SKYKOIConfig) {
   const providers = cfg.models?.providers;
   if (!providers) {
     return;
@@ -153,8 +153,8 @@ async function maybeMigrateLegacyConfig(): Promise<string[]> {
     return changes;
   }
 
-  const targetDir = path.join(home, ".synurex");
-  const targetPath = path.join(targetDir, "synurex.json");
+  const targetDir = path.join(home, ".SKYKOI");
+  const targetPath = path.join(targetDir, "SKYKOI.json");
   try {
     await fs.access(targetPath);
     return changes;
@@ -212,7 +212,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
 
   let snapshot = await readConfigFileSnapshot();
   const baseCfg = snapshot.config ?? {};
-  let cfg: SynurexConfig = baseCfg;
+  let cfg: SKYKOIConfig = baseCfg;
   let candidate = structuredClone(baseCfg);
   let pendingChanges = false;
   let shouldWriteConfig = false;
@@ -246,7 +246,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
       }
     } else {
       fixHints.push(
-        `Run "${formatCliCommand("synurex doctor --fix")}" to apply legacy migrations.`,
+        `Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply legacy migrations.`,
       );
     }
   }
@@ -259,7 +259,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = normalized.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("synurex doctor --fix")}" to apply these changes.`);
+      fixHints.push(`Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply these changes.`);
     }
   }
 
@@ -271,7 +271,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = autoEnable.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("synurex doctor --fix")}" to apply these changes.`);
+      fixHints.push(`Run "${formatCliCommand("SKYKOI doctor --fix")}" to apply these changes.`);
     }
   }
 
@@ -285,7 +285,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
       note(lines, "Doctor changes");
     } else {
       note(lines, "Unknown config keys");
-      fixHints.push('Run "synurex doctor --fix" to remove these keys.');
+      fixHints.push('Run "SKYKOI doctor --fix" to remove these keys.');
     }
   }
 

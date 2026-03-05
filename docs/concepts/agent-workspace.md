@@ -11,7 +11,7 @@ title: "Agent Workspace"
 The workspace is the agent's home. It is the only working directory used for
 file tools and for workspace context. Keep it private and treat it as memory.
 
-This is separate from `~/.synurex/`, which stores config, credentials, and
+This is separate from `~/.SKYKOI/`, which stores config, credentials, and
 sessions.
 
 **Important:** the workspace is the **default cwd**, not a hard sandbox. Tools
@@ -19,24 +19,24 @@ resolve relative paths against the workspace, but absolute paths can still reach
 elsewhere on the host unless sandboxing is enabled. If you need isolation, use
 [`agents.defaults.sandbox`](/gateway/sandboxing) (and/or per‑agent sandbox config).
 When sandboxing is enabled and `workspaceAccess` is not `"rw"`, tools operate
-inside a sandbox workspace under `~/.synurex/sandboxes`, not your host workspace.
+inside a sandbox workspace under `~/.SKYKOI/sandboxes`, not your host workspace.
 
 ## Default location
 
-- Default: `~/.synurex/workspace`
-- If `SYNUREX_PROFILE` is set and not `"default"`, the default becomes
-  `~/.synurex/workspace-<profile>`.
-- Override in `~/.synurex/synurex.json`:
+- Default: `~/.SKYKOI/workspace`
+- If `SKYKOI_PROFILE` is set and not `"default"`, the default becomes
+  `~/.SKYKOI/workspace-<profile>`.
+- Override in `~/.SKYKOI/SKYKOI.json`:
 
 ```json5
 {
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.SKYKOI/workspace",
   },
 }
 ```
 
-`Synurex onboard`, `Synurex configure`, or `Synurex setup` will create the
+`SKYKOI onboard`, `SKYKOI configure`, or `SKYKOI setup` will create the
 workspace and seed the bootstrap files if they are missing.
 
 If you already manage the workspace files yourself, you can disable bootstrap
@@ -48,20 +48,20 @@ file creation:
 
 ## Extra workspace folders
 
-Older installs may have created `~/Synurex`. Keeping multiple workspace
+Older installs may have created `~/SKYKOI`. Keeping multiple workspace
 directories around can cause confusing auth or state drift, because only one
 workspace is active at a time.
 
 **Recommendation:** keep a single active workspace. If you no longer use the
-extra folders, archive or move them to Trash (for example `trash ~/Synurex`).
+extra folders, archive or move them to Trash (for example `trash ~/SKYKOI`).
 If you intentionally keep multiple workspaces, make sure
 `agents.defaults.workspace` points to the active one.
 
-`Synurex doctor` warns when it detects extra workspace directories.
+`SKYKOI doctor` warns when it detects extra workspace directories.
 
 ## Workspace file map (what each file means)
 
-These are the standard files Synurex expects inside the workspace:
+These are the standard files SKYKOI expects inside the workspace:
 
 - `AGENTS.md`
   - Operating instructions for the agent and how it should use memory.
@@ -114,20 +114,20 @@ See [Memory](/concepts/memory) for the workflow and automatic memory flush.
 - `canvas/` (optional)
   - Canvas UI files for node displays (for example `canvas/index.html`).
 
-If any bootstrap file is missing, Synurex injects a "missing file" marker into
+If any bootstrap file is missing, SKYKOI injects a "missing file" marker into
 the session and continues. Large bootstrap files are truncated when injected;
 adjust the limit with `agents.defaults.bootstrapMaxChars` (default: 20000).
-`Synurex setup` can recreate missing defaults without overwriting existing
+`SKYKOI setup` can recreate missing defaults without overwriting existing
 files.
 
 ## What is NOT in the workspace
 
-These live under `~/.synurex/` and should NOT be committed to the workspace repo:
+These live under `~/.SKYKOI/` and should NOT be committed to the workspace repo:
 
-- `~/.synurex/synurex.json` (config)
-- `~/.synurex/credentials/` (OAuth tokens, API keys)
-- `~/.synurex/agents/<agentId>/sessions/` (session transcripts + metadata)
-- `~/.synurex/skills/` (managed skills)
+- `~/.SKYKOI/SKYKOI.json` (config)
+- `~/.SKYKOI/credentials/` (OAuth tokens, API keys)
+- `~/.SKYKOI/agents/<agentId>/sessions/` (session transcripts + metadata)
+- `~/.SKYKOI/skills/` (managed skills)
 
 If you need to migrate sessions or config, copy them separately and keep them
 out of version control.
@@ -146,7 +146,7 @@ If git is installed, brand-new workspaces are initialized automatically. If this
 workspace is not already a repo, run:
 
 ```bash
-cd ~/.synurex/workspace
+cd ~/.SKYKOI/workspace
 git init
 git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
 git commit -m "Add agent workspace"
@@ -171,7 +171,7 @@ Option B: GitHub CLI (`gh`)
 
 ```bash
 gh auth login
-gh repo create Synurex-workspace --private --source . --remote origin --push
+gh repo create SKYKOI-workspace --private --source . --remote origin --push
 ```
 
 Option C: GitLab web UI
@@ -201,11 +201,11 @@ git push
 Even in a private repo, avoid storing secrets in the workspace:
 
 - API keys, OAuth tokens, passwords, or private credentials.
-- Anything under `~/.synurex/`.
+- Anything under `~/.SKYKOI/`.
 - Raw dumps of chats or sensitive attachments.
 
 If you must store sensitive references, use placeholders and keep the real
-secret elsewhere (password manager, environment variables, or `~/.synurex/`).
+secret elsewhere (password manager, environment variables, or `~/.SKYKOI/`).
 
 Suggested `.gitignore` starter:
 
@@ -219,10 +219,10 @@ Suggested `.gitignore` starter:
 
 ## Moving the workspace to a new machine
 
-1. Clone the repo to the desired path (default `~/.synurex/workspace`).
-2. Set `agents.defaults.workspace` to that path in `~/.synurex/synurex.json`.
-3. Run `Synurex setup --workspace <path>` to seed any missing files.
-4. If you need sessions, copy `~/.synurex/agents/<agentId>/sessions/` from the
+1. Clone the repo to the desired path (default `~/.SKYKOI/workspace`).
+2. Set `agents.defaults.workspace` to that path in `~/.SKYKOI/SKYKOI.json`.
+3. Run `SKYKOI setup --workspace <path>` to seed any missing files.
+4. If you need sessions, copy `~/.SKYKOI/agents/<agentId>/sessions/` from the
    old machine separately.
 
 ## Advanced notes

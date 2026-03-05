@@ -1,14 +1,14 @@
 ---
-summary: "Run Synurex in a sandboxed macOS VM (local or hosted) when you need isolation or iMessage"
+summary: "Run SKYKOI in a sandboxed macOS VM (local or hosted) when you need isolation or iMessage"
 read_when:
-  - You want Synurex isolated from your main macOS environment
+  - You want SKYKOI isolated from your main macOS environment
   - You want iMessage integration (BlueBubbles) in a sandbox
   - You want a resettable macOS environment you can clone
   - You want to compare local vs hosted macOS VM options
 title: "macOS VMs"
 ---
 
-# Synurex on macOS VMs (Sandboxing)
+# SKYKOI on macOS VMs (Sandboxing)
 
 ## Recommended default (most users)
 
@@ -22,7 +22,7 @@ Use a macOS VM when you specifically need macOS-only capabilities (iMessage/Blue
 
 ### Local VM on your Apple Silicon Mac (Lume)
 
-Run Synurex in a sandboxed macOS VM on your existing Apple Silicon Mac using [Lume](https://cua.ai/docs/lume).
+Run SKYKOI in a sandboxed macOS VM on your existing Apple Silicon Mac using [Lume](https://cua.ai/docs/lume).
 
 This gives you:
 
@@ -45,10 +45,10 @@ Once you have SSH access to a macOS VM, continue at step 6 below.
 ## Quick path (Lume, experienced users)
 
 1. Install Lume
-2. `lume create Synurex --os macos --ipsw latest`
+2. `lume create SKYKOI --os macos --ipsw latest`
 3. Complete Setup Assistant, enable Remote Login (SSH)
-4. `lume run Synurex --no-display`
-5. SSH in, install Synurex, configure channels
+4. `lume run SKYKOI --no-display`
+5. SSH in, install SKYKOI, configure channels
 6. Done
 
 ---
@@ -87,7 +87,7 @@ Docs: [Lume Installation](https://cua.ai/docs/lume/guide/getting-started/install
 ## 2) Create the macOS VM
 
 ```bash
-lume create Synurex --os macos --ipsw latest
+lume create SKYKOI --os macos --ipsw latest
 ```
 
 This downloads macOS and creates the VM. A VNC window opens automatically.
@@ -115,7 +115,7 @@ After setup completes, enable SSH:
 ## 4) Get the VM's IP address
 
 ```bash
-lume get Synurex
+lume get SKYKOI
 ```
 
 Look for the IP address (usually `192.168.64.x`).
@@ -132,13 +132,13 @@ Replace `youruser` with the account you created, and the IP with your VM's IP.
 
 ---
 
-## 6) Install Synurex
+## 6) Install SKYKOI
 
 Inside the VM:
 
 ```bash
-npm install -g Synurex@latest
-synurex onboard --install-daemon
+npm install -g SKYKOI@latest
+SKYKOI onboard --install-daemon
 ```
 
 Follow the onboarding prompts to set up your model provider (Anthropic, OpenAI, etc.).
@@ -150,7 +150,7 @@ Follow the onboarding prompts to set up your model provider (Anthropic, OpenAI, 
 Edit the config file:
 
 ```bash
-nano ~/.synurex/synurex.json
+nano ~/.SKYKOI/SKYKOI.json
 ```
 
 Add your channels:
@@ -172,7 +172,7 @@ Add your channels:
 Then login to WhatsApp (scan QR):
 
 ```bash
-synurex channels login
+SKYKOI channels login
 ```
 
 ---
@@ -182,23 +182,23 @@ synurex channels login
 Stop the VM and restart without display:
 
 ```bash
-lume stop Synurex
-lume run Synurex --no-display
+lume stop SKYKOI
+lume run SKYKOI --no-display
 ```
 
-The VM runs in the background. Synurex's daemon keeps the gateway running.
+The VM runs in the background. SKYKOI's daemon keeps the gateway running.
 
 To check status:
 
 ```bash
-ssh youruser@192.168.64.X "Synurex status"
+ssh youruser@192.168.64.X "SKYKOI status"
 ```
 
 ---
 
 ## Bonus: iMessage integration
 
-This is the killer feature of running on macOS. Use [BlueBubbles](https://bluebubbles.app) to add iMessage to Synurex.
+This is the killer feature of running on macOS. Use [BlueBubbles](https://bluebubbles.app) to add iMessage to SKYKOI.
 
 Inside the VM:
 
@@ -207,7 +207,7 @@ Inside the VM:
 3. Enable the Web API and set a password
 4. Point BlueBubbles webhooks at your gateway (example: `https://your-gateway-host:3000/bluebubbles-webhook?password=<password>`)
 
-Add to your synurex config:
+Add to your SKYKOI config:
 
 ```json
 {
@@ -232,16 +232,16 @@ Full setup details: [BlueBubbles channel](/channels/bluebubbles)
 Before customizing further, snapshot your clean state:
 
 ```bash
-lume stop Synurex
-lume clone Synurex Synurex-golden
+lume stop SKYKOI
+lume clone SKYKOI SKYKOI-golden
 ```
 
 Reset anytime:
 
 ```bash
-lume stop Synurex && lume delete Synurex
-lume clone Synurex-golden Synurex
-lume run Synurex --no-display
+lume stop SKYKOI && lume delete SKYKOI
+lume clone SKYKOI-golden SKYKOI
+lume run SKYKOI --no-display
 ```
 
 ---
@@ -263,9 +263,9 @@ For true always-on, consider a dedicated Mac mini or a small VPS. See [VPS hosti
 | Problem                  | Solution                                                                           |
 | ------------------------ | ---------------------------------------------------------------------------------- |
 | Can't SSH into VM        | Check "Remote Login" is enabled in VM's System Settings                            |
-| VM IP not showing        | Wait for VM to fully boot, run `lume get Synurex` again                           |
+| VM IP not showing        | Wait for VM to fully boot, run `lume get SKYKOI` again                           |
 | Lume command not found   | Add `~/.local/bin` to your PATH                                                    |
-| WhatsApp QR not scanning | Ensure you're logged into the VM (not host) when running `synurex channels login` |
+| WhatsApp QR not scanning | Ensure you're logged into the VM (not host) when running `SKYKOI channels login` |
 
 ---
 

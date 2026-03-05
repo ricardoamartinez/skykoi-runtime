@@ -1,14 +1,14 @@
 import type { Command } from "commander";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { PluginLogger } from "./types.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { loadConfig } from "../config/config.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { loadSynurexPlugins } from "./loader.js";
+import { loadSKYKOIPlugins } from "./loader.js";
 
 const log = createSubsystemLogger("plugins");
 
-export function registerPluginCliCommands(program: Command, cfg?: SynurexConfig) {
+export function registerPluginCliCommands(program: Command, cfg?: SKYKOIConfig) {
   const config = cfg ?? loadConfig();
   const workspaceDir = resolveAgentWorkspaceDir(config, resolveDefaultAgentId(config));
   const logger: PluginLogger = {
@@ -17,7 +17,7 @@ export function registerPluginCliCommands(program: Command, cfg?: SynurexConfig)
     error: (msg: string) => log.error(msg),
     debug: (msg: string) => log.debug(msg),
   };
-  const registry = loadSynurexPlugins({
+  const registry = loadSKYKOIPlugins({
     config,
     workspaceDir,
     logger,

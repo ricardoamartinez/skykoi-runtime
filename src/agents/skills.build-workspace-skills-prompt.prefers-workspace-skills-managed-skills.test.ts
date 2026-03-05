@@ -28,7 +28,7 @@ ${body ?? `# ${name}\n`}
 
 describe("buildWorkspaceSkillsPrompt", () => {
   it("prefers workspace skills over managed skills", async () => {
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-"));
     const managedDir = path.join(workspaceDir, ".managed");
     const bundledDir = path.join(workspaceDir, ".bundled");
     const managedSkillDir = path.join(managedDir, "demo-skill");
@@ -65,7 +65,7 @@ describe("buildWorkspaceSkillsPrompt", () => {
     expect(prompt).not.toContain(path.join(bundledSkillDir, "SKILL.md"));
   });
   it("gates by bins, config, and always", async () => {
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-"));
     const skillsDir = path.join(workspaceDir, "skills");
     const binDir = path.join(workspaceDir, "bin");
     const originalPath = process.env.PATH;
@@ -74,31 +74,31 @@ describe("buildWorkspaceSkillsPrompt", () => {
       dir: path.join(skillsDir, "bin-skill"),
       name: "bin-skill",
       description: "Needs a bin",
-      metadata: '{"synurex":{"requires":{"bins":["fakebin"]}}}',
+      metadata: '{"SKYKOI":{"requires":{"bins":["fakebin"]}}}',
     });
     await writeSkill({
       dir: path.join(skillsDir, "anybin-skill"),
       name: "anybin-skill",
       description: "Needs any bin",
-      metadata: '{"synurex":{"requires":{"anyBins":["missingbin","fakebin"]}}}',
+      metadata: '{"SKYKOI":{"requires":{"anyBins":["missingbin","fakebin"]}}}',
     });
     await writeSkill({
       dir: path.join(skillsDir, "config-skill"),
       name: "config-skill",
       description: "Needs config",
-      metadata: '{"synurex":{"requires":{"config":["browser.enabled"]}}}',
+      metadata: '{"SKYKOI":{"requires":{"config":["browser.enabled"]}}}',
     });
     await writeSkill({
       dir: path.join(skillsDir, "always-skill"),
       name: "always-skill",
       description: "Always on",
-      metadata: '{"synurex":{"always":true,"requires":{"env":["MISSING"]}}}',
+      metadata: '{"SKYKOI":{"always":true,"requires":{"env":["MISSING"]}}}',
     });
     await writeSkill({
       dir: path.join(skillsDir, "env-skill"),
       name: "env-skill",
       description: "Needs env",
-      metadata: '{"synurex":{"requires":{"env":["ENV_KEY"]},"primaryEnv":"ENV_KEY"}}',
+      metadata: '{"SKYKOI":{"requires":{"env":["ENV_KEY"]},"primaryEnv":"ENV_KEY"}}',
     });
 
     try {
@@ -134,13 +134,13 @@ describe("buildWorkspaceSkillsPrompt", () => {
     }
   });
   it("uses skillKey for config lookups", async () => {
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-"));
     const skillDir = path.join(workspaceDir, "skills", "alias-skill");
     await writeSkill({
       dir: skillDir,
       name: "alias-skill",
       description: "Uses skillKey",
-      metadata: '{"synurex":{"skillKey":"alias"}}',
+      metadata: '{"SKYKOI":{"skillKey":"alias"}}',
     });
 
     const prompt = buildWorkspaceSkillsPrompt(workspaceDir, {

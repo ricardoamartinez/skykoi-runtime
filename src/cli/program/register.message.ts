@@ -31,22 +31,22 @@ export function registerMessageCommands(program: Command, ctx: ProgramContext) {
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['Synurex message send --target +15555550123 --message "Hi"', "Send a text message."],
+  ['SKYKOI message send --target +15555550123 --message "Hi"', "Send a text message."],
   [
-    'Synurex message send --target +15555550123 --message "Hi" --media photo.jpg',
+    'SKYKOI message send --target +15555550123 --message "Hi" --media photo.jpg',
     "Send a message with media.",
   ],
   [
-    'Synurex message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi',
+    'SKYKOI message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi',
     "Create a Discord poll.",
   ],
   [
-    'Synurex message react --channel discord --target 123 --message-id 456 --emoji "✅"',
+    'SKYKOI message react --channel discord --target 123 --message-id 456 --emoji "✅"',
     "React to a message.",
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.synurex.com/cli/message")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.SKYKOI.com/cli/message")}`,
     )
     .action(() => {
       message.help({ error: true });

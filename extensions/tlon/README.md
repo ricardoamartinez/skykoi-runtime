@@ -1,5 +1,5 @@
-# Tlon (Synurex plugin)
+# Tlon (SKYKOI plugin)
 
-Tlon/Urbit channel plugin for Synurex. Supports DMs, group mentions, and thread replies.
+Tlon/Urbit channel plugin for SKYKOI. Supports DMs, group mentions, and thread replies.
 
-Docs: https://docs.synurex.ai/channels/tlon
+Docs: https://docs.SKYKOI.ai/channels/tlon

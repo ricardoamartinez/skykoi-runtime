@@ -20,52 +20,52 @@ describe("systemd runtime parsing", () => {
 });
 
 describe("resolveSystemdUserUnitPath", () => {
-  it("uses default service name when SYNUREX_PROFILE is default", () => {
-    const env = { HOME: "/home/test", SYNUREX_PROFILE: "default" };
+  it("uses default service name when SKYKOI_PROFILE is default", () => {
+    const env = { HOME: "/home/test", SKYKOI_PROFILE: "default" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway.service",
     );
   });
 
-  it("uses default service name when SYNUREX_PROFILE is unset", () => {
+  it("uses default service name when SKYKOI_PROFILE is unset", () => {
     const env = { HOME: "/home/test" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway.service",
     );
   });
 
-  it("uses profile-specific service name when SYNUREX_PROFILE is set to a custom value", () => {
-    const env = { HOME: "/home/test", SYNUREX_PROFILE: "jbphoenix" };
+  it("uses profile-specific service name when SKYKOI_PROFILE is set to a custom value", () => {
+    const env = { HOME: "/home/test", SKYKOI_PROFILE: "jbphoenix" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway-jbphoenix.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway-jbphoenix.service",
     );
   });
 
-  it("prefers SYNUREX_SYSTEMD_UNIT over SYNUREX_PROFILE", () => {
+  it("prefers SKYKOI_SYSTEMD_UNIT over SKYKOI_PROFILE", () => {
     const env = {
       HOME: "/home/test",
-      SYNUREX_PROFILE: "jbphoenix",
-      SYNUREX_SYSTEMD_UNIT: "custom-unit",
+      SKYKOI_PROFILE: "jbphoenix",
+      SKYKOI_SYSTEMD_UNIT: "custom-unit",
     };
     expect(resolveSystemdUserUnitPath(env)).toBe(
       "/home/test/.config/systemd/user/custom-unit.service",
     );
   });
 
-  it("handles SYNUREX_SYSTEMD_UNIT with .service suffix", () => {
+  it("handles SKYKOI_SYSTEMD_UNIT with .service suffix", () => {
     const env = {
       HOME: "/home/test",
-      SYNUREX_SYSTEMD_UNIT: "custom-unit.service",
+      SKYKOI_SYSTEMD_UNIT: "custom-unit.service",
     };
     expect(resolveSystemdUserUnitPath(env)).toBe(
       "/home/test/.config/systemd/user/custom-unit.service",
     );
   });
 
-  it("trims whitespace from SYNUREX_SYSTEMD_UNIT", () => {
+  it("trims whitespace from SKYKOI_SYSTEMD_UNIT", () => {
     const env = {
       HOME: "/home/test",
-      SYNUREX_SYSTEMD_UNIT: "  custom-unit  ",
+      SKYKOI_SYSTEMD_UNIT: "  custom-unit  ",
     };
     expect(resolveSystemdUserUnitPath(env)).toBe(
       "/home/test/.config/systemd/user/custom-unit.service",
@@ -73,23 +73,23 @@ describe("resolveSystemdUserUnitPath", () => {
   });
 
   it("handles case-insensitive 'Default' profile", () => {
-    const env = { HOME: "/home/test", SYNUREX_PROFILE: "Default" };
+    const env = { HOME: "/home/test", SKYKOI_PROFILE: "Default" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway.service",
     );
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
-    const env = { HOME: "/home/test", SYNUREX_PROFILE: "DEFAULT" };
+    const env = { HOME: "/home/test", SKYKOI_PROFILE: "DEFAULT" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway.service",
     );
   });
 
-  it("trims whitespace from SYNUREX_PROFILE", () => {
-    const env = { HOME: "/home/test", SYNUREX_PROFILE: "  myprofile  " };
+  it("trims whitespace from SKYKOI_PROFILE", () => {
+    const env = { HOME: "/home/test", SKYKOI_PROFILE: "  myprofile  " };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/Synurex-gateway-myprofile.service",
+      "/home/test/.config/systemd/user/SKYKOI-gateway-myprofile.service",
     );
   });
 });

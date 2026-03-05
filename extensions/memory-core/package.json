@@ -1,15 +1,15 @@
 {
-  "name": "@Synurex/memory-core",
+  "name": "@SKYKOI/memory-core",
   "version": "2026.2.6-3",
-  "description": "Synurex core memory search plugin",
+  "description": "SKYKOI core memory search plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
   "peerDependencies": {
-    "Synurex": ">=2026.1.26"
+    "SKYKOI": ">=2026.1.26"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

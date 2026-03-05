@@ -1,7 +1,7 @@
 ---
 read_when:
   - 你想要 Gateway 网关、工作区、认证、渠道和 Skills 的引导式设置
-summary: "`Synurex onboard` 的 CLI 参考（交互式新手引导向导）"
+summary: "`SKYKOI onboard` 的 CLI 参考（交互式新手引导向导）"
 title: onboard
 x-i18n:
   generated_at: "2026-02-03T07:45:00Z"
@@ -12,7 +12,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `Synurex onboard`
+# `SKYKOI onboard`
 
 交互式新手引导向导（本地或远程 Gateway 网关设置）。
 
@@ -23,14 +23,14 @@ x-i18n:
 ## 示例
 
 ```bash
-Synurex onboard
-Synurex onboard --flow quickstart
-Synurex onboard --flow manual
-Synurex onboard --mode remote --remote-url ws://gateway-host:18789
+SKYKOI onboard
+SKYKOI onboard --flow quickstart
+SKYKOI onboard --flow manual
+SKYKOI onboard --mode remote --remote-url ws://gateway-host:18789
 ```
 
 流程说明：
 
 - `quickstart`：最少提示，自动生成 Gateway 网关令牌。
 - `manual`：完整的端口/绑定/认证提示（`advanced` 的别名）。
-- 最快开始聊天：`Synurex dashboard`（控制 UI，无需渠道设置）。
+- 最快开始聊天：`SKYKOI dashboard`（控制 UI，无需渠道设置）。

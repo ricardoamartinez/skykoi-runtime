@@ -1,8 +1,8 @@
 ---
-summary: "Sign in to GitHub Copilot from Synurex using the device flow"
+summary: "Sign in to GitHub Copilot from SKYKOI using the device flow"
 read_when:
   - You want to use GitHub Copilot as a model provider
-  - You need the `Synurex models auth login-github-copilot` flow
+  - You need the `SKYKOI models auth login-github-copilot` flow
 title: "GitHub Copilot"
 ---
 
@@ -11,20 +11,20 @@ title: "GitHub Copilot"
 ## What is GitHub Copilot?
 
 GitHub Copilot is GitHub's AI coding assistant. It provides access to Copilot
-models for your GitHub account and plan. Synurex can use Copilot as a model
+models for your GitHub account and plan. SKYKOI can use Copilot as a model
 provider in two different ways.
 
-## Two ways to use Copilot in Synurex
+## Two ways to use Copilot in SKYKOI
 
 ### 1) Built-in GitHub Copilot provider (`github-copilot`)
 
 Use the native device-login flow to obtain a GitHub token, then exchange it for
-Copilot API tokens when Synurex runs. This is the **default** and simplest path
+Copilot API tokens when SKYKOI runs. This is the **default** and simplest path
 because it does not require VS Code.
 
 ### 2) Copilot Proxy plugin (`copilot-proxy`)
 
-Use the **Copilot Proxy** VS Code extension as a local bridge. Synurex talks to
+Use the **Copilot Proxy** VS Code extension as a local bridge. SKYKOI talks to
 the proxy’s `/v1` endpoint and uses the model list you configure there. Choose
 this when you already run Copilot Proxy in VS Code or need to route through it.
 You must enable the plugin and keep the VS Code extension running.
@@ -36,7 +36,7 @@ profile.
 ## CLI setup
 
 ```bash
-Synurex models auth login-github-copilot
+SKYKOI models auth login-github-copilot
 ```
 
 You'll be prompted to visit a URL and enter a one-time code. Keep the terminal
@@ -45,14 +45,14 @@ open until it completes.
 ### Optional flags
 
 ```bash
-Synurex models auth login-github-copilot --profile-id github-copilot:work
-Synurex models auth login-github-copilot --yes
+SKYKOI models auth login-github-copilot --profile-id github-copilot:work
+SKYKOI models auth login-github-copilot --yes
 ```
 
 ## Set a default model
 
 ```bash
-Synurex models set github-copilot/gpt-4o
+SKYKOI models set github-copilot/gpt-4o
 ```
 
 ### Config snippet
@@ -69,4 +69,4 @@ Synurex models set github-copilot/gpt-4o
 - Copilot model availability depends on your plan; if a model is rejected, try
   another ID (for example `github-copilot/gpt-4.1`).
 - The login stores a GitHub token in the auth profile store and exchanges it for a
-  Copilot API token when Synurex runs.
+  Copilot API token when SKYKOI runs.

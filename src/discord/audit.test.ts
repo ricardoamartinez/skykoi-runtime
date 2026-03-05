@@ -27,7 +27,7 @@ describe("discord audit", () => {
           },
         },
       },
-    } as unknown as import("../config/config.js").SynurexConfig;
+    } as unknown as import("../config/config.js").SKYKOIConfig;
 
     const collected = collectDiscordAuditChannelIds({
       cfg,

@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "Synurex/plugin-sdk";
+import type { PluginRuntime } from "SKYKOI/plugin-sdk";
 
 let runtime: PluginRuntime | null = null;
 

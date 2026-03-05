@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/llm-task",
+  "name": "@SKYKOI/llm-task",
   "version": "2026.2.6-3",
-  "description": "Synurex JSON-only LLM task plugin",
+  "description": "SKYKOI JSON-only LLM task plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

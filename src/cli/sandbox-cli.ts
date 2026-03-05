@@ -14,30 +14,30 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["synurex sandbox list", "List all sandbox containers."],
-    ["synurex sandbox list --browser", "List only browser containers."],
-    ["synurex sandbox recreate --all", "Recreate all containers."],
-    ["synurex sandbox recreate --session main", "Recreate a specific session."],
-    ["synurex sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["synurex sandbox explain", "Explain effective sandbox config."],
+    ["SKYKOI sandbox list", "List all sandbox containers."],
+    ["SKYKOI sandbox list --browser", "List only browser containers."],
+    ["SKYKOI sandbox recreate --all", "Recreate all containers."],
+    ["SKYKOI sandbox recreate --session main", "Recreate a specific session."],
+    ["SKYKOI sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["SKYKOI sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["synurex sandbox list", "List all sandbox containers."],
-    ["synurex sandbox list --browser", "List only browser containers."],
-    ["synurex sandbox list --json", "JSON output."],
+    ["SKYKOI sandbox list", "List all sandbox containers."],
+    ["SKYKOI sandbox list --browser", "List only browser containers."],
+    ["SKYKOI sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["synurex sandbox recreate --all", "Recreate all containers."],
-    ["synurex sandbox recreate --session main", "Recreate a specific session."],
-    ["synurex sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["synurex sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["synurex sandbox recreate --all --force", "Skip confirmation."],
+    ["SKYKOI sandbox recreate --all", "Recreate all containers."],
+    ["SKYKOI sandbox recreate --session main", "Recreate a specific session."],
+    ["SKYKOI sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
+    ["SKYKOI sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["SKYKOI sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["synurex sandbox explain", "Show effective sandbox config."],
-    ["synurex sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["synurex sandbox explain --agent work", "Explain an agent sandbox."],
-    ["synurex sandbox explain --json", "JSON output."],
+    ["SKYKOI sandbox explain", "Show effective sandbox config."],
+    ["SKYKOI sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["SKYKOI sandbox explain --agent work", "Explain an agent sandbox."],
+    ["SKYKOI sandbox explain --json", "JSON output."],
   ],
 } as const;
 
@@ -67,7 +67,7 @@ export function registerSandboxCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.synurex.com/cli/sandbox")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.SKYKOI.com/cli/sandbox")}\n`,
     )
     .action(() => {
       sandbox.help({ error: true });

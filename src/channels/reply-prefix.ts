@@ -1,5 +1,5 @@
 import type { GetReplyOptions } from "../auto-reply/types.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../agents/identity.js";
 import {
   extractShortModelName,
@@ -21,7 +21,7 @@ export type ReplyPrefixOptions = Pick<
 >;
 
 export function createReplyPrefixContext(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   agentId: string;
   channel?: string;
   accountId?: string;
@@ -51,7 +51,7 @@ export function createReplyPrefixContext(params: {
 }
 
 export function createReplyPrefixOptions(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   agentId: string;
   channel?: string;
   accountId?: string;

@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorOptions, DoctorPrompter } from "./doctor-prompter.js";
 import { resolveGatewayPort, resolveIsNixMode } from "../config/paths.js";
@@ -89,7 +89,7 @@ async function cleanupLegacyLaunchdService(params: {
 }
 
 export async function maybeRepairGatewayServiceConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   mode: "local" | "remote",
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
@@ -140,7 +140,7 @@ export async function maybeRepairGatewayServiceConfig(
   const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
     env: process.env,
     port,
-    token: cfg.gateway?.auth?.token ?? (process.env.SYNUREX_GATEWAY_TOKEN),
+    token: cfg.gateway?.auth?.token ?? (process.env.SKYKOI_GATEWAY_TOKEN),
     runtime: needsNodeRuntime && systemNodePath ? "node" : runtimeChoice,
     nodePath: systemNodePath ?? undefined,
     warn: (message, title) => note(message, title),
@@ -262,7 +262,7 @@ export async function maybeScanExtraGatewayServices(
         note(failed.map((line) => `- ${line}`).join("\n"), "Legacy gateway cleanup skipped");
       }
       if (removed.length > 0) {
-        runtime.log("Legacy gateway services removed. Installing Synurex gateway next.");
+        runtime.log("Legacy gateway services removed. Installing SKYKOI gateway next.");
       }
     }
   }

@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelPlugin, SynurexConfig } from "Synurex/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelPlugin, SKYKOIConfig } from "SKYKOI/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -12,7 +12,7 @@ import {
   resolveBlueBubblesGroupRequireMention,
   resolveBlueBubblesGroupToolPolicy,
   setAccountEnabledInConfigSection,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   listBlueBubblesAccountIds,
   type ResolvedBlueBubblesAccount,
@@ -262,7 +262,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
               ...(input.webhookPath ? { webhookPath: input.webhookPath } : {}),
             },
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       return {
         ...next,
@@ -283,7 +283,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
   },
   pairing: {

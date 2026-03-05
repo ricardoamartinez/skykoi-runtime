@@ -23,8 +23,8 @@ Gateway 网关在 Linux 上完全支持。**Node 是推荐的运行时**。
 ## 新手快速路径（VPS）
 
 1. 安装 Node 22+
-2. `npm i -g synurex@latest`
-3. `synurex onboard --install-daemon`
+2. `npm i -g SKYKOI@latest`
+3. `SKYKOI onboard --install-daemon`
 4. 从你的笔记本电脑：`ssh -N -L 18789:127.0.0.1:18789 <user>@<host>`
 5. 打开 `http://127.0.0.1:18789/` 并粘贴你的令牌
 
@@ -46,19 +46,19 @@ Gateway 网关在 Linux 上完全支持。**Node 是推荐的运行时**。
 使用以下任一方式：
 
 ```
-synurex onboard --install-daemon
+SKYKOI onboard --install-daemon
 ```
 
 或：
 
 ```
-synurex gateway install
+SKYKOI gateway install
 ```
 
 或：
 
 ```
-synurex configure
+SKYKOI configure
 ```
 
 出现提示时选择 **Gateway service**。
@@ -66,27 +66,27 @@ synurex configure
 修复/迁移：
 
 ```
-synurex doctor
+SKYKOI doctor
 ```
 
 ## 系统控制（systemd 用户单元）
 
-Synurex 默认安装 systemd **用户**服务。对于共享或常驻服务器使用**系统**
+SKYKOI 默认安装 systemd **用户**服务。对于共享或常驻服务器使用**系统**
 服务。完整的单元示例和指南
 在 [Gateway 网关运行手册](/gateway) 中。
 
 最小设置：
 
-创建 `~/.config/systemd/user/Synurex-gateway[-<profile>].service`：
+创建 `~/.config/systemd/user/SKYKOI-gateway[-<profile>].service`：
 
 ```
 [Unit]
-Description=synurex gateway (profile: <profile>, v<version>)
+Description=SKYKOI gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/synurex gateway --port 18789
+ExecStart=/usr/local/bin/SKYKOI gateway --port 18789
 Restart=always
 RestartSec=5
 
@@ -97,5 +97,5 @@ WantedBy=default.target
 启用它：
 
 ```
-systemctl --user enable --now Synurex-gateway[-<profile>].service
+systemctl --user enable --now SKYKOI-gateway[-<profile>].service
 ```

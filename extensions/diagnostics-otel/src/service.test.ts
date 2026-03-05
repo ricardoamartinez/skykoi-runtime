@@ -95,15 +95,15 @@ vi.mock("@opentelemetry/semantic-conventions", () => ({
   },
 }));
 
-vi.mock("Synurex/plugin-sdk", async () => {
-  const actual = await vi.importActual<typeof import("Synurex/plugin-sdk")>("Synurex/plugin-sdk");
+vi.mock("SKYKOI/plugin-sdk", async () => {
+  const actual = await vi.importActual<typeof import("SKYKOI/plugin-sdk")>("SKYKOI/plugin-sdk");
   return {
     ...actual,
     registerLogTransport: registerLogTransportMock,
   };
 });
 
-import { emitDiagnosticEvent } from "Synurex/plugin-sdk";
+import { emitDiagnosticEvent } from "SKYKOI/plugin-sdk";
 import { createDiagnosticsOtelService } from "./service.js";
 
 describe("diagnostics-otel service", () => {
@@ -191,26 +191,26 @@ describe("diagnostics-otel service", () => {
       attempt: 2,
     });
 
-    expect(telemetryState.counters.get("Synurex.webhook.received")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SKYKOI.webhook.received")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.webhook.duration_ms")?.record,
+      telemetryState.histograms.get("SKYKOI.webhook.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.message.queued")?.add).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.message.processed")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SKYKOI.message.queued")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SKYKOI.message.processed")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.message.duration_ms")?.record,
+      telemetryState.histograms.get("SKYKOI.message.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.histograms.get("Synurex.queue.wait_ms")?.record).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.session.stuck")?.add).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("SKYKOI.queue.wait_ms")?.record).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SKYKOI.session.stuck")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.session.stuck_age_ms")?.record,
+      telemetryState.histograms.get("SKYKOI.session.stuck_age_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.run.attempt")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SKYKOI.run.attempt")?.add).toHaveBeenCalled();
 
     const spanNames = telemetryState.tracer.startSpan.mock.calls.map((call) => call[0]);
-    expect(spanNames).toContain("Synurex.webhook.processed");
-    expect(spanNames).toContain("Synurex.message.processed");
-    expect(spanNames).toContain("Synurex.session.stuck");
+    expect(spanNames).toContain("SKYKOI.webhook.processed");
+    expect(spanNames).toContain("SKYKOI.message.processed");
+    expect(spanNames).toContain("SKYKOI.session.stuck");
 
     expect(registerLogTransportMock).toHaveBeenCalledTimes(1);
     expect(registeredTransports).toHaveLength(1);

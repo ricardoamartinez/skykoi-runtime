@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { registerLineCardCommand } from "./src/card-command.js";
 import { linePlugin } from "./src/channel.js";
 import { setLineRuntime } from "./src/runtime.js";
@@ -9,7 +9,7 @@ const plugin = {
   name: "LINE",
   description: "LINE Messaging API channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setLineRuntime(api.runtime);
     api.registerChannel({ plugin: linePlugin });
     registerLineCardCommand(api);

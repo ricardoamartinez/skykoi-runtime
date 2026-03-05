@@ -1,9 +1,9 @@
 import type {
   ChannelAccountSnapshot,
-  SynurexConfig,
+  SKYKOIConfig,
   ReplyPayload,
   RuntimeEnv,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   createReplyPrefixOptions,
   createTypingCallbacks,
@@ -16,7 +16,7 @@ import {
   resolveControlCommandGate,
   resolveChannelMediaMaxBytes,
   type HistoryEntry,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import WebSocket from "ws";
 import { getMattermostRuntime } from "../runtime.js";
 import { resolveMattermostAccount } from "./accounts.js";
@@ -43,7 +43,7 @@ export type MonitorMattermostOpts = {
   botToken?: string;
   baseUrl?: string;
   accountId?: string;
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   statusSink?: (patch: Partial<ChannelAccountSnapshot>) => void;

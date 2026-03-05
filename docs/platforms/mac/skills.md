@@ -8,24 +8,24 @@ title: "Skills"
 
 # Skills (macOS)
 
-The macOS app surfaces Synurex skills via the gateway; it does not parse skills locally.
+The macOS app surfaces SKYKOI skills via the gateway; it does not parse skills locally.
 
 ## Data source
 
 - `skills.status` (gateway) returns all skills plus eligibility and missing requirements
   (including allowlist blocks for bundled skills).
-- Requirements are derived from `metadata.synurex.requires` in each `SKILL.md`.
+- Requirements are derived from `metadata.SKYKOI.requires` in each `SKILL.md`.
 
 ## Install actions
 
-- `metadata.synurex.install` defines install options (brew/node/go/uv).
+- `metadata.SKYKOI.install` defines install options (brew/node/go/uv).
 - The app calls `skills.install` to run installers on the gateway host.
 - The gateway surfaces only one preferred installer when multiple are provided
   (brew when available, otherwise node manager from `skills.install`, default npm).
 
 ## Env/API keys
 
-- The app stores keys in `~/.synurex/synurex.json` under `skills.entries.<skillKey>`.
+- The app stores keys in `~/.SKYKOI/SKYKOI.json` under `skills.entries.<skillKey>`.
 - `skills.update` patches `enabled`, `apiKey`, and `env`.
 
 ## Remote mode

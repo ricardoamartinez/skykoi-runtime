@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { tlonPlugin } from "./src/channel.js";
 import { setTlonRuntime } from "./src/runtime.js";
 
@@ -8,7 +8,7 @@ const plugin = {
   name: "Tlon",
   description: "Tlon/Urbit channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setTlonRuntime(api.runtime);
     api.registerChannel({ plugin: tlonPlugin });
   },

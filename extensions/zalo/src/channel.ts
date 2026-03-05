@@ -2,8 +2,8 @@ import type {
   ChannelAccountSnapshot,
   ChannelDock,
   ChannelPlugin,
-  SynurexConfig,
-} from "Synurex/plugin-sdk";
+  SKYKOIConfig,
+} from "SKYKOI/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -14,7 +14,7 @@ import {
   normalizeAccountId,
   PAIRING_APPROVED_MESSAGE,
   setAccountEnabledInConfigSection,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   listZaloAccountIds,
   resolveDefaultZaloAccountId,
@@ -236,7 +236,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
                     : {}),
             },
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       return {
         ...next,
@@ -259,7 +259,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
   },
   pairing: {

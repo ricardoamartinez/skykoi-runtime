@@ -1,18 +1,18 @@
 {
-  "name": "@Synurex/googlechat",
+  "name": "@SKYKOI/googlechat",
   "version": "2026.2.6-3",
-  "description": "Synurex Google Chat channel plugin",
+  "description": "SKYKOI Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.5.0"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
   "peerDependencies": {
-    "Synurex": ">=2026.1.26"
+    "SKYKOI": ">=2026.1.26"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ],
@@ -31,7 +31,7 @@
       "order": 55
     },
     "install": {
-      "npmSpec": "@Synurex/googlechat",
+      "npmSpec": "@SKYKOI/googlechat",
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     }

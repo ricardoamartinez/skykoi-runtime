@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 
 const memoryCorePlugin = {
   id: "memory-core",
@@ -7,7 +7,7 @@ const memoryCorePlugin = {
   description: "File-backed memory search tools and CLI",
   kind: "memory",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     api.registerTool(
       (ctx) => {
         const memorySearchTool = api.runtime.tools.createMemorySearchTool({

@@ -29,7 +29,7 @@ import {
   type ChannelMessageActionName,
   type ChannelPlugin,
   type ResolvedSlackAccount,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { getSlackRuntime } from "./runtime.js";
 
 const meta = getChatChannelMeta("slack");

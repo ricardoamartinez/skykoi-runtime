@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import {
   resolveAgentConfig,
   resolveAgentModelFallbacksOverride,
@@ -8,15 +8,15 @@ import {
 
 describe("resolveAgentConfig", () => {
   it("should return undefined when no agents config exists", () => {
-    const cfg: SynurexConfig = {};
+    const cfg: SKYKOIConfig = {};
     const result = resolveAgentConfig(cfg, "main");
     expect(result).toBeUndefined();
   });
 
   it("should return undefined when agent id does not exist", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
-        list: [{ id: "main", workspace: "~/Synurex" }],
+        list: [{ id: "main", workspace: "~/SKYKOI" }],
       },
     };
     const result = resolveAgentConfig(cfg, "nonexistent");
@@ -24,14 +24,14 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return basic agent config", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         list: [
           {
             id: "main",
             name: "Main Agent",
-            workspace: "~/Synurex",
-            agentDir: "~/.synurex/agents/main",
+            workspace: "~/SKYKOI",
+            agentDir: "~/.SKYKOI/agents/main",
             model: "anthropic/claude-opus-4",
           },
         ],
@@ -40,8 +40,8 @@ describe("resolveAgentConfig", () => {
     const result = resolveAgentConfig(cfg, "main");
     expect(result).toEqual({
       name: "Main Agent",
-      workspace: "~/Synurex",
-      agentDir: "~/.synurex/agents/main",
+      workspace: "~/SKYKOI",
+      agentDir: "~/.SKYKOI/agents/main",
       model: "anthropic/claude-opus-4",
       identity: undefined,
       groupChat: undefined,
@@ -52,7 +52,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("supports per-agent model primary+fallbacks", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         defaults: {
           model: {
@@ -76,7 +76,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentModelFallbacksOverride(cfg, "linus")).toEqual(["openai/gpt-5.2"]);
 
     // If fallbacks isn't present, we don't override the global fallbacks.
-    const cfgNoOverride: SynurexConfig = {
+    const cfgNoOverride: SKYKOIConfig = {
       agents: {
         list: [
           {
@@ -91,7 +91,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentModelFallbacksOverride(cfgNoOverride, "linus")).toBe(undefined);
 
     // Explicit empty list disables global fallbacks for that agent.
-    const cfgDisable: SynurexConfig = {
+    const cfgDisable: SKYKOIConfig = {
       agents: {
         list: [
           {
@@ -108,12 +108,12 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return agent-specific sandbox config", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         list: [
           {
             id: "work",
-            workspace: "~/Synurex-work",
+            workspace: "~/SKYKOI-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -136,12 +136,12 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return agent-specific tools config", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         list: [
           {
             id: "restricted",
-            workspace: "~/Synurex-restricted",
+            workspace: "~/SKYKOI-restricted",
             tools: {
               allow: ["read"],
               deny: ["exec", "write", "edit"],
@@ -166,12 +166,12 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return both sandbox and tools config", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         list: [
           {
             id: "family",
-            workspace: "~/Synurex-family",
+            workspace: "~/SKYKOI-family",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -190,14 +190,14 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should normalize agent id", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
-        list: [{ id: "main", workspace: "~/Synurex" }],
+        list: [{ id: "main", workspace: "~/SKYKOI" }],
       },
     };
     // Should normalize to "main" (default)
     const result = resolveAgentConfig(cfg, "");
     expect(result).toBeDefined();
-    expect(result?.workspace).toBe("~/Synurex");
+    expect(result?.workspace).toBe("~/SKYKOI");
   });
 });

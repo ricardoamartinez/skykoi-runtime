@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import {
   applyCrossContextDecoration,
   buildCrossContextDecoration,
@@ -13,13 +13,13 @@ const slackConfig = {
       appToken: "xapp-test",
     },
   },
-} as SynurexConfig;
+} as SKYKOIConfig;
 
 const discordConfig = {
   channels: {
     discord: {},
   },
-} as SynurexConfig;
+} as SKYKOIConfig;
 
 describe("outbound policy", () => {
   it("blocks cross-provider sends by default", () => {
@@ -40,7 +40,7 @@ describe("outbound policy", () => {
       tools: {
         message: { crossContext: { allowAcrossProviders: true } },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     expect(() =>
       enforceCrossContextPolicy({
@@ -57,7 +57,7 @@ describe("outbound policy", () => {
     const cfg = {
       ...slackConfig,
       tools: { message: { crossContext: { allowWithinProvider: false } } },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     expect(() =>
       enforceCrossContextPolicy({

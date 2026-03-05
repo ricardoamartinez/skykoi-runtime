@@ -1,6 +1,6 @@
 import type { loadConfig } from "../config/config.js";
 import type { GatewayRequestHandler } from "./server-methods/types.js";
-import { loadSynurexPlugins } from "../plugins/loader.js";
+import { loadSKYKOIPlugins } from "../plugins/loader.js";
 
 export function loadGatewayPlugins(params: {
   cfg: ReturnType<typeof loadConfig>;
@@ -14,7 +14,7 @@ export function loadGatewayPlugins(params: {
   coreGatewayHandlers: Record<string, GatewayRequestHandler>;
   baseMethods: string[];
 }) {
-  const pluginRegistry = loadSynurexPlugins({
+  const pluginRegistry = loadSKYKOIPlugins({
     config: params.cfg,
     workspaceDir: params.workspaceDir,
     logger: {

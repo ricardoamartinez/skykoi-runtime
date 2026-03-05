@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `Synurex agents` (list/add/delete/set identity)"
+summary: "CLI reference for `SKYKOI agents` (list/add/delete/set identity)"
 read_when:
   - You want multiple isolated agents (workspaces + routing + auth)
 title: "agents"
 ---
 
-# `Synurex agents`
+# `SKYKOI agents`
 
 Manage isolated agents (workspaces + auth + routing).
 
@@ -17,18 +17,18 @@ Related:
 ## Examples
 
 ```bash
-Synurex agents list
-Synurex agents add work --workspace ~/.synurex/workspace-work
-Synurex agents set-identity --workspace ~/.synurex/workspace --from-identity
-Synurex agents set-identity --agent main --avatar avatars/Synurex.png
-Synurex agents delete work
+SKYKOI agents list
+SKYKOI agents add work --workspace ~/.SKYKOI/workspace-work
+SKYKOI agents set-identity --workspace ~/.SKYKOI/workspace --from-identity
+SKYKOI agents set-identity --agent main --avatar avatars/SKYKOI.png
+SKYKOI agents delete work
 ```
 
 ## Identity files
 
 Each agent workspace can include an `IDENTITY.md` at the workspace root:
 
-- Example path: `~/.synurex/workspace/IDENTITY.md`
+- Example path: `~/.SKYKOI/workspace/IDENTITY.md`
 - `set-identity --from-identity` reads from the workspace root (or an explicit `--identity-file`)
 
 Avatar paths resolve relative to the workspace root.
@@ -45,13 +45,13 @@ Avatar paths resolve relative to the workspace root.
 Load from `IDENTITY.md`:
 
 ```bash
-Synurex agents set-identity --workspace ~/.synurex/workspace --from-identity
+SKYKOI agents set-identity --workspace ~/.SKYKOI/workspace --from-identity
 ```
 
 Override fields explicitly:
 
 ```bash
-Synurex agents set-identity --agent main --name "Synurex" --emoji "🦞" --avatar avatars/Synurex.png
+SKYKOI agents set-identity --agent main --name "SKYKOI" --emoji "🦞" --avatar avatars/SKYKOI.png
 ```
 
 Config sample:
@@ -63,10 +63,10 @@ Config sample:
       {
         id: "main",
         identity: {
-          name: "Synurex",
+          name: "SKYKOI",
           theme: "space lobster",
           emoji: "🦞",
-          avatar: "avatars/Synurex.png",
+          avatar: "avatars/SKYKOI.png",
         },
       },
     ],

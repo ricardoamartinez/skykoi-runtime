@@ -86,14 +86,14 @@ function extensionUsesSkippedScannerPath(entry: string): boolean {
   );
 }
 
-async function ensureSynurexExtensions(manifest: PackageManifest) {
+async function ensureSKYKOIExtensions(manifest: PackageManifest) {
   const extensions = manifest[MANIFEST_KEY]?.extensions;
   if (!Array.isArray(extensions)) {
-    throw new Error("package.json missing Synurex.extensions");
+    throw new Error("package.json missing SKYKOI.extensions");
   }
   const list = extensions.map((e) => (typeof e === "string" ? e.trim() : "")).filter(Boolean);
   if (list.length === 0) {
-    throw new Error("package.json Synurex.extensions is empty");
+    throw new Error("package.json SKYKOI.extensions is empty");
   }
   return list;
 }
@@ -160,7 +160,7 @@ async function installPluginFromPackageDir(params: {
 
   let extensions: string[];
   try {
-    extensions = await ensureSynurexExtensions(manifest);
+    extensions = await ensureSKYKOIExtensions(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }
@@ -209,12 +209,12 @@ async function installPluginFromPackageDir(params: {
       );
     } else if (scanSummary.warn > 0) {
       logger.warn?.(
-        `Plugin "${pluginId}" has ${scanSummary.warn} suspicious code pattern(s). Run "synurex security audit --deep" for details.`,
+        `Plugin "${pluginId}" has ${scanSummary.warn} suspicious code pattern(s). Run "SKYKOI security audit --deep" for details.`,
       );
     }
   } catch (err) {
     logger.warn?.(
-      `Plugin "${pluginId}" code safety scan failed (${String(err)}). Installation continues; run "synurex security audit --deep" after install.`,
+      `Plugin "${pluginId}" code safety scan failed (${String(err)}). Installation continues; run "SKYKOI security audit --deep" after install.`,
     );
   }
 
@@ -330,7 +330,7 @@ export async function installPluginFromArchive(params: {
     return { ok: false, error: `unsupported archive: ${archivePath}` };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-plugin-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-plugin-"));
   const extractDir = path.join(tmpDir, "extract");
   await fs.mkdir(extractDir, { recursive: true });
 
@@ -469,7 +469,7 @@ export async function installPluginFromNpmSpec(params: {
     return { ok: false, error: "missing npm spec" };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-npm-pack-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-npm-pack-"));
   logger.info?.(`Downloading ${spec}…`);
   const res = await runCommandWithTimeout(["npm", "pack", spec], {
     timeoutMs: Math.max(timeoutMs, 300_000),

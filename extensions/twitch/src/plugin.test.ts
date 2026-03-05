@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig } from "SKYKOI/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import { twitchPlugin } from "./plugin.js";
 
@@ -27,7 +27,7 @@ describe("twitchPlugin.status.buildAccountSnapshot", () => {
           },
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     const snapshot = await twitchPlugin.status?.buildAccountSnapshot?.({
       account: secondary,

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import {
   parseModelRef,
   resolveModelRefFromString,
@@ -61,7 +61,7 @@ describe("model-selection", () => {
 
   describe("buildModelAliasIndex", () => {
     it("should build alias index from config", () => {
-      const cfg: Partial<SynurexConfig> = {
+      const cfg: Partial<SKYKOIConfig> = {
         agents: {
           defaults: {
             models: {
@@ -73,7 +73,7 @@ describe("model-selection", () => {
       };
 
       const index = buildModelAliasIndex({
-        cfg: cfg as SynurexConfig,
+        cfg: cfg as SKYKOIConfig,
         defaultProvider: "anthropic",
       });
 
@@ -117,7 +117,7 @@ describe("model-selection", () => {
   describe("resolveConfiguredModelRef", () => {
     it("should fall back to anthropic and warn if provider is missing for non-alias", () => {
       const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-      const cfg: Partial<SynurexConfig> = {
+      const cfg: Partial<SKYKOIConfig> = {
         agents: {
           defaults: {
             model: "claude-3-5-sonnet",
@@ -126,7 +126,7 @@ describe("model-selection", () => {
       };
 
       const result = resolveConfiguredModelRef({
-        cfg: cfg as SynurexConfig,
+        cfg: cfg as SKYKOIConfig,
         defaultProvider: "google",
         defaultModel: "gemini-pro",
       });
@@ -139,9 +139,9 @@ describe("model-selection", () => {
     });
 
     it("should use default provider/model if config is empty", () => {
-      const cfg: Partial<SynurexConfig> = {};
+      const cfg: Partial<SKYKOIConfig> = {};
       const result = resolveConfiguredModelRef({
-        cfg: cfg as SynurexConfig,
+        cfg: cfg as SKYKOIConfig,
         defaultProvider: "openai",
         defaultModel: "gpt-4",
       });

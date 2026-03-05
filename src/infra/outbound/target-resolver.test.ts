@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelDirectoryEntry } from "../../channels/plugins/types.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import { resetDirectoryCache, resolveMessagingTarget } from "./target-resolver.js";
 
 const mocks = vi.hoisted(() => ({
@@ -15,7 +15,7 @@ vi.mock("../../channels/plugins/index.js", () => ({
 }));
 
 describe("resolveMessagingTarget (directory fallback)", () => {
-  const cfg = {} as SynurexConfig;
+  const cfg = {} as SKYKOIConfig;
 
   beforeEach(() => {
     mocks.listGroups.mockReset();

@@ -2,20 +2,20 @@
 name: tmux
 description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
 metadata:
-  { "Synurex": { "emoji": "🧵", "os": ["darwin", "linux"], "requires": { "bins": ["tmux"] } } }
+  { "SKYKOI": { "emoji": "🧵", "os": ["darwin", "linux"], "requires": { "bins": ["tmux"] } } }
 ---
 
-# tmux Skill (Synurex)
+# tmux Skill (SKYKOI)
 
 Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.
 
 ## Quickstart (isolated socket, exec tool)
 
 ```bash
-SOCKET_DIR="${SYNUREX_TMUX_SOCKET_DIR:-${SYNUREX_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/Synurex-tmux-sockets}}"
+SOCKET_DIR="${SKYKOI_TMUX_SOCKET_DIR:-${SKYKOI_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/SKYKOI-tmux-sockets}}"
 mkdir -p "$SOCKET_DIR"
-SOCKET="$SOCKET_DIR/Synurex.sock"
-SESSION=Synurex-python
+SOCKET="$SOCKET_DIR/SKYKOI.sock"
+SESSION=SKYKOI-python
 
 tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
 tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- 'PYTHON_BASIC_REPL=1 python3 -q' Enter
@@ -32,8 +32,8 @@ To monitor:
 
 ## Socket convention
 
-- Use `SYNUREX_TMUX_SOCKET_DIR` (legacy `SYNUREX_TMUX_SOCKET_DIR` also supported).
-- Default socket path: `"$SYNUREX_TMUX_SOCKET_DIR/Synurex.sock"`.
+- Use `SKYKOI_TMUX_SOCKET_DIR` (legacy `SKYKOI_TMUX_SOCKET_DIR` also supported).
+- Default socket path: `"$SKYKOI_TMUX_SOCKET_DIR/SKYKOI.sock"`.
 
 ## Targeting panes and naming
 
@@ -44,7 +44,7 @@ To monitor:
 ## Finding sessions
 
 - List sessions on your socket: `{baseDir}/scripts/find-sessions.sh -S "$SOCKET"`.
-- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `SYNUREX_TMUX_SOCKET_DIR`).
+- Scan all sockets: `{baseDir}/scripts/find-sessions.sh --all` (uses `SKYKOI_TMUX_SOCKET_DIR`).
 
 ## Sending input safely
 

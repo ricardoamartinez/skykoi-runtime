@@ -1,16 +1,16 @@
-import type { SynurexConfig, HumanDelayConfig, IdentityConfig } from "../config/config.js";
+import type { SKYKOIConfig, HumanDelayConfig, IdentityConfig } from "../config/config.js";
 import { resolveAgentConfig } from "./agent-scope.js";
 
 const DEFAULT_ACK_REACTION = "👀";
 
 export function resolveAgentIdentity(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): IdentityConfig | undefined {
   return resolveAgentConfig(cfg, agentId)?.identity;
 }
 
-export function resolveAckReaction(cfg: SynurexConfig, agentId: string): string {
+export function resolveAckReaction(cfg: SKYKOIConfig, agentId: string): string {
   const configured = cfg.messages?.ackReaction;
   if (configured !== undefined) {
     return configured.trim();
@@ -20,7 +20,7 @@ export function resolveAckReaction(cfg: SynurexConfig, agentId: string): string 
 }
 
 export function resolveIdentityNamePrefix(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): string | undefined {
   const name = resolveAgentIdentity(cfg, agentId)?.name?.trim();
@@ -31,12 +31,12 @@ export function resolveIdentityNamePrefix(
 }
 
 /** Returns just the identity name (without brackets) for template context. */
-export function resolveIdentityName(cfg: SynurexConfig, agentId: string): string | undefined {
+export function resolveIdentityName(cfg: SKYKOIConfig, agentId: string): string | undefined {
   return resolveAgentIdentity(cfg, agentId)?.name?.trim() || undefined;
 }
 
 export function resolveMessagePrefix(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
   opts?: { configured?: string; hasAllowFrom?: boolean; fallback?: string },
 ): string {
@@ -50,12 +50,12 @@ export function resolveMessagePrefix(
     return "";
   }
 
-  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[synurex]";
+  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[SKYKOI]";
 }
 
 /** Helper to extract a channel config value by dynamic key. */
 function getChannelConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   channel: string,
 ): Record<string, unknown> | undefined {
   const channels = cfg.channels as Record<string, unknown> | undefined;
@@ -66,7 +66,7 @@ function getChannelConfig(
 }
 
 export function resolveResponsePrefix(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
   opts?: { channel?: string; accountId?: string },
 ): string | undefined {
@@ -107,7 +107,7 @@ export function resolveResponsePrefix(
 }
 
 export function resolveEffectiveMessagesConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
   opts?: {
     hasAllowFrom?: boolean;
@@ -129,7 +129,7 @@ export function resolveEffectiveMessagesConfig(
 }
 
 export function resolveHumanDelayConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): HumanDelayConfig | undefined {
   const defaults = cfg.agents?.defaults?.humanDelay;

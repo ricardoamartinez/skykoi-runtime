@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import {
   estimateUsageCost,
   formatTokenCount,
@@ -35,7 +35,7 @@ describe("usage-format", () => {
           },
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     const cost = resolveModelCostConfig({
       provider: "test",

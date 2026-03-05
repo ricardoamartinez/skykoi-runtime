@@ -1,13 +1,13 @@
 ---
-summary: "Direct `Synurex agent` CLI runs (with optional delivery)"
+summary: "Direct `SKYKOI agent` CLI runs (with optional delivery)"
 read_when:
   - Adding or modifying the agent CLI entrypoint
 title: "Agent Send"
 ---
 
-# `Synurex agent` (direct agent runs)
+# `SKYKOI agent` (direct agent runs)
 
-`Synurex agent` runs a single agent turn without needing an inbound chat message.
+`SKYKOI agent` runs a single agent turn without needing an inbound chat message.
 By default it goes **through the Gateway**; add `--local` to force the embedded
 runtime on the current machine.
 
@@ -23,7 +23,7 @@ runtime on the current machine.
 - Output:
   - default: prints reply text (plus `MEDIA:<url>` lines)
   - `--json`: prints structured payload + metadata
-- Optional delivery back to a channel with `--deliver` + `--channel` (target formats match `Synurex message --target`).
+- Optional delivery back to a channel with `--deliver` + `--channel` (target formats match `SKYKOI message --target`).
 - Use `--reply-channel`/`--reply-to`/`--reply-account` to override delivery without changing the session.
 
 If the Gateway is unreachable, the CLI **falls back** to the embedded local run.
@@ -31,12 +31,12 @@ If the Gateway is unreachable, the CLI **falls back** to the embedded local run.
 ## Examples
 
 ```bash
-Synurex agent --to +15555550123 --message "status update"
-Synurex agent --agent ops --message "Summarize logs"
-Synurex agent --session-id 1234 --message "Summarize inbox" --thinking medium
-Synurex agent --to +15555550123 --message "Trace logs" --verbose on --json
-Synurex agent --to +15555550123 --message "Summon reply" --deliver
-Synurex agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
+SKYKOI agent --to +15555550123 --message "status update"
+SKYKOI agent --agent ops --message "Summarize logs"
+SKYKOI agent --session-id 1234 --message "Summarize inbox" --thinking medium
+SKYKOI agent --to +15555550123 --message "Trace logs" --verbose on --json
+SKYKOI agent --to +15555550123 --message "Summon reply" --deliver
+SKYKOI agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
 ```
 
 ## Flags

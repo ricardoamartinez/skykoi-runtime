@@ -2,11 +2,11 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { resolveSynurexAgentDir } from "./agent-paths.js";
+import { resolveSKYKOIAgentDir } from "./agent-paths.js";
 
-describe("resolveSynurexAgentDir", () => {
-  const previousStateDir = process.env.SYNUREX_STATE_DIR;
-  const previousAgentDir = process.env.SYNUREX_AGENT_DIR;
+describe("resolveSKYKOIAgentDir", () => {
+  const previousStateDir = process.env.SKYKOI_STATE_DIR;
+  const previousAgentDir = process.env.SKYKOI_AGENT_DIR;
   const previousPiAgentDir = process.env.PI_CODING_AGENT_DIR;
   let tempStateDir: string | null = null;
 
@@ -16,14 +16,14 @@ describe("resolveSynurexAgentDir", () => {
       tempStateDir = null;
     }
     if (previousStateDir === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = previousStateDir;
+      process.env.SKYKOI_STATE_DIR = previousStateDir;
     }
     if (previousAgentDir === undefined) {
-      delete process.env.SYNUREX_AGENT_DIR;
+      delete process.env.SKYKOI_AGENT_DIR;
     } else {
-      process.env.SYNUREX_AGENT_DIR = previousAgentDir;
+      process.env.SKYKOI_AGENT_DIR = previousAgentDir;
     }
     if (previousPiAgentDir === undefined) {
       delete process.env.PI_CODING_AGENT_DIR;
@@ -33,23 +33,23 @@ describe("resolveSynurexAgentDir", () => {
   });
 
   it("defaults to the multi-agent path when no overrides are set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-agent-"));
-    process.env.SYNUREX_STATE_DIR = tempStateDir;
-    delete process.env.SYNUREX_AGENT_DIR;
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-agent-"));
+    process.env.SKYKOI_STATE_DIR = tempStateDir;
+    delete process.env.SKYKOI_AGENT_DIR;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveSynurexAgentDir();
+    const resolved = resolveSKYKOIAgentDir();
 
     expect(resolved).toBe(path.join(tempStateDir, "agents", "main", "agent"));
   });
 
-  it("honors SYNUREX_AGENT_DIR overrides", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-agent-"));
+  it("honors SKYKOI_AGENT_DIR overrides", async () => {
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-agent-"));
     const override = path.join(tempStateDir, "agent");
-    process.env.SYNUREX_AGENT_DIR = override;
+    process.env.SKYKOI_AGENT_DIR = override;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveSynurexAgentDir();
+    const resolved = resolveSKYKOIAgentDir();
 
     expect(resolved).toBe(path.resolve(override));
   });

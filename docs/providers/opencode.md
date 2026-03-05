@@ -1,5 +1,5 @@
 ---
-summary: "Use OpenCode Zen (curated models) with Synurex"
+summary: "Use OpenCode Zen (curated models) with SKYKOI"
 read_when:
   - You want OpenCode Zen for model access
   - You want a curated list of coding-friendly models
@@ -15,9 +15,9 @@ Zen is currently in beta.
 ## CLI setup
 
 ```bash
-Synurex onboard --auth-choice opencode-zen
+SKYKOI onboard --auth-choice opencode-zen
 # or non-interactive
-Synurex onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
+SKYKOI onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
 ```
 
 ## Config snippet

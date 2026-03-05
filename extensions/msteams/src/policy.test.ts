@@ -1,4 +1,4 @@
-import type { MSTeamsConfig } from "Synurex/plugin-sdk";
+import type { MSTeamsConfig } from "SKYKOI/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import {
   isMSTeamsGroupAllowed,

@@ -1,18 +1,18 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { SessionEntry } from "../config/sessions.js";
 import { resolveSendPolicy } from "./send-policy.js";
 
 describe("resolveSendPolicy", () => {
   it("defaults to allow", () => {
-    const cfg = {} as SynurexConfig;
+    const cfg = {} as SKYKOIConfig;
     expect(resolveSendPolicy({ cfg })).toBe("allow");
   });
 
   it("entry override wins", () => {
     const cfg = {
       session: { sendPolicy: { default: "allow" } },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
     const entry: SessionEntry = {
       sessionId: "s",
       updatedAt: 0,
@@ -34,7 +34,7 @@ describe("resolveSendPolicy", () => {
           ],
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
     const entry: SessionEntry = {
       sessionId: "s",
       updatedAt: 0,
@@ -52,7 +52,7 @@ describe("resolveSendPolicy", () => {
           rules: [{ action: "deny", match: { keyPrefix: "cron:" } }],
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
     expect(resolveSendPolicy({ cfg, sessionKey: "cron:job-1" })).toBe("deny");
   });
 });

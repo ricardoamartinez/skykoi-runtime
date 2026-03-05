@@ -1,4 +1,4 @@
-# MiniMax OAuth (Synurex plugin)
+# MiniMax OAuth (SKYKOI plugin)
 
 OAuth provider plugin for **MiniMax** (OAuth).
 
@@ -7,19 +7,19 @@ OAuth provider plugin for **MiniMax** (OAuth).
 Bundled plugins are disabled by default. Enable this one:
 
 ```bash
-Synurex plugins enable minimax-portal-auth
+SKYKOI plugins enable minimax-portal-auth
 ```
 
 Restart the Gateway after enabling.
 
 ```bash
-Synurex gateway restart
+SKYKOI gateway restart
 ```
 
 ## Authenticate
 
 ```bash
-Synurex models auth login --provider minimax-portal --set-default
+SKYKOI models auth login --provider minimax-portal --set-default
 ```
 
 You will be prompted to select an endpoint:

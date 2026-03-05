@@ -4,7 +4,7 @@ description: Gemini CLI for one-shot Q&A, summaries, and generation.
 homepage: https://ai.google.dev/
 metadata:
   {
-    "Synurex":
+    "SKYKOI":
       {
         "emoji": "♊️",
         "requires": { "bins": ["gemini"] },

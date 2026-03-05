@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 
-declare const __SYNUREX_VERSION__: string | undefined;
-const CORE_PACKAGE_NAME = "synurex";
+declare const __SKYKOI_VERSION__: string | undefined;
+const CORE_PACKAGE_NAME = "SKYKOI";
 
 const PACKAGE_JSON_CANDIDATES = [
   "../package.json",
@@ -61,11 +61,11 @@ export function resolveVersionFromModuleUrl(moduleUrl: string): string | null {
   );
 }
 
-// Single source of truth for the current Synurex version.
+// Single source of truth for the current SKYKOI version.
 // - Embedded/bundled builds: injected define or env var.
 // - Dev/npm builds: package.json.
 export const VERSION =
-  (typeof __SYNUREX_VERSION__ === "string" && __SYNUREX_VERSION__) ||
-  process.env.SYNUREX_BUNDLED_VERSION ||
+  (typeof __SKYKOI_VERSION__ === "string" && __SKYKOI_VERSION__) ||
+  process.env.SKYKOI_BUNDLED_VERSION ||
   resolveVersionFromModuleUrl(import.meta.url) ||
   "0.0.0";

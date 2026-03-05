@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SKYKOIConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
 import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
@@ -17,7 +17,7 @@ import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
 
 const channel = "signal" as const;
 
-function setSignalDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
+function setSignalDmPolicy(cfg: SKYKOIConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.signal?.allowFrom) : undefined;
   return {
@@ -34,10 +34,10 @@ function setSignalDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
 }
 
 function setSignalAllowFrom(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
   allowFrom: string[],
-): SynurexConfig {
+): SKYKOIConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -80,10 +80,10 @@ function isUuidLike(value: string): boolean {
 }
 
 async function promptSignalAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<SynurexConfig> {
+}): Promise<SKYKOIConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)
@@ -300,9 +300,9 @@ export const signalOnboardingAdapter: ChannelOnboardingAdapter = {
 
     await prompter.note(
       [
-        'Link device with: signal-cli link -n "Synurex"',
+        'Link device with: signal-cli link -n "SKYKOI"',
         "Scan QR in Signal → Linked Devices",
-        `Then run: ${formatCliCommand("synurex gateway call channels.status --params '{\"probe\":true}'")}`,
+        `Then run: ${formatCliCommand("SKYKOI gateway call channels.status --params '{\"probe\":true}'")}`,
         `Docs: ${formatDocsLink("/signal", "signal")}`,
       ].join("\n"),
       "Signal next steps",

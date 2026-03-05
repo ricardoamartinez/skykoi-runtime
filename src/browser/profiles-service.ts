@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { BrowserProfileConfig, SynurexConfig } from "../config/config.js";
+import type { BrowserProfileConfig, SKYKOIConfig } from "../config/config.js";
 import type { BrowserRouteContext, ProfileStatus } from "./server-context.js";
 import { loadConfig, writeConfigFile } from "../config/config.js";
 import { deriveDefaultBrowserCdpPortRange } from "../config/port-defaults.js";
-import { resolveSynurexUserDataDir } from "./chrome.js";
+import { resolveSKYKOIUserDataDir } from "./chrome.js";
 import { parseHttpUrl, resolveProfile } from "./config.js";
 import { DEFAULT_BROWSER_DEFAULT_PROFILE_NAME } from "./constants.js";
 import {
@@ -20,7 +20,7 @@ export type CreateProfileParams = {
   name: string;
   color?: string;
   cdpUrl?: string;
-  driver?: "synurex" | "extension";
+  driver?: "SKYKOI" | "extension";
 };
 
 export type CreateProfileResult = {
@@ -92,7 +92,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
       };
     }
 
-    const nextConfig: SynurexConfig = {
+    const nextConfig: SKYKOIConfig = {
       ...cfg,
       browser: {
         ...cfg.browser,
@@ -154,7 +154,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
         // ignore
       }
 
-      const userDataDir = resolveSynurexUserDataDir(name);
+      const userDataDir = resolveSKYKOIUserDataDir(name);
       const profileDir = path.dirname(userDataDir);
       if (fs.existsSync(profileDir)) {
         await movePathToTrash(profileDir);
@@ -163,7 +163,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
     }
 
     const { [name]: _removed, ...remainingProfiles } = profiles;
-    const nextConfig: SynurexConfig = {
+    const nextConfig: SKYKOIConfig = {
       ...cfg,
       browser: {
         ...cfg.browser,

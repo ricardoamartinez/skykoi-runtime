@@ -30,9 +30,9 @@ const NOW = Date.now();
 
 function createContainer(overrides: Partial<SandboxContainerInfo> = {}): SandboxContainerInfo {
   return {
-    containerName: "Synurex-sandbox-test",
+    containerName: "SKYKOI-sandbox-test",
     sessionKey: "test-session",
-    image: "Synurex/sandbox:latest",
+    image: "SKYKOI/sandbox:latest",
     imageMatch: true,
     running: true,
     createdAtMs: NOW - 3600000,
@@ -43,9 +43,9 @@ function createContainer(overrides: Partial<SandboxContainerInfo> = {}): Sandbox
 
 function createBrowser(overrides: Partial<SandboxBrowserInfo> = {}): SandboxBrowserInfo {
   return {
-    containerName: "Synurex-browser-test",
+    containerName: "SKYKOI-browser-test",
     sessionKey: "test-session",
-    image: "Synurex/browser:latest",
+    image: "SKYKOI/browser:latest",
     imageMatch: true,
     running: true,
     createdAtMs: NOW - 3600000,

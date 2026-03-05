@@ -10,7 +10,7 @@ title: "Development Channels"
 
 Last updated: 2026-01-21
 
-Synurex ships three update channels:
+SKYKOI ships three update channels:
 
 - **stable**: npm dist-tag `latest`.
 - **beta**: npm dist-tag `beta` (builds under test).
@@ -24,9 +24,9 @@ without changing the version number — dist-tags are the source of truth for np
 Git checkout:
 
 ```bash
-Synurex update --channel stable
-Synurex update --channel beta
-Synurex update --channel dev
+SKYKOI update --channel stable
+SKYKOI update --channel beta
+SKYKOI update --channel dev
 ```
 
 - `stable`/`beta` check out the latest matching tag (often the same tag).
@@ -35,17 +35,17 @@ Synurex update --channel dev
 npm/pnpm global install:
 
 ```bash
-Synurex update --channel stable
-Synurex update --channel beta
-Synurex update --channel dev
+SKYKOI update --channel stable
+SKYKOI update --channel beta
+SKYKOI update --channel dev
 ```
 
 This updates via the corresponding npm dist-tag (`latest`, `beta`, `dev`).
 
-When you **explicitly** switch channels with `--channel`, Synurex also aligns
+When you **explicitly** switch channels with `--channel`, SKYKOI also aligns
 the install method:
 
-- `dev` ensures a git checkout (default `~/Synurex`, override with `SYNUREX_GIT_DIR`),
+- `dev` ensures a git checkout (default `~/SKYKOI`, override with `SKYKOI_GIT_DIR`),
   updates it, and installs the global CLI from that checkout.
 - `stable`/`beta` installs from npm using the matching dist-tag.
 
@@ -53,7 +53,7 @@ Tip: if you want stable + dev in parallel, keep two clones and point your gatewa
 
 ## Plugins and channels
 
-When you switch channels with `Synurex update`, Synurex also syncs plugin sources:
+When you switch channels with `SKYKOI update`, SKYKOI also syncs plugin sources:
 
 - `dev` prefers bundled plugins from the git checkout.
 - `stable` and `beta` restore npm-installed plugin packages.

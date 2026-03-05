@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex nodes` (list/status/approve/invoke, camera/canvas/screen)"
+summary: "CLI reference for `SKYKOI nodes` (list/status/approve/invoke, camera/canvas/screen)"
 read_when:
   - You’re managing paired nodes (cameras, screen, canvas)
   - You need to approve requests or invoke node commands
 title: "nodes"
 ---
 
-# `Synurex nodes`
+# `SKYKOI nodes`
 
 Manage paired nodes (devices) and invoke node capabilities.
 
@@ -23,14 +23,14 @@ Common options:
 ## Common commands
 
 ```bash
-Synurex nodes list
-Synurex nodes list --connected
-Synurex nodes list --last-connected 24h
-Synurex nodes pending
-Synurex nodes approve <requestId>
-Synurex nodes status
-Synurex nodes status --connected
-Synurex nodes status --last-connected 24h
+SKYKOI nodes list
+SKYKOI nodes list --connected
+SKYKOI nodes list --last-connected 24h
+SKYKOI nodes pending
+SKYKOI nodes approve <requestId>
+SKYKOI nodes status
+SKYKOI nodes status --connected
+SKYKOI nodes status --last-connected 24h
 ```
 
 `nodes list` prints pending/paired tables. Paired rows include the most recent connect age (Last Connect).
@@ -40,10 +40,10 @@ filter to nodes that connected within a duration (e.g. `24h`, `7d`).
 ## Invoke / run
 
 ```bash
-Synurex nodes invoke --node <id|name|ip> --command <command> --params <json>
-Synurex nodes run --node <id|name|ip> <command...>
-Synurex nodes run --raw "git status"
-Synurex nodes run --agent main --node <id|name|ip> --raw "git status"
+SKYKOI nodes invoke --node <id|name|ip> --command <command> --params <json>
+SKYKOI nodes run --node <id|name|ip> <command...>
+SKYKOI nodes run --raw "git status"
+SKYKOI nodes run --agent main --node <id|name|ip> --raw "git status"
 ```
 
 Invoke flags:

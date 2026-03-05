@@ -1,6 +1,6 @@
 import os from "node:os";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import {
   DEFAULT_AGENT_ID,
@@ -12,7 +12,7 @@ import { DEFAULT_AGENT_WORKSPACE_DIR } from "./workspace.js";
 
 export { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
 
-type AgentEntry = NonNullable<NonNullable<SynurexConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<SKYKOIConfig["agents"]>["list"]>[number];
 
 type ResolvedAgentConfig = {
   name?: string;
@@ -32,7 +32,7 @@ type ResolvedAgentConfig = {
 
 let defaultAgentWarned = false;
 
-function listAgents(cfg: SynurexConfig): AgentEntry[] {
+function listAgents(cfg: SKYKOIConfig): AgentEntry[] {
   const list = cfg.agents?.list;
   if (!Array.isArray(list)) {
     return [];
@@ -40,7 +40,7 @@ function listAgents(cfg: SynurexConfig): AgentEntry[] {
   return list.filter((entry): entry is AgentEntry => Boolean(entry && typeof entry === "object"));
 }
 
-export function listAgentIds(cfg: SynurexConfig): string[] {
+export function listAgentIds(cfg: SKYKOIConfig): string[] {
   const agents = listAgents(cfg);
   if (agents.length === 0) {
     return [DEFAULT_AGENT_ID];
@@ -58,7 +58,7 @@ export function listAgentIds(cfg: SynurexConfig): string[] {
   return ids.length > 0 ? ids : [DEFAULT_AGENT_ID];
 }
 
-export function resolveDefaultAgentId(cfg: SynurexConfig): string {
+export function resolveDefaultAgentId(cfg: SKYKOIConfig): string {
   const agents = listAgents(cfg);
   if (agents.length === 0) {
     return DEFAULT_AGENT_ID;
@@ -72,7 +72,7 @@ export function resolveDefaultAgentId(cfg: SynurexConfig): string {
   return normalizeAgentId(chosen || DEFAULT_AGENT_ID);
 }
 
-export function resolveSessionAgentIds(params: { sessionKey?: string; config?: SynurexConfig }): {
+export function resolveSessionAgentIds(params: { sessionKey?: string; config?: SKYKOIConfig }): {
   defaultAgentId: string;
   sessionAgentId: string;
 } {
@@ -86,18 +86,18 @@ export function resolveSessionAgentIds(params: { sessionKey?: string; config?: S
 
 export function resolveSessionAgentId(params: {
   sessionKey?: string;
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
 }): string {
   return resolveSessionAgentIds(params).sessionAgentId;
 }
 
-function resolveAgentEntry(cfg: SynurexConfig, agentId: string): AgentEntry | undefined {
+function resolveAgentEntry(cfg: SKYKOIConfig, agentId: string): AgentEntry | undefined {
   const id = normalizeAgentId(agentId);
   return listAgents(cfg).find((entry) => normalizeAgentId(entry.id) === id);
 }
 
 export function resolveAgentConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): ResolvedAgentConfig | undefined {
   const id = normalizeAgentId(agentId);
@@ -126,7 +126,7 @@ export function resolveAgentConfig(
 }
 
 export function resolveAgentSkillsFilter(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): string[] | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.skills;
@@ -137,7 +137,7 @@ export function resolveAgentSkillsFilter(
   return normalized.length > 0 ? normalized : [];
 }
 
-export function resolveAgentModelPrimary(cfg: SynurexConfig, agentId: string): string | undefined {
+export function resolveAgentModelPrimary(cfg: SKYKOIConfig, agentId: string): string | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
   if (!raw) {
     return undefined;
@@ -150,7 +150,7 @@ export function resolveAgentModelPrimary(cfg: SynurexConfig, agentId: string): s
 }
 
 export function resolveAgentModelFallbacksOverride(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   agentId: string,
 ): string[] | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
@@ -164,7 +164,7 @@ export function resolveAgentModelFallbacksOverride(
   return Array.isArray(raw.fallbacks) ? raw.fallbacks : undefined;
 }
 
-export function resolveAgentWorkspaceDir(cfg: SynurexConfig, agentId: string) {
+export function resolveAgentWorkspaceDir(cfg: SKYKOIConfig, agentId: string) {
   const id = normalizeAgentId(agentId);
   const configured = resolveAgentConfig(cfg, id)?.workspace?.trim();
   if (configured) {
@@ -178,10 +178,10 @@ export function resolveAgentWorkspaceDir(cfg: SynurexConfig, agentId: string) {
     }
     return DEFAULT_AGENT_WORKSPACE_DIR;
   }
-  return path.join(os.homedir(), ".synurex", `workspace-${id}`);
+  return path.join(os.homedir(), ".SKYKOI", `workspace-${id}`);
 }
 
-export function resolveAgentDir(cfg: SynurexConfig, agentId: string) {
+export function resolveAgentDir(cfg: SKYKOIConfig, agentId: string) {
   const id = normalizeAgentId(agentId);
   const configured = resolveAgentConfig(cfg, id)?.agentDir?.trim();
   if (configured) {

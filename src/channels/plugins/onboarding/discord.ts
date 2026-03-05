@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SKYKOIConfig } from "../../../config/config.js";
 import type { DiscordGuildEntry } from "../../../config/types.discord.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
@@ -21,7 +21,7 @@ import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
 
 const channel = "discord" as const;
 
-function setDiscordDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
+function setDiscordDmPolicy(cfg: SKYKOIConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.discord?.dm?.allowFrom) : undefined;
   return {
@@ -55,10 +55,10 @@ async function noteDiscordTokenHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 function setDiscordGroupPolicy(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): SynurexConfig {
+): SKYKOIConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -93,13 +93,13 @@ function setDiscordGroupPolicy(
 }
 
 function setDiscordGuildChannelAllowlist(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
   entries: Array<{
     guildKey: string;
     channelKey?: string;
   }>,
-): SynurexConfig {
+): SKYKOIConfig {
   const baseGuilds =
     accountId === DEFAULT_ACCOUNT_ID
       ? (cfg.channels?.discord?.guilds ?? {})
@@ -149,7 +149,7 @@ function setDiscordGuildChannelAllowlist(
   };
 }
 
-function setDiscordAllowFrom(cfg: SynurexConfig, allowFrom: string[]): SynurexConfig {
+function setDiscordAllowFrom(cfg: SKYKOIConfig, allowFrom: string[]): SKYKOIConfig {
   return {
     ...cfg,
     channels: {
@@ -174,10 +174,10 @@ function parseDiscordAllowFromInput(raw: string): string[] {
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<SynurexConfig> {
+}): Promise<SKYKOIConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

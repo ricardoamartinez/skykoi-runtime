@@ -1,14 +1,14 @@
 ---
 summary: "Zalo Personal plugin: QR login + messaging via zca-cli (plugin install + channel config + CLI + tool)"
 read_when:
-  - You want Zalo Personal (unofficial) support in Synurex
+  - You want Zalo Personal (unofficial) support in SKYKOI
   - You are configuring or developing the zalouser plugin
 title: "Zalo Personal Plugin"
 ---
 
 # Zalo Personal (plugin)
 
-Zalo Personal support for Synurex via a plugin, using `zca-cli` to automate a normal Zalo user account.
+Zalo Personal support for SKYKOI via a plugin, using `zca-cli` to automate a normal Zalo user account.
 
 > **Warning:** Unofficial automation may lead to account suspension/ban. Use at your own risk.
 
@@ -27,7 +27,7 @@ If you use a remote Gateway, install/configure it on the **machine running the G
 ### Option A: install from npm
 
 ```bash
-Synurex plugins install @Synurex/zalouser
+SKYKOI plugins install @SKYKOI/zalouser
 ```
 
 Restart the Gateway afterwards.
@@ -35,7 +35,7 @@ Restart the Gateway afterwards.
 ### Option B: install from a local folder (dev)
 
 ```bash
-Synurex plugins install ./extensions/zalouser
+SKYKOI plugins install ./extensions/zalouser
 cd ./extensions/zalouser && pnpm install
 ```
 
@@ -67,11 +67,11 @@ Channel config lives under `channels.zalouser` (not `plugins.entries.*`):
 ## CLI
 
 ```bash
-Synurex channels login --channel zalouser
-Synurex channels logout --channel zalouser
-Synurex channels status --probe
-Synurex message send --channel zalouser --target <threadId> --message "Hello from Synurex"
-Synurex directory peers list --channel zalouser --query "name"
+SKYKOI channels login --channel zalouser
+SKYKOI channels logout --channel zalouser
+SKYKOI channels status --probe
+SKYKOI message send --channel zalouser --target <threadId> --message "Hello from SKYKOI"
+SKYKOI directory peers list --channel zalouser --query "name"
 ```
 
 ## Agent tool

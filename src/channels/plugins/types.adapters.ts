@@ -1,5 +1,5 @@
 import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { GroupToolPolicyConfig } from "../../config/types.tools.js";
 import type { OutboundDeliveryResult, OutboundSendDeps } from "../../infra/outbound/deliver.js";
 import type { RuntimeEnv } from "../../runtime.js";
@@ -20,45 +20,45 @@ import type {
 } from "./types.core.js";
 
 export type ChannelSetupAdapter = {
-  resolveAccountId?: (params: { cfg: SynurexConfig; accountId?: string }) => string;
+  resolveAccountId?: (params: { cfg: SKYKOIConfig; accountId?: string }) => string;
   applyAccountName?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId: string;
     name?: string;
-  }) => SynurexConfig;
+  }) => SKYKOIConfig;
   applyAccountConfig: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId: string;
     input: ChannelSetupInput;
-  }) => SynurexConfig;
+  }) => SKYKOIConfig;
   validateInput?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId: string;
     input: ChannelSetupInput;
   }) => string | null;
 };
 
 export type ChannelConfigAdapter<ResolvedAccount> = {
-  listAccountIds: (cfg: SynurexConfig) => string[];
-  resolveAccount: (cfg: SynurexConfig, accountId?: string | null) => ResolvedAccount;
-  defaultAccountId?: (cfg: SynurexConfig) => string;
+  listAccountIds: (cfg: SKYKOIConfig) => string[];
+  resolveAccount: (cfg: SKYKOIConfig, accountId?: string | null) => ResolvedAccount;
+  defaultAccountId?: (cfg: SKYKOIConfig) => string;
   setAccountEnabled?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId: string;
     enabled: boolean;
-  }) => SynurexConfig;
-  deleteAccount?: (params: { cfg: SynurexConfig; accountId: string }) => SynurexConfig;
-  isEnabled?: (account: ResolvedAccount, cfg: SynurexConfig) => boolean;
-  disabledReason?: (account: ResolvedAccount, cfg: SynurexConfig) => string;
-  isConfigured?: (account: ResolvedAccount, cfg: SynurexConfig) => boolean | Promise<boolean>;
-  unconfiguredReason?: (account: ResolvedAccount, cfg: SynurexConfig) => string;
-  describeAccount?: (account: ResolvedAccount, cfg: SynurexConfig) => ChannelAccountSnapshot;
+  }) => SKYKOIConfig;
+  deleteAccount?: (params: { cfg: SKYKOIConfig; accountId: string }) => SKYKOIConfig;
+  isEnabled?: (account: ResolvedAccount, cfg: SKYKOIConfig) => boolean;
+  disabledReason?: (account: ResolvedAccount, cfg: SKYKOIConfig) => string;
+  isConfigured?: (account: ResolvedAccount, cfg: SKYKOIConfig) => boolean | Promise<boolean>;
+  unconfiguredReason?: (account: ResolvedAccount, cfg: SKYKOIConfig) => string;
+  describeAccount?: (account: ResolvedAccount, cfg: SKYKOIConfig) => ChannelAccountSnapshot;
   resolveAllowFrom?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
   }) => string[] | undefined;
   formatAllowFrom?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     allowFrom: Array<string | number>;
   }) => string[];
@@ -71,7 +71,7 @@ export type ChannelGroupAdapter = {
 };
 
 export type ChannelOutboundContext = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   to: string;
   text: string;
   mediaUrl?: string;
@@ -93,7 +93,7 @@ export type ChannelOutboundAdapter = {
   textChunkLimit?: number;
   pollMaxOptions?: number;
   resolveTarget?: (params: {
-    cfg?: SynurexConfig;
+    cfg?: SKYKOIConfig;
     to?: string;
     allowFrom?: string[];
     accountId?: string | null;
@@ -109,37 +109,37 @@ export type ChannelStatusAdapter<ResolvedAccount, Probe = unknown, Audit = unkno
   defaultRuntime?: ChannelAccountSnapshot;
   buildChannelSummary?: (params: {
     account: ResolvedAccount;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     defaultAccountId: string;
     snapshot: ChannelAccountSnapshot;
   }) => Record<string, unknown> | Promise<Record<string, unknown>>;
   probeAccount?: (params: {
     account: ResolvedAccount;
     timeoutMs: number;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
   }) => Promise<Probe>;
   auditAccount?: (params: {
     account: ResolvedAccount;
     timeoutMs: number;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     probe?: Probe;
   }) => Promise<Audit>;
   buildAccountSnapshot?: (params: {
     account: ResolvedAccount;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     runtime?: ChannelAccountSnapshot;
     probe?: Probe;
     audit?: Audit;
   }) => ChannelAccountSnapshot | Promise<ChannelAccountSnapshot>;
   logSelfId?: (params: {
     account: ResolvedAccount;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     runtime: RuntimeEnv;
     includeChannelPrefix?: boolean;
   }) => void;
   resolveAccountState?: (params: {
     account: ResolvedAccount;
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     configured: boolean;
     enabled: boolean;
   }) => ChannelAccountState;
@@ -147,7 +147,7 @@ export type ChannelStatusAdapter<ResolvedAccount, Probe = unknown, Audit = unkno
 };
 
 export type ChannelGatewayContext<ResolvedAccount = unknown> = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId: string;
   account: ResolvedAccount;
   runtime: RuntimeEnv;
@@ -174,7 +174,7 @@ export type ChannelLoginWithQrWaitResult = {
 };
 
 export type ChannelLogoutContext<ResolvedAccount = unknown> = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId: string;
   account: ResolvedAccount;
   runtime: RuntimeEnv;
@@ -185,7 +185,7 @@ export type ChannelPairingAdapter = {
   idLabel: string;
   normalizeAllowEntry?: (entry: string) => string;
   notifyApproval?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     id: string;
     runtime?: RuntimeEnv;
   }) => Promise<void>;
@@ -209,7 +209,7 @@ export type ChannelGatewayAdapter<ResolvedAccount = unknown> = {
 
 export type ChannelAuthAdapter = {
   login?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     runtime: RuntimeEnv;
     verbose?: boolean;
@@ -219,11 +219,11 @@ export type ChannelAuthAdapter = {
 
 export type ChannelHeartbeatAdapter = {
   checkReady?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     deps?: ChannelHeartbeatDeps;
   }) => Promise<{ ok: boolean; reason: string }>;
-  resolveRecipients?: (params: { cfg: SynurexConfig; opts?: { to?: string; all?: boolean } }) => {
+  resolveRecipients?: (params: { cfg: SKYKOIConfig; opts?: { to?: string; all?: boolean } }) => {
     recipients: string[];
     source: string;
   };
@@ -231,40 +231,40 @@ export type ChannelHeartbeatAdapter = {
 
 export type ChannelDirectoryAdapter = {
   self?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry | null>;
   listPeers?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listPeersLive?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroups?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroupsLive?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroupMembers?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     groupId: string;
     limit?: number | null;
@@ -284,7 +284,7 @@ export type ChannelResolveResult = {
 
 export type ChannelResolverAdapter = {
   resolveTargets: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
     inputs: string[];
     kind: ChannelResolveKind;
@@ -294,7 +294,7 @@ export type ChannelResolverAdapter = {
 
 export type ChannelElevatedAdapter = {
   allowFromFallback?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     accountId?: string | null;
   }) => Array<string | number> | undefined;
 };

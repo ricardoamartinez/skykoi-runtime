@@ -2,7 +2,7 @@
 read_when:
   - 你想管理智能体钩子
   - 你想安装或更新钩子
-summary: CLI 参考：`synurex hooks`（智能体钩子）
+summary: CLI 参考：`SKYKOI hooks`（智能体钩子）
 title: hooks
 x-i18n:
   generated_at: "2026-02-03T10:04:32Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `synurex hooks`
+# `SKYKOI hooks`
 
 管理智能体钩子（针对 `/new`、`/reset` 等命令以及 Gateway 网关启动的事件驱动自动化）。
 
@@ -25,7 +25,7 @@ x-i18n:
 ## 列出所有钩子
 
 ```bash
-Synurex hooks list
+SKYKOI hooks list
 ```
 
 列出从工作区、托管目录和内置目录中发现的所有钩子。
@@ -51,7 +51,7 @@ Ready:
 **示例（详细模式）：**
 
 ```bash
-Synurex hooks list --verbose
+SKYKOI hooks list --verbose
 ```
 
 显示不符合条件的钩子缺失的要求。
@@ -59,7 +59,7 @@ Synurex hooks list --verbose
 **示例（JSON）：**
 
 ```bash
-Synurex hooks list --json
+SKYKOI hooks list --json
 ```
 
 返回结构化 JSON，供程序化使用。
@@ -67,7 +67,7 @@ Synurex hooks list --json
 ## 获取钩子信息
 
 ```bash
-Synurex hooks info <name>
+SKYKOI hooks info <name>
 ```
 
 显示特定钩子的详细信息。
@@ -83,7 +83,7 @@ Synurex hooks info <name>
 **示例：**
 
 ```bash
-Synurex hooks info session-memory
+SKYKOI hooks info session-memory
 ```
 
 **输出：**
@@ -94,10 +94,10 @@ Synurex hooks info session-memory
 Save session context to memory when /new command is issued
 
 Details:
-  Source: Synurex-bundled
-  Path: /path/to/Synurex/hooks/bundled/session-memory/HOOK.md
-  Handler: /path/to/Synurex/hooks/bundled/session-memory/handler.ts
-  Homepage: https://docs.synurex.com/hooks#session-memory
+  Source: SKYKOI-bundled
+  Path: /path/to/SKYKOI/hooks/bundled/session-memory/HOOK.md
+  Handler: /path/to/SKYKOI/hooks/bundled/session-memory/handler.ts
+  Homepage: https://docs.SKYKOI.com/hooks#session-memory
   Events: command:new
 
 Requirements:
@@ -107,7 +107,7 @@ Requirements:
 ## 检查钩子资格
 
 ```bash
-Synurex hooks check
+SKYKOI hooks check
 ```
 
 显示钩子资格状态摘要（有多少已就绪，有多少未就绪）。
@@ -129,12 +129,12 @@ Not ready: 0
 ## 启用钩子
 
 ```bash
-Synurex hooks enable <name>
+SKYKOI hooks enable <name>
 ```
 
-通过将特定钩子添加到配置（`~/.synurex/config.json`）来启用它。
+通过将特定钩子添加到配置（`~/.SKYKOI/config.json`）来启用它。
 
-**注意：** 由插件管理的钩子在 `synurex hooks list` 中显示 `plugin:<id>`，
+**注意：** 由插件管理的钩子在 `SKYKOI hooks list` 中显示 `plugin:<id>`，
 无法在此处启用/禁用。请改为启用/禁用该插件。
 
 **参数：**
@@ -144,7 +144,7 @@ Synurex hooks enable <name>
 **示例：**
 
 ```bash
-Synurex hooks enable session-memory
+SKYKOI hooks enable session-memory
 ```
 
 **输出：**
@@ -166,7 +166,7 @@ Synurex hooks enable session-memory
 ## 禁用钩子
 
 ```bash
-Synurex hooks disable <name>
+SKYKOI hooks disable <name>
 ```
 
 通过更新配置来禁用特定钩子。
@@ -178,7 +178,7 @@ Synurex hooks disable <name>
 **示例：**
 
 ```bash
-Synurex hooks disable command-logger
+SKYKOI hooks disable command-logger
 ```
 
 **输出：**
@@ -194,14 +194,14 @@ Synurex hooks disable command-logger
 ## 安装钩子
 
 ```bash
-Synurex hooks install <path-or-spec>
+SKYKOI hooks install <path-or-spec>
 ```
 
 从本地文件夹/压缩包或 npm 安装钩子包。
 
 **执行操作：**
 
-- 将钩子包复制到 `~/.synurex/hooks/<id>`
+- 将钩子包复制到 `~/.SKYKOI/hooks/<id>`
 - 在 `hooks.internal.entries.*` 中启用已安装的钩子
 - 在 `hooks.internal.installs` 下记录安装信息
 
@@ -215,23 +215,23 @@ Synurex hooks install <path-or-spec>
 
 ```bash
 # 本地目录
-Synurex hooks install ./my-hook-pack
+SKYKOI hooks install ./my-hook-pack
 
 # 本地压缩包
-Synurex hooks install ./my-hook-pack.zip
+SKYKOI hooks install ./my-hook-pack.zip
 
 # NPM 包
-Synurex hooks install @Synurex/my-hook-pack
+SKYKOI hooks install @SKYKOI/my-hook-pack
 
 # 链接本地目录而不复制
-Synurex hooks install -l ./my-hook-pack
+SKYKOI hooks install -l ./my-hook-pack
 ```
 
 ## 更新钩子
 
 ```bash
-Synurex hooks update <id>
-Synurex hooks update --all
+SKYKOI hooks update <id>
+SKYKOI hooks update --all
 ```
 
 更新已安装的钩子包（仅限 npm 安装）。
@@ -250,10 +250,10 @@ Synurex hooks update --all
 **启用：**
 
 ```bash
-Synurex hooks enable session-memory
+SKYKOI hooks enable session-memory
 ```
 
-**输出：** `~/.synurex/workspace/memory/YYYY-MM-DD-slug.md`
+**输出：** `~/.SKYKOI/workspace/memory/YYYY-MM-DD-slug.md`
 
 **参见：** [session-memory 文档](/automation/hooks#session-memory)
 
@@ -264,22 +264,22 @@ Synurex hooks enable session-memory
 **启用：**
 
 ```bash
-Synurex hooks enable command-logger
+SKYKOI hooks enable command-logger
 ```
 
-**输出：** `~/.synurex/logs/commands.log`
+**输出：** `~/.SKYKOI/logs/commands.log`
 
 **查看日志：**
 
 ```bash
 # 最近的命令
-tail -n 20 ~/.synurex/logs/commands.log
+tail -n 20 ~/.SKYKOI/logs/commands.log
 
 # 格式化输出
-cat ~/.synurex/logs/commands.log | jq .
+cat ~/.SKYKOI/logs/commands.log | jq .
 
 # 按操作过滤
-grep '"action":"new"' ~/.synurex/logs/commands.log | jq .
+grep '"action":"new"' ~/.SKYKOI/logs/commands.log | jq .
 ```
 
 **参见：** [command-logger 文档](/automation/hooks#command-logger)
@@ -291,7 +291,7 @@ grep '"action":"new"' ~/.synurex/logs/commands.log | jq .
 **启用：**
 
 ```bash
-Synurex hooks enable soul-evil
+SKYKOI hooks enable soul-evil
 ```
 
 **参见：** [SOUL Evil 钩子](/hooks/soul-evil)
@@ -305,7 +305,7 @@ Synurex hooks enable soul-evil
 **启用**：
 
 ```bash
-Synurex hooks enable boot-md
+SKYKOI hooks enable boot-md
 ```
 
 **参见：** [boot-md 文档](/automation/hooks#boot-md)

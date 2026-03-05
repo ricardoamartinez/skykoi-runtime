@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import { describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import type { SKYKOIConfig } from "../config/config.js";
+import { ensureSKYKOIModelsJson } from "./models-config.js";
 import { createSystemPromptOverride } from "./pi-embedded-runner.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
@@ -67,10 +67,10 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies SynurexConfig;
+  }) satisfies SKYKOIConfig;
 
-const _ensureModels = (cfg: SynurexConfig, agentDir: string) =>
-  ensureSynurexModelsJson(cfg, agentDir) as unknown;
+const _ensureModels = (cfg: SKYKOIConfig, agentDir: string) =>
+  ensureSKYKOIModelsJson(cfg, agentDir) as unknown;
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {

@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { registerFeishuBitableTools } from "./src/bitable.js";
 import { feishuPlugin } from "./src/channel.js";
 import { registerFeishuDocTools } from "./src/docx.js";
@@ -49,7 +49,7 @@ const plugin = {
   name: "Feishu",
   description: "Feishu/Lark channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setFeishuRuntime(api.runtime);
     api.registerChannel({ plugin: feishuPlugin });
     registerFeishuDocTools(api);

@@ -1,5 +1,5 @@
 import type { ChannelDirectoryEntryKind, ChannelId } from "../../channels/plugins/types.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 
 type CacheEntry<T> = {
   value: T;
@@ -21,11 +21,11 @@ export function buildDirectoryCacheKey(key: DirectoryCacheKey): string {
 
 export class DirectoryCache<T> {
   private readonly cache = new Map<string, CacheEntry<T>>();
-  private lastConfigRef: SynurexConfig | null = null;
+  private lastConfigRef: SKYKOIConfig | null = null;
 
   constructor(private readonly ttlMs: number) {}
 
-  get(key: string, cfg: SynurexConfig): T | undefined {
+  get(key: string, cfg: SKYKOIConfig): T | undefined {
     this.resetIfConfigChanged(cfg);
     const entry = this.cache.get(key);
     if (!entry) {
@@ -38,7 +38,7 @@ export class DirectoryCache<T> {
     return entry.value;
   }
 
-  set(key: string, value: T, cfg: SynurexConfig): void {
+  set(key: string, value: T, cfg: SKYKOIConfig): void {
     this.resetIfConfigChanged(cfg);
     this.cache.set(key, { value, fetchedAt: Date.now() });
   }
@@ -51,14 +51,14 @@ export class DirectoryCache<T> {
     }
   }
 
-  clear(cfg?: SynurexConfig): void {
+  clear(cfg?: SKYKOIConfig): void {
     this.cache.clear();
     if (cfg) {
       this.lastConfigRef = cfg;
     }
   }
 
-  private resetIfConfigChanged(cfg: SynurexConfig): void {
+  private resetIfConfigChanged(cfg: SKYKOIConfig): void {
     if (this.lastConfigRef && this.lastConfigRef !== cfg) {
       this.cache.clear();
     }

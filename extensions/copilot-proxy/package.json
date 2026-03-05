@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/copilot-proxy",
+  "name": "@SKYKOI/copilot-proxy",
   "version": "2026.2.6-3",
-  "description": "Synurex Copilot Proxy provider plugin",
+  "description": "SKYKOI Copilot Proxy provider plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

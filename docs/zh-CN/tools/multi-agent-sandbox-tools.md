@@ -32,14 +32,14 @@ x-i18n:
 认证是按智能体的：每个智能体从其自己的 `agentDir` 认证存储读取：
 
 ```
-~/.synurex/agents/<agentId>/agent/auth-profiles.json
+~/.SKYKOI/agents/<agentId>/agent/auth-profiles.json
 ```
 
 凭证**不会**在智能体之间共享。切勿在智能体之间重用 `agentDir`。
 如果你想共享凭证，请将 `auth-profiles.json` 复制到其他智能体的 `agentDir` 中。
 
 有关沙箱隔离在运行时的行为，请参见[沙箱隔离](/gateway/sandboxing)。
-有关调试"为什么这被阻止了？"，请参见[沙箱 vs 工具策略 vs 提权](/gateway/sandbox-vs-tool-policy-vs-elevated) 和 `Synurex sandbox explain`。
+有关调试"为什么这被阻止了？"，请参见[沙箱 vs 工具策略 vs 提权](/gateway/sandbox-vs-tool-policy-vs-elevated) 和 `SKYKOI sandbox explain`。
 
 ---
 
@@ -55,13 +55,13 @@ x-i18n:
         "id": "main",
         "default": true,
         "name": "Personal Assistant",
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "family",
         "name": "Family Bot",
-        "workspace": "~/.synurex/workspace-family",
+        "workspace": "~/.SKYKOI/workspace-family",
         "sandbox": {
           "mode": "all",
           "scope": "agent"
@@ -104,12 +104,12 @@ x-i18n:
     "list": [
       {
         "id": "personal",
-        "workspace": "~/.synurex/workspace-personal",
+        "workspace": "~/.SKYKOI/workspace-personal",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "work",
-        "workspace": "~/.synurex/workspace-work",
+        "workspace": "~/.SKYKOI/workspace-work",
         "sandbox": {
           "mode": "all",
           "scope": "shared",
@@ -164,14 +164,14 @@ x-i18n:
     "list": [
       {
         "id": "main",
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": {
           "mode": "off" // 覆盖：main 永不沙箱隔离
         }
       },
       {
         "id": "public",
-        "workspace": "~/.synurex/workspace-public",
+        "workspace": "~/.SKYKOI/workspace-public",
         "sandbox": {
           "mode": "all", // 覆盖：public 始终沙箱隔离
           "scope": "agent"
@@ -240,7 +240,7 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
 - `group:automation`：`cron`、`gateway`
 - `group:messaging`：`message`
 - `group:nodes`：`nodes`
-- `group:Synurex`：所有内置 Synurex 工具（不包括提供商插件）
+- `group:SKYKOI`：所有内置 SKYKOI 工具（不包括提供商插件）
 
 ### 提权模式
 
@@ -263,7 +263,7 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
 {
   "agents": {
     "defaults": {
-      "workspace": "~/.synurex/workspace",
+      "workspace": "~/.SKYKOI/workspace",
       "sandbox": {
         "mode": "non-main"
       }
@@ -289,7 +289,7 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
       {
         "id": "main",
         "default": true,
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": { "mode": "off" }
       }
     ]
@@ -297,7 +297,7 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
 }
 ```
 
-旧版 `agent.*` 配置由 `Synurex doctor` 迁移；今后请优先使用 `agents.defaults` + `agents.list`。
+旧版 `agent.*` 配置由 `SKYKOI doctor` 迁移；今后请优先使用 `agents.defaults` + `agents.list`。
 
 ---
 
@@ -354,13 +354,13 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
 1. **检查智能体解析：**
 
    ```exec
-   Synurex agents list --bindings
+   SKYKOI agents list --bindings
    ```
 
 2. **验证沙箱容器：**
 
    ```exec
-   docker ps --filter "name=Synurex-sbx-"
+   docker ps --filter "name=SKYKOI-sbx-"
    ```
 
 3. **测试工具限制：**
@@ -369,7 +369,7 @@ agents.list[].sandbox.prune.* > agents.defaults.sandbox.prune.*
 
 4. **监控日志：**
    ```exec
-   tail -f "${SYNUREX_STATE_DIR:-$HOME/.synurex}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+   tail -f "${SKYKOI_STATE_DIR:-$HOME/.SKYKOI}/logs/gateway.log" | grep -E "routing|sandbox|tools"
    ```
 
 ---

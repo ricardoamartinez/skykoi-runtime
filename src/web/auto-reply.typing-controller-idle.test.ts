@@ -13,7 +13,7 @@ vi.mock("../agents/pi-embedded.js", () => ({
   resolveEmbeddedSessionLane: (key: string) => `session:${key.trim() || "main"}`,
 }));
 
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resetInboundDedupe } from "../auto-reply/reply/inbound-dedupe.js";
 import { monitorWebChannel } from "./auto-reply.js";
 import { resetLoadConfigMock, setLoadConfigMock } from "./test-helpers.js";
@@ -46,7 +46,7 @@ const rmDirWithRetries = async (dir: string): Promise<void> => {
 beforeEach(async () => {
   resetInboundDedupe();
   previousHome = process.env.HOME;
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-web-home-"));
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-web-home-"));
   process.env.HOME = tempHome;
 });
 
@@ -61,7 +61,7 @@ afterEach(async () => {
 const _makeSessionStore = async (
   entries: Record<string, unknown> = {},
 ): Promise<{ storePath: string; cleanup: () => Promise<void> }> => {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-session-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-session-"));
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(storePath, JSON.stringify(entries));
   const cleanup = async () => {
@@ -114,7 +114,7 @@ describe("typing controller idle", () => {
       return { text: "final reply" };
     });
 
-    const mockConfig: SynurexConfig = {
+    const mockConfig: SKYKOIConfig = {
       channels: { whatsapp: { allowFrom: ["*"] } },
     };
 

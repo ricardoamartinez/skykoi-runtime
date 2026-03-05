@@ -4,7 +4,7 @@ import type { RunEmbeddedPiAgentParams } from "./run/params.js";
 import type { EmbeddedPiAgentMeta, EmbeddedPiRunResult } from "./types.js";
 import { enqueueCommandInLane } from "../../process/command-queue.js";
 import { isMarkdownCapableMessageChannel } from "../../utils/message-channel.js";
-import { resolveSynurexAgentDir } from "../agent-paths.js";
+import { resolveSKYKOIAgentDir } from "../agent-paths.js";
 import {
   isProfileInCooldown,
   markAuthProfileFailure,
@@ -26,7 +26,7 @@ import {
   type ResolvedProviderAuth,
 } from "../model-auth.js";
 import { normalizeProviderId } from "../model-selection.js";
-import { ensureSynurexModelsJson } from "../models-config.js";
+import { ensureSKYKOIModelsJson } from "../models-config.js";
 import {
   BILLING_ERROR_USER_MESSAGE,
   classifyFailoverReason,
@@ -115,10 +115,10 @@ export async function runEmbeddedPiAgent(
 
       const provider = (params.provider ?? DEFAULT_PROVIDER).trim() || DEFAULT_PROVIDER;
       const modelId = (params.model ?? DEFAULT_MODEL).trim() || DEFAULT_MODEL;
-      const agentDir = params.agentDir ?? resolveSynurexAgentDir();
+      const agentDir = params.agentDir ?? resolveSKYKOIAgentDir();
       const fallbackConfigured =
         (params.config?.agents?.defaults?.model?.fallbacks?.length ?? 0) > 0;
-      await ensureSynurexModelsJson(params.config, agentDir);
+      await ensureSKYKOIModelsJson(params.config, agentDir);
 
       const { model, error, authStorage, modelRegistry } = resolveModel(
         provider,

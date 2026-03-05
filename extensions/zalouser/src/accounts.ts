@@ -1,9 +1,9 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig } from "SKYKOI/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "SKYKOI/plugin-sdk";
 import type { ResolvedZalouserAccount, ZalouserAccountConfig, ZalouserConfig } from "./types.js";
 import { runZca, parseJsonOutput } from "./zca.js";
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SKYKOIConfig): string[] {
   const accounts = (cfg.channels?.zalouser as ZalouserConfig | undefined)?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -11,7 +11,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listZalouserAccountIds(cfg: SynurexConfig): string[] {
+export function listZalouserAccountIds(cfg: SKYKOIConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -19,7 +19,7 @@ export function listZalouserAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultZalouserAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultZalouserAccountId(cfg: SKYKOIConfig): string {
   const zalouserConfig = cfg.channels?.zalouser as ZalouserConfig | undefined;
   if (zalouserConfig?.defaultAccount?.trim()) {
     return zalouserConfig.defaultAccount.trim();
@@ -32,7 +32,7 @@ export function resolveDefaultZalouserAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
 ): ZalouserAccountConfig | undefined {
   const accounts = (cfg.channels?.zalouser as ZalouserConfig | undefined)?.accounts;
@@ -42,7 +42,7 @@ function resolveAccountConfig(
   return accounts[accountId] as ZalouserAccountConfig | undefined;
 }
 
-function mergeZalouserAccountConfig(cfg: SynurexConfig, accountId: string): ZalouserAccountConfig {
+function mergeZalouserAccountConfig(cfg: SKYKOIConfig, accountId: string): ZalouserAccountConfig {
   const raw = (cfg.channels?.zalouser ?? {}) as ZalouserConfig;
   const { accounts: _ignored, defaultAccount: _ignored2, ...base } = raw;
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -68,7 +68,7 @@ export async function checkZcaAuthenticated(profile: string): Promise<boolean> {
 }
 
 export async function resolveZalouserAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId?: string | null;
 }): Promise<ResolvedZalouserAccount> {
   const accountId = normalizeAccountId(params.accountId);
@@ -91,7 +91,7 @@ export async function resolveZalouserAccount(params: {
 }
 
 export function resolveZalouserAccountSync(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId?: string | null;
 }): ResolvedZalouserAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -113,7 +113,7 @@ export function resolveZalouserAccountSync(params: {
 }
 
 export async function listEnabledZalouserAccounts(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
 ): Promise<ResolvedZalouserAccount[]> {
   const ids = listZalouserAccountIds(cfg);
   const accounts = await Promise.all(

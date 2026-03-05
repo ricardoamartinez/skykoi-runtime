@@ -1,4 +1,4 @@
-import type { RuntimeEnv } from "Synurex/plugin-sdk";
+import type { RuntimeEnv } from "SKYKOI/plugin-sdk";
 import { extractMessageText } from "./utils.js";
 
 export type TlonHistoryEntry = {

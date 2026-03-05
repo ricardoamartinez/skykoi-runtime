@@ -5,8 +5,8 @@ import { createServer } from "node:net";
 import os from "node:os";
 import path from "node:path";
 import { describe, it } from "vitest";
-import type { SynurexConfig, ModelProviderConfig } from "../config/types.js";
-import { resolveSynurexAgentDir } from "../agents/agent-paths.js";
+import type { SKYKOIConfig, ModelProviderConfig } from "../config/types.js";
+import { resolveSKYKOIAgentDir } from "../agents/agent-paths.js";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import {
   type AuthProfileStore,
@@ -20,7 +20,7 @@ import {
 } from "../agents/live-auth-keys.js";
 import { isModernModelRef } from "../agents/live-model-filter.js";
 import { getApiKeyForModel } from "../agents/model-auth.js";
-import { ensureSynurexModelsJson } from "../agents/models-config.js";
+import { ensureSKYKOIModelsJson } from "../agents/models-config.js";
 import { discoverAuthStorage, discoverModels } from "../agents/pi-model-discovery.js";
 import { loadConfig } from "../config/config.js";
 import { isTruthyEnvValue } from "../infra/env.js";
@@ -30,10 +30,10 @@ import { GatewayClient } from "./client.js";
 import { renderCatNoncePngBase64 } from "./live-image-probe.js";
 import { startGatewayServer } from "./server.js";
 
-const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.SYNUREX_LIVE_TEST);
-const GATEWAY_LIVE = isTruthyEnvValue(process.env.SYNUREX_LIVE_GATEWAY);
-const ZAI_FALLBACK = isTruthyEnvValue(process.env.SYNUREX_LIVE_GATEWAY_ZAI_FALLBACK);
-const PROVIDERS = parseFilter(process.env.SYNUREX_LIVE_GATEWAY_PROVIDERS);
+const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.SKYKOI_LIVE_TEST);
+const GATEWAY_LIVE = isTruthyEnvValue(process.env.SKYKOI_LIVE_GATEWAY);
+const ZAI_FALLBACK = isTruthyEnvValue(process.env.SKYKOI_LIVE_GATEWAY_ZAI_FALLBACK);
+const PROVIDERS = parseFilter(process.env.SKYKOI_LIVE_GATEWAY_PROVIDERS);
 const THINKING_LEVEL = "high";
 const THINKING_TAG_RE = /<\s*\/?\s*(?:think(?:ing)?|thought|antthinking)\s*>/i;
 const FINAL_TAG_RE = /<\s*\/?\s*final\s*>/i;
@@ -372,7 +372,7 @@ async function connectClient(params: { url: string; token: string }) {
 
 type GatewayModelSuiteParams = {
   label: string;
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   candidates: Array<Model<Api>>;
   extraToolProbes: boolean;
   extraImageProbes: boolean;
@@ -381,10 +381,10 @@ type GatewayModelSuiteParams = {
 };
 
 function buildLiveGatewayConfig(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   candidates: Array<Model<Api>>;
   providerOverrides?: Record<string, ModelProviderConfig>;
-}): SynurexConfig {
+}): SKYKOIConfig {
   const providerOverrides = params.providerOverrides ?? {};
   const lmstudioProvider = params.cfg.models?.providers?.lmstudio;
   const baseProviders = params.cfg.models?.providers ?? {};
@@ -423,9 +423,9 @@ function buildLiveGatewayConfig(params: {
 }
 
 function sanitizeAuthConfig(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   agentDir: string;
-}): SynurexConfig["auth"] | undefined {
+}): SKYKOIConfig["auth"] | undefined {
   const auth = params.cfg.auth;
   if (!auth) {
     return auth;
@@ -434,7 +434,7 @@ function sanitizeAuthConfig(params: {
     allowKeychainPrompt: false,
   });
 
-  let profiles: NonNullable<SynurexConfig["auth"]>["profiles"] | undefined;
+  let profiles: NonNullable<SKYKOIConfig["auth"]>["profiles"] | undefined;
   if (auth.profiles) {
     profiles = {};
     for (const [profileId, profile] of Object.entries(auth.profiles)) {
@@ -474,7 +474,7 @@ function sanitizeAuthConfig(params: {
 }
 
 function buildMinimaxProviderOverride(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   api: "openai-completions" | "anthropic-messages";
   baseUrl: string;
 }): ModelProviderConfig | null {
@@ -491,29 +491,29 @@ function buildMinimaxProviderOverride(params: {
 
 async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   const previous = {
-    configPath: process.env.SYNUREX_CONFIG_PATH,
-    token: process.env.SYNUREX_GATEWAY_TOKEN,
-    skipChannels: process.env.SYNUREX_SKIP_CHANNELS,
-    skipGmail: process.env.SYNUREX_SKIP_GMAIL_WATCHER,
-    skipCron: process.env.SYNUREX_SKIP_CRON,
-    skipCanvas: process.env.SYNUREX_SKIP_CANVAS_HOST,
-    agentDir: process.env.SYNUREX_AGENT_DIR,
+    configPath: process.env.SKYKOI_CONFIG_PATH,
+    token: process.env.SKYKOI_GATEWAY_TOKEN,
+    skipChannels: process.env.SKYKOI_SKIP_CHANNELS,
+    skipGmail: process.env.SKYKOI_SKIP_GMAIL_WATCHER,
+    skipCron: process.env.SKYKOI_SKIP_CRON,
+    skipCanvas: process.env.SKYKOI_SKIP_CANVAS_HOST,
+    agentDir: process.env.SKYKOI_AGENT_DIR,
     piAgentDir: process.env.PI_CODING_AGENT_DIR,
-    stateDir: process.env.SYNUREX_STATE_DIR,
+    stateDir: process.env.SKYKOI_STATE_DIR,
   };
   let tempAgentDir: string | undefined;
   let tempStateDir: string | undefined;
 
-  process.env.SYNUREX_SKIP_CHANNELS = "1";
-  process.env.SYNUREX_SKIP_GMAIL_WATCHER = "1";
-  process.env.SYNUREX_SKIP_CRON = "1";
-  process.env.SYNUREX_SKIP_CANVAS_HOST = "1";
+  process.env.SKYKOI_SKIP_CHANNELS = "1";
+  process.env.SKYKOI_SKIP_GMAIL_WATCHER = "1";
+  process.env.SKYKOI_SKIP_CRON = "1";
+  process.env.SKYKOI_SKIP_CANVAS_HOST = "1";
 
   const token = `test-${randomUUID()}`;
-  process.env.SYNUREX_GATEWAY_TOKEN = token;
+  process.env.SKYKOI_GATEWAY_TOKEN = token;
   const agentId = "dev";
 
-  const hostAgentDir = resolveSynurexAgentDir();
+  const hostAgentDir = resolveSKYKOIAgentDir();
   const hostStore = ensureAuthProfileStore(hostAgentDir, {
     allowKeychainPrompt: false,
   });
@@ -526,26 +526,26 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
     lastGood: hostStore.lastGood ? { ...hostStore.lastGood } : undefined,
     usageStats: hostStore.usageStats ? { ...hostStore.usageStats } : undefined,
   };
-  tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-live-state-"));
-  process.env.SYNUREX_STATE_DIR = tempStateDir;
+  tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-live-state-"));
+  process.env.SKYKOI_STATE_DIR = tempStateDir;
   tempAgentDir = path.join(tempStateDir, "agents", DEFAULT_AGENT_ID, "agent");
   saveAuthProfileStore(sanitizedStore, tempAgentDir);
   const tempSessionAgentDir = path.join(tempStateDir, "agents", agentId, "agent");
   if (tempSessionAgentDir !== tempAgentDir) {
     saveAuthProfileStore(sanitizedStore, tempSessionAgentDir);
   }
-  process.env.SYNUREX_AGENT_DIR = tempAgentDir;
+  process.env.SKYKOI_AGENT_DIR = tempAgentDir;
   process.env.PI_CODING_AGENT_DIR = tempAgentDir;
 
   const workspaceDir = resolveAgentWorkspaceDir(params.cfg, agentId);
   await fs.mkdir(workspaceDir, { recursive: true });
   const nonceA = randomUUID();
   const nonceB = randomUUID();
-  const toolProbePath = path.join(workspaceDir, `.synurex-live-tool-probe.${nonceA}.txt`);
+  const toolProbePath = path.join(workspaceDir, `.SKYKOI-live-tool-probe.${nonceA}.txt`);
   await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-  const agentDir = resolveSynurexAgentDir();
-  const sanitizedCfg: SynurexConfig = {
+  const agentDir = resolveSKYKOIAgentDir();
+  const sanitizedCfg: SKYKOIConfig = {
     ...params.cfg,
     auth: sanitizeAuthConfig({ cfg: params.cfg, agentDir }),
   };
@@ -554,12 +554,12 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
     candidates: params.candidates,
     providerOverrides: params.providerOverrides,
   });
-  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-live-"));
-  const tempConfigPath = path.join(tempDir, "synurex.json");
+  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-live-"));
+  const tempConfigPath = path.join(tempDir, "SKYKOI.json");
   await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
-  process.env.SYNUREX_CONFIG_PATH = tempConfigPath;
+  process.env.SKYKOI_CONFIG_PATH = tempConfigPath;
 
-  await ensureSynurexModelsJson(nextCfg);
+  await ensureSKYKOIModelsJson(nextCfg);
 
   const port = await getFreeGatewayPort();
   const server = await startGatewayServer(port, {
@@ -691,7 +691,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
               sessionKey,
               idempotencyKey: `idem-${runIdTool}-tool`,
               message:
-                "Synurex live tool probe (local, safe): " +
+                "SKYKOI live tool probe (local, safe): " +
                 `use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolProbePath}"}. ` +
                 "Then reply with the two nonce values you read (include both).",
               thinking: params.thinkingLevel,
@@ -731,7 +731,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
                 sessionKey,
                 idempotencyKey: `idem-${runIdTool}-exec-read`,
                 message:
-                  "Synurex live tool probe (local, safe): " +
+                  "SKYKOI live tool probe (local, safe): " +
                   "use the tool named `exec` (or `Exec`) to run this command: " +
                   `mkdir -p "${tempDir}" && printf '%s' '${nonceC}' > "${toolWritePath}". ` +
                   `Then use the tool named \`read\` (or \`Read\`) with JSON arguments {"path":"${toolWritePath}"}. ` +
@@ -997,15 +997,15 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
       await fs.rm(tempStateDir, { recursive: true, force: true });
     }
 
-    process.env.SYNUREX_CONFIG_PATH = previous.configPath;
-    process.env.SYNUREX_GATEWAY_TOKEN = previous.token;
-    process.env.SYNUREX_SKIP_CHANNELS = previous.skipChannels;
-    process.env.SYNUREX_SKIP_GMAIL_WATCHER = previous.skipGmail;
-    process.env.SYNUREX_SKIP_CRON = previous.skipCron;
-    process.env.SYNUREX_SKIP_CANVAS_HOST = previous.skipCanvas;
-    process.env.SYNUREX_AGENT_DIR = previous.agentDir;
+    process.env.SKYKOI_CONFIG_PATH = previous.configPath;
+    process.env.SKYKOI_GATEWAY_TOKEN = previous.token;
+    process.env.SKYKOI_SKIP_CHANNELS = previous.skipChannels;
+    process.env.SKYKOI_SKIP_GMAIL_WATCHER = previous.skipGmail;
+    process.env.SKYKOI_SKIP_CRON = previous.skipCron;
+    process.env.SKYKOI_SKIP_CANVAS_HOST = previous.skipCanvas;
+    process.env.SKYKOI_AGENT_DIR = previous.agentDir;
     process.env.PI_CODING_AGENT_DIR = previous.piAgentDir;
-    process.env.SYNUREX_STATE_DIR = previous.stateDir;
+    process.env.SKYKOI_STATE_DIR = previous.stateDir;
   }
 }
 
@@ -1014,9 +1014,9 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     "runs meaningful prompts across models with available keys",
     async () => {
       const cfg = loadConfig();
-      await ensureSynurexModelsJson(cfg);
+      await ensureSKYKOIModelsJson(cfg);
 
-      const agentDir = resolveSynurexAgentDir();
+      const agentDir = resolveSKYKOIAgentDir();
       const authStore = ensureAuthProfileStore(agentDir, {
         allowKeychainPrompt: false,
       });
@@ -1024,7 +1024,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
       const modelRegistry = discoverModels(authStorage, agentDir);
       const all = modelRegistry.getAll();
 
-      const rawModels = process.env.SYNUREX_LIVE_GATEWAY_MODELS?.trim();
+      const rawModels = process.env.SKYKOI_LIVE_GATEWAY_MODELS?.trim();
       const useModern = !rawModels || rawModels === "modern" || rawModels === "all";
       const useExplicit = Boolean(rawModels) && !useModern;
       const filter = useExplicit ? parseFilter(rawModels) : null;
@@ -1105,26 +1105,26 @@ describeLive("gateway live (dev agent, profile keys)", () => {
       return;
     }
     const previous = {
-      configPath: process.env.SYNUREX_CONFIG_PATH,
-      token: process.env.SYNUREX_GATEWAY_TOKEN,
-      skipChannels: process.env.SYNUREX_SKIP_CHANNELS,
-      skipGmail: process.env.SYNUREX_SKIP_GMAIL_WATCHER,
-      skipCron: process.env.SYNUREX_SKIP_CRON,
-      skipCanvas: process.env.SYNUREX_SKIP_CANVAS_HOST,
+      configPath: process.env.SKYKOI_CONFIG_PATH,
+      token: process.env.SKYKOI_GATEWAY_TOKEN,
+      skipChannels: process.env.SKYKOI_SKIP_CHANNELS,
+      skipGmail: process.env.SKYKOI_SKIP_GMAIL_WATCHER,
+      skipCron: process.env.SKYKOI_SKIP_CRON,
+      skipCanvas: process.env.SKYKOI_SKIP_CANVAS_HOST,
     };
 
-    process.env.SYNUREX_SKIP_CHANNELS = "1";
-    process.env.SYNUREX_SKIP_GMAIL_WATCHER = "1";
-    process.env.SYNUREX_SKIP_CRON = "1";
-    process.env.SYNUREX_SKIP_CANVAS_HOST = "1";
+    process.env.SKYKOI_SKIP_CHANNELS = "1";
+    process.env.SKYKOI_SKIP_GMAIL_WATCHER = "1";
+    process.env.SKYKOI_SKIP_CRON = "1";
+    process.env.SKYKOI_SKIP_CANVAS_HOST = "1";
 
     const token = `test-${randomUUID()}`;
-    process.env.SYNUREX_GATEWAY_TOKEN = token;
+    process.env.SKYKOI_GATEWAY_TOKEN = token;
 
     const cfg = loadConfig();
-    await ensureSynurexModelsJson(cfg);
+    await ensureSKYKOIModelsJson(cfg);
 
-    const agentDir = resolveSynurexAgentDir();
+    const agentDir = resolveSKYKOIAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir);
     const anthropic = modelRegistry.find("anthropic", "claude-opus-4-5") as Model<Api> | null;
@@ -1145,7 +1145,7 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     const nonceA = randomUUID();
     const nonceB = randomUUID();
-    const toolProbePath = path.join(workspaceDir, `.synurex-live-zai-fallback.${nonceA}.txt`);
+    const toolProbePath = path.join(workspaceDir, `.SKYKOI-live-zai-fallback.${nonceA}.txt`);
     await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
     const port = await getFreeGatewayPort();
@@ -1236,12 +1236,12 @@ describeLive("gateway live (dev agent, profile keys)", () => {
       await server.close({ reason: "live test complete" });
       await fs.rm(toolProbePath, { force: true });
 
-      process.env.SYNUREX_CONFIG_PATH = previous.configPath;
-      process.env.SYNUREX_GATEWAY_TOKEN = previous.token;
-      process.env.SYNUREX_SKIP_CHANNELS = previous.skipChannels;
-      process.env.SYNUREX_SKIP_GMAIL_WATCHER = previous.skipGmail;
-      process.env.SYNUREX_SKIP_CRON = previous.skipCron;
-      process.env.SYNUREX_SKIP_CANVAS_HOST = previous.skipCanvas;
+      process.env.SKYKOI_CONFIG_PATH = previous.configPath;
+      process.env.SKYKOI_GATEWAY_TOKEN = previous.token;
+      process.env.SKYKOI_SKIP_CHANNELS = previous.skipChannels;
+      process.env.SKYKOI_SKIP_GMAIL_WATCHER = previous.skipGmail;
+      process.env.SKYKOI_SKIP_CRON = previous.skipCron;
+      process.env.SKYKOI_SKIP_CANVAS_HOST = previous.skipCanvas;
     }
   }, 180_000);
 });

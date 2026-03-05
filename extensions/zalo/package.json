@@ -1,16 +1,16 @@
 {
-  "name": "@Synurex/zalo",
+  "name": "@SKYKOI/zalo",
   "version": "2026.2.6-3",
-  "description": "Synurex Zalo channel plugin",
+  "description": "SKYKOI Zalo channel plugin",
   "type": "module",
   "dependencies": {
-    "Synurex": "workspace:*",
+    "SKYKOI": "workspace:*",
     "undici": "7.21.0"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@Synurex/zalo",
+      "npmSpec": "@SKYKOI/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm"
     }

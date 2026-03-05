@@ -89,7 +89,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.synurex${suffix}`);
+  return path.join(homedir(), `.SKYKOI${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -105,22 +105,22 @@ export function applyCliProfileEnv(params: {
   }
 
   // Convenience only: fill defaults, never override explicit env values.
-  env.SYNUREX_PROFILE = profile;
-  env.SYNUREX_PROFILE = profile;
+  env.SKYKOI_PROFILE = profile;
+  env.SKYKOI_PROFILE = profile;
 
-  const stateDir = env.SYNUREX_STATE_DIR?.trim() || env.SYNUREX_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
-  if (!env.SYNUREX_STATE_DIR?.trim()) {
-    env.SYNUREX_STATE_DIR = stateDir;
-    env.SYNUREX_STATE_DIR = stateDir;
+  const stateDir = env.SKYKOI_STATE_DIR?.trim() || env.SKYKOI_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
+  if (!env.SKYKOI_STATE_DIR?.trim()) {
+    env.SKYKOI_STATE_DIR = stateDir;
+    env.SKYKOI_STATE_DIR = stateDir;
   }
 
-  if (!env.SYNUREX_CONFIG_PATH?.trim() && !env.SYNUREX_CONFIG_PATH?.trim()) {
-    env.SYNUREX_CONFIG_PATH = path.join(stateDir, "synurex.json");
-    env.SYNUREX_CONFIG_PATH = path.join(stateDir, "synurex.json");
+  if (!env.SKYKOI_CONFIG_PATH?.trim() && !env.SKYKOI_CONFIG_PATH?.trim()) {
+    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "SKYKOI.json");
+    env.SKYKOI_CONFIG_PATH = path.join(stateDir, "SKYKOI.json");
   }
 
-  if (profile === "dev" && !env.SYNUREX_GATEWAY_PORT?.trim() && !env.SYNUREX_GATEWAY_PORT?.trim()) {
-    env.SYNUREX_GATEWAY_PORT = "19001";
-    env.SYNUREX_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.SKYKOI_GATEWAY_PORT?.trim() && !env.SKYKOI_GATEWAY_PORT?.trim()) {
+    env.SKYKOI_GATEWAY_PORT = "19001";
+    env.SKYKOI_GATEWAY_PORT = "19001";
   }
 }

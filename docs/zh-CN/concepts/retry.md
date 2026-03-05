@@ -45,7 +45,7 @@ x-i18n:
 
 ## 配置
 
-在 `~/.synurex/synurex.json` 中按提供商设置重试策略：
+在 `~/.SKYKOI/SKYKOI.json` 中按提供商设置重试策略：
 
 ```json5
 {

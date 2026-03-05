@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig } from "SKYKOI/plugin-sdk";
 
 export type TlonResolvedAccount = {
   accountId: string;
@@ -15,7 +15,7 @@ export type TlonResolvedAccount = {
 };
 
 export function resolveTlonAccount(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId?: string | null,
 ): TlonResolvedAccount {
   const base = cfg.channels?.tlon as
@@ -80,7 +80,7 @@ export function resolveTlonAccount(
   };
 }
 
-export function listTlonAccountIds(cfg: SynurexConfig): string[] {
+export function listTlonAccountIds(cfg: SKYKOIConfig): string[] {
   const base = cfg.channels?.tlon as
     | { ship?: string; accounts?: Record<string, Record<string, unknown>> }
     | undefined;

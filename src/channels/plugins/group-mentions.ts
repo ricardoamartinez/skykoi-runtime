@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { DiscordConfig } from "../../config/types.js";
 import type {
   GroupToolPolicyBySenderConfig,
@@ -12,7 +12,7 @@ import {
 import { resolveSlackAccount } from "../../slack/accounts.js";
 
 type GroupMentionParams = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   groupId?: string | null;
   groupChannel?: string | null;
   groupSpace?: string | null;
@@ -69,7 +69,7 @@ function parseTelegramGroupId(value?: string | null) {
 }
 
 function resolveTelegramRequireMention(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   chatId?: string;
   topicId?: string;
 }): boolean | undefined {

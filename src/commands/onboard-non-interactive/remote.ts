@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { OnboardOptions } from "../onboard-types.js";
 import { formatCliCommand } from "../../cli/command-format.js";
@@ -9,7 +9,7 @@ import { applyWizardMetadata } from "../onboard-helpers.js";
 export async function runNonInteractiveOnboardingRemote(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: SynurexConfig;
+  baseConfig: SKYKOIConfig;
 }) {
   const { opts, runtime, baseConfig } = params;
   const mode = "remote" as const;
@@ -21,7 +21,7 @@ export async function runNonInteractiveOnboardingRemote(params: {
     return;
   }
 
-  let nextConfig: SynurexConfig = {
+  let nextConfig: SKYKOIConfig = {
     ...baseConfig,
     gateway: {
       ...baseConfig.gateway,
@@ -47,7 +47,7 @@ export async function runNonInteractiveOnboardingRemote(params: {
     runtime.log(`Remote gateway: ${remoteUrl}`);
     runtime.log(`Auth: ${payload.auth}`);
     runtime.log(
-      `Tip: run \`${formatCliCommand("synurex configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.synurex.com/tools/web`,
+      `Tip: run \`${formatCliCommand("SKYKOI configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.SKYKOI.com/tools/web`,
     );
   }
 }

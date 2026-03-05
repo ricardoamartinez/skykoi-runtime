@@ -16,7 +16,7 @@ const createEmptyRegistry = (): PluginRegistry => ({
   diagnostics: [],
 });
 
-const REGISTRY_STATE = Symbol.for("Synurex.pluginRegistryState");
+const REGISTRY_STATE = Symbol.for("SKYKOI.pluginRegistryState");
 
 type RegistryState = {
   registry: PluginRegistry | null;

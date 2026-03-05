@@ -7,9 +7,9 @@ import {
   normalizeAccountId,
   setAccountEnabledInConfigSection,
   type ChannelPlugin,
-  type SynurexConfig,
+  type SKYKOIConfig,
   type ChannelSetupInput,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import type { CoreConfig } from "./types.js";
 import {
   listNextcloudTalkAccountIds,
@@ -222,7 +222,7 @@ export const nextcloudTalkPlugin: ChannelPlugin<ResolvedNextcloudTalkAccount> = 
                     : {}),
             },
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       return {
         ...namedConfig,
@@ -246,7 +246,7 @@ export const nextcloudTalkPlugin: ChannelPlugin<ResolvedNextcloudTalkAccount> = 
             },
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
   },
   outbound: {
@@ -328,7 +328,7 @@ export const nextcloudTalkPlugin: ChannelPlugin<ResolvedNextcloudTalkAccount> = 
       return { stop };
     },
     logoutAccount: async ({ accountId, cfg }) => {
-      const nextCfg = { ...cfg } as SynurexConfig;
+      const nextCfg = { ...cfg } as SKYKOIConfig;
       const nextSection = cfg.channels?.["nextcloud-talk"]
         ? { ...cfg.channels["nextcloud-talk"] }
         : undefined;
@@ -382,7 +382,7 @@ export const nextcloudTalkPlugin: ChannelPlugin<ResolvedNextcloudTalkAccount> = 
           const nextChannels = { ...nextCfg.channels } as Record<string, unknown>;
           delete nextChannels["nextcloud-talk"];
           if (Object.keys(nextChannels).length > 0) {
-            nextCfg.channels = nextChannels as SynurexConfig["channels"];
+            nextCfg.channels = nextChannels as SKYKOIConfig["channels"];
           } else {
             delete nextCfg.channels;
           }

@@ -1,5 +1,5 @@
 import type { OAuthCredentials } from "@mariozechner/pi-ai";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 
 export type ApiKeyCredential = {
   type: "api_key";
@@ -13,7 +13,7 @@ export type ApiKeyCredential = {
 export type TokenCredential = {
   /**
    * Static bearer-style token (often OAuth access token / PAT).
-   * Not refreshable by Synurex (unlike `type: "oauth"`).
+   * Not refreshable by SKYKOI (unlike `type: "oauth"`).
    */
   type: "token";
   provider: string;
@@ -66,7 +66,7 @@ export type AuthProfileStore = {
 };
 
 export type AuthProfileIdRepairResult = {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   changes: string[];
   migrated: boolean;
   fromProfileId?: string;

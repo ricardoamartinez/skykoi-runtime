@@ -112,7 +112,7 @@ async function submitVoyageBatch(params: {
             input_type: "document",
           },
           metadata: {
-            source: "synurex-memory",
+            source: "SKYKOI-memory",
             agent: params.agentId,
           },
         }),

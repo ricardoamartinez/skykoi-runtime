@@ -16,8 +16,8 @@ function isBun(): boolean {
 
 function prefersSips(): boolean {
   return (
-    process.env.SYNUREX_IMAGE_BACKEND === "sips" ||
-    (process.env.SYNUREX_IMAGE_BACKEND !== "sharp" && isBun() && process.platform === "darwin")
+    process.env.SKYKOI_IMAGE_BACKEND === "sips" ||
+    (process.env.SKYKOI_IMAGE_BACKEND !== "sharp" && isBun() && process.platform === "darwin")
   );
 }
 
@@ -125,7 +125,7 @@ function readJpegExifOrientation(buffer: Buffer): number | null {
 }
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-img-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-img-"));
   try {
     return await fn(dir);
   } finally {

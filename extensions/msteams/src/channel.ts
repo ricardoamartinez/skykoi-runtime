@@ -1,10 +1,10 @@
-import type { ChannelMessageActionName, ChannelPlugin, SynurexConfig } from "Synurex/plugin-sdk";
+import type { ChannelMessageActionName, ChannelPlugin, SKYKOIConfig } from "SKYKOI/plugin-sdk";
 import {
   buildChannelConfigSchema,
   DEFAULT_ACCOUNT_ID,
   MSTeamsConfigSchema,
   PAIRING_APPROVED_MESSAGE,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { listMSTeamsDirectoryGroupsLive, listMSTeamsDirectoryPeersLive } from "./directory-live.js";
 import { msteamsOnboardingAdapter } from "./onboarding.js";
 import { msteamsOutbound } from "./outbound.js";
@@ -98,7 +98,7 @@ export const msteamsPlugin: ChannelPlugin<ResolvedMSTeamsAccount> = {
       },
     }),
     deleteAccount: ({ cfg }) => {
-      const next = { ...cfg } as SynurexConfig;
+      const next = { ...cfg } as SKYKOIConfig;
       const nextChannels = { ...cfg.channels };
       delete nextChannels.msteams;
       if (Object.keys(nextChannels).length > 0) {

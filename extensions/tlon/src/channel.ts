@@ -2,13 +2,13 @@ import type {
   ChannelOutboundAdapter,
   ChannelPlugin,
   ChannelSetupInput,
-  SynurexConfig,
-} from "Synurex/plugin-sdk";
+  SKYKOIConfig,
+} from "SKYKOI/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { tlonChannelConfigSchema } from "./config-schema.js";
 import { monitorTlonProvider } from "./monitor/index.js";
 import { tlonOnboardingAdapter } from "./onboarding.js";
@@ -29,10 +29,10 @@ type TlonSetupInput = ChannelSetupInput & {
 };
 
 function applyTlonSetupConfig(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   accountId: string;
   input: TlonSetupInput;
-}): SynurexConfig {
+}): SKYKOIConfig {
   const { cfg, accountId, input } = params;
   const useDefault = accountId === DEFAULT_ACCOUNT_ID;
   const namedConfig = applyAccountNameToChannelSection({
@@ -202,7 +202,7 @@ export const tlonPlugin: ChannelPlugin = {
               enabled,
             },
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       return {
         ...cfg,
@@ -219,7 +219,7 @@ export const tlonPlugin: ChannelPlugin = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
     deleteAccount: ({ cfg, accountId }) => {
       const useDefault = !accountId || accountId === "default";
@@ -233,7 +233,7 @@ export const tlonPlugin: ChannelPlugin = {
             ...cfg.channels,
             tlon: rest,
           },
-        } as SynurexConfig;
+        } as SKYKOIConfig;
       }
       // @ts-expect-error
       // oxlint-disable-next-line no-unused-vars
@@ -247,7 +247,7 @@ export const tlonPlugin: ChannelPlugin = {
             accounts: remainingAccounts,
           },
         },
-      } as SynurexConfig;
+      } as SKYKOIConfig;
     },
     isConfigured: (account) => account.configured,
     describeAccount: (account) => ({

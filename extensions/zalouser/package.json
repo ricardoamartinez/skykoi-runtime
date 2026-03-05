@@ -1,16 +1,16 @@
 {
-  "name": "@Synurex/zalouser",
+  "name": "@SKYKOI/zalouser",
   "version": "2026.2.6-3",
-  "description": "Synurex Zalo Personal Account plugin via zca-cli",
+  "description": "SKYKOI Zalo Personal Account plugin via zca-cli",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@Synurex/zalouser",
+      "npmSpec": "@SKYKOI/zalouser",
       "localPath": "extensions/zalouser",
       "defaultChoice": "npm"
     }

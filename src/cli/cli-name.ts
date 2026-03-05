@@ -1,9 +1,9 @@
 import path from "node:path";
 
-export const DEFAULT_CLI_NAME = "synurex";
+export const DEFAULT_CLI_NAME = "SKYKOI";
 
-const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "synurex", "synurex"]);
-const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(synurex|Synurex)\b/;
+const KNOWN_CLI_NAMES = new Set([DEFAULT_CLI_NAME, "SKYKOI", "SKYKOI"]);
+const CLI_PREFIX_RE = /^(?:((?:pnpm|npm|bunx|npx)\s+))?(SKYKOI|SKYKOI)\b/;
 
 export function resolveCliName(argv: string[] = process.argv): string {
   const argv1 = argv[1];

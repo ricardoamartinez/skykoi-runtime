@@ -8,12 +8,12 @@ import { runCommandWithRuntime } from "./cli-utils.js";
 export function registerDocsCli(program: Command) {
   program
     .command("docs")
-    .description("Search the live Synurex docs")
+    .description("Search the live SKYKOI docs")
     .argument("[query...]", "Search query")
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/docs", "docs.synurex.com/cli/docs")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/docs", "docs.SKYKOI.com/cli/docs")}\n`,
     )
     .action(async (queryParts: string[]) => {
       await runCommandWithRuntime(defaultRuntime, async () => {

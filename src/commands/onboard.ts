@@ -44,8 +44,8 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
     runtime.error(
       [
         "Non-interactive onboarding requires explicit risk acknowledgement.",
-        "Read: https://docs.synurex.com/security",
-        `Re-run with: ${formatCliCommand("synurex onboard --non-interactive --accept-risk ...")}`,
+        "Read: https://docs.SKYKOI.com/security",
+        `Re-run with: ${formatCliCommand("SKYKOI onboard --non-interactive --accept-risk ...")}`,
       ].join("\n"),
     );
     runtime.exit(1);
@@ -63,10 +63,10 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
   if (process.platform === "win32") {
     runtime.log(
       [
-        "Windows detected — Synurex runs great on WSL2!",
+        "Windows detected — SKYKOI runs great on WSL2!",
         "Native Windows might be trickier.",
         "Quick setup: wsl --install (one command, one reboot)",
-        "Guide: https://docs.synurex.com/windows",
+        "Guide: https://docs.SKYKOI.com/windows",
       ].join("\n"),
     );
   }

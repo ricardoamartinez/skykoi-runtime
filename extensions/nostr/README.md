@@ -1,10 +1,10 @@
-# @Synurex/nostr
+# @SKYKOI/nostr
 
-Nostr DM channel plugin for Synurex using NIP-04 encrypted direct messages.
+Nostr DM channel plugin for SKYKOI using NIP-04 encrypted direct messages.
 
 ## Overview
 
-This extension adds Nostr as a messaging channel to Synurex. It enables your bot to:
+This extension adds Nostr as a messaging channel to SKYKOI. It enables your bot to:
 
 - Receive encrypted DMs from Nostr users
 - Send encrypted responses back
@@ -13,7 +13,7 @@ This extension adds Nostr as a messaging channel to Synurex. It enables your bot
 ## Installation
 
 ```bash
-Synurex plugins install @Synurex/nostr
+SKYKOI plugins install @SKYKOI/nostr
 ```
 
 ## Quick Setup
@@ -90,7 +90,7 @@ Synurex plugins install @Synurex/nostr
 # Using strfry
 docker run -p 7777:7777 ghcr.io/hoytech/strfry
 
-# Configure Synurex to use local relay
+# Configure SKYKOI to use local relay
 "relays": ["ws://localhost:7777"]
 ```
 

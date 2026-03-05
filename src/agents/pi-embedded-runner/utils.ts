@@ -1,17 +1,17 @@
 import type { ThinkingLevel } from "@mariozechner/pi-agent-core";
 import type { ReasoningLevel, ThinkLevel } from "../../auto-reply/thinking.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { ExecToolDefaults } from "../bash-tools.js";
 
 export function mapThinkingLevel(level?: ThinkLevel): ThinkingLevel {
-  // pi-agent-core supports "xhigh"; Synurex enables it for specific models.
+  // pi-agent-core supports "xhigh"; SKYKOI enables it for specific models.
   if (!level) {
     return "off";
   }
   return level;
 }
 
-export function resolveExecToolDefaults(config?: SynurexConfig): ExecToolDefaults | undefined {
+export function resolveExecToolDefaults(config?: SKYKOIConfig): ExecToolDefaults | undefined {
   const tools = config?.tools;
   if (!tools?.exec) {
     return undefined;

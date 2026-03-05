@@ -5,8 +5,8 @@
  * resolves agent routes, and handles replies.
  */
 
-import type { ReplyPayload, SynurexConfig } from "Synurex/plugin-sdk";
-import { createReplyPrefixOptions } from "Synurex/plugin-sdk";
+import type { ReplyPayload, SKYKOIConfig } from "SKYKOI/plugin-sdk";
+import { createReplyPrefixOptions } from "SKYKOI/plugin-sdk";
 import type { TwitchAccountConfig, TwitchChatMessage } from "./types.js";
 import { checkTwitchAccessControl } from "./access-control.js";
 import { getOrCreateClientManager } from "./client-manager-registry.js";
@@ -21,7 +21,7 @@ export type TwitchRuntimeEnv = {
 export type TwitchMonitorOptions = {
   account: TwitchAccountConfig;
   accountId: string;
-  config: unknown; // SynurexConfig
+  config: unknown; // SKYKOIConfig
   runtime: TwitchRuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
@@ -46,7 +46,7 @@ async function processTwitchMessage(params: {
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
 }): Promise<void> {
   const { message, account, accountId, config, runtime, core, statusSink } = params;
-  const cfg = config as SynurexConfig;
+  const cfg = config as SKYKOIConfig;
 
   const route = core.channel.routing.resolveAgentRoute({
     cfg,

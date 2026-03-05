@@ -11,7 +11,7 @@ import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
 import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
 import { probeGateway } from "../gateway/probe.js";
 import { collectChannelStatusIssues } from "../infra/channels-status-issues.js";
-import { resolveSynurexPackageRoot } from "../infra/Synurex-root.js";
+import { resolveSKYKOIPackageRoot } from "../infra/SKYKOI-root.js";
 import { resolveOsSummary } from "../infra/os-summary.js";
 import { inspectPortUsage } from "../infra/ports.js";
 import { readRestartSentinel } from "../infra/restart-sentinel.js";
@@ -81,7 +81,7 @@ export async function statusAllCommand(
     progress.tick();
 
     progress.setLabel("Checking for updates…");
-    const root = await resolveSynurexPackageRoot({
+    const root = await resolveSKYKOIPackageRoot({
       moduleUrl: import.meta.url,
       argv1: process.argv[1],
       cwd: process.cwd(),
@@ -138,10 +138,10 @@ export async function statusAllCommand(
           ? typeof remote?.token === "string" && remote.token.trim()
             ? remote.token.trim()
             : undefined
-          : (process.env.SYNUREX_GATEWAY_TOKEN)?.trim() ||
+          : (process.env.SKYKOI_GATEWAY_TOKEN)?.trim() ||
             (typeof authToken === "string" && authToken.trim() ? authToken.trim() : undefined);
       const password =
-        (process.env.SYNUREX_GATEWAY_PASSWORD)?.trim() ||
+        (process.env.SKYKOI_GATEWAY_PASSWORD)?.trim() ||
         (mode === "remote"
           ? typeof remote?.password === "string" && remote.password.trim()
             ? remote.password.trim()
@@ -403,7 +403,7 @@ export async function statusAllCommand(
         Item: "Gateway",
         Value: `${gatewayMode}${remoteUrlMissing ? " (remote.url missing)" : ""} · ${gatewayTarget} (${connection.urlSource}) · ${gatewayStatus}${gatewayAuth}`,
       },
-      { Item: "Security", Value: `Run: ${formatCliCommand("synurex security audit --deep")}` },
+      { Item: "Security", Value: `Run: ${formatCliCommand("SKYKOI security audit --deep")}` },
       gatewaySelfLine
         ? { Item: "Gateway self", Value: gatewaySelfLine }
         : { Item: "Gateway self", Value: "unknown" },

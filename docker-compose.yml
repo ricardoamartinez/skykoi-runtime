@@ -1,19 +1,19 @@
 services:
-  synurex-gateway:
-    image: ${SYNUREX_IMAGE:-synurex:local}
+  SKYKOI-gateway:
+    image: ${SKYKOI_IMAGE:-SKYKOI:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      SYNUREX_GATEWAY_TOKEN: ${SYNUREX_GATEWAY_TOKEN}
+      SKYKOI_GATEWAY_TOKEN: ${SKYKOI_GATEWAY_TOKEN}
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${SYNUREX_CONFIG_DIR}:/home/node/.synurex
-      - ${SYNUREX_WORKSPACE_DIR}:/home/node/.synurex/workspace
+      - ${SKYKOI_CONFIG_DIR}:/home/node/.SKYKOI
+      - ${SKYKOI_WORKSPACE_DIR}:/home/node/.SKYKOI/workspace
     ports:
-      - "${SYNUREX_GATEWAY_PORT:-18789}:18789"
-      - "${SYNUREX_BRIDGE_PORT:-18790}:18790"
+      - "${SKYKOI_GATEWAY_PORT:-18789}:18789"
+      - "${SKYKOI_BRIDGE_PORT:-18790}:18790"
     init: true
     restart: unless-stopped
     command:
@@ -22,24 +22,24 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${SYNUREX_GATEWAY_BIND:-lan}",
+        "${SKYKOI_GATEWAY_BIND:-lan}",
         "--port",
         "18789",
       ]
 
-  synurex-cli:
-    image: ${SYNUREX_IMAGE:-synurex:local}
+  SKYKOI-cli:
+    image: ${SKYKOI_IMAGE:-SKYKOI:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      SYNUREX_GATEWAY_TOKEN: ${SYNUREX_GATEWAY_TOKEN}
+      SKYKOI_GATEWAY_TOKEN: ${SKYKOI_GATEWAY_TOKEN}
       BROWSER: echo
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${SYNUREX_CONFIG_DIR}:/home/node/.synurex
-      - ${SYNUREX_WORKSPACE_DIR}:/home/node/.synurex/workspace
+      - ${SKYKOI_CONFIG_DIR}:/home/node/.SKYKOI
+      - ${SKYKOI_WORKSPACE_DIR}:/home/node/.SKYKOI/workspace
     stdin_open: true
     tty: true
     init: true

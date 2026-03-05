@@ -14,28 +14,28 @@ Use this page for scheduler and delivery issues (`cron` + `heartbeat`).
 ## Command ladder
 
 ```bash
-Synurex status
-Synurex gateway status
-Synurex logs --follow
-Synurex doctor
-Synurex channels status --probe
+SKYKOI status
+SKYKOI gateway status
+SKYKOI logs --follow
+SKYKOI doctor
+SKYKOI channels status --probe
 ```
 
 Then run automation checks:
 
 ```bash
-Synurex cron status
-Synurex cron list
-Synurex system heartbeat last
+SKYKOI cron status
+SKYKOI cron list
+SKYKOI system heartbeat last
 ```
 
 ## Cron not firing
 
 ```bash
-Synurex cron status
-Synurex cron list
-Synurex cron runs --id <jobId> --limit 20
-Synurex logs --follow
+SKYKOI cron status
+SKYKOI cron list
+SKYKOI cron runs --id <jobId> --limit 20
+SKYKOI logs --follow
 ```
 
 Good output looks like:
@@ -53,10 +53,10 @@ Common signatures:
 ## Cron fired but no delivery
 
 ```bash
-Synurex cron runs --id <jobId> --limit 20
-Synurex cron list
-Synurex channels status --probe
-Synurex logs --follow
+SKYKOI cron runs --id <jobId> --limit 20
+SKYKOI cron list
+SKYKOI channels status --probe
+SKYKOI logs --follow
 ```
 
 Good output looks like:
@@ -74,10 +74,10 @@ Common signatures:
 ## Heartbeat suppressed or skipped
 
 ```bash
-Synurex system heartbeat last
-Synurex logs --follow
-Synurex config get agents.defaults.heartbeat
-Synurex channels status --probe
+SKYKOI system heartbeat last
+SKYKOI logs --follow
+SKYKOI config get agents.defaults.heartbeat
+SKYKOI channels status --probe
 ```
 
 Good output looks like:
@@ -95,11 +95,11 @@ Common signatures:
 ## Timezone and activeHours gotchas
 
 ```bash
-Synurex config get agents.defaults.heartbeat.activeHours
-Synurex config get agents.defaults.heartbeat.activeHours.timezone
-Synurex config get agents.defaults.userTimezone || echo "agents.defaults.userTimezone not set"
-Synurex cron list
-Synurex logs --follow
+SKYKOI config get agents.defaults.heartbeat.activeHours
+SKYKOI config get agents.defaults.heartbeat.activeHours.timezone
+SKYKOI config get agents.defaults.userTimezone || echo "agents.defaults.userTimezone not set"
+SKYKOI cron list
+SKYKOI logs --follow
 ```
 
 Quick rules:

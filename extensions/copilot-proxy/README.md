@@ -1,4 +1,4 @@
-# Copilot Proxy (Synurex plugin)
+# Copilot Proxy (SKYKOI plugin)
 
 Provider plugin for the **Copilot Proxy** VS Code extension.
 
@@ -7,7 +7,7 @@ Provider plugin for the **Copilot Proxy** VS Code extension.
 Bundled plugins are disabled by default. Enable this one:
 
 ```bash
-Synurex plugins enable copilot-proxy
+SKYKOI plugins enable copilot-proxy
 ```
 
 Restart the Gateway after enabling.
@@ -15,7 +15,7 @@ Restart the Gateway after enabling.
 ## Authenticate
 
 ```bash
-Synurex models auth login --provider copilot-proxy --set-default
+SKYKOI models auth login --provider copilot-proxy --set-default
 ```
 
 ## Notes

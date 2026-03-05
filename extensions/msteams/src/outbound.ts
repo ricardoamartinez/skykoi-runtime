@@ -1,4 +1,4 @@
-import type { ChannelOutboundAdapter } from "Synurex/plugin-sdk";
+import type { ChannelOutboundAdapter } from "SKYKOI/plugin-sdk";
 import { createMSTeamsPollStoreFs } from "./polls.js";
 import { getMSTeamsRuntime } from "./runtime.js";
 import { sendMessageMSTeams, sendPollMSTeams } from "./send.js";

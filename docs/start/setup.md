@@ -1,5 +1,5 @@
 ---
-summary: "Advanced setup and development workflows for Synurex"
+summary: "Advanced setup and development workflows for SKYKOI"
 read_when:
   - Setting up a new machine
   - You want “latest + greatest” without breaking your personal setup
@@ -17,7 +17,7 @@ Last updated: 2026-01-01
 
 ## TL;DR
 
-- **Tailoring lives outside the repo:** `~/.synurex/workspace` (workspace) + `~/.synurex/synurex.json` (config).
+- **Tailoring lives outside the repo:** `~/.SKYKOI/workspace` (workspace) + `~/.SKYKOI/SKYKOI.json` (config).
 - **Stable workflow:** install the macOS app; let it run the bundled Gateway.
 - **Bleeding edge workflow:** run the Gateway yourself via `pnpm gateway:watch`, then let the macOS app attach in Local mode.
 
@@ -31,51 +31,51 @@ Last updated: 2026-01-01
 
 If you want “100% tailored to me” _and_ easy updates, keep your customization in:
 
-- **Config:** `~/.synurex/synurex.json` (JSON/JSON5-ish)
-- **Workspace:** `~/.synurex/workspace` (skills, prompts, memories; make it a private git repo)
+- **Config:** `~/.SKYKOI/SKYKOI.json` (JSON/JSON5-ish)
+- **Workspace:** `~/.SKYKOI/workspace` (skills, prompts, memories; make it a private git repo)
 
 Bootstrap once:
 
 ```bash
-Synurex setup
+SKYKOI setup
 ```
 
 From inside this repo, use the local CLI entry:
 
 ```bash
-Synurex setup
+SKYKOI setup
 ```
 
-If you don’t have a global install yet, run it via `pnpm Synurex setup`.
+If you don’t have a global install yet, run it via `pnpm SKYKOI setup`.
 
 ## Run the Gateway from this repo
 
 After `pnpm build`, you can run the packaged CLI directly:
 
 ```bash
-node Synurex.mjs gateway --port 18789 --verbose
+node SKYKOI.mjs gateway --port 18789 --verbose
 ```
 
 ## Stable workflow (macOS app first)
 
-1. Install + launch **Synurex.app** (menu bar).
+1. Install + launch **SKYKOI.app** (menu bar).
 2. Complete the onboarding/permissions checklist (TCC prompts).
 3. Ensure Gateway is **Local** and running (the app manages it).
 4. Link surfaces (example: WhatsApp):
 
 ```bash
-Synurex channels login
+SKYKOI channels login
 ```
 
 5. Sanity check:
 
 ```bash
-Synurex health
+SKYKOI health
 ```
 
 If onboarding is not available in your build:
 
-- Run `Synurex setup`, then `Synurex channels login`, then start the Gateway manually (`Synurex gateway`).
+- Run `SKYKOI setup`, then `SKYKOI channels login`, then start the Gateway manually (`SKYKOI gateway`).
 
 ## Bleeding edge workflow (Gateway in a terminal)
 
@@ -100,7 +100,7 @@ pnpm gateway:watch
 
 ### 2) Point the macOS app at your running Gateway
 
-In **Synurex.app**:
+In **SKYKOI.app**:
 
 - Connection Mode: **Local**
   The app will attach to the running gateway on the configured port.
@@ -111,33 +111,33 @@ In **Synurex.app**:
 - Or via CLI:
 
 ```bash
-Synurex health
+SKYKOI health
 ```
 
 ### Common footguns
 
 - **Wrong port:** Gateway WS defaults to `ws://127.0.0.1:18789`; keep app + CLI on the same port.
 - **Where state lives:**
-  - Credentials: `~/.synurex/credentials/`
-  - Sessions: `~/.synurex/agents/<agentId>/sessions/`
-  - Logs: `/tmp/Synurex/`
+  - Credentials: `~/.SKYKOI/credentials/`
+  - Sessions: `~/.SKYKOI/agents/<agentId>/sessions/`
+  - Logs: `/tmp/SKYKOI/`
 
 ## Credential storage map
 
 Use this when debugging auth or deciding what to back up:
 
-- **WhatsApp**: `~/.synurex/credentials/whatsapp/<accountId>/creds.json`
+- **WhatsApp**: `~/.SKYKOI/credentials/whatsapp/<accountId>/creds.json`
 - **Telegram bot token**: config/env or `channels.telegram.tokenFile`
 - **Discord bot token**: config/env (token file not yet supported)
 - **Slack tokens**: config/env (`channels.slack.*`)
-- **Pairing allowlists**: `~/.synurex/credentials/<channel>-allowFrom.json`
-- **Model auth profiles**: `~/.synurex/agents/<agentId>/agent/auth-profiles.json`
-- **Legacy OAuth import**: `~/.synurex/credentials/oauth.json`
+- **Pairing allowlists**: `~/.SKYKOI/credentials/<channel>-allowFrom.json`
+- **Model auth profiles**: `~/.SKYKOI/agents/<agentId>/agent/auth-profiles.json`
+- **Legacy OAuth import**: `~/.SKYKOI/credentials/oauth.json`
   More detail: [Security](/gateway/security#credential-storage-map).
 
 ## Updating (without wrecking your setup)
 
-- Keep `~/.synurex/workspace` and `~/.synurex/` as “your stuff”; don’t put personal prompts/config into the `Synurex` repo.
+- Keep `~/.SKYKOI/workspace` and `~/.SKYKOI/` as “your stuff”; don’t put personal prompts/config into the `SKYKOI` repo.
 - Updating source: `git pull` + `pnpm install` (when lockfile changed) + keep using `pnpm gateway:watch`.
 
 ## Linux (systemd user service)
@@ -158,5 +158,5 @@ user service (no lingering needed). See [Gateway runbook](/gateway) for the syst
 - [Gateway runbook](/gateway) (flags, supervision, ports)
 - [Gateway configuration](/gateway/configuration) (config schema + examples)
 - [Discord](/channels/discord) and [Telegram](/channels/telegram) (reply tags + replyToMode settings)
-- [Synurex assistant setup](/start/Synurex)
+- [SKYKOI assistant setup](/start/SKYKOI)
 - [macOS app](/platforms/macos) (gateway lifecycle)

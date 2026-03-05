@@ -3,13 +3,13 @@ summary: "Pairing overview: approve who can DM you + which nodes can join"
 read_when:
   - Setting up DM access control
   - Pairing a new iOS/Android node
-  - Reviewing Synurex security posture
+  - Reviewing SKYKOI security posture
 title: "Pairing"
 ---
 
 # Pairing
 
-“Pairing” is Synurex’s explicit **owner approval** step.
+“Pairing” is SKYKOI’s explicit **owner approval** step.
 It is used in two places:
 
 1. **DM pairing** (who is allowed to talk to the bot)
@@ -32,15 +32,15 @@ Pairing codes:
 ### Approve a sender
 
 ```bash
-Synurex pairing list telegram
-Synurex pairing approve telegram <CODE>
+SKYKOI pairing list telegram
+SKYKOI pairing approve telegram <CODE>
 ```
 
 Supported channels: `telegram`, `whatsapp`, `signal`, `imessage`, `discord`, `slack`.
 
 ### Where the state lives
 
-Stored under `~/.synurex/credentials/`:
+Stored under `~/.SKYKOI/credentials/`:
 
 - Pending requests: `<channel>-pairing.json`
 - Approved allowlist store: `<channel>-allowFrom.json`
@@ -55,21 +55,21 @@ creates a device pairing request that must be approved.
 ### Approve a node device
 
 ```bash
-Synurex devices list
-Synurex devices approve <requestId>
-Synurex devices reject <requestId>
+SKYKOI devices list
+SKYKOI devices approve <requestId>
+SKYKOI devices reject <requestId>
 ```
 
 ### Node pairing state storage
 
-Stored under `~/.synurex/devices/`:
+Stored under `~/.SKYKOI/devices/`:
 
 - `pending.json` (short-lived; pending requests expire)
 - `paired.json` (paired devices + tokens)
 
 ### Notes
 
-- The legacy `node.pair.*` API (CLI: `Synurex nodes pending/approve`) is a
+- The legacy `node.pair.*` API (CLI: `SKYKOI nodes pending/approve`) is a
   separate gateway-owned pairing store. WS nodes still require device pairing.
 
 ## Related docs

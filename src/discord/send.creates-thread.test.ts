@@ -171,8 +171,8 @@ describe("uploadStickerDiscord", () => {
     await uploadStickerDiscord(
       {
         guildId: "g1",
-        name: "SYNUREX_wave",
-        description: "Synurex waving",
+        name: "SKYKOI_wave",
+        description: "SKYKOI waving",
         tags: "👋",
         mediaUrl: "file:///tmp/wave.png",
       },
@@ -182,8 +182,8 @@ describe("uploadStickerDiscord", () => {
       Routes.guildStickers("g1"),
       expect.objectContaining({
         body: {
-          name: "SYNUREX_wave",
-          description: "Synurex waving",
+          name: "SKYKOI_wave",
+          description: "SKYKOI waving",
           tags: "👋",
           files: [
             expect.objectContaining({

@@ -18,29 +18,29 @@ x-i18n:
 
 ## 概述
 
-Synurex 可以在隔离的 Docker 容器中运行智能体以确保安全。`sandbox` 命令帮助你管理这些容器，特别是在更新或配置更改后。
+SKYKOI 可以在隔离的 Docker 容器中运行智能体以确保安全。`sandbox` 命令帮助你管理这些容器，特别是在更新或配置更改后。
 
 ## 命令
 
-### `Synurex sandbox explain`
+### `SKYKOI sandbox explain`
 
 检查**生效的**沙箱模式/作用域/工作区访问权限、沙箱工具策略和提权门控（附带修复配置的键路径）。
 
 ```bash
-Synurex sandbox explain
-Synurex sandbox explain --session agent:main:main
-Synurex sandbox explain --agent work
-Synurex sandbox explain --json
+SKYKOI sandbox explain
+SKYKOI sandbox explain --session agent:main:main
+SKYKOI sandbox explain --agent work
+SKYKOI sandbox explain --json
 ```
 
-### `Synurex sandbox list`
+### `SKYKOI sandbox list`
 
 列出所有沙箱容器及其状态和配置。
 
 ```bash
-Synurex sandbox list
-Synurex sandbox list --browser  # List only browser containers
-Synurex sandbox list --json     # JSON output
+SKYKOI sandbox list
+SKYKOI sandbox list --browser  # List only browser containers
+SKYKOI sandbox list --json     # JSON output
 ```
 
 **输出包括：**
@@ -51,16 +51,16 @@ Synurex sandbox list --json     # JSON output
 - 空闲时间（自上次使用以来的时间）
 - 关联的会话/智能体
 
-### `Synurex sandbox recreate`
+### `SKYKOI sandbox recreate`
 
 移除沙箱容器以强制使用更新的镜像/配置重新创建。
 
 ```bash
-Synurex sandbox recreate --all                # Recreate all containers
-Synurex sandbox recreate --session main       # Specific session
-Synurex sandbox recreate --agent mybot        # Specific agent
-Synurex sandbox recreate --browser            # Only browser containers
-Synurex sandbox recreate --all --force        # Skip confirmation
+SKYKOI sandbox recreate --all                # Recreate all containers
+SKYKOI sandbox recreate --session main       # Specific session
+SKYKOI sandbox recreate --agent mybot        # Specific agent
+SKYKOI sandbox recreate --browser            # Only browser containers
+SKYKOI sandbox recreate --all --force        # Skip confirmation
 ```
 
 **选项：**
@@ -79,14 +79,14 @@ Synurex sandbox recreate --all --force        # Skip confirmation
 
 ```bash
 # Pull new image
-docker pull Synurex-sandbox:latest
-docker tag Synurex-sandbox:latest Synurex-sandbox:bookworm-slim
+docker pull SKYKOI-sandbox:latest
+docker tag SKYKOI-sandbox:latest SKYKOI-sandbox:bookworm-slim
 
 # Update config to use new image
 # Edit config: agents.defaults.sandbox.docker.image (or agents.list[].sandbox.docker.image)
 
 # Recreate containers
-Synurex sandbox recreate --all
+SKYKOI sandbox recreate --all
 ```
 
 ### 更改沙箱配置后
@@ -95,22 +95,22 @@ Synurex sandbox recreate --all
 # Edit config: agents.defaults.sandbox.* (or agents.list[].sandbox.*)
 
 # Recreate to apply new config
-Synurex sandbox recreate --all
+SKYKOI sandbox recreate --all
 ```
 
 ### 更改 setupCommand 后
 
 ```bash
-Synurex sandbox recreate --all
+SKYKOI sandbox recreate --all
 # or just one agent:
-Synurex sandbox recreate --agent family
+SKYKOI sandbox recreate --agent family
 ```
 
 ### 仅针对特定智能体
 
 ```bash
 # Update only one agent's containers
-Synurex sandbox recreate --agent alfred
+SKYKOI sandbox recreate --agent alfred
 ```
 
 ## 为什么需要这个？
@@ -121,13 +121,13 @@ Synurex sandbox recreate --agent alfred
 - 容器仅在空闲 24 小时后才被清理
 - 经常使用的智能体会无限期保持旧容器运行
 
-**解决方案：** 使用 `Synurex sandbox recreate` 强制移除旧容器。它们会在下次需要时自动使用当前设置重新创建。
+**解决方案：** 使用 `SKYKOI sandbox recreate` 强制移除旧容器。它们会在下次需要时自动使用当前设置重新创建。
 
-提示：优先使用 `Synurex sandbox recreate` 而不是手动 `docker rm`。它使用 Gateway 网关的容器命名规则，避免在作用域/会话键更改时出现不匹配。
+提示：优先使用 `SKYKOI sandbox recreate` 而不是手动 `docker rm`。它使用 Gateway 网关的容器命名规则，避免在作用域/会话键更改时出现不匹配。
 
 ## 配置
 
-沙箱设置位于 `~/.synurex/synurex.json` 的 `agents.defaults.sandbox` 下（每个智能体的覆盖设置在 `agents.list[].sandbox` 中）：
+沙箱设置位于 `~/.SKYKOI/SKYKOI.json` 的 `agents.defaults.sandbox` 下（每个智能体的覆盖设置在 `agents.list[].sandbox` 中）：
 
 ```jsonc
 {
@@ -137,8 +137,8 @@ Synurex sandbox recreate --agent alfred
         "mode": "all", // off, non-main, all
         "scope": "agent", // session, agent, shared
         "docker": {
-          "image": "Synurex-sandbox:bookworm-slim",
-          "containerPrefix": "Synurex-sbx-",
+          "image": "SKYKOI-sandbox:bookworm-slim",
+          "containerPrefix": "SKYKOI-sbx-",
           // ... more Docker options
         },
         "prune": {

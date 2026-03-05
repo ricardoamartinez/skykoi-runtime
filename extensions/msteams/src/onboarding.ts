@@ -1,16 +1,16 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  SynurexConfig,
+  SKYKOIConfig,
   DmPolicy,
   WizardPrompter,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   formatDocsLink,
   promptChannelAccessConfig,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   parseMSTeamsTeamEntry,
   resolveMSTeamsChannelAllowlist,
@@ -20,7 +20,7 @@ import { resolveMSTeamsCredentials } from "./token.js";
 
 const channel = "msteams" as const;
 
-function setMSTeamsDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
+function setMSTeamsDmPolicy(cfg: SKYKOIConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open"
       ? addWildcardAllowFrom(cfg.channels?.msteams?.allowFrom)?.map((entry) => String(entry))
@@ -38,7 +38,7 @@ function setMSTeamsDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
   };
 }
 
-function setMSTeamsAllowFrom(cfg: SynurexConfig, allowFrom: string[]): SynurexConfig {
+function setMSTeamsAllowFrom(cfg: SKYKOIConfig, allowFrom: string[]): SKYKOIConfig {
   return {
     ...cfg,
     channels: {
@@ -63,9 +63,9 @@ function looksLikeGuid(value: string): boolean {
 }
 
 async function promptMSTeamsAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   prompter: WizardPrompter;
-}): Promise<SynurexConfig> {
+}): Promise<SKYKOIConfig> {
   const existing = params.cfg.channels?.msteams?.allowFrom ?? [];
   await params.prompter.note(
     [
@@ -141,9 +141,9 @@ async function noteMSTeamsCredentialHelp(prompter: WizardPrompter): Promise<void
 }
 
 function setMSTeamsGroupPolicy(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   groupPolicy: "open" | "allowlist" | "disabled",
-): SynurexConfig {
+): SKYKOIConfig {
   return {
     ...cfg,
     channels: {
@@ -158,9 +158,9 @@ function setMSTeamsGroupPolicy(
 }
 
 function setMSTeamsTeamsAllowlist(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   entries: Array<{ teamKey: string; channelKey?: string }>,
-): SynurexConfig {
+): SKYKOIConfig {
   const baseTeams = cfg.channels?.msteams?.teams ?? {};
   const teams: Record<string, { channels?: Record<string, unknown> }> = { ...baseTeams };
   for (const entry of entries) {

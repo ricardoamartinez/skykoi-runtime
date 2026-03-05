@@ -1,4 +1,4 @@
-import { MarkdownConfigSchema } from "Synurex/plugin-sdk";
+import { MarkdownConfigSchema } from "SKYKOI/plugin-sdk";
 import { z } from "zod";
 
 const allowFromEntry = z.union([z.string(), z.number()]);

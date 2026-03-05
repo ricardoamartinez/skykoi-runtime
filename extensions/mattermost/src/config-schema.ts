@@ -4,7 +4,7 @@ import {
   GroupPolicySchema,
   MarkdownConfigSchema,
   requireOpenAllowFrom,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { z } from "zod";
 
 const MattermostAccountSchemaBase = z

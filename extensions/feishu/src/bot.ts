@@ -1,11 +1,11 @@
-import type { SynurexConfig, RuntimeEnv } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig, RuntimeEnv } from "SKYKOI/plugin-sdk";
 import {
   buildPendingHistoryContextFromMap,
   recordPendingHistoryEntryIfEnabled,
   clearHistoryEntriesIfEnabled,
   DEFAULT_GROUP_HISTORY_LIMIT,
   type HistoryEntry,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import type { FeishuMessageContext, FeishuMediaInfo, ResolvedFeishuAccount } from "./types.js";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
@@ -322,7 +322,7 @@ function inferPlaceholder(messageType: string): string {
  * Similar to Discord's resolveMediaList().
  */
 async function resolveFeishuMediaList(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   messageId: string;
   messageType: string;
   content: string;
@@ -507,7 +507,7 @@ export function parseFeishuMessageEvent(
 }
 
 export async function handleFeishuMessage(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   event: FeishuMessageEvent;
   botOpenId?: string;
   runtime?: RuntimeEnv;

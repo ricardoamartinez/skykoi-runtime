@@ -1,4 +1,4 @@
-# Google Gemini CLI Auth (Synurex plugin)
+# Google Gemini CLI Auth (SKYKOI plugin)
 
 OAuth provider plugin for **Gemini CLI** (Google Code Assist).
 
@@ -7,7 +7,7 @@ OAuth provider plugin for **Gemini CLI** (Google Code Assist).
 Bundled plugins are disabled by default. Enable this one:
 
 ```bash
-Synurex plugins enable google-gemini-cli-auth
+SKYKOI plugins enable google-gemini-cli-auth
 ```
 
 Restart the Gateway after enabling.
@@ -15,7 +15,7 @@ Restart the Gateway after enabling.
 ## Authenticate
 
 ```bash
-Synurex models auth login --provider google-gemini-cli --set-default
+SKYKOI models auth login --provider google-gemini-cli --set-default
 ```
 
 ## Requirements
@@ -31,5 +31,5 @@ brew install gemini-cli
 
 Override auto-detected credentials with:
 
-- `SYNUREX_GEMINI_OAUTH_CLIENT_ID` / `GEMINI_CLI_OAUTH_CLIENT_ID`
-- `SYNUREX_GEMINI_OAUTH_CLIENT_SECRET` / `GEMINI_CLI_OAUTH_CLIENT_SECRET`
+- `SKYKOI_GEMINI_OAUTH_CLIENT_ID` / `GEMINI_CLI_OAUTH_CLIENT_ID`
+- `SKYKOI_GEMINI_OAUTH_CLIENT_SECRET` / `GEMINI_CLI_OAUTH_CLIENT_SECRET`

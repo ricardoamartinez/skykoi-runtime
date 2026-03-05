@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { SynurexSchema } from "./zod-schema.js";
+import { SKYKOISchema } from "./zod-schema.js";
 
 describe("telegram custom commands schema", () => {
   it("normalizes custom commands", () => {
-    const res = SynurexSchema.safeParse({
+    const res = SKYKOISchema.safeParse({
       channels: {
         telegram: {
           customCommands: [{ command: "/Backup", description: "  Git backup  " }],
@@ -22,7 +22,7 @@ describe("telegram custom commands schema", () => {
   });
 
   it("rejects custom commands with invalid names", () => {
-    const res = SynurexSchema.safeParse({
+    const res = SKYKOISchema.safeParse({
       channels: {
         telegram: {
           customCommands: [{ command: "Bad-Name", description: "Override status" }],

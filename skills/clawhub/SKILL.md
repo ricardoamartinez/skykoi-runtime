@@ -1,77 +1,77 @@
 ---
-name: Synurex Skills
-description: Use the Synurex Skills CLI to search, install, update, and publish agent skills from Synurex Skills.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed Synurex Skills CLI.
+name: SKYKOI Skills
+description: Use the SKYKOI Skills CLI to search, install, update, and publish agent skills from SKYKOI Skills.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed SKYKOI Skills CLI.
 metadata:
   {
-    "Synurex":
+    "SKYKOI":
       {
-        "requires": { "bins": ["Synurex Skills"] },
+        "requires": { "bins": ["SKYKOI Skills"] },
         "install":
           [
             {
               "id": "node",
               "kind": "node",
-              "package": "Synurex Skills",
-              "bins": ["Synurex Skills"],
-              "label": "Install Synurex Skills CLI (npm)",
+              "package": "SKYKOI Skills",
+              "bins": ["SKYKOI Skills"],
+              "label": "Install SKYKOI Skills CLI (npm)",
             },
           ],
       },
   }
 ---
 
-# Synurex Skills CLI
+# SKYKOI Skills CLI
 
 Install
 
 ```bash
-npm i -g Synurex Skills
+npm i -g SKYKOI Skills
 ```
 
 Auth (publish)
 
 ```bash
-Synurex Skills login
-Synurex Skills whoami
+SKYKOI Skills login
+SKYKOI Skills whoami
 ```
 
 Search
 
 ```bash
-Synurex Skills search "postgres backups"
+SKYKOI Skills search "postgres backups"
 ```
 
 Install
 
 ```bash
-Synurex Skills install my-skill
-Synurex Skills install my-skill --version 1.2.3
+SKYKOI Skills install my-skill
+SKYKOI Skills install my-skill --version 1.2.3
 ```
 
 Update (hash-based match + upgrade)
 
 ```bash
-Synurex Skills update my-skill
-Synurex Skills update my-skill --version 1.2.3
-Synurex Skills update --all
-Synurex Skills update my-skill --force
-Synurex Skills update --all --no-input --force
+SKYKOI Skills update my-skill
+SKYKOI Skills update my-skill --version 1.2.3
+SKYKOI Skills update --all
+SKYKOI Skills update my-skill --force
+SKYKOI Skills update --all --no-input --force
 ```
 
 List
 
 ```bash
-Synurex Skills list
+SKYKOI Skills list
 ```
 
 Publish
 
 ```bash
-Synurex Skills publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0 --changelog "Fixes + docs"
+SKYKOI Skills publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0 --changelog "Fixes + docs"
 ```
 
 Notes
 
-- Default registry: https://synurex.com/skills (override with Synurex Skills_REGISTRY or --registry)
-- Default workdir: cwd (falls back to Synurex workspace); install dir: ./skills (override with --workdir / --dir / Synurex Skills_WORKDIR)
+- Default registry: https://SKYKOI.com/skills (override with SKYKOI Skills_REGISTRY or --registry)
+- Default workdir: cwd (falls back to SKYKOI workspace); install dir: ./skills (override with --workdir / --dir / SKYKOI Skills_WORKDIR)
 - Update command hashes local files, resolves matching version, and upgrades to latest unless --version is set

@@ -1,7 +1,7 @@
 import JSON5 from "json5";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { createConfigIO } from "../config/config.js";
 import { INCLUDE_KEY, MAX_INCLUDE_DEPTH } from "../config/includes.js";
@@ -185,7 +185,7 @@ async function safeAclReset(params: {
 }
 
 function setGroupPolicyAllowlist(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   channel: string;
   changes: string[];
   policyFlips: Set<string>;
@@ -193,7 +193,7 @@ function setGroupPolicyAllowlist(params: {
   if (!params.cfg.channels) {
     return;
   }
-  const section = params.cfg.channels[params.channel as keyof SynurexConfig["channels"]] as
+  const section = params.cfg.channels[params.channel as keyof SKYKOIConfig["channels"]] as
     | Record<string, unknown>
     | undefined;
   if (!section || typeof section !== "object") {
@@ -230,7 +230,7 @@ function setGroupPolicyAllowlist(params: {
 }
 
 function setWhatsAppGroupAllowFromFromStore(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   storeAllowFrom: string[];
   changes: string[];
   policyFlips: Set<string>;
@@ -274,8 +274,8 @@ function setWhatsAppGroupAllowFromFromStore(params: {
   }
 }
 
-function applyConfigFixes(params: { cfg: SynurexConfig; env: NodeJS.ProcessEnv }): {
-  cfg: SynurexConfig;
+function applyConfigFixes(params: { cfg: SKYKOIConfig; env: NodeJS.ProcessEnv }): {
+  cfg: SKYKOIConfig;
   changes: string[];
   policyFlips: Set<string>;
 } {
@@ -388,7 +388,7 @@ async function collectIncludePathsRecursive(params: {
 async function chmodCredentialsAndAgentState(params: {
   env: NodeJS.ProcessEnv;
   stateDir: string;
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   actions: SecurityFixAction[];
   applyPerms: (params: {
     path: string;

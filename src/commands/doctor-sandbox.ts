@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 import {
@@ -89,17 +89,17 @@ async function dockerImageExists(image: string): Promise<boolean> {
   }
 }
 
-function resolveSandboxDockerImage(cfg: SynurexConfig): string {
+function resolveSandboxDockerImage(cfg: SKYKOIConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.docker?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_IMAGE;
 }
 
-function resolveSandboxBrowserImage(cfg: SynurexConfig): string {
+function resolveSandboxBrowserImage(cfg: SKYKOIConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.browser?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_BROWSER_IMAGE;
 }
 
-function updateSandboxDockerImage(cfg: SynurexConfig, image: string): SynurexConfig {
+function updateSandboxDockerImage(cfg: SKYKOIConfig, image: string): SKYKOIConfig {
   return {
     ...cfg,
     agents: {
@@ -118,7 +118,7 @@ function updateSandboxDockerImage(cfg: SynurexConfig, image: string): SynurexCon
   };
 }
 
-function updateSandboxBrowserImage(cfg: SynurexConfig, image: string): SynurexConfig {
+function updateSandboxBrowserImage(cfg: SKYKOIConfig, image: string): SKYKOIConfig {
   return {
     ...cfg,
     agents: {
@@ -176,10 +176,10 @@ async function handleMissingSandboxImage(
 }
 
 export async function maybeRepairSandboxImages(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
-): Promise<SynurexConfig> {
+): Promise<SKYKOIConfig> {
   const sandbox = cfg.agents?.defaults?.sandbox;
   const mode = sandbox?.mode ?? "off";
   if (!sandbox || mode === "off") {
@@ -238,7 +238,7 @@ export async function maybeRepairSandboxImages(
   return next;
 }
 
-export function noteSandboxScopeWarnings(cfg: SynurexConfig) {
+export function noteSandboxScopeWarnings(cfg: SKYKOIConfig) {
   const globalSandbox = cfg.agents?.defaults?.sandbox;
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
   const warnings: string[] = [];

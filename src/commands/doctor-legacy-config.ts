@@ -1,10 +1,10 @@
-import type { SynurexConfig } from "../config/config.js";
-export function normalizeLegacyConfigValues(cfg: SynurexConfig): {
-  config: SynurexConfig;
+import type { SKYKOIConfig } from "../config/config.js";
+export function normalizeLegacyConfigValues(cfg: SKYKOIConfig): {
+  config: SKYKOIConfig;
   changes: string[];
 } {
   const changes: string[] = [];
-  let next: SynurexConfig = cfg;
+  let next: SKYKOIConfig = cfg;
 
   const legacyAckReaction = cfg.messages?.ackReaction?.trim();
   const hasWhatsAppConfig = cfg.channels?.whatsapp !== undefined;

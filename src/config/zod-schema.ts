@@ -91,7 +91,7 @@ const MemorySchema = z
   .strict()
   .optional();
 
-export const SynurexSchema = z
+export const SKYKOISchema = z
   .object({
     meta: z
       .object({

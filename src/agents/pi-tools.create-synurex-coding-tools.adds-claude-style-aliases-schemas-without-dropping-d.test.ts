@@ -4,16 +4,16 @@ import path from "node:path";
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createSynurexCodingTools } from "./pi-tools.js";
+import { createSKYKOICodingTools } from "./pi-tools.js";
 
-const defaultTools = createSynurexCodingTools();
+const defaultTools = createSKYKOICodingTools();
 
-describe("createSynurexCodingTools", () => {
+describe("createSKYKOICodingTools", () => {
   it("keeps read tool image metadata intact", async () => {
     const readTool = defaultTools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
 
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-read-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-read-"));
     try {
       const imagePath = path.join(tmpDir, "sample.png");
       const png = await sharp({
@@ -46,14 +46,14 @@ describe("createSynurexCodingTools", () => {
     }
   });
   it("returns text content without image blocks for text files", async () => {
-    const tools = createSynurexCodingTools();
+    const tools = createSKYKOICodingTools();
     const readTool = tools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
 
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-read-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-read-"));
     try {
       const textPath = path.join(tmpDir, "sample.txt");
-      const contents = "Hello from Synurex read tool.";
+      const contents = "Hello from SKYKOI read tool.";
       await fs.writeFile(textPath, contents, "utf8");
 
       const result = await readTool?.execute("tool-2", {
@@ -75,14 +75,14 @@ describe("createSynurexCodingTools", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "sandbox:test",
-      workspaceDir: path.join(os.tmpdir(), "Synurex-sandbox"),
-      agentWorkspaceDir: path.join(os.tmpdir(), "Synurex-workspace"),
+      workspaceDir: path.join(os.tmpdir(), "SKYKOI-sandbox"),
+      agentWorkspaceDir: path.join(os.tmpdir(), "SKYKOI-workspace"),
       workspaceAccess: "none",
-      containerName: "Synurex-sbx-test",
+      containerName: "SKYKOI-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "Synurex-sandbox:bookworm-slim",
-        containerPrefix: "Synurex-sbx-",
+        image: "SKYKOI-sandbox:bookworm-slim",
+        containerPrefix: "SKYKOI-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: [],
@@ -97,7 +97,7 @@ describe("createSynurexCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createSynurexCodingTools({ sandbox });
+    const tools = createSKYKOICodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);
     expect(tools.some((tool) => tool.name === "read")).toBe(false);
     expect(tools.some((tool) => tool.name === "browser")).toBe(false);
@@ -106,14 +106,14 @@ describe("createSynurexCodingTools", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "sandbox:test",
-      workspaceDir: path.join(os.tmpdir(), "Synurex-sandbox"),
-      agentWorkspaceDir: path.join(os.tmpdir(), "Synurex-workspace"),
+      workspaceDir: path.join(os.tmpdir(), "SKYKOI-sandbox"),
+      agentWorkspaceDir: path.join(os.tmpdir(), "SKYKOI-workspace"),
       workspaceAccess: "ro",
-      containerName: "Synurex-sbx-test",
+      containerName: "SKYKOI-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "Synurex-sandbox:bookworm-slim",
-        containerPrefix: "Synurex-sbx-",
+        image: "SKYKOI-sandbox:bookworm-slim",
+        containerPrefix: "SKYKOI-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: [],
@@ -128,13 +128,13 @@ describe("createSynurexCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createSynurexCodingTools({ sandbox });
+    const tools = createSKYKOICodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "read")).toBe(true);
     expect(tools.some((tool) => tool.name === "write")).toBe(false);
     expect(tools.some((tool) => tool.name === "edit")).toBe(false);
   });
   it("filters tools by agent tool policy even without sandbox", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSKYKOICodingTools({
       config: { tools: { deny: ["browser"] } },
     });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);

@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { matrixPlugin } from "./src/channel.js";
 import { setMatrixRuntime } from "./src/runtime.js";
 
@@ -8,7 +8,7 @@ const plugin = {
   name: "Matrix",
   description: "Matrix channel plugin (matrix-js-sdk)",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setMatrixRuntime(api.runtime);
     api.registerChannel({ plugin: matrixPlugin });
   },

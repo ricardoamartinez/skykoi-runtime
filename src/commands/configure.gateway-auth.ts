@@ -1,4 +1,4 @@
-import type { SynurexConfig, GatewayAuthConfig } from "../config/config.js";
+import type { SKYKOIConfig, GatewayAuthConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { ensureAuthProfileStore } from "../agents/auth-profiles.js";
@@ -40,10 +40,10 @@ export function buildGatewayAuthConfig(params: {
 }
 
 export async function promptAuthConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
-): Promise<SynurexConfig> {
+): Promise<SKYKOIConfig> {
   const authChoice = await promptAuthChoiceGrouped({
     prompter,
     store: ensureAuthProfileStore(undefined, {

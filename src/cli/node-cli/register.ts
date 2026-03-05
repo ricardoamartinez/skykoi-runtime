@@ -24,7 +24,7 @@ export function registerNodeCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.synurex.com/cli/node")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.SKYKOI.com/cli/node")}\n`,
     );
 
   node

@@ -2,8 +2,8 @@
 // the agent reports a model id. This includes custom models.json entries.
 
 import { loadConfig } from "../config/config.js";
-import { resolveSynurexAgentDir } from "./agent-paths.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import { resolveSKYKOIAgentDir } from "./agent-paths.js";
+import { ensureSKYKOIModelsJson } from "./models-config.js";
 
 type ModelEntry = { id: string; contextWindow?: number };
 
@@ -12,8 +12,8 @@ const loadPromise = (async () => {
   try {
     const { discoverAuthStorage, discoverModels } = await import("./pi-model-discovery.js");
     const cfg = loadConfig();
-    await ensureSynurexModelsJson(cfg);
-    const agentDir = resolveSynurexAgentDir();
+    await ensureSKYKOIModelsJson(cfg);
+    const agentDir = resolveSKYKOIAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir);
     const models = modelRegistry.getAll() as ModelEntry[];

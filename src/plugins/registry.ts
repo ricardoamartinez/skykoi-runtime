@@ -9,17 +9,17 @@ import type {
 import type { HookEntry } from "../hooks/types.js";
 import type { PluginRuntime } from "./runtime/types.js";
 import type {
-  SynurexPluginApi,
-  SynurexPluginChannelRegistration,
-  SynurexPluginCliRegistrar,
-  SynurexPluginCommandDefinition,
-  SynurexPluginHttpHandler,
-  SynurexPluginHttpRouteHandler,
-  SynurexPluginHookOptions,
+  SKYKOIPluginApi,
+  SKYKOIPluginChannelRegistration,
+  SKYKOIPluginCliRegistrar,
+  SKYKOIPluginCommandDefinition,
+  SKYKOIPluginHttpHandler,
+  SKYKOIPluginHttpRouteHandler,
+  SKYKOIPluginHookOptions,
   ProviderPlugin,
-  SynurexPluginService,
-  SynurexPluginToolContext,
-  SynurexPluginToolFactory,
+  SKYKOIPluginService,
+  SKYKOIPluginToolContext,
+  SKYKOIPluginToolFactory,
   PluginConfigUiHint,
   PluginDiagnostic,
   PluginLogger,
@@ -36,7 +36,7 @@ import { normalizePluginHttpPath } from "./http-path.js";
 
 export type PluginToolRegistration = {
   pluginId: string;
-  factory: SynurexPluginToolFactory;
+  factory: SKYKOIPluginToolFactory;
   names: string[];
   optional: boolean;
   source: string;
@@ -44,21 +44,21 @@ export type PluginToolRegistration = {
 
 export type PluginCliRegistration = {
   pluginId: string;
-  register: SynurexPluginCliRegistrar;
+  register: SKYKOIPluginCliRegistrar;
   commands: string[];
   source: string;
 };
 
 export type PluginHttpRegistration = {
   pluginId: string;
-  handler: SynurexPluginHttpHandler;
+  handler: SKYKOIPluginHttpHandler;
   source: string;
 };
 
 export type PluginHttpRouteRegistration = {
   pluginId?: string;
   path: string;
-  handler: SynurexPluginHttpRouteHandler;
+  handler: SKYKOIPluginHttpRouteHandler;
   source?: string;
 };
 
@@ -84,13 +84,13 @@ export type PluginHookRegistration = {
 
 export type PluginServiceRegistration = {
   pluginId: string;
-  service: SynurexPluginService;
+  service: SKYKOIPluginService;
   source: string;
 };
 
 export type PluginCommandRegistration = {
   pluginId: string;
-  command: SynurexPluginCommandDefinition;
+  command: SKYKOIPluginCommandDefinition;
   source: string;
 };
 
@@ -167,13 +167,13 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
 
   const registerTool = (
     record: PluginRecord,
-    tool: AnyAgentTool | SynurexPluginToolFactory,
+    tool: AnyAgentTool | SKYKOIPluginToolFactory,
     opts?: { name?: string; names?: string[]; optional?: boolean },
   ) => {
     const names = opts?.names ?? (opts?.name ? [opts.name] : []);
     const optional = opts?.optional === true;
-    const factory: SynurexPluginToolFactory =
-      typeof tool === "function" ? tool : (_ctx: SynurexPluginToolContext) => tool;
+    const factory: SKYKOIPluginToolFactory =
+      typeof tool === "function" ? tool : (_ctx: SKYKOIPluginToolContext) => tool;
 
     if (typeof tool !== "function") {
       names.push(tool.name);
@@ -196,8 +196,8 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     record: PluginRecord,
     events: string | string[],
     handler: Parameters<typeof registerInternalHook>[1],
-    opts: SynurexPluginHookOptions | undefined,
-    config: SynurexPluginApi["config"],
+    opts: SKYKOIPluginHookOptions | undefined,
+    config: SKYKOIPluginApi["config"],
   ) => {
     const eventList = Array.isArray(events) ? events : [events];
     const normalizedEvents = eventList.map((event) => event.trim()).filter(Boolean);
@@ -221,7 +221,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
             ...entry.hook,
             name,
             description,
-            source: "Synurex-plugin",
+            source: "SKYKOI-plugin",
             pluginId: record.id,
           },
           metadata: {
@@ -233,7 +233,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
           hook: {
             name,
             description,
-            source: "Synurex-plugin",
+            source: "SKYKOI-plugin",
             pluginId: record.id,
             filePath: record.source,
             baseDir: path.dirname(record.source),
@@ -284,7 +284,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     record.gatewayMethods.push(trimmed);
   };
 
-  const registerHttpHandler = (record: PluginRecord, handler: SynurexPluginHttpHandler) => {
+  const registerHttpHandler = (record: PluginRecord, handler: SKYKOIPluginHttpHandler) => {
     record.httpHandlers += 1;
     registry.httpHandlers.push({
       pluginId: record.id,
@@ -295,7 +295,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
 
   const registerHttpRoute = (
     record: PluginRecord,
-    params: { path: string; handler: SynurexPluginHttpRouteHandler },
+    params: { path: string; handler: SKYKOIPluginHttpRouteHandler },
   ) => {
     const normalizedPath = normalizePluginHttpPath(params.path);
     if (!normalizedPath) {
@@ -327,11 +327,11 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
 
   const registerChannel = (
     record: PluginRecord,
-    registration: SynurexPluginChannelRegistration | ChannelPlugin,
+    registration: SKYKOIPluginChannelRegistration | ChannelPlugin,
   ) => {
     const normalized =
-      typeof (registration as SynurexPluginChannelRegistration).plugin === "object"
-        ? (registration as SynurexPluginChannelRegistration)
+      typeof (registration as SKYKOIPluginChannelRegistration).plugin === "object"
+        ? (registration as SKYKOIPluginChannelRegistration)
         : { plugin: registration as ChannelPlugin };
     const plugin = normalized.plugin;
     const id = typeof plugin?.id === "string" ? plugin.id.trim() : String(plugin?.id ?? "").trim();
@@ -384,7 +384,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
 
   const registerCli = (
     record: PluginRecord,
-    registrar: SynurexPluginCliRegistrar,
+    registrar: SKYKOIPluginCliRegistrar,
     opts?: { commands?: string[] },
   ) => {
     const commands = (opts?.commands ?? []).map((cmd) => cmd.trim()).filter(Boolean);
@@ -397,7 +397,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     });
   };
 
-  const registerService = (record: PluginRecord, service: SynurexPluginService) => {
+  const registerService = (record: PluginRecord, service: SKYKOIPluginService) => {
     const id = service.id.trim();
     if (!id) {
       return;
@@ -410,7 +410,7 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
     });
   };
 
-  const registerCommand = (record: PluginRecord, command: SynurexPluginCommandDefinition) => {
+  const registerCommand = (record: PluginRecord, command: SKYKOIPluginCommandDefinition) => {
     const name = command.name.trim();
     if (!name) {
       pushDiagnostic({
@@ -468,10 +468,10 @@ export function createPluginRegistry(registryParams: PluginRegistryParams) {
   const createApi = (
     record: PluginRecord,
     params: {
-      config: SynurexPluginApi["config"];
+      config: SKYKOIPluginApi["config"];
       pluginConfig?: Record<string, unknown>;
     },
-  ): SynurexPluginApi => {
+  ): SKYKOIPluginApi => {
     return {
       id: record.id,
       name: record.name,

@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `Synurex agent` (send one agent turn via the Gateway)"
+summary: "CLI reference for `SKYKOI agent` (send one agent turn via the Gateway)"
 read_when:
   - You want to run one agent turn from scripts (optionally deliver reply)
 title: "agent"
 ---
 
-# `Synurex agent`
+# `SKYKOI agent`
 
 Run an agent turn via the Gateway (use `--local` for embedded).
 Use `--agent <id>` to target a configured agent directly.
@@ -17,8 +17,8 @@ Related:
 ## Examples
 
 ```bash
-Synurex agent --to +15555550123 --message "status update" --deliver
-Synurex agent --agent ops --message "Summarize logs"
-Synurex agent --session-id 1234 --message "Summarize inbox" --thinking medium
-Synurex agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
+SKYKOI agent --to +15555550123 --message "status update" --deliver
+SKYKOI agent --agent ops --message "Summarize logs"
+SKYKOI agent --session-id 1234 --message "Summarize inbox" --thinking medium
+SKYKOI agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
 ```

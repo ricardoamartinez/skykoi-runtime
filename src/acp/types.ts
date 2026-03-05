@@ -23,7 +23,7 @@ export type AcpServerOptions = {
 };
 
 export const ACP_AGENT_INFO = {
-  name: "synurex-acp",
-  title: "Synurex ACP Gateway",
+  name: "SKYKOI-acp",
+  title: "SKYKOI ACP Gateway",
   version: VERSION,
 };

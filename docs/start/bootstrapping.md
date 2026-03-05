@@ -16,8 +16,8 @@ for the first time.
 
 ## What bootstrapping does
 
-On the first agent run, Synurex bootstraps the workspace (default
-`~/.synurex/workspace`):
+On the first agent run, SKYKOI bootstraps the workspace (default
+`~/.SKYKOI/workspace`):
 
 - Seeds `AGENTS.md`, `BOOTSTRAP.md`, `IDENTITY.md`, `USER.md`.
 - Runs a short Q&A ritual (one question at a time).
@@ -32,7 +32,7 @@ machine.
 
 <Note>
 When the Gateway runs on another machine, edit workspace files on the gateway
-host (for example, `user@gateway-host:~/.synurex/workspace`).
+host (for example, `user@gateway-host:~/.SKYKOI/workspace`).
 </Note>
 
 ## Related docs

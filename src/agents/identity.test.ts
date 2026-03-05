@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveHumanDelayConfig } from "./identity.js";
 
 describe("resolveHumanDelayConfig", () => {
   it("returns undefined when no humanDelay config is set", () => {
-    const cfg: SynurexConfig = {};
+    const cfg: SKYKOIConfig = {};
     expect(resolveHumanDelayConfig(cfg, "main")).toBeUndefined();
   });
 
   it("merges defaults with per-agent overrides", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         defaults: {
           humanDelay: { mode: "natural", minMs: 800, maxMs: 1800 },

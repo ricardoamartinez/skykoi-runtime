@@ -10,8 +10,8 @@ installGatewayTestHooks({ scope: "suite" });
 
 beforeEach(() => {
   // Ensure these tests are not affected by host env vars.
-  delete process.env.SYNUREX_GATEWAY_TOKEN;
-  delete process.env.SYNUREX_GATEWAY_PASSWORD;
+  delete process.env.SKYKOI_GATEWAY_TOKEN;
+  delete process.env.SKYKOI_GATEWAY_PASSWORD;
 });
 
 const resolveGatewayToken = (): string => {

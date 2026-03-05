@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 
 type SpawnCall = {
   command: string;
@@ -84,24 +84,24 @@ describe("sandbox skill mirroring", () => {
   });
 
   const runContext = async (workspaceAccess: "none" | "ro") => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-state-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-state-"));
     const bundledDir = path.join(stateDir, "bundled-skills");
     await fs.mkdir(bundledDir, { recursive: true });
 
-    process.env.SYNUREX_STATE_DIR = stateDir;
-    process.env.SYNUREX_BUNDLED_SKILLS_DIR = bundledDir;
+    process.env.SKYKOI_STATE_DIR = stateDir;
+    process.env.SKYKOI_BUNDLED_SKILLS_DIR = bundledDir;
     vi.resetModules();
 
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-workspace-"));
+    const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-workspace-"));
     await writeSkill({
       dir: path.join(workspaceDir, "skills", "demo-skill"),
       name: "demo-skill",
       description: "Demo skill",
     });
 
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
         defaults: {
           sandbox: {

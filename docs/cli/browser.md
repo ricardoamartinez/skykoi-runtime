@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `synurex browser` (profiles, tabs, actions, extension relay)"
+summary: "CLI reference for `SKYKOI browser` (profiles, tabs, actions, extension relay)"
 read_when:
-  - You use `synurex browser` and want examples for common tasks
+  - You use `SKYKOI browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to use the Chrome extension relay (attach/detach via toolbar button)
 title: "browser"
 ---
 
-# `synurex browser`
+# `SKYKOI browser`
 
-Manage Synurex’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage SKYKOI’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -27,38 +27,38 @@ Related:
 ## Quick start (local)
 
 ```bash
-synurex browser --browser-profile chrome tabs
-synurex browser --browser-profile Synurex start
-synurex browser --browser-profile Synurex open https://example.com
-synurex browser --browser-profile Synurex snapshot
+SKYKOI browser --browser-profile chrome tabs
+SKYKOI browser --browser-profile SKYKOI start
+SKYKOI browser --browser-profile SKYKOI open https://example.com
+SKYKOI browser --browser-profile SKYKOI snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
 
-- `Synurex`: launches/attaches to a dedicated Synurex-managed Chrome instance (isolated user data dir).
+- `SKYKOI`: launches/attaches to a dedicated SKYKOI-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash
-synurex browser profiles
-synurex browser create-profile --name work --color "#FF5A36"
-synurex browser delete-profile --name work
+SKYKOI browser profiles
+SKYKOI browser create-profile --name work --color "#FF5A36"
+SKYKOI browser delete-profile --name work
 ```
 
 Use a specific profile:
 
 ```bash
-synurex browser --browser-profile work tabs
+SKYKOI browser --browser-profile work tabs
 ```
 
 ## Tabs
 
 ```bash
-synurex browser tabs
-synurex browser open https://docs.synurex.com
-synurex browser focus <targetId>
-synurex browser close <targetId>
+SKYKOI browser tabs
+SKYKOI browser open https://docs.SKYKOI.com
+SKYKOI browser focus <targetId>
+SKYKOI browser close <targetId>
 ```
 
 ## Snapshot / screenshot / actions
@@ -66,21 +66,21 @@ synurex browser close <targetId>
 Snapshot:
 
 ```bash
-synurex browser snapshot
+SKYKOI browser snapshot
 ```
 
 Screenshot:
 
 ```bash
-synurex browser screenshot
+SKYKOI browser screenshot
 ```
 
 Navigate/click/type (ref-based UI automation):
 
 ```bash
-synurex browser navigate https://example.com
-synurex browser click <ref>
-synurex browser type <ref> "hello"
+SKYKOI browser navigate https://example.com
+SKYKOI browser click <ref>
+SKYKOI browser type <ref> "hello"
 ```
 
 ## Chrome extension relay (attach via toolbar button)
@@ -90,8 +90,8 @@ This mode lets the agent control an existing Chrome tab that you attach manually
 Install the unpacked extension to a stable path:
 
 ```bash
-synurex browser extension install
-synurex browser extension path
+SKYKOI browser extension install
+SKYKOI browser extension path
 ```
 
 Then Chrome → `chrome://extensions` → enable “Developer mode” → “Load unpacked” → select the printed folder.

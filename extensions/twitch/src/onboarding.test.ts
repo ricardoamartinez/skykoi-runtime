@@ -11,7 +11,7 @@
  * - setTwitchAccount config updates
  */
 
-import type { WizardPrompter } from "Synurex/plugin-sdk";
+import type { WizardPrompter } from "SKYKOI/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TwitchAccountConfig } from "./types.js";
 

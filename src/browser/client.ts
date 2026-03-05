@@ -163,7 +163,7 @@ export async function browserCreateProfile(
     name: string;
     color?: string;
     cdpUrl?: string;
-    driver?: "synurex" | "extension";
+    driver?: "SKYKOI" | "extension";
   },
 ): Promise<BrowserCreateProfileResult> {
   return await fetchBrowserJson<BrowserCreateProfileResult>(

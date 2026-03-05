@@ -12,7 +12,7 @@ vi.mock("../agents/model-catalog.js", () => ({
   loadModelCatalog: vi.fn(),
 }));
 
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { telegramPlugin } from "../../extensions/telegram/src/channel.js";
 import { setTelegramRuntime } from "../../extensions/telegram/src/runtime.js";
@@ -36,14 +36,14 @@ const runtime: RuntimeEnv = {
 const configSpy = vi.spyOn(configModule, "loadConfig");
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "Synurex-agent-" });
+  return withTempHomeBase(fn, { prefix: "SKYKOI-agent-" });
 }
 
 function mockConfig(
   home: string,
   storePath: string,
-  agentOverrides?: Partial<NonNullable<NonNullable<SynurexConfig["agents"]>["defaults"]>>,
-  telegramOverrides?: Partial<NonNullable<SynurexConfig["telegram"]>>,
+  agentOverrides?: Partial<NonNullable<NonNullable<SKYKOIConfig["agents"]>["defaults"]>>,
+  telegramOverrides?: Partial<NonNullable<SKYKOIConfig["telegram"]>>,
   agentsList?: Array<{ id: string; default?: boolean }>,
 ) {
   configSpy.mockReturnValue({
@@ -51,7 +51,7 @@ function mockConfig(
       defaults: {
         model: { primary: "anthropic/claude-opus-4-5" },
         models: { "anthropic/claude-opus-4-5": {} },
-        workspace: path.join(home, "synurex"),
+        workspace: path.join(home, "SKYKOI"),
         ...agentOverrides,
       },
       list: agentsList,

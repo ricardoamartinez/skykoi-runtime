@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig } from "SKYKOI/plugin-sdk";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
 
@@ -15,7 +15,7 @@ export type FeishuReaction = {
  * @see https://open.feishu.cn/document/server-docs/im-v1/message-reaction/emojis-introduce
  */
 export async function addReactionFeishu(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   messageId: string;
   emojiType: string;
   accountId?: string;
@@ -57,7 +57,7 @@ export async function addReactionFeishu(params: {
  * Remove a reaction from a message.
  */
 export async function removeReactionFeishu(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   messageId: string;
   reactionId: string;
   accountId?: string;
@@ -86,7 +86,7 @@ export async function removeReactionFeishu(params: {
  * List all reactions for a message.
  */
 export async function listReactionsFeishu(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   messageId: string;
   emojiType?: string;
   accountId?: string;

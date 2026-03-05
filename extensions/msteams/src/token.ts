@@ -1,4 +1,4 @@
-import type { MSTeamsConfig } from "Synurex/plugin-sdk";
+import type { MSTeamsConfig } from "SKYKOI/plugin-sdk";
 
 export type MSTeamsCredentials = {
   appId: string;

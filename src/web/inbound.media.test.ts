@@ -42,7 +42,7 @@ vi.mock("../media/store.js", async (importOriginal) => {
   };
 });
 
-const HOME = path.join(os.tmpdir(), `Synurex-inbound-media-${crypto.randomUUID()}`);
+const HOME = path.join(os.tmpdir(), `SKYKOI-inbound-media-${crypto.randomUUID()}`);
 process.env.HOME = HOME;
 
 vi.mock("@whiskeysockets/baileys", async () => {

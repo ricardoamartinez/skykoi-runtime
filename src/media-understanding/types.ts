@@ -97,7 +97,7 @@ export type ImageDescriptionRequest = {
   profile?: string;
   preferredProfile?: string;
   agentDir: string;
-  cfg: import("../config/config.js").SynurexConfig;
+  cfg: import("../config/config.js").SKYKOIConfig;
 };
 
 export type ImageDescriptionResult = {

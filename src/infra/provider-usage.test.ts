@@ -253,7 +253,7 @@ describe("provider usage loading", () => {
     await withTempHome(
       async (tempHome) => {
         const agentDir = path.join(
-          process.env.SYNUREX_STATE_DIR ?? path.join(tempHome, ".synurex"),
+          process.env.SKYKOI_STATE_DIR ?? path.join(tempHome, ".SKYKOI"),
           "agents",
           "main",
           "agent",
@@ -328,9 +328,9 @@ describe("provider usage loading", () => {
       },
       {
         env: {
-          SYNUREX_STATE_DIR: (home) => path.join(home, ".synurex"),
+          SKYKOI_STATE_DIR: (home) => path.join(home, ".SKYKOI"),
         },
-        prefix: "Synurex-provider-usage-",
+        prefix: "SKYKOI-provider-usage-",
       },
     );
   });

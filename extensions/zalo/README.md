@@ -1,17 +1,17 @@
-# @Synurex/zalo
+# @SKYKOI/zalo
 
-Zalo channel plugin for Synurex (Bot API).
+Zalo channel plugin for SKYKOI (Bot API).
 
 ## Install (local checkout)
 
 ```bash
-Synurex plugins install ./extensions/zalo
+SKYKOI plugins install ./extensions/zalo
 ```
 
 ## Install (npm)
 
 ```bash
-Synurex plugins install @Synurex/zalo
+SKYKOI plugins install @SKYKOI/zalo
 ```
 
 Onboarding: select Zalo and confirm the install prompt to fetch the plugin automatically.

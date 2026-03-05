@@ -2,7 +2,7 @@
 read_when:
   - 你在不使用完整新手引导向导的情况下进行首次设置
   - 你想设置默认工作区路径
-summary: "`Synurex setup` 的 CLI 参考（初始化配置 + 工作区）"
+summary: "`SKYKOI setup` 的 CLI 参考（初始化配置 + 工作区）"
 title: setup
 x-i18n:
   generated_at: "2026-02-01T20:21:26Z"
@@ -13,9 +13,9 @@ x-i18n:
   workflow: 14
 ---
 
-# `Synurex setup`
+# `SKYKOI setup`
 
-初始化 `~/.synurex/synurex.json` 和智能体工作区。
+初始化 `~/.SKYKOI/SKYKOI.json` 和智能体工作区。
 
 相关内容：
 
@@ -25,12 +25,12 @@ x-i18n:
 ## 示例
 
 ```bash
-Synurex setup
-Synurex setup --workspace ~/.synurex/workspace
+SKYKOI setup
+SKYKOI setup --workspace ~/.SKYKOI/workspace
 ```
 
 通过 setup 运行向导：
 
 ```bash
-Synurex setup --wizard
+SKYKOI setup --wizard
 ```

@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/minimax-portal-auth",
+  "name": "@SKYKOI/minimax-portal-auth",
   "version": "2026.2.6-3",
-  "description": "Synurex MiniMax Portal OAuth provider plugin",
+  "description": "SKYKOI MiniMax Portal OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

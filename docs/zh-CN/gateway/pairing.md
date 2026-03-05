@@ -39,11 +39,11 @@ x-i18n:
 ## CLI 工作流程（支持无头模式）
 
 ```bash
-Synurex nodes pending
-Synurex nodes approve <requestId>
-Synurex nodes reject <requestId>
-Synurex nodes status
-Synurex nodes rename --node <id|name|ip> --name "Living Room iPad"
+SKYKOI nodes pending
+SKYKOI nodes approve <requestId>
+SKYKOI nodes reject <requestId>
+SKYKOI nodes status
+SKYKOI nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` 显示已配对/已连接的节点及其功能。
@@ -80,12 +80,12 @@ Synurex nodes rename --node <id|name|ip> --name "Living Room iPad"
 
 ## 存储（本地，私有）
 
-配对状态存储在 Gateway 网关状态目录下（默认 `~/.synurex`）：
+配对状态存储在 Gateway 网关状态目录下（默认 `~/.SKYKOI`）：
 
-- `~/.synurex/nodes/paired.json`
-- `~/.synurex/nodes/pending.json`
+- `~/.SKYKOI/nodes/paired.json`
+- `~/.SKYKOI/nodes/pending.json`
 
-如果你覆盖了 `SYNUREX_STATE_DIR`，`nodes/` 文件夹会随之移动。
+如果你覆盖了 `SKYKOI_STATE_DIR`，`nodes/` 文件夹会随之移动。
 
 安全注意事项：
 

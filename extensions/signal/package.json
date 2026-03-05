@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/signal",
+  "name": "@SKYKOI/signal",
   "version": "2026.2.6-3",
-  "description": "Synurex Signal channel plugin",
+  "description": "SKYKOI Signal channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

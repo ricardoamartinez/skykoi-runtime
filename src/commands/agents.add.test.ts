@@ -24,7 +24,7 @@ const runtime: RuntimeEnv = {
 };
 
 const baseSnapshot = {
-  path: "/tmp/synurex.json",
+  path: "/tmp/SKYKOI.json",
   exists: true,
   raw: "{}",
   parsed: {},

@@ -26,14 +26,14 @@ when the container is created.
 Auth is per-agent: each agent reads from its own `agentDir` auth store at:
 
 ```
-~/.synurex/agents/<agentId>/agent/auth-profiles.json
+~/.SKYKOI/agents/<agentId>/agent/auth-profiles.json
 ```
 
 Credentials are **not** shared between agents. Never reuse `agentDir` across agents.
 If you want to share creds, copy `auth-profiles.json` into the other agent's `agentDir`.
 
 For how sandboxing behaves at runtime, see [Sandboxing](/gateway/sandboxing).
-For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) and `Synurex sandbox explain`.
+For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) and `SKYKOI sandbox explain`.
 
 ---
 
@@ -49,13 +49,13 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
         "id": "main",
         "default": true,
         "name": "Personal Assistant",
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "family",
         "name": "Family Bot",
-        "workspace": "~/.synurex/workspace-family",
+        "workspace": "~/.SKYKOI/workspace-family",
         "sandbox": {
           "mode": "all",
           "scope": "agent"
@@ -98,12 +98,12 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
     "list": [
       {
         "id": "personal",
-        "workspace": "~/.synurex/workspace-personal",
+        "workspace": "~/.SKYKOI/workspace-personal",
         "sandbox": { "mode": "off" }
       },
       {
         "id": "work",
-        "workspace": "~/.synurex/workspace-work",
+        "workspace": "~/.SKYKOI/workspace-work",
         "sandbox": {
           "mode": "all",
           "scope": "shared",
@@ -158,14 +158,14 @@ For debugging “why is this blocked?”, see [Sandbox vs Tool Policy vs Elevate
     "list": [
       {
         "id": "main",
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": {
           "mode": "off" // Override: main never sandboxed
         }
       },
       {
         "id": "public",
-        "workspace": "~/.synurex/workspace-public",
+        "workspace": "~/.SKYKOI/workspace-public",
         "sandbox": {
           "mode": "all", // Override: public always sandboxed
           "scope": "agent"
@@ -234,7 +234,7 @@ Tool policies (global, agent, sandbox) support `group:*` entries that expand to 
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:Synurex`: all built-in Synurex tools (excludes provider plugins)
+- `group:SKYKOI`: all built-in SKYKOI tools (excludes provider plugins)
 
 ### Elevated Mode
 
@@ -257,7 +257,7 @@ Mitigation patterns:
 {
   "agents": {
     "defaults": {
-      "workspace": "~/.synurex/workspace",
+      "workspace": "~/.SKYKOI/workspace",
       "sandbox": {
         "mode": "non-main"
       }
@@ -283,7 +283,7 @@ Mitigation patterns:
       {
         "id": "main",
         "default": true,
-        "workspace": "~/.synurex/workspace",
+        "workspace": "~/.SKYKOI/workspace",
         "sandbox": { "mode": "off" }
       }
     ]
@@ -291,7 +291,7 @@ Mitigation patterns:
 }
 ```
 
-Legacy `agent.*` configs are migrated by `Synurex doctor`; prefer `agents.defaults` + `agents.list` going forward.
+Legacy `agent.*` configs are migrated by `SKYKOI doctor`; prefer `agents.defaults` + `agents.list` going forward.
 
 ---
 
@@ -348,13 +348,13 @@ After configuring multi-agent sandbox and tools:
 1. **Check agent resolution:**
 
    ```exec
-   Synurex agents list --bindings
+   SKYKOI agents list --bindings
    ```
 
 2. **Verify sandbox containers:**
 
    ```exec
-   docker ps --filter "name=Synurex-sbx-"
+   docker ps --filter "name=SKYKOI-sbx-"
    ```
 
 3. **Test tool restrictions:**
@@ -364,7 +364,7 @@ After configuring multi-agent sandbox and tools:
 4. **Monitor logs:**
 
    ```exec
-   tail -f "${SYNUREX_STATE_DIR:-$HOME/.synurex}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+   tail -f "${SKYKOI_STATE_DIR:-$HOME/.SKYKOI}/logs/gateway.log" | grep -E "routing|sandbox|tools"
    ```
 
 ---

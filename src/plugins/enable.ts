@@ -1,12 +1,12 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 
 export type PluginEnableResult = {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   enabled: boolean;
   reason?: string;
 };
 
-function ensureAllowlisted(cfg: SynurexConfig, pluginId: string): SynurexConfig {
+function ensureAllowlisted(cfg: SKYKOIConfig, pluginId: string): SKYKOIConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) {
     return cfg;
@@ -20,7 +20,7 @@ function ensureAllowlisted(cfg: SynurexConfig, pluginId: string): SynurexConfig 
   };
 }
 
-export function enablePluginInConfig(cfg: SynurexConfig, pluginId: string): PluginEnableResult {
+export function enablePluginInConfig(cfg: SKYKOIConfig, pluginId: string): PluginEnableResult {
   if (cfg.plugins?.enabled === false) {
     return { config: cfg, enabled: false, reason: "plugins disabled" };
   }
@@ -35,7 +35,7 @@ export function enablePluginInConfig(cfg: SynurexConfig, pluginId: string): Plug
       enabled: true,
     },
   };
-  let next: SynurexConfig = {
+  let next: SKYKOIConfig = {
     ...cfg,
     plugins: {
       ...cfg.plugins,

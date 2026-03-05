@@ -7,4 +7,4 @@
                   ⚡ AI Agent Runtime ⚡
  
 
-⚡ Synurex 2026.2.19-1 (a9b82c1) — I'm the reason your shell history looks like a hacker-movie montage.
+⚡ SKYKOI 2026.2.19-1 (a9b82c1) — I'm the reason your shell history looks like a hacker-movie montage.

@@ -1,5 +1,5 @@
 import chokidar from "chokidar";
-import type { SynurexConfig, ConfigFileSnapshot, GatewayReloadMode } from "../config/config.js";
+import type { SKYKOIConfig, ConfigFileSnapshot, GatewayReloadMode } from "../config/config.js";
 import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
 import { getActivePluginRegistry } from "../plugins/runtime.js";
 
@@ -164,7 +164,7 @@ export function diffConfigPaths(prev: unknown, next: unknown, prefix = ""): stri
   return [prefix || "<root>"];
 }
 
-export function resolveGatewayReloadSettings(cfg: SynurexConfig): GatewayReloadSettings {
+export function resolveGatewayReloadSettings(cfg: SKYKOIConfig): GatewayReloadSettings {
   const rawMode = cfg.gateway?.reload?.mode;
   const mode =
     rawMode === "off" || rawMode === "restart" || rawMode === "hot" || rawMode === "hybrid"
@@ -254,10 +254,10 @@ export type GatewayConfigReloader = {
 };
 
 export function startGatewayConfigReloader(opts: {
-  initialConfig: SynurexConfig;
+  initialConfig: SKYKOIConfig;
   readSnapshot: () => Promise<ConfigFileSnapshot>;
-  onHotReload: (plan: GatewayReloadPlan, nextConfig: SynurexConfig) => Promise<void>;
-  onRestart: (plan: GatewayReloadPlan, nextConfig: SynurexConfig) => void;
+  onHotReload: (plan: GatewayReloadPlan, nextConfig: SKYKOIConfig) => Promise<void>;
+  onRestart: (plan: GatewayReloadPlan, nextConfig: SKYKOIConfig) => void;
   log: {
     info: (msg: string) => void;
     warn: (msg: string) => void;

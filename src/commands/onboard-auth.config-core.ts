@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { ModelApi } from "../config/types.models.js";
 import {
   buildCloudflareAiGatewayModelDefinition,
@@ -44,7 +44,7 @@ import {
   XAI_DEFAULT_MODEL_ID,
 } from "./onboard-auth.models.js";
 
-export function applyZaiConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyZaiConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[ZAI_DEFAULT_MODEL_REF] = {
     ...models[ZAI_DEFAULT_MODEL_REF],
@@ -72,7 +72,7 @@ export function applyZaiConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyOpenrouterProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyOpenrouterProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENROUTER_DEFAULT_MODEL_REF] = {
     ...models[OPENROUTER_DEFAULT_MODEL_REF],
@@ -91,7 +91,7 @@ export function applyOpenrouterProviderConfig(cfg: SynurexConfig): SynurexConfig
   };
 }
 
-export function applyVercelAiGatewayProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyVercelAiGatewayProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF] = {
     ...models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF],
@@ -111,9 +111,9 @@ export function applyVercelAiGatewayProviderConfig(cfg: SynurexConfig): SynurexC
 }
 
 export function applyCloudflareAiGatewayProviderConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   params?: { accountId?: string; gatewayId?: string },
-): SynurexConfig {
+): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF] = {
     ...models[CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF],
@@ -177,7 +177,7 @@ export function applyCloudflareAiGatewayProviderConfig(
   };
 }
 
-export function applyVercelAiGatewayConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyVercelAiGatewayConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyVercelAiGatewayProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -200,9 +200,9 @@ export function applyVercelAiGatewayConfig(cfg: SynurexConfig): SynurexConfig {
 }
 
 export function applyCloudflareAiGatewayConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   params?: { accountId?: string; gatewayId?: string },
-): SynurexConfig {
+): SKYKOIConfig {
   const next = applyCloudflareAiGatewayProviderConfig(cfg, params);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -224,7 +224,7 @@ export function applyCloudflareAiGatewayConfig(
   };
 }
 
-export function applyOpenrouterConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyOpenrouterConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyOpenrouterProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -246,18 +246,18 @@ export function applyOpenrouterConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyMoonshotProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyMoonshotProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   return applyMoonshotProviderConfigWithBaseUrl(cfg, MOONSHOT_BASE_URL);
 }
 
-export function applyMoonshotProviderConfigCn(cfg: SynurexConfig): SynurexConfig {
+export function applyMoonshotProviderConfigCn(cfg: SKYKOIConfig): SKYKOIConfig {
   return applyMoonshotProviderConfigWithBaseUrl(cfg, MOONSHOT_CN_BASE_URL);
 }
 
 function applyMoonshotProviderConfigWithBaseUrl(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   baseUrl: string,
-): SynurexConfig {
+): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[MOONSHOT_DEFAULT_MODEL_REF] = {
     ...models[MOONSHOT_DEFAULT_MODEL_REF],
@@ -300,7 +300,7 @@ function applyMoonshotProviderConfigWithBaseUrl(
   };
 }
 
-export function applyMoonshotConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyMoonshotConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyMoonshotProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -322,7 +322,7 @@ export function applyMoonshotConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyMoonshotConfigCn(cfg: SynurexConfig): SynurexConfig {
+export function applyMoonshotConfigCn(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyMoonshotProviderConfigCn(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -344,7 +344,7 @@ export function applyMoonshotConfigCn(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyKimiCodeProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyKimiCodeProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[KIMI_CODING_MODEL_REF] = {
     ...models[KIMI_CODING_MODEL_REF],
@@ -363,7 +363,7 @@ export function applyKimiCodeProviderConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyKimiCodeConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyKimiCodeConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyKimiCodeProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -385,7 +385,7 @@ export function applyKimiCodeConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applySyntheticProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applySyntheticProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[SYNTHETIC_DEFAULT_MODEL_REF] = {
     ...models[SYNTHETIC_DEFAULT_MODEL_REF],
@@ -432,7 +432,7 @@ export function applySyntheticProviderConfig(cfg: SynurexConfig): SynurexConfig 
   };
 }
 
-export function applySyntheticConfig(cfg: SynurexConfig): SynurexConfig {
+export function applySyntheticConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applySyntheticProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -454,7 +454,7 @@ export function applySyntheticConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyXiaomiProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyXiaomiProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[XIAOMI_DEFAULT_MODEL_REF] = {
     ...models[XIAOMI_DEFAULT_MODEL_REF],
@@ -503,7 +503,7 @@ export function applyXiaomiProviderConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyXiaomiConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyXiaomiConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyXiaomiProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -529,7 +529,7 @@ export function applyXiaomiConfig(cfg: SynurexConfig): SynurexConfig {
  * Apply Venice provider configuration without changing the default model.
  * Registers Venice models and sets up the provider, but preserves existing model selection.
  */
-export function applyVeniceProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyVeniceProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[VENICE_DEFAULT_MODEL_REF] = {
     ...models[VENICE_DEFAULT_MODEL_REF],
@@ -578,7 +578,7 @@ export function applyVeniceProviderConfig(cfg: SynurexConfig): SynurexConfig {
  * Apply Venice provider configuration AND set Venice as the default model.
  * Use this when Venice is the primary provider choice during onboarding.
  */
-export function applyVeniceConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyVeniceConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyVeniceProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -600,7 +600,7 @@ export function applyVeniceConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyXaiProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyXaiProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[XAI_DEFAULT_MODEL_REF] = {
     ...models[XAI_DEFAULT_MODEL_REF],
@@ -643,7 +643,7 @@ export function applyXaiProviderConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyXaiConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyXaiConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyXaiProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {
@@ -666,7 +666,7 @@ export function applyXaiConfig(cfg: SynurexConfig): SynurexConfig {
 }
 
 export function applyAuthProfileConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   params: {
     profileId: string;
     provider: string;
@@ -674,7 +674,7 @@ export function applyAuthProfileConfig(
     email?: string;
     preferProfileFirst?: boolean;
   },
-): SynurexConfig {
+): SKYKOIConfig {
   const profiles = {
     ...cfg.auth?.profiles,
     [params.profileId]: {
@@ -714,7 +714,7 @@ export function applyAuthProfileConfig(
   };
 }
 
-export function applyQianfanProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyQianfanProviderConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[QIANFAN_DEFAULT_MODEL_REF] = {
     ...models[QIANFAN_DEFAULT_MODEL_REF],
@@ -769,7 +769,7 @@ export function applyQianfanProviderConfig(cfg: SynurexConfig): SynurexConfig {
   };
 }
 
-export function applyQianfanConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyQianfanConfig(cfg: SKYKOIConfig): SKYKOIConfig {
   const next = applyQianfanProviderConfig(cfg);
   const existingModel = next.agents?.defaults?.model;
   return {

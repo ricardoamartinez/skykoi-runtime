@@ -1,15 +1,15 @@
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SKYKOIConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { randomToken } from "../../onboard-helpers.js";
 
 export function applyNonInteractiveGatewayConfig(params: {
-  nextConfig: SynurexConfig;
+  nextConfig: SKYKOIConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   defaultPort: number;
 }): {
-  nextConfig: SynurexConfig;
+  nextConfig: SKYKOIConfig;
   port: number;
   bind: string;
   authMode: string;

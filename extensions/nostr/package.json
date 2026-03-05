@@ -1,17 +1,17 @@
 {
-  "name": "@Synurex/nostr",
+  "name": "@SKYKOI/nostr",
   "version": "2026.2.6-3",
-  "description": "Synurex Nostr channel plugin for NIP-04 encrypted DMs",
+  "description": "SKYKOI Nostr channel plugin for NIP-04 encrypted DMs",
   "type": "module",
   "dependencies": {
     "nostr-tools": "^2.23.0",
-    "Synurex": "workspace:*",
+    "SKYKOI": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ],
@@ -26,7 +26,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@Synurex/nostr",
+      "npmSpec": "@SKYKOI/nostr",
       "localPath": "extensions/nostr",
       "defaultChoice": "npm"
     }

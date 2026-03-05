@@ -1,6 +1,6 @@
-import { type SynurexConfig, loadConfig } from "../config/config.js";
-import { resolveSynurexAgentDir } from "./agent-paths.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import { type SKYKOIConfig, loadConfig } from "../config/config.js";
+import { resolveSKYKOIAgentDir } from "./agent-paths.js";
+import { ensureSKYKOIModelsJson } from "./models-config.js";
 
 export type ModelCatalogEntry = {
   id: string;
@@ -39,7 +39,7 @@ export function __setModelCatalogImportForTest(loader?: () => Promise<PiSdkModul
 }
 
 export async function loadModelCatalog(params?: {
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   useCache?: boolean;
 }): Promise<ModelCatalogEntry[]> {
   if (params?.useCache === false) {
@@ -61,13 +61,13 @@ export async function loadModelCatalog(params?: {
       });
     try {
       const cfg = params?.config ?? loadConfig();
-      await ensureSynurexModelsJson(cfg);
+      await ensureSKYKOIModelsJson(cfg);
       // IMPORTANT: keep the dynamic import *inside* the try/catch.
       // If this fails once (e.g. during a pnpm install that temporarily swaps node_modules),
       // we must not poison the cache with a rejected promise (otherwise all channel handlers
       // will keep failing until restart).
       const piSdk = await importPiSdk();
-      const agentDir = resolveSynurexAgentDir();
+      const agentDir = resolveSKYKOIAgentDir();
       const { join } = await import("node:path");
       const authStorage = new piSdk.AuthStorage(join(agentDir, "auth.json"));
       const registry = new piSdk.ModelRegistry(authStorage, join(agentDir, "models.json")) as

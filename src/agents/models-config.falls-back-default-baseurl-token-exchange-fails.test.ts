@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "Synurex-models-" });
+  return withTempHomeBase(fn, { prefix: "SKYKOI-models-" });
 }
 
-const _MODELS_CONFIG: SynurexConfig = {
+const _MODELS_CONFIG: SKYKOIConfig = {
   models: {
     providers: {
       "custom-proxy": {
@@ -56,12 +56,12 @@ describe("models-config", () => {
           resolveCopilotApiToken: vi.fn().mockRejectedValue(new Error("boom")),
         }));
 
-        const { ensureSynurexModelsJson } = await import("./models-config.js");
-        const { resolveSynurexAgentDir } = await import("./agent-paths.js");
+        const { ensureSKYKOIModelsJson } = await import("./models-config.js");
+        const { resolveSKYKOIAgentDir } = await import("./agent-paths.js");
 
-        await ensureSynurexModelsJson({ models: { providers: {} } });
+        await ensureSKYKOIModelsJson({ models: { providers: {} } });
 
-        const agentDir = resolveSynurexAgentDir();
+        const agentDir = resolveSKYKOIAgentDir();
         const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
         const parsed = JSON.parse(raw) as {
           providers: Record<string, { baseUrl?: string }>;
@@ -115,9 +115,9 @@ describe("models-config", () => {
           }),
         }));
 
-        const { ensureSynurexModelsJson } = await import("./models-config.js");
+        const { ensureSKYKOIModelsJson } = await import("./models-config.js");
 
-        await ensureSynurexModelsJson({ models: { providers: {} } }, agentDir);
+        await ensureSKYKOIModelsJson({ models: { providers: {} } }, agentDir);
 
         const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
         const parsed = JSON.parse(raw) as {

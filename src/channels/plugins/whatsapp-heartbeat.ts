@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import { loadSessionStore, resolveStorePath } from "../../config/sessions.js";
 import { normalizeE164 } from "../../utils.js";
 import { normalizeChatChannelId } from "../registry.js";
@@ -6,7 +6,7 @@ import { normalizeChatChannelId } from "../registry.js";
 type HeartbeatRecipientsResult = { recipients: string[]; source: string };
 type HeartbeatRecipientsOpts = { to?: string; all?: boolean };
 
-function getSessionRecipients(cfg: SynurexConfig) {
+function getSessionRecipients(cfg: SKYKOIConfig) {
   const sessionCfg = cfg.session;
   const scope = sessionCfg?.scope ?? "per-sender";
   if (scope === "global") {
@@ -43,7 +43,7 @@ function getSessionRecipients(cfg: SynurexConfig) {
 }
 
 export function resolveWhatsAppHeartbeatRecipients(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   opts: HeartbeatRecipientsOpts = {},
 ): HeartbeatRecipientsResult {
   if (opts.to) {

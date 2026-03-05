@@ -8,7 +8,7 @@ title: "Tools Invoke API"
 
 # Tools Invoke (HTTP)
 
-Synurex’s Gateway exposes a simple HTTP endpoint for invoking a single tool directly. It is always enabled, but gated by Gateway auth and tool policy.
+SKYKOI’s Gateway exposes a simple HTTP endpoint for invoking a single tool directly. It is always enabled, but gated by Gateway auth and tool policy.
 
 - `POST /tools/invoke`
 - Same port as the Gateway (WS + HTTP multiplex): `http://<gateway-host>:<port>/tools/invoke`
@@ -23,8 +23,8 @@ Uses the Gateway auth configuration. Send a bearer token:
 
 Notes:
 
-- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `SYNUREX_GATEWAY_TOKEN`).
-- When `gateway.auth.mode="password"`, use `gateway.auth.password` (or `SYNUREX_GATEWAY_PASSWORD`).
+- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `SKYKOI_GATEWAY_TOKEN`).
+- When `gateway.auth.mode="password"`, use `gateway.auth.password` (or `SKYKOI_GATEWAY_PASSWORD`).
 
 ## Request body
 
@@ -60,8 +60,8 @@ If a tool is not allowed by policy, the endpoint returns **404**.
 
 To help group policies resolve context, you can optionally set:
 
-- `x-Synurex-message-channel: <channel>` (example: `slack`, `telegram`)
-- `x-Synurex-account-id: <accountId>` (when multiple accounts exist)
+- `x-SKYKOI-message-channel: <channel>` (example: `slack`, `telegram`)
+- `x-SKYKOI-account-id: <accountId>` (when multiple accounts exist)
 
 ## Responses
 

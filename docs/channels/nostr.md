@@ -1,7 +1,7 @@
 ---
 summary: "Nostr DM channel via NIP-04 encrypted messages"
 read_when:
-  - You want Synurex to receive DMs via Nostr
+  - You want SKYKOI to receive DMs via Nostr
   - You're setting up decentralized messaging
 title: "Nostr"
 ---
@@ -10,13 +10,13 @@ title: "Nostr"
 
 **Status:** Optional plugin (disabled by default).
 
-Nostr is a decentralized protocol for social networking. This channel enables Synurex to receive and respond to encrypted direct messages (DMs) via NIP-04.
+Nostr is a decentralized protocol for social networking. This channel enables SKYKOI to receive and respond to encrypted direct messages (DMs) via NIP-04.
 
 ## Install (on demand)
 
 ### Onboarding (recommended)
 
-- The onboarding wizard (`synurex onboard`) and `synurex channels add` list optional channel plugins.
+- The onboarding wizard (`SKYKOI onboard`) and `SKYKOI channels add` list optional channel plugins.
 - Selecting Nostr prompts you to install the plugin on demand.
 
 Install defaults:
@@ -29,13 +29,13 @@ You can always override the choice in the prompt.
 ### Manual install
 
 ```bash
-Synurex plugins install @Synurex/nostr
+SKYKOI plugins install @SKYKOI/nostr
 ```
 
 Use a local checkout (dev workflows):
 
 ```bash
-Synurex plugins install --link <path-to-Synurex>/extensions/nostr
+SKYKOI plugins install --link <path-to-SKYKOI>/extensions/nostr
 ```
 
 Restart the Gateway after installing or enabling plugins.
@@ -93,14 +93,14 @@ Example:
     "nostr": {
       "privateKey": "${NOSTR_PRIVATE_KEY}",
       "profile": {
-        "name": "Synurex",
-        "displayName": "Synurex",
+        "name": "SKYKOI",
+        "displayName": "SKYKOI",
         "about": "Personal assistant DM bot",
         "picture": "https://example.com/avatar.png",
         "banner": "https://example.com/banner.png",
         "website": "https://example.com",
-        "nip05": "Synurex@example.com",
-        "lud16": "Synurex@example.com"
+        "nip05": "SKYKOI@example.com",
+        "lud16": "SKYKOI@example.com"
       }
     }
   }

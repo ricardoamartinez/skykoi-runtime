@@ -225,11 +225,11 @@ export async function gatherDaemonStatus(
         url: probeUrl,
         token:
           opts.rpc.token ||
-          mergedDaemonEnv.SYNUREX_GATEWAY_TOKEN ||
+          mergedDaemonEnv.SKYKOI_GATEWAY_TOKEN ||
           daemonCfg.gateway?.auth?.token,
         password:
           opts.rpc.password ||
-          mergedDaemonEnv.SYNUREX_GATEWAY_PASSWORD ||
+          mergedDaemonEnv.SKYKOI_GATEWAY_PASSWORD ||
           daemonCfg.gateway?.auth?.password,
         timeoutMs,
         json: opts.rpc.json,

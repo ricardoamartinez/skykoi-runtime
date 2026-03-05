@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/discord",
+  "name": "@SKYKOI/discord",
   "version": "2026.2.6-3",
-  "description": "Synurex Discord channel plugin",
+  "description": "SKYKOI Discord channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

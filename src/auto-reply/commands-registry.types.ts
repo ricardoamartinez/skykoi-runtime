@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/types.js";
+import type { SKYKOIConfig } from "../config/types.js";
 
 export type CommandScope = "text" | "native" | "both";
 
@@ -14,7 +14,7 @@ export type CommandCategory =
 export type CommandArgType = "string" | "number" | "boolean";
 
 export type CommandArgChoiceContext = {
-  cfg?: SynurexConfig;
+  cfg?: SKYKOIConfig;
   provider?: string;
   model?: string;
   command: ChatCommandDefinition;
@@ -80,7 +80,7 @@ export type CommandDetection = {
 };
 
 export type ShouldHandleTextCommandsParams = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   surface: string;
   commandSource?: "text" | "native";
 };

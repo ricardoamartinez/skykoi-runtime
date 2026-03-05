@@ -1,6 +1,6 @@
 # Security Policy
 
-If you believe you've found a security issue in Synurex, please report it privately.
+If you believe you've found a security issue in SKYKOI, please report it privately.
 
 ## Reporting
 
@@ -9,30 +9,30 @@ If you believe you've found a security issue in Synurex, please report it privat
 
 ## Bug Bounties
 
-Synurex is a labor of love. There is no bug bounty program and no budget for paid reports. Please still disclose responsibly so we can fix issues quickly.
+SKYKOI is a labor of love. There is no bug bounty program and no budget for paid reports. Please still disclose responsibly so we can fix issues quickly.
 The best way to help the project right now is by sending PRs.
 
 ## Out of Scope
 
 - Public Internet Exposure
-- Using Synurex in ways that the docs recommend not to
+- Using SKYKOI in ways that the docs recommend not to
 - Prompt injection attacks
 
 ## Operational Guidance
 
-For threat model + hardening guidance (including `Synurex security audit --deep` and `--fix`), see:
+For threat model + hardening guidance (including `SKYKOI security audit --deep` and `--fix`), see:
 
-- `https://docs.Synurex.ai/gateway/security`
+- `https://docs.SKYKOI.ai/gateway/security`
 
 ### Web Interface Safety
 
-Synurex's web interface is intended for local use only. Do **not** bind it to the public internet; it is not hardened for public exposure.
+SKYKOI's web interface is intended for local use only. Do **not** bind it to the public internet; it is not hardened for public exposure.
 
 ## Runtime Requirements
 
 ### Node.js Version
 
-Synurex requires **Node.js 22.12.0 or later** (LTS). This version includes important security patches:
+SKYKOI requires **Node.js 22.12.0 or later** (LTS). This version includes important security patches:
 
 - CVE-2025-59466: async_hooks DoS vulnerability
 - CVE-2026-21636: Permission model bypass vulnerability
@@ -45,7 +45,7 @@ node --version  # Should be v22.12.0 or later
 
 ### Docker Security
 
-When running Synurex in Docker:
+When running SKYKOI in Docker:
 
 1. The official image runs as a non-root user (`node`) for reduced attack surface
 2. Use `--read-only` flag when possible for additional filesystem protection
@@ -55,8 +55,8 @@ Example secure Docker run:
 
 ```bash
 docker run --read-only --cap-drop=ALL \
-  -v Synurex-data:/app/data \
-  Synurex/Synurex:latest
+  -v SKYKOI-data:/app/data \
+  SKYKOI/SKYKOI:latest
 ```
 
 ## Security Scanning

@@ -5,16 +5,16 @@ describe("buildPairingReply", () => {
   let previousProfile: string | undefined;
 
   beforeEach(() => {
-    previousProfile = process.env.SYNUREX_PROFILE;
-    process.env.SYNUREX_PROFILE = "isolated";
+    previousProfile = process.env.SKYKOI_PROFILE;
+    process.env.SKYKOI_PROFILE = "isolated";
   });
 
   afterEach(() => {
     if (previousProfile === undefined) {
-      delete process.env.SYNUREX_PROFILE;
+      delete process.env.SKYKOI_PROFILE;
       return;
     }
-    process.env.SYNUREX_PROFILE = previousProfile;
+    process.env.SKYKOI_PROFILE = previousProfile;
   });
 
   const cases = [
@@ -50,9 +50,9 @@ describe("buildPairingReply", () => {
       const text = buildPairingReply(testCase);
       expect(text).toContain(testCase.idLine);
       expect(text).toContain(`Pairing code: ${testCase.code}`);
-      // CLI commands should respect SYNUREX_PROFILE when set (most tests run with isolated profile)
+      // CLI commands should respect SKYKOI_PROFILE when set (most tests run with isolated profile)
       const commandRe = new RegExp(
-        `(?:Synurex|Synurex) --profile isolated pairing approve ${testCase.channel} <code>`,
+        `(?:SKYKOI|SKYKOI) --profile isolated pairing approve ${testCase.channel} <code>`,
       );
       expect(text).toMatch(commandRe);
     });

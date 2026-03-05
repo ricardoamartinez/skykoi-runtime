@@ -9,23 +9,23 @@ const CLI_NAME = resolveCliName();
 
 const EXAMPLES = [
   [
-    "synurex channels login --verbose",
+    "SKYKOI channels login --verbose",
     "Link personal WhatsApp Web and show QR + connection logs.",
   ],
   [
-    'Synurex message send --target +15555550123 --message "Hi" --json',
+    'SKYKOI message send --target +15555550123 --message "Hi" --json',
     "Send via your web session and print JSON result.",
   ],
-  ["synurex gateway --port 18789", "Run the WebSocket Gateway locally."],
-  ["synurex --dev gateway", "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001."],
-  ["synurex gateway --force", "Kill anything bound to the default gateway port, then start it."],
-  ["synurex gateway ...", "Gateway control via WebSocket."],
+  ["SKYKOI gateway --port 18789", "Run the WebSocket Gateway locally."],
+  ["SKYKOI --dev gateway", "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001."],
+  ["SKYKOI gateway --force", "Kill anything bound to the default gateway port, then start it."],
+  ["SKYKOI gateway ...", "Gateway control via WebSocket."],
   [
-    'Synurex agent --to +15555550123 --message "Run summary" --deliver',
+    'SKYKOI agent --to +15555550123 --message "Run summary" --deliver',
     "Talk directly to the agent using the Gateway; optionally send the WhatsApp reply.",
   ],
   [
-    'Synurex message send --channel telegram --target @mychat --message "Hi"',
+    'SKYKOI message send --channel telegram --target @mychat --message "Hi"',
     "Send via your Telegram bot.",
   ],
 ] as const;
@@ -37,11 +37,11 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     .version(ctx.programVersion)
     .option(
       "--dev",
-      "Dev profile: isolate state under ~/.synurex-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
+      "Dev profile: isolate state under ~/.SKYKOI-dev, default gateway port 19001, and shift derived ports (browser/canvas)",
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates SYNUREX_STATE_DIR/SYNUREX_CONFIG_PATH under ~/.synurex-<name>)",
+      "Use a named profile (isolates SKYKOI_STATE_DIR/SKYKOI_CONFIG_PATH under ~/.SKYKOI-<name>)",
     );
 
   program.option("--no-color", "Disable ANSI colors", false);
@@ -92,7 +92,7 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     if (command !== program) {
       return "";
     }
-    const docs = formatDocsLink("/cli", "docs.synurex.com/cli");
+    const docs = formatDocsLink("/cli", "docs.SKYKOI.com/cli");
     return `\n${theme.heading("Examples:")}\n${fmtExamples}\n\n${theme.muted("Docs:")} ${docs}\n`;
   });
 }

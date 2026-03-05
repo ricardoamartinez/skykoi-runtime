@@ -59,10 +59,10 @@ describe("discord native commands", () => {
         defaults: {
           model: "anthropic/claude-opus-4-5",
           humanDelay: { mode: "off" },
-          workspace: "/tmp/Synurex",
+          workspace: "/tmp/SKYKOI",
         },
       },
-      session: { store: "/tmp/Synurex-sessions.json" },
+      session: { store: "/tmp/SKYKOI-sessions.json" },
       discord: { dm: { enabled: true, policy: "open" } },
     } as ReturnType<typeof import("../config/config.js").loadConfig>;
 

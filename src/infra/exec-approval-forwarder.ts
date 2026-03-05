@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type {
   ExecApprovalForwardingConfig,
   ExecApprovalForwardTarget,
@@ -52,11 +52,11 @@ export type ExecApprovalForwarder = {
 };
 
 export type ExecApprovalForwarderDeps = {
-  getConfig?: () => SynurexConfig;
+  getConfig?: () => SKYKOIConfig;
   deliver?: typeof deliverOutboundPayloads;
   nowMs?: () => number;
   resolveSessionTarget?: (params: {
-    cfg: SynurexConfig;
+    cfg: SKYKOIConfig;
     request: ExecApprovalRequest;
   }) => ExecApprovalForwardTarget | null;
 };
@@ -160,7 +160,7 @@ function buildExpiredMessage(request: ExecApprovalRequest) {
 }
 
 function defaultResolveSessionTarget(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   request: ExecApprovalRequest;
 }): ExecApprovalForwardTarget | null {
   const sessionKey = params.request.request.sessionKey?.trim();
@@ -191,7 +191,7 @@ function defaultResolveSessionTarget(params: {
 }
 
 async function deliverToTargets(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   targets: ForwardTarget[];
   text: string;
   deliver: typeof deliverOutboundPayloads;

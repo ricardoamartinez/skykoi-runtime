@@ -20,22 +20,22 @@ x-i18n:
 按顺序运行这些命令：
 
 ```bash
-Synurex status
-Synurex status --all
-synurex gateway probe
-Synurex logs --follow
-synurex doctor
+SKYKOI status
+SKYKOI status --all
+SKYKOI gateway probe
+SKYKOI logs --follow
+SKYKOI doctor
 ```
 
 如果 Gateway 网关可达，进行深度探测：
 
 ```bash
-Synurex status --deep
+SKYKOI status --deep
 ```
 
 ## 常见的“它坏了”情况
 
-### `Synurex: command not found`
+### `SKYKOI: command not found`
 
 几乎总是 Node/npm PATH 问题。从这里开始：
 
@@ -46,16 +46,16 @@ Synurex status --deep
 以详细模式重新运行安装程序以查看完整跟踪和 npm 输出：
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash -s -- --verbose
+curl -fsSL https://SKYKOI.com/install.sh | bash -s -- --verbose
 ```
 
 对于 beta 安装：
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash -s -- --beta --verbose
+curl -fsSL https://SKYKOI.com/install.sh | bash -s -- --beta --verbose
 ```
 
-你也可以设置 `Synurex_VERBOSE=1` 代替标志。
+你也可以设置 `SKYKOI_VERBOSE=1` 代替标志。
 
 ### Gateway 网关“unauthorized”、无法连接或持续重连
 
@@ -67,10 +67,10 @@ curl -fsSL https://synurex.com/install.sh | bash -s -- --beta --verbose
 - [Gateway 网关故障排除](/gateway/troubleshooting)
 - [控制 UI](/web/control-ui#insecure-http)
 
-### `docs.Synurex.ai` 显示 SSL 错误（Comcast/Xfinity）
+### `docs.SKYKOI.ai` 显示 SSL 错误（Comcast/Xfinity）
 
-一些 Comcast/Xfinity 连接通过 Xfinity Advanced Security 阻止 `docs.Synurex.ai`。
-禁用 Advanced Security 或将 `docs.Synurex.ai` 添加到允许列表，然后重试。
+一些 Comcast/Xfinity 连接通过 Xfinity Advanced Security 阻止 `docs.SKYKOI.ai`。
+禁用 Advanced Security 或将 `docs.SKYKOI.ai` 添加到允许列表，然后重试。
 
 - Xfinity Advanced Security 帮助：https://www.xfinity.com/support/articles/using-xfinity-xfi-advanced-security
 - 快速检查：尝试移动热点或 VPN 以确认这是 ISP 级别的过滤
@@ -89,7 +89,7 @@ curl -fsSL https://synurex.com/install.sh | bash -s -- --beta --verbose
 
 这通常意味着 `agents.defaults.models` 配置为允许列表。当它非空时，只能选择那些提供商/模型键。
 
-- 检查允许列表：`synurex config get agents.defaults.models`
+- 检查允许列表：`SKYKOI config get agents.defaults.models`
 - 添加你想要的模型（或清除允许列表）然后重试 `/model`
 - 使用 `/models` 浏览允许的提供商/模型
 
@@ -98,7 +98,7 @@ curl -fsSL https://synurex.com/install.sh | bash -s -- --beta --verbose
 粘贴一份安全报告：
 
 ```bash
-Synurex status --all
+SKYKOI status --all
 ```
 
-如果可以的话，包含来自 `synurex logs --follow` 的相关日志尾部。
+如果可以的话，包含来自 `SKYKOI logs --follow` 的相关日志尾部。

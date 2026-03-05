@@ -1,28 +1,28 @@
 ---
-summary: "Run Synurex Gateway 24/7 on a cheap Hetzner VPS (Docker) with durable state and baked-in binaries"
+summary: "Run SKYKOI Gateway 24/7 on a cheap Hetzner VPS (Docker) with durable state and baked-in binaries"
 read_when:
-  - You want Synurex running 24/7 on a cloud VPS (not your laptop)
+  - You want SKYKOI running 24/7 on a cloud VPS (not your laptop)
   - You want a production-grade, always-on Gateway on your own VPS
   - You want full control over persistence, binaries, and restart behavior
-  - You are running Synurex in Docker on Hetzner or a similar provider
+  - You are running SKYKOI in Docker on Hetzner or a similar provider
 title: "Hetzner"
 ---
 
-# Synurex on Hetzner (Docker, Production VPS Guide)
+# SKYKOI on Hetzner (Docker, Production VPS Guide)
 
 ## Goal
 
-Run a persistent Synurex Gateway on a Hetzner VPS using Docker, with durable state, baked-in binaries, and safe restart behavior.
+Run a persistent SKYKOI Gateway on a Hetzner VPS using Docker, with durable state, baked-in binaries, and safe restart behavior.
 
-If you want “Synurex 24/7 for ~$5”, this is the simplest reliable setup.
+If you want “SKYKOI 24/7 for ~$5”, this is the simplest reliable setup.
 Hetzner pricing changes; pick the smallest Debian/Ubuntu VPS and scale up if you hit OOMs.
 
 ## What are we doing (simple terms)?
 
 - Rent a small Linux server (Hetzner VPS)
 - Install Docker (isolated app runtime)
-- Start the Synurex Gateway in Docker
-- Persist `~/.synurex` + `~/.synurex/workspace` on the host (survives restarts/rebuilds)
+- Start the SKYKOI Gateway in Docker
+- Persist `~/.SKYKOI` + `~/.SKYKOI/workspace` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
@@ -40,7 +40,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 
 1. Provision Hetzner VPS
 2. Install Docker
-3. Clone Synurex repository
+3. Clone SKYKOI repository
 4. Create persistent host directories
 5. Configure `.env` and `docker-compose.yml`
 6. Bake required binaries into the image
@@ -96,11 +96,11 @@ docker compose version
 
 ---
 
-## 3) Clone the Synurex repository
+## 3) Clone the SKYKOI repository
 
 ```bash
-git clone https://github.com/Synurex/Synurex.git
-cd Synurex
+git clone https://github.com/SKYKOI/SKYKOI.git
+cd SKYKOI
 ```
 
 This guide assumes you will build a custom image to guarantee binary persistence.
@@ -113,12 +113,12 @@ Docker containers are ephemeral.
 All long-lived state must live on the host.
 
 ```bash
-mkdir -p /root/.synurex
-mkdir -p /root/.synurex/workspace
+mkdir -p /root/.SKYKOI
+mkdir -p /root/.SKYKOI/workspace
 
 # Set ownership to the container user (uid 1000):
-chown -R 1000:1000 /root/.synurex
-chown -R 1000:1000 /root/.synurex/workspace
+chown -R 1000:1000 /root/.SKYKOI
+chown -R 1000:1000 /root/.SKYKOI/workspace
 ```
 
 ---
@@ -128,16 +128,16 @@ chown -R 1000:1000 /root/.synurex/workspace
 Create `.env` in the repository root.
 
 ```bash
-SYNUREX_IMAGE=Synurex:latest
-SYNUREX_GATEWAY_TOKEN=change-me-now
-SYNUREX_GATEWAY_BIND=lan
-SYNUREX_GATEWAY_PORT=18789
+SKYKOI_IMAGE=SKYKOI:latest
+SKYKOI_GATEWAY_TOKEN=change-me-now
+SKYKOI_GATEWAY_BIND=lan
+SKYKOI_GATEWAY_PORT=18789
 
-SYNUREX_CONFIG_DIR=/root/.synurex
-SYNUREX_WORKSPACE_DIR=/root/.synurex/workspace
+SKYKOI_CONFIG_DIR=/root/.SKYKOI
+SKYKOI_WORKSPACE_DIR=/root/.SKYKOI/workspace
 
 GOG_KEYRING_PASSWORD=change-me-now
-XDG_CONFIG_HOME=/home/node/.synurex
+XDG_CONFIG_HOME=/home/node/.SKYKOI
 ```
 
 Generate strong secrets:
@@ -156,8 +156,8 @@ Create or update `docker-compose.yml`.
 
 ```yaml
 services:
-  Synurex-gateway:
-    image: ${SYNUREX_IMAGE}
+  SKYKOI-gateway:
+    image: ${SKYKOI_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -166,19 +166,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - SYNUREX_GATEWAY_BIND=${SYNUREX_GATEWAY_BIND}
-      - SYNUREX_GATEWAY_PORT=${SYNUREX_GATEWAY_PORT}
-      - SYNUREX_GATEWAY_TOKEN=${SYNUREX_GATEWAY_TOKEN}
+      - SKYKOI_GATEWAY_BIND=${SKYKOI_GATEWAY_BIND}
+      - SKYKOI_GATEWAY_PORT=${SKYKOI_GATEWAY_PORT}
+      - SKYKOI_GATEWAY_TOKEN=${SKYKOI_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${SYNUREX_CONFIG_DIR}:/home/node/.synurex
-      - ${SYNUREX_WORKSPACE_DIR}:/home/node/.synurex/workspace
+      - ${SKYKOI_CONFIG_DIR}:/home/node/.SKYKOI
+      - ${SKYKOI_WORKSPACE_DIR}:/home/node/.SKYKOI/workspace
     ports:
       # Recommended: keep the Gateway loopback-only on the VPS; access via SSH tunnel.
       # To expose it publicly, remove the `127.0.0.1:` prefix and firewall accordingly.
-      - "127.0.0.1:${SYNUREX_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${SKYKOI_GATEWAY_PORT}:18789"
 
       # Optional: only if you run iOS/Android nodes against this VPS and need Canvas host.
       # If you expose this publicly, read /gateway/security and firewall accordingly.
@@ -189,9 +189,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${SYNUREX_GATEWAY_BIND}",
+        "${SKYKOI_GATEWAY_BIND}",
         "--port",
-        "${SYNUREX_GATEWAY_PORT}",
+        "${SKYKOI_GATEWAY_PORT}",
       ]
 ```
 
@@ -264,15 +264,15 @@ CMD ["node","dist/index.js"]
 
 ```bash
 docker compose build
-docker compose up -d Synurex-gateway
+docker compose up -d SKYKOI-gateway
 ```
 
 Verify binaries:
 
 ```bash
-docker compose exec Synurex-gateway which gog
-docker compose exec Synurex-gateway which goplaces
-docker compose exec Synurex-gateway which wacli
+docker compose exec SKYKOI-gateway which gog
+docker compose exec SKYKOI-gateway which goplaces
+docker compose exec SKYKOI-gateway which wacli
 ```
 
 Expected output:
@@ -288,7 +288,7 @@ Expected output:
 ## 9) Verify Gateway
 
 ```bash
-docker compose logs -f Synurex-gateway
+docker compose logs -f SKYKOI-gateway
 ```
 
 Success:
@@ -313,17 +313,17 @@ Paste your gateway token.
 
 ## What persists where (source of truth)
 
-Synurex runs in Docker, but Docker is not the source of truth.
+SKYKOI runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
 | Component           | Location                          | Persistence mechanism  | Notes                            |
 | ------------------- | --------------------------------- | ---------------------- | -------------------------------- |
-| Gateway config      | `/home/node/.synurex/`           | Host volume mount      | Includes `synurex.json`, tokens |
-| Model auth profiles | `/home/node/.synurex/`           | Host volume mount      | OAuth tokens, API keys           |
-| Skill configs       | `/home/node/.synurex/skills/`    | Host volume mount      | Skill-level state                |
-| Agent workspace     | `/home/node/.synurex/workspace/` | Host volume mount      | Code and agent artifacts         |
-| WhatsApp session    | `/home/node/.synurex/`           | Host volume mount      | Preserves QR login               |
-| Gmail keyring       | `/home/node/.synurex/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
+| Gateway config      | `/home/node/.SKYKOI/`           | Host volume mount      | Includes `SKYKOI.json`, tokens |
+| Model auth profiles | `/home/node/.SKYKOI/`           | Host volume mount      | OAuth tokens, API keys           |
+| Skill configs       | `/home/node/.SKYKOI/skills/`    | Host volume mount      | Skill-level state                |
+| Agent workspace     | `/home/node/.SKYKOI/workspace/` | Host volume mount      | Code and agent artifacts         |
+| WhatsApp session    | `/home/node/.SKYKOI/`           | Host volume mount      | Preserves QR login               |
+| Gmail keyring       | `/home/node/.SKYKOI/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
 | External binaries   | `/usr/local/bin/`                 | Docker image           | Must be baked at build time      |
 | Node runtime        | Container filesystem              | Docker image           | Rebuilt every image build        |
 | OS packages         | Container filesystem              | Docker image           | Do not install at runtime        |

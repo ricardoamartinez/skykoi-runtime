@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "Synurex/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "SKYKOI/plugin-sdk";
 
 type ZalouserAccountStatus = {
   accountId?: unknown;
@@ -68,7 +68,7 @@ export function collectZalouserStatusIssues(
           accountId,
           kind: "auth",
           message: "Not authenticated (no zca session).",
-          fix: "Run: Synurex channels login --channel zalouser",
+          fix: "Run: SKYKOI channels login --channel zalouser",
         });
       }
       continue;

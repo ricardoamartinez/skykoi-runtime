@@ -68,7 +68,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
       vi.mocked(abortEmbeddedPiRun).mockClear();
       return await fn(home);
     },
-    { prefix: "Synurex-triggers-" },
+    { prefix: "SKYKOI-triggers-" },
   );
 }
 
@@ -77,7 +77,7 @@ function _makeCfg(home: string) {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: join(home, "synurex"),
+        workspace: join(home, "SKYKOI"),
       },
     },
     channels: {
@@ -100,7 +100,7 @@ describe("trigger handling", () => {
         agents: {
           defaults: {
             model: "anthropic/claude-opus-4-5",
-            workspace: join(home, "synurex"),
+            workspace: join(home, "SKYKOI"),
           },
         },
         tools: {
@@ -142,7 +142,7 @@ describe("trigger handling", () => {
         agents: {
           defaults: {
             model: "anthropic/claude-opus-4-5",
-            workspace: join(home, "synurex"),
+            workspace: join(home, "SKYKOI"),
           },
         },
         tools: {
@@ -191,7 +191,7 @@ describe("trigger handling", () => {
         agents: {
           defaults: {
             model: "anthropic/claude-opus-4-5",
-            workspace: join(home, "synurex"),
+            workspace: join(home, "SKYKOI"),
           },
         },
         tools: {

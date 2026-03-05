@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex memory` (status/index/search)"
+summary: "CLI reference for `SKYKOI memory` (status/index/search)"
 read_when:
   - You want to index or search semantic memory
   - You’re debugging memory availability or indexing
 title: "memory"
 ---
 
-# `Synurex memory`
+# `SKYKOI memory`
 
 Manage semantic memory indexing and search.
 Provided by the active memory plugin (default: `memory-core`; set `plugins.slots.memory = "none"` to disable).
@@ -19,15 +19,15 @@ Related:
 ## Examples
 
 ```bash
-Synurex memory status
-Synurex memory status --deep
-Synurex memory status --deep --index
-Synurex memory status --deep --index --verbose
-Synurex memory index
-Synurex memory index --verbose
-Synurex memory search "release checklist"
-Synurex memory status --agent main
-Synurex memory index --agent main --verbose
+SKYKOI memory status
+SKYKOI memory status --deep
+SKYKOI memory status --deep --index
+SKYKOI memory status --deep --index --verbose
+SKYKOI memory index
+SKYKOI memory index --verbose
+SKYKOI memory search "release checklist"
+SKYKOI memory status --agent main
+SKYKOI memory index --agent main --verbose
 ```
 
 ## Options

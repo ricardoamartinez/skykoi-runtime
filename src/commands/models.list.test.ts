@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
 
 const loadConfig = vi.fn();
-const ensureSynurexModelsJson = vi.fn().mockResolvedValue(undefined);
-const resolveSynurexAgentDir = vi.fn().mockReturnValue("/tmp/Synurex-agent");
+const ensureSKYKOIModelsJson = vi.fn().mockResolvedValue(undefined);
+const resolveSKYKOIAgentDir = vi.fn().mockReturnValue("/tmp/SKYKOI-agent");
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 const listProfilesForProvider = vi.fn().mockReturnValue([]);
 const resolveAuthProfileDisplayLabel = vi.fn(({ profileId }: { profileId: string }) => profileId);
 const resolveAuthStorePathForDisplay = vi
   .fn()
-  .mockReturnValue("/tmp/Synurex-agent/auth-profiles.json");
+  .mockReturnValue("/tmp/SKYKOI-agent/auth-profiles.json");
 const resolveProfileUnusableUntilForDisplay = vi.fn().mockReturnValue(null);
 const resolveEnvApiKey = vi.fn().mockReturnValue(undefined);
 const resolveAwsSdkEnvVarName = vi.fn().mockReturnValue(undefined);
@@ -19,17 +19,17 @@ const modelRegistryState = {
 };
 
 vi.mock("../config/config.js", () => ({
-  CONFIG_PATH: "/tmp/synurex.json",
-  STATE_DIR: "/tmp/Synurex-state",
+  CONFIG_PATH: "/tmp/SKYKOI.json",
+  STATE_DIR: "/tmp/SKYKOI-state",
   loadConfig,
 }));
 
 vi.mock("../agents/models-config.js", () => ({
-  ensureSynurexModelsJson,
+  ensureSKYKOIModelsJson,
 }));
 
 vi.mock("../agents/agent-paths.js", () => ({
-  resolveSynurexAgentDir,
+  resolveSKYKOIAgentDir,
 }));
 
 vi.mock("../agents/auth-profiles.js", () => ({

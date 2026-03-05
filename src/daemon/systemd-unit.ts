@@ -32,7 +32,7 @@ export function buildSystemdUnit({
   environment?: Record<string, string | undefined>;
 }): string {
   const execStart = programArguments.map(systemdEscapeArg).join(" ");
-  const descriptionLine = `Description=${description?.trim() || "synurex gateway"}`;
+  const descriptionLine = `Description=${description?.trim() || "SKYKOI gateway"}`;
   const workingDirLine = workingDirectory
     ? `WorkingDirectory=${systemdEscapeArg(workingDirectory)}`
     : null;

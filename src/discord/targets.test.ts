@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { normalizeDiscordMessagingTarget } from "../channels/plugins/normalize/discord.js";
 import { listDiscordDirectoryPeersLive } from "./directory-live.js";
 import { parseDiscordTarget, resolveDiscordChannelId, resolveDiscordTarget } from "./targets.js";
@@ -74,7 +74,7 @@ describe("resolveDiscordChannelId", () => {
 });
 
 describe("resolveDiscordTarget", () => {
-  const cfg = { channels: { discord: {} } } as SynurexConfig;
+  const cfg = { channels: { discord: {} } } as SKYKOIConfig;
   const listPeers = vi.mocked(listDiscordDirectoryPeersLive);
 
   beforeEach(() => {

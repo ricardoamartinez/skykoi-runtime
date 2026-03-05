@@ -1,23 +1,23 @@
 ---
-summary: "Updating Synurex safely (global install or source), plus rollback strategy"
+summary: "Updating SKYKOI safely (global install or source), plus rollback strategy"
 read_when:
-  - Updating Synurex
+  - Updating SKYKOI
   - Something breaks after an update
 title: "Updating"
 ---
 
 # Updating
 
-Synurex is moving fast (pre “1.0”). Treat updates like shipping infra: update → run checks → restart (or use `synurex update`, which restarts) → verify.
+SKYKOI is moving fast (pre “1.0”). Treat updates like shipping infra: update → run checks → restart (or use `SKYKOI update`, which restarts) → verify.
 
 ## Recommended: re-run the website installer (upgrade in place)
 
 The **preferred** update path is to re-run the installer from the website. It
-detects existing installs, upgrades in place, and runs `synurex doctor` when
+detects existing installs, upgrades in place, and runs `SKYKOI doctor` when
 needed.
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash
+curl -fsSL https://SKYKOI.com/install.sh | bash
 ```
 
 Notes:
@@ -26,33 +26,33 @@ Notes:
 - For **source installs**, use:
 
   ```bash
-  curl -fsSL https://synurex.com/install.sh | bash -s -- --install-method git --no-onboard
+  curl -fsSL https://SKYKOI.com/install.sh | bash -s -- --install-method git --no-onboard
   ```
 
   The installer will `git pull --rebase` **only** if the repo is clean.
 
-- For **global installs**, the script uses `npm install -g Synurex@latest` under the hood.
-- Legacy note: `Synurex` remains available as a compatibility shim.
+- For **global installs**, the script uses `npm install -g SKYKOI@latest` under the hood.
+- Legacy note: `SKYKOI` remains available as a compatibility shim.
 
 ## Before you update
 
 - Know how you installed: **global** (npm/pnpm) vs **from source** (git clone).
 - Know how your Gateway is running: **foreground terminal** vs **supervised service** (launchd/systemd).
 - Snapshot your tailoring:
-  - Config: `~/.synurex/synurex.json`
-  - Credentials: `~/.synurex/credentials/`
-  - Workspace: `~/.synurex/workspace`
+  - Config: `~/.SKYKOI/SKYKOI.json`
+  - Credentials: `~/.SKYKOI/credentials/`
+  - Workspace: `~/.SKYKOI/workspace`
 
 ## Update (global install)
 
 Global install (pick one):
 
 ```bash
-npm i -g synurex@latest
+npm i -g SKYKOI@latest
 ```
 
 ```bash
-pnpm add -g synurex@latest
+pnpm add -g SKYKOI@latest
 ```
 
 We do **not** recommend Bun for the Gateway runtime (WhatsApp/Telegram bugs).
@@ -60,9 +60,9 @@ We do **not** recommend Bun for the Gateway runtime (WhatsApp/Telegram bugs).
 To switch update channels (git + npm installs):
 
 ```bash
-synurex update --channel beta
-synurex update --channel dev
-synurex update --channel stable
+SKYKOI update --channel beta
+SKYKOI update --channel dev
+SKYKOI update --channel stable
 ```
 
 Use `--tag <dist-tag|version>` for a one-off install tag/version.
@@ -74,22 +74,22 @@ Note: on npm installs, the gateway logs an update hint on startup (checks the cu
 Then:
 
 ```bash
-synurex doctor
-synurex gateway restart
-Synurex health
+SKYKOI doctor
+SKYKOI gateway restart
+SKYKOI health
 ```
 
 Notes:
 
-- If your Gateway runs as a service, `synurex gateway restart` is preferred over killing PIDs.
+- If your Gateway runs as a service, `SKYKOI gateway restart` is preferred over killing PIDs.
 - If you’re pinned to a specific version, see “Rollback / pinning” below.
 
-## Update (`synurex update`)
+## Update (`SKYKOI update`)
 
 For **source installs** (git checkout), prefer:
 
 ```bash
-synurex update
+SKYKOI update
 ```
 
 It runs a safe-ish update flow:
@@ -97,16 +97,16 @@ It runs a safe-ish update flow:
 - Requires a clean worktree.
 - Switches to the selected channel (tag or branch).
 - Fetches + rebases against the configured upstream (dev channel).
-- Installs deps, builds, builds the Control UI, and runs `synurex doctor`.
+- Installs deps, builds, builds the Control UI, and runs `SKYKOI doctor`.
 - Restarts the gateway by default (use `--no-restart` to skip).
 
-If you installed via **npm/pnpm** (no git metadata), `synurex update` will try to update via your package manager. If it can’t detect the install, use “Update (global install)” instead.
+If you installed via **npm/pnpm** (no git metadata), `SKYKOI update` will try to update via your package manager. If it can’t detect the install, use “Update (global install)” instead.
 
 ## Update (Control UI / RPC)
 
 The Control UI has **Update & Restart** (RPC: `update.run`). It:
 
-1. Runs the same source-update flow as `synurex update` (git checkout only).
+1. Runs the same source-update flow as `SKYKOI update` (git checkout only).
 2. Writes a restart sentinel with a structured report (stdout/stderr tail).
 3. Restarts the gateway and pings the last active session with the report.
 
@@ -119,7 +119,7 @@ From the repo checkout:
 Preferred:
 
 ```bash
-synurex update
+SKYKOI update
 ```
 
 Manual (equivalent-ish):
@@ -129,29 +129,29 @@ git pull
 pnpm install
 pnpm build
 pnpm ui:build # auto-installs UI deps on first run
-synurex doctor
-Synurex health
+SKYKOI doctor
+SKYKOI health
 ```
 
 Notes:
 
-- `pnpm build` matters when you run the packaged `Synurex` binary ([`Synurex.mjs`](https://github.com/Synurex/Synurex/blob/main/Synurex.mjs)) or use Node to run `dist/`.
-- If you run from a repo checkout without a global install, use `pnpm Synurex ...` for CLI commands.
-- If you run directly from TypeScript (`pnpm Synurex ...`), a rebuild is usually unnecessary, but **config migrations still apply** → run doctor.
-- Switching between global and git installs is easy: install the other flavor, then run `synurex doctor` so the gateway service entrypoint is rewritten to the current install.
+- `pnpm build` matters when you run the packaged `SKYKOI` binary ([`SKYKOI.mjs`](https://github.com/SKYKOI/SKYKOI/blob/main/SKYKOI.mjs)) or use Node to run `dist/`.
+- If you run from a repo checkout without a global install, use `pnpm SKYKOI ...` for CLI commands.
+- If you run directly from TypeScript (`pnpm SKYKOI ...`), a rebuild is usually unnecessary, but **config migrations still apply** → run doctor.
+- Switching between global and git installs is easy: install the other flavor, then run `SKYKOI doctor` so the gateway service entrypoint is rewritten to the current install.
 
-## Always Run: `synurex doctor`
+## Always Run: `SKYKOI doctor`
 
 Doctor is the “safe update” command. It’s intentionally boring: repair + migrate + warn.
 
-Note: if you’re on a **source install** (git checkout), `synurex doctor` will offer to run `synurex update` first.
+Note: if you’re on a **source install** (git checkout), `SKYKOI doctor` will offer to run `SKYKOI update` first.
 
 Typical things it does:
 
 - Migrate deprecated config keys / legacy config file locations.
 - Audit DM policies and warn on risky “open” settings.
 - Check Gateway health and can offer to restart.
-- Detect and migrate older gateway services (launchd/systemd; legacy schtasks) to current Synurex services.
+- Detect and migrate older gateway services (launchd/systemd; legacy schtasks) to current SKYKOI services.
 - On Linux, ensure systemd user lingering (so the Gateway survives logout).
 
 Details: [Doctor](/gateway/doctor)
@@ -161,19 +161,19 @@ Details: [Doctor](/gateway/doctor)
 CLI (works regardless of OS):
 
 ```bash
-synurex gateway status
-synurex gateway stop
-synurex gateway restart
-synurex gateway --port 18789
-Synurex logs --follow
+SKYKOI gateway status
+SKYKOI gateway stop
+SKYKOI gateway restart
+SKYKOI gateway --port 18789
+SKYKOI logs --follow
 ```
 
 If you’re supervised:
 
-- macOS launchd (app-bundled LaunchAgent): `launchctl kickstart -k gui/$UID/bot.molt.gateway` (use `bot.molt.<profile>`; legacy `com.Synurex.*` still works)
-- Linux systemd user service: `systemctl --user restart Synurex-gateway[-<profile>].service`
-- Windows (WSL2): `systemctl --user restart Synurex-gateway[-<profile>].service`
-  - `launchctl`/`systemctl` only work if the service is installed; otherwise run `synurex gateway install`.
+- macOS launchd (app-bundled LaunchAgent): `launchctl kickstart -k gui/$UID/bot.molt.gateway` (use `bot.molt.<profile>`; legacy `com.SKYKOI.*` still works)
+- Linux systemd user service: `systemctl --user restart SKYKOI-gateway[-<profile>].service`
+- Windows (WSL2): `systemctl --user restart SKYKOI-gateway[-<profile>].service`
+  - `launchctl`/`systemctl` only work if the service is installed; otherwise run `SKYKOI gateway install`.
 
 Runbook + exact service labels: [Gateway runbook](/gateway)
 
@@ -184,20 +184,20 @@ Runbook + exact service labels: [Gateway runbook](/gateway)
 Install a known-good version (replace `<version>` with the last working one):
 
 ```bash
-npm i -g synurex@<version>
+npm i -g SKYKOI@<version>
 ```
 
 ```bash
-pnpm add -g synurex@<version>
+pnpm add -g SKYKOI@<version>
 ```
 
-Tip: to see the current published version, run `npm view Synurex version`.
+Tip: to see the current published version, run `npm view SKYKOI version`.
 
 Then restart + re-run doctor:
 
 ```bash
-synurex doctor
-synurex gateway restart
+SKYKOI doctor
+SKYKOI gateway restart
 ```
 
 ### Pin (source) by date
@@ -214,7 +214,7 @@ Then reinstall deps + restart:
 ```bash
 pnpm install
 pnpm build
-synurex gateway restart
+SKYKOI gateway restart
 ```
 
 If you want to go back to latest later:
@@ -226,6 +226,6 @@ git pull
 
 ## If you’re stuck
 
-- Run `synurex doctor` again and read the output carefully (it often tells you the fix).
+- Run `SKYKOI doctor` again and read the output carefully (it often tells you the fix).
 - Check: [Troubleshooting](/gateway/troubleshooting)
 - Ask in Discord: [https://discord.gg/clawd](https://discord.gg/clawd)

@@ -8,7 +8,7 @@ export type VoiceWakeConfig = {
   updatedAtMs: number;
 };
 
-const DEFAULT_TRIGGERS = ["synurex", "claude", "computer"];
+const DEFAULT_TRIGGERS = ["SKYKOI", "claude", "computer"];
 
 function resolvePath(baseDir?: string) {
   const root = baseDir ?? resolveStateDir();

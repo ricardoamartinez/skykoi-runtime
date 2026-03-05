@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexPackageManifest } from "../../plugins/manifest.js";
+import type { SKYKOIPackageManifest } from "../../plugins/manifest.js";
 import type { PluginOrigin } from "../../plugins/types.js";
 import type { ChannelMeta } from "./types.js";
 import { MANIFEST_KEY } from "../../compat/legacy-names.js";
-import { discoverSynurexPlugins } from "../../plugins/discovery.js";
+import { discoverSKYKOIPlugins } from "../../plugins/discovery.js";
 import { CONFIG_DIR, resolveUserPath } from "../../utils.js";
 
 export type ChannelUiMetaEntry = {
@@ -49,7 +49,7 @@ type ExternalCatalogEntry = {
   name?: string;
   version?: string;
   description?: string;
-} & Partial<Record<ManifestKey, SynurexPackageManifest>>;
+} & Partial<Record<ManifestKey, SKYKOIPackageManifest>>;
 
 const DEFAULT_CATALOG_PATHS = [
   path.join(CONFIG_DIR, "mpm", "plugins.json"),
@@ -57,7 +57,7 @@ const DEFAULT_CATALOG_PATHS = [
   path.join(CONFIG_DIR, "plugins", "catalog.json"),
 ];
 
-const ENV_CATALOG_PATHS = ["SYNUREX_PLUGIN_CATALOG_PATHS", "SYNUREX_MPM_CATALOG_PATHS"];
+const ENV_CATALOG_PATHS = ["SKYKOI_PLUGIN_CATALOG_PATHS", "SKYKOI_MPM_CATALOG_PATHS"];
 
 type ManifestKey = typeof MANIFEST_KEY;
 
@@ -123,7 +123,7 @@ function loadExternalCatalogEntries(options: CatalogOptions): ExternalCatalogEnt
 }
 
 function toChannelMeta(params: {
-  channel: NonNullable<SynurexPackageManifest["channel"]>;
+  channel: NonNullable<SKYKOIPackageManifest["channel"]>;
   id: string;
 }): ChannelMeta | null {
   const label = params.channel.label?.trim();
@@ -173,7 +173,7 @@ function toChannelMeta(params: {
 }
 
 function resolveInstallInfo(params: {
-  manifest: SynurexPackageManifest;
+  manifest: SKYKOIPackageManifest;
   packageName?: string;
   packageDir?: string;
   workspaceDir?: string;
@@ -198,7 +198,7 @@ function buildCatalogEntry(candidate: {
   packageName?: string;
   packageDir?: string;
   workspaceDir?: string;
-  packageManifest?: SynurexPackageManifest;
+  packageManifest?: SKYKOIPackageManifest;
 }): ChannelPluginCatalogEntry | null {
   const manifest = candidate.packageManifest;
   if (!manifest?.channel) {
@@ -263,7 +263,7 @@ export function buildChannelUiCatalog(
 export function listChannelPluginCatalogEntries(
   options: CatalogOptions = {},
 ): ChannelPluginCatalogEntry[] {
-  const discovery = discoverSynurexPlugins({ workspaceDir: options.workspaceDir });
+  const discovery = discoverSKYKOIPlugins({ workspaceDir: options.workspaceDir });
   const resolved = new Map<string, { entry: ChannelPluginCatalogEntry; priority: number }>();
 
   for (const candidate of discovery.candidates) {

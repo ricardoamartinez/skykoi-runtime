@@ -24,7 +24,7 @@ export function resolveBundledSkillsContext(
     }
     return { dir, names };
   }
-  const result = loadSkillsFromDir({ dir, source: "Synurex-bundled" });
+  const result = loadSkillsFromDir({ dir, source: "SKYKOI-bundled" });
   for (const skill of result.skills) {
     if (skill.name.trim()) {
       names.add(skill.name);

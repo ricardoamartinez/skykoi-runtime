@@ -31,7 +31,7 @@ function appendSkillRegistryHint(output: string, json?: boolean): string {
   if (json) {
     return output;
   }
-  return `${output}\n\nTip: use \`npx synurex skills\` to search, install, and sync skills.`;
+  return `${output}\n\nTip: use \`npx SKYKOI skills\` to search, install, and sync skills.`;
 }
 
 function formatSkillStatus(skill: SkillStatusEntry): string {
@@ -101,7 +101,7 @@ export function formatSkillsList(report: SkillStatusReport, opts: SkillsListOpti
 
   if (skills.length === 0) {
     const message = opts.eligible
-      ? `No eligible skills found. Run \`${formatCliCommand("synurex skills list")}\` to see all skills.`
+      ? `No eligible skills found. Run \`${formatCliCommand("SKYKOI skills list")}\` to see all skills.`
       : "No skills found.";
     return appendSkillRegistryHint(message, opts.json);
   }
@@ -159,7 +159,7 @@ export function formatSkillInfo(
       return JSON.stringify({ error: "not found", skill: skillName }, null, 2);
     }
     return appendSkillRegistryHint(
-      `Skill "${skillName}" not found. Run \`${formatCliCommand("synurex skills list")}\` to see available skills.`,
+      `Skill "${skillName}" not found. Run \`${formatCliCommand("SKYKOI skills list")}\` to see available skills.`,
       opts.json,
     );
   }
@@ -346,7 +346,7 @@ export function registerSkillsCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/skills", "docs.synurex.com/cli/skills")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/skills", "docs.SKYKOI.com/cli/skills")}\n`,
     );
 
   skills

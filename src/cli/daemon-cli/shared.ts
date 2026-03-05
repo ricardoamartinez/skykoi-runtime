@@ -69,11 +69,11 @@ export function pickProbeHostForBind(
 }
 
 const SAFE_DAEMON_ENV_KEYS = [
-  "SYNUREX_PROFILE",
-  "SYNUREX_STATE_DIR",
-  "SYNUREX_CONFIG_PATH",
-  "SYNUREX_GATEWAY_PORT",
-  "SYNUREX_NIX_MODE",
+  "SKYKOI_PROFILE",
+  "SKYKOI_STATE_DIR",
+  "SKYKOI_CONFIG_PATH",
+  "SKYKOI_GATEWAY_PORT",
+  "SKYKOI_NIX_MODE",
 ];
 
 export function filterDaemonEnv(env: Record<string, string> | undefined): Record<string, string> {
@@ -169,7 +169,7 @@ export function renderRuntimeHints(
     }
   })();
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("synurex gateway install", env)}`);
+    hints.push(`Service not installed. Run: ${formatCliCommand("SKYKOI gateway install", env)}`);
     if (fileLog) {
       hints.push(`File logs: ${fileLog}`);
     }
@@ -184,10 +184,10 @@ export function renderRuntimeHints(
       hints.push(`Launchd stdout (if installed): ${logs.stdoutPath}`);
       hints.push(`Launchd stderr (if installed): ${logs.stderrPath}`);
     } else if (process.platform === "linux") {
-      const unit = resolveGatewaySystemdServiceName(env.SYNUREX_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.SKYKOI_PROFILE);
       hints.push(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`);
     } else if (process.platform === "win32") {
-      const task = resolveGatewayWindowsTaskName(env.SYNUREX_PROFILE);
+      const task = resolveGatewayWindowsTaskName(env.SKYKOI_PROFILE);
       hints.push(`Logs: schtasks /Query /TN "${task}" /V /FO LIST`);
     }
   }
@@ -196,10 +196,10 @@ export function renderRuntimeHints(
 
 export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.env): string[] {
   const base = [
-    formatCliCommand("synurex gateway install", env),
-    formatCliCommand("synurex gateway", env),
+    formatCliCommand("SKYKOI gateway install", env),
+    formatCliCommand("SKYKOI gateway", env),
   ];
-  const profile = env.SYNUREX_PROFILE;
+  const profile = env.SKYKOI_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);

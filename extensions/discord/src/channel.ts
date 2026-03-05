@@ -25,7 +25,7 @@ import {
   type ChannelMessageActionAdapter,
   type ChannelPlugin,
   type ResolvedDiscordAccount,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { getDiscordRuntime } from "./runtime.js";
 
 const meta = getChatChannelMeta("discord");

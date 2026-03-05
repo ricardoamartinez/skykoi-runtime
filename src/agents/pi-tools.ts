@@ -5,7 +5,7 @@ import {
   createWriteTool,
   readTool,
 } from "@mariozechner/pi-coding-agent";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { ModelAuthMode } from "./model-auth.js";
 import type { AnyAgentTool } from "./pi-tools.types.js";
 import type { SandboxContext } from "./sandbox.js";
@@ -21,7 +21,7 @@ import {
   type ProcessToolDefaults,
 } from "./bash-tools.js";
 import { listChannelAgentTools } from "./channel-tools.js";
-import { createSynurexTools } from "./Synurex-tools.js";
+import { createSKYKOITools } from "./SKYKOI-tools.js";
 import { wrapToolWithAbortSignal } from "./pi-tools.abort.js";
 import { wrapToolWithBeforeToolCallHook } from "./pi-tools.before-tool-call.js";
 import {
@@ -34,7 +34,7 @@ import {
 import {
   assertRequiredParams,
   CLAUDE_PARAM_GROUPS,
-  createSynurexReadTool,
+  createSKYKOIReadTool,
   createSandboxedEditTool,
   createSandboxedReadTool,
   createSandboxedWriteTool,
@@ -86,7 +86,7 @@ function isApplyPatchAllowedForModel(params: {
   });
 }
 
-function resolveExecConfig(cfg: SynurexConfig | undefined) {
+function resolveExecConfig(cfg: SKYKOIConfig | undefined) {
   const globalExec = cfg?.tools?.exec;
   return {
     host: globalExec?.host,
@@ -112,7 +112,7 @@ export const __testing = {
   assertRequiredParams,
 } as const;
 
-export function createSynurexCodingTools(options?: {
+export function createSKYKOICodingTools(options?: {
   exec?: ExecToolDefaults & ProcessToolDefaults;
   messageProvider?: string;
   agentAccountId?: string;
@@ -122,7 +122,7 @@ export function createSynurexCodingTools(options?: {
   sessionKey?: string;
   agentDir?: string;
   workspaceDir?: string;
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   abortSignal?: AbortSignal;
   /**
    * Provider of the currently selected model (used for provider-specific tool quirks).
@@ -248,7 +248,7 @@ export function createSynurexCodingTools(options?: {
         return [createSandboxedReadTool(sandboxRoot)];
       }
       const freshReadTool = createReadTool(workspaceRoot);
-      return [createSynurexReadTool(freshReadTool)];
+      return [createSKYKOIReadTool(freshReadTool)];
     }
     if (tool.name === "bash" || tool.name === execToolName) {
       return [];
@@ -323,7 +323,7 @@ export function createSynurexCodingTools(options?: {
     processTool as unknown as AnyAgentTool,
     // Channel docking: include channel-defined agent tools (login, etc.).
     ...listChannelAgentTools({ cfg: options?.config }),
-    ...createSynurexTools({
+    ...createSKYKOITools({
       sandboxBrowserBridgeUrl: sandbox?.browser?.bridgeUrl,
       allowHostBrowserControl: sandbox ? sandbox.browserAllowHostControl : true,
       agentSessionKey: options?.sessionKey,

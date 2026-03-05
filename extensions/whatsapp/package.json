@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/whatsapp",
+  "name": "@SKYKOI/whatsapp",
   "version": "2026.2.6-3",
-  "description": "Synurex WhatsApp channel plugin",
+  "description": "SKYKOI WhatsApp channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

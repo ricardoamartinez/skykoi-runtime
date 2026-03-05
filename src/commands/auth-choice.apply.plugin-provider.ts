@@ -1,7 +1,7 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.js";
 import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { resolveSynurexAgentDir } from "../agents/agent-paths.js";
+import { resolveSKYKOIAgentDir } from "../agents/agent-paths.js";
 import {
   resolveDefaultAgentId,
   resolveAgentDir,
@@ -74,7 +74,7 @@ function mergeConfigPatch<T>(base: T, patch: unknown): T {
   return next as T;
 }
 
-function applyDefaultModel(cfg: SynurexConfig, model: string): SynurexConfig {
+function applyDefaultModel(cfg: SKYKOIConfig, model: string): SKYKOIConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[model] = models[model] ?? {};
 
@@ -119,7 +119,7 @@ export async function applyAuthChoicePluginProvider(
   const defaultAgentId = resolveDefaultAgentId(nextConfig);
   const agentDir =
     params.agentDir ??
-    (agentId === defaultAgentId ? resolveSynurexAgentDir() : resolveAgentDir(nextConfig, agentId));
+    (agentId === defaultAgentId ? resolveSKYKOIAgentDir() : resolveAgentDir(nextConfig, agentId));
   const workspaceDir =
     resolveAgentWorkspaceDir(nextConfig, agentId) ?? resolveDefaultAgentWorkspaceDir();
 

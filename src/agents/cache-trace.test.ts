@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveUserPath } from "../utils.js";
 import { createCacheTrace } from "./cache-trace.js";
 
 describe("createCacheTrace", () => {
   it("returns null when diagnostics cache tracing is disabled", () => {
     const trace = createCacheTrace({
-      cfg: {} as SynurexConfig,
+      cfg: {} as SKYKOIConfig,
       env: {},
     });
 
@@ -20,7 +20,7 @@ describe("createCacheTrace", () => {
         diagnostics: {
           cacheTrace: {
             enabled: true,
-            filePath: "~/.synurex/logs/cache-trace.jsonl",
+            filePath: "~/.SKYKOI/logs/cache-trace.jsonl",
           },
         },
       },
@@ -32,7 +32,7 @@ describe("createCacheTrace", () => {
     });
 
     expect(trace).not.toBeNull();
-    expect(trace?.filePath).toBe(resolveUserPath("~/.synurex/logs/cache-trace.jsonl"));
+    expect(trace?.filePath).toBe(resolveUserPath("~/.SKYKOI/logs/cache-trace.jsonl"));
 
     trace?.recordStage("session:loaded", {
       messages: [],
@@ -79,7 +79,7 @@ describe("createCacheTrace", () => {
         },
       },
       env: {
-        SYNUREX_CACHE_TRACE: "0",
+        SKYKOI_CACHE_TRACE: "0",
       },
       writer: {
         filePath: "memory",

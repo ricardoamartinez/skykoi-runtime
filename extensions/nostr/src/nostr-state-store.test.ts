@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "Synurex/plugin-sdk";
+import type { PluginRuntime } from "SKYKOI/plugin-sdk";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -11,17 +11,17 @@ import {
 import { setNostrRuntime } from "./runtime.js";
 
 async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
-  const previous = process.env.SYNUREX_STATE_DIR;
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-nostr-"));
-  process.env.SYNUREX_STATE_DIR = dir;
+  const previous = process.env.SKYKOI_STATE_DIR;
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-nostr-"));
+  process.env.SKYKOI_STATE_DIR = dir;
   setNostrRuntime({
     state: {
       resolveStateDir: (env, homedir) => {
-        const override = env.SYNUREX_STATE_DIR?.trim() || env.SYNUREX_STATE_DIR?.trim();
+        const override = env.SKYKOI_STATE_DIR?.trim() || env.SKYKOI_STATE_DIR?.trim();
         if (override) {
           return override;
         }
-        return path.join(homedir(), ".synurex");
+        return path.join(homedir(), ".SKYKOI");
       },
     },
   } as PluginRuntime);
@@ -29,9 +29,9 @@ async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
     return await fn(dir);
   } finally {
     if (previous === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = previous;
+      process.env.SKYKOI_STATE_DIR = previous;
     }
     await fs.rm(dir, { recursive: true, force: true });
   }

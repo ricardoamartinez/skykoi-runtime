@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { DEFAULT_ASSISTANT_IDENTITY, resolveAssistantIdentity } from "./assistant-identity.js";
 
 describe("resolveAssistantIdentity avatar normalization", () => {
   it("drops sentence-like avatar placeholders", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       ui: {
         assistant: {
           avatar: "workspace-relative path, http(s) URL, or data URI",
@@ -18,7 +18,7 @@ describe("resolveAssistantIdentity avatar normalization", () => {
   });
 
   it("keeps short text avatars", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       ui: {
         assistant: {
           avatar: "PS",
@@ -30,14 +30,14 @@ describe("resolveAssistantIdentity avatar normalization", () => {
   });
 
   it("keeps path avatars", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       ui: {
         assistant: {
-          avatar: "avatars/Synurex.png",
+          avatar: "avatars/SKYKOI.png",
         },
       },
     };
 
-    expect(resolveAssistantIdentity({ cfg, workspaceDir: "" }).avatar).toBe("avatars/Synurex.png");
+    expect(resolveAssistantIdentity({ cfg, workspaceDir: "" }).avatar).toBe("avatars/SKYKOI.png");
   });
 });

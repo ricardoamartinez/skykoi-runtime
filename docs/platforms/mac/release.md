@@ -1,12 +1,12 @@
 ---
-summary: "Synurex macOS release checklist (Sparkle feed, packaging, signing)"
+summary: "SKYKOI macOS release checklist (Sparkle feed, packaging, signing)"
 read_when:
-  - Cutting or validating a Synurex macOS release
+  - Cutting or validating a SKYKOI macOS release
   - Updating the Sparkle appcast or feed assets
 title: "macOS Release"
 ---
 
-# Synurex macOS release (Sparkle)
+# SKYKOI macOS release (Sparkle)
 
 This app now ships Sparkle auto-updates. Release builds must be Developer ID–signed, zipped, and published with a signed appcast entry.
 
@@ -15,10 +15,10 @@ This app now ships Sparkle auto-updates. Release builds must be Developer ID–s
 - Developer ID Application cert installed (example: `Developer ID Application: <Developer Name> (<TEAMID>)`).
 - Sparkle private key path set in the environment as `SPARKLE_PRIVATE_KEY_FILE` (path to your Sparkle ed25519 private key; public key baked into Info.plist). If it is missing, check `~/.profile`.
 - Notary credentials (keychain profile or API key) for `xcrun notarytool` if you want Gatekeeper-safe DMG/zip distribution.
-  - We use a Keychain profile named `Synurex-notary`, created from App Store Connect API key env vars in your shell profile:
+  - We use a Keychain profile named `SKYKOI-notary`, created from App Store Connect API key env vars in your shell profile:
     - `APP_STORE_CONNECT_API_KEY_P8`, `APP_STORE_CONNECT_KEY_ID`, `APP_STORE_CONNECT_ISSUER_ID`
-    - `echo "$APP_STORE_CONNECT_API_KEY_P8" | sed 's/\\n/\n/g' > /tmp/Synurex-notary.p8`
-    - `xcrun notarytool store-credentials "Synurex-notary" --key /tmp/Synurex-notary.p8 --key-id "$APP_STORE_CONNECT_KEY_ID" --issuer "$APP_STORE_CONNECT_ISSUER_ID"`
+    - `echo "$APP_STORE_CONNECT_API_KEY_P8" | sed 's/\\n/\n/g' > /tmp/SKYKOI-notary.p8`
+    - `xcrun notarytool store-credentials "SKYKOI-notary" --key /tmp/SKYKOI-notary.p8 --key-id "$APP_STORE_CONNECT_KEY_ID" --issuer "$APP_STORE_CONNECT_ISSUER_ID"`
 - `pnpm` deps installed (`pnpm install --config.node-linker=hoisted`).
 - Sparkle tools are fetched automatically via SwiftPM at `apps/macos/.build/artifacts/sparkle/Sparkle/bin/` (`sign_update`, `generate_appcast`, etc.).
 
@@ -41,16 +41,16 @@ SIGN_IDENTITY="Developer ID Application: <Developer Name> (<TEAMID>)" \
 scripts/package-mac-app.sh
 
 # Zip for distribution (includes resource forks for Sparkle delta support)
-ditto -c -k --sequesterRsrc --keepParent dist/Synurex.app dist/Synurex-2026.2.6.zip
+ditto -c -k --sequesterRsrc --keepParent dist/SKYKOI.app dist/SKYKOI-2026.2.6.zip
 
 # Optional: also build a styled DMG for humans (drag to /Applications)
-scripts/create-dmg.sh dist/Synurex.app dist/Synurex-2026.2.6.dmg
+scripts/create-dmg.sh dist/SKYKOI.app dist/SKYKOI-2026.2.6.dmg
 
 # Recommended: build + notarize/staple zip + DMG
 # First, create a keychain profile once:
-#   xcrun notarytool store-credentials "Synurex-notary" \
+#   xcrun notarytool store-credentials "SKYKOI-notary" \
 #     --apple-id "<apple-id>" --team-id "<team-id>" --password "<app-specific-password>"
-NOTARIZE=1 NOTARYTOOL_PROFILE=Synurex-notary \
+NOTARIZE=1 NOTARYTOOL_PROFILE=SKYKOI-notary \
 BUNDLE_ID=bot.molt.mac \
 APP_VERSION=2026.2.6 \
 APP_BUILD="$(git rev-list --count HEAD)" \
@@ -59,7 +59,7 @@ SIGN_IDENTITY="Developer ID Application: <Developer Name> (<TEAMID>)" \
 scripts/package-mac-dist.sh
 
 # Optional: ship dSYM alongside the release
-ditto -c -k --keepParent apps/macos/.build/release/Synurex.app.dSYM dist/Synurex-2026.2.6.dSYM.zip
+ditto -c -k --keepParent apps/macos/.build/release/SKYKOI.app.dSYM dist/SKYKOI-2026.2.6.dSYM.zip
 ```
 
 ## Appcast entry
@@ -67,18 +67,18 @@ ditto -c -k --keepParent apps/macos/.build/release/Synurex.app.dSYM dist/Synurex
 Use the release note generator so Sparkle renders formatted HTML notes:
 
 ```bash
-SPARKLE_PRIVATE_KEY_FILE=/path/to/ed25519-private-key scripts/make_appcast.sh dist/Synurex-2026.2.6.zip https://raw.githubusercontent.com/Synurex/Synurex/main/appcast.xml
+SPARKLE_PRIVATE_KEY_FILE=/path/to/ed25519-private-key scripts/make_appcast.sh dist/SKYKOI-2026.2.6.zip https://raw.githubusercontent.com/SKYKOI/SKYKOI/main/appcast.xml
 ```
 
-Generates HTML release notes from `CHANGELOG.md` (via [`scripts/changelog-to-html.sh`](https://github.com/Synurex/Synurex/blob/main/scripts/changelog-to-html.sh)) and embeds them in the appcast entry.
+Generates HTML release notes from `CHANGELOG.md` (via [`scripts/changelog-to-html.sh`](https://github.com/SKYKOI/SKYKOI/blob/main/scripts/changelog-to-html.sh)) and embeds them in the appcast entry.
 Commit the updated `appcast.xml` alongside the release assets (zip + dSYM) when publishing.
 
 ## Publish & verify
 
-- Upload `Synurex-2026.2.6.zip` (and `Synurex-2026.2.6.dSYM.zip`) to the GitHub release for tag `v2026.2.6`.
-- Ensure the raw appcast URL matches the baked feed: `https://raw.githubusercontent.com/Synurex/Synurex/main/appcast.xml`.
+- Upload `SKYKOI-2026.2.6.zip` (and `SKYKOI-2026.2.6.dSYM.zip`) to the GitHub release for tag `v2026.2.6`.
+- Ensure the raw appcast URL matches the baked feed: `https://raw.githubusercontent.com/SKYKOI/SKYKOI/main/appcast.xml`.
 - Sanity checks:
-  - `curl -I https://raw.githubusercontent.com/Synurex/Synurex/main/appcast.xml` returns 200.
+  - `curl -I https://raw.githubusercontent.com/SKYKOI/SKYKOI/main/appcast.xml` returns 200.
   - `curl -I <enclosure url>` returns 200 after assets upload.
   - On a previous public build, run “Check for Updates…” from the About tab and verify Sparkle installs the new build cleanly.
 

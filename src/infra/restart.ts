@@ -103,7 +103,7 @@ function normalizeSystemdUnit(raw?: string, profile?: string): string {
   return unit.endsWith(".service") ? unit : `${unit}.service`;
 }
 
-export function triggerSynurexRestart(): RestartAttempt {
+export function triggerSKYKOIRestart(): RestartAttempt {
   if (process.env.VITEST || process.env.NODE_ENV === "test") {
     return { ok: true, method: "supervisor", detail: "test mode" };
   }
@@ -111,8 +111,8 @@ export function triggerSynurexRestart(): RestartAttempt {
   if (process.platform !== "darwin") {
     if (process.platform === "linux") {
       const unit = normalizeSystemdUnit(
-        process.env.SYNUREX_SYSTEMD_UNIT,
-        (process.env.SYNUREX_PROFILE),
+        process.env.SKYKOI_SYSTEMD_UNIT,
+        (process.env.SKYKOI_PROFILE),
       );
       const userArgs = ["--user", "restart", unit];
       tried.push(`systemctl ${userArgs.join(" ")}`);
@@ -146,8 +146,8 @@ export function triggerSynurexRestart(): RestartAttempt {
   }
 
   const label =
-    process.env.SYNUREX_LAUNCHD_LABEL ||
-    resolveGatewayLaunchAgentLabel((process.env.SYNUREX_PROFILE));
+    process.env.SKYKOI_LAUNCHD_LABEL ||
+    resolveGatewayLaunchAgentLabel((process.env.SKYKOI_PROFILE));
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
   const target = uid !== undefined ? `gui/${uid}/${label}` : label;
   const args = ["kickstart", "-k", target];

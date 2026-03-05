@@ -28,7 +28,7 @@ import {
   type ChannelMessageActionName,
   type ChannelPlugin,
   type ResolvedWhatsAppAccount,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { getWhatsAppRuntime } from "./runtime.js";
 
 const meta = getChatChannelMeta("whatsapp");

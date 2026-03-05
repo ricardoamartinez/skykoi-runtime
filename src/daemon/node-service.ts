@@ -14,13 +14,13 @@ function withNodeServiceEnv(
 ): Record<string, string | undefined> {
   return {
     ...env,
-    SYNUREX_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    SYNUREX_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    SYNUREX_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    SYNUREX_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    SYNUREX_LOG_PREFIX: "node",
-    SYNUREX_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    SYNUREX_SERVICE_KIND: NODE_SERVICE_KIND,
+    SKYKOI_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    SKYKOI_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    SKYKOI_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    SKYKOI_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    SKYKOI_LOG_PREFIX: "node",
+    SKYKOI_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    SKYKOI_SERVICE_KIND: NODE_SERVICE_KIND,
   };
 }
 
@@ -30,13 +30,13 @@ function withNodeInstallEnv(args: GatewayServiceInstallArgs): GatewayServiceInst
     env: withNodeServiceEnv(args.env),
     environment: {
       ...args.environment,
-      SYNUREX_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-      SYNUREX_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-      SYNUREX_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-      SYNUREX_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-      SYNUREX_LOG_PREFIX: "node",
-      SYNUREX_SERVICE_MARKER: NODE_SERVICE_MARKER,
-      SYNUREX_SERVICE_KIND: NODE_SERVICE_KIND,
+      SKYKOI_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+      SKYKOI_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+      SKYKOI_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+      SKYKOI_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+      SKYKOI_LOG_PREFIX: "node",
+      SKYKOI_SERVICE_MARKER: NODE_SERVICE_MARKER,
+      SKYKOI_SERVICE_KIND: NODE_SERVICE_KIND,
     },
   };
 }

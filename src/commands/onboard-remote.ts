@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { discoverGatewayBeacons } from "../infra/bonjour-discovery.js";
@@ -28,9 +28,9 @@ function ensureWsUrl(value: string): string {
 }
 
 export async function promptRemoteGatewayConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   prompter: WizardPrompter,
-): Promise<SynurexConfig> {
+): Promise<SKYKOIConfig> {
   let selectedBeacon: GatewayBonjourBeacon | null = null;
   let suggestedUrl = cfg.gateway?.remote?.url ?? DEFAULT_GATEWAY_URL;
 
@@ -46,7 +46,7 @@ export async function promptRemoteGatewayConfig(
     await prompter.note(
       [
         "Bonjour discovery requires dns-sd (macOS) or avahi-browse (Linux).",
-        "Docs: https://docs.synurex.com/gateway/discovery",
+        "Docs: https://docs.SKYKOI.com/gateway/discovery",
       ].join("\n"),
       "Discovery",
     );
@@ -102,7 +102,7 @@ export async function promptRemoteGatewayConfig(
             `ssh -N -L 18789:127.0.0.1:18789 <user>@${host}${
               selectedBeacon.sshPort ? ` -p ${selectedBeacon.sshPort}` : ""
             }`,
-            "Docs: https://docs.synurex.com/gateway/remote",
+            "Docs: https://docs.SKYKOI.com/gateway/remote",
           ].join("\n"),
           "SSH tunnel",
         );

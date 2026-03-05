@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { AgentBinding } from "../config/types.agents.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { normalizeChatChannelId } from "../channels/registry.js";
@@ -13,11 +13,11 @@ function normalizeBindingChannelId(raw?: string | null): string | null {
   return fallback || null;
 }
 
-export function listBindings(cfg: SynurexConfig): AgentBinding[] {
+export function listBindings(cfg: SKYKOIConfig): AgentBinding[] {
   return Array.isArray(cfg.bindings) ? cfg.bindings : [];
 }
 
-export function listBoundAccountIds(cfg: SynurexConfig, channelId: string): string[] {
+export function listBoundAccountIds(cfg: SKYKOIConfig, channelId: string): string[] {
   const normalizedChannel = normalizeBindingChannelId(channelId);
   if (!normalizedChannel) {
     return [];
@@ -45,7 +45,7 @@ export function listBoundAccountIds(cfg: SynurexConfig, channelId: string): stri
 }
 
 export function resolveDefaultAgentBoundAccountId(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   channelId: string,
 ): string | null {
   const normalizedChannel = normalizeBindingChannelId(channelId);
@@ -77,7 +77,7 @@ export function resolveDefaultAgentBoundAccountId(
   return null;
 }
 
-export function buildChannelAccountBindings(cfg: SynurexConfig) {
+export function buildChannelAccountBindings(cfg: SKYKOIConfig) {
   const map = new Map<string, Map<string, string[]>>();
   for (const binding of listBindings(cfg)) {
     if (!binding || typeof binding !== "object") {

@@ -4,7 +4,7 @@ This software incorporates components from the following open source projects:
 
 ---
 
-OpenClaw (formerly Clawdbot)
+SKYKOI (formerly SKYKOI)
 Copyright (c) 2025 Peter Steinberger
 MIT License
 

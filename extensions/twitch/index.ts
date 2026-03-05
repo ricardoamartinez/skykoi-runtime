@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { twitchPlugin } from "./src/plugin.js";
 import { setTwitchRuntime } from "./src/runtime.js";
 
@@ -10,7 +10,7 @@ const plugin = {
   name: "Twitch",
   description: "Twitch channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setTwitchRuntime(api.runtime);
     // oxlint-disable-next-line typescript/no-explicit-any
     api.registerChannel({ plugin: twitchPlugin as any });

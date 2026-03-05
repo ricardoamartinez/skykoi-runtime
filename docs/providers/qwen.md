@@ -1,7 +1,7 @@
 ---
-summary: "Use Qwen OAuth (free tier) in Synurex"
+summary: "Use Qwen OAuth (free tier) in SKYKOI"
 read_when:
-  - You want to use Qwen with Synurex
+  - You want to use Qwen with SKYKOI
   - You want free-tier OAuth access to Qwen Coder
 title: "Qwen"
 ---
@@ -14,7 +14,7 @@ Qwen provides a free-tier OAuth flow for Qwen Coder and Qwen Vision models
 ## Enable the plugin
 
 ```bash
-Synurex plugins enable qwen-portal-auth
+SKYKOI plugins enable qwen-portal-auth
 ```
 
 Restart the Gateway after enabling.
@@ -22,7 +22,7 @@ Restart the Gateway after enabling.
 ## Authenticate
 
 ```bash
-Synurex models auth login --provider qwen-portal --set-default
+SKYKOI models auth login --provider qwen-portal --set-default
 ```
 
 This runs the Qwen device-code OAuth flow and writes a provider entry to your
@@ -36,12 +36,12 @@ This runs the Qwen device-code OAuth flow and writes a provider entry to your
 Switch models with:
 
 ```bash
-Synurex models set qwen-portal/coder-model
+SKYKOI models set qwen-portal/coder-model
 ```
 
 ## Reuse Qwen Code CLI login
 
-If you already logged in with the Qwen Code CLI, Synurex will sync credentials
+If you already logged in with the Qwen Code CLI, SKYKOI will sync credentials
 from `~/.qwen/oauth_creds.json` when it loads the auth store. You still need a
 `models.providers.qwen-portal` entry (use the login command above to create one).
 

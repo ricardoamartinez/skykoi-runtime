@@ -1,11 +1,11 @@
-# ⚡ Synurex — Personal AI Agent Runtime
+# ⚡ SKYKOI — Personal AI Agent Runtime
 
-> Forked from [Synurex](https://github.com/ricardoamartinez/synurex-runtime) (MIT License). See [THIRD_PARTY_LICENSES.txt](./THIRD_PARTY_LICENSES.txt).
+> Forked from [SKYKOI](https://github.com/ricardoamartinez/SKYKOI-runtime) (MIT License). See [THIRD_PARTY_LICENSES.txt](./THIRD_PARTY_LICENSES.txt).
 
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ricardoamartinez/synurex-runtime/main/docs/assets/Synurex-logo-text-dark.png">
-        <img src="https://raw.githubusercontent.com/ricardoamartinez/synurex-runtime/main/docs/assets/Synurex-logo-text.png" alt="Synurex" width="500">
+        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ricardoamartinez/SKYKOI-runtime/main/docs/assets/SKYKOI-logo-text-dark.png">
+        <img src="https://raw.githubusercontent.com/ricardoamartinez/SKYKOI-runtime/main/docs/assets/SKYKOI-logo-text.png" alt="SKYKOI" width="500">
     </picture>
 </p>
 
@@ -14,45 +14,45 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ricardoamartinez/synurex-runtime/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/ricardoamartinez/synurex-runtime/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
-  <a href="https://github.com/ricardoamartinez/synurex-runtime/releases"><img src="https://img.shields.io/github/v/release/ricardoamartinez/synurex-runtime?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
+  <a href="https://github.com/ricardoamartinez/SKYKOI-runtime/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/ricardoamartinez/SKYKOI-runtime/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
+  <a href="https://github.com/ricardoamartinez/SKYKOI-runtime/releases"><img src="https://img.shields.io/github/v/release/ricardoamartinez/SKYKOI-runtime?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
   <a href="https://discord.gg/clawd"><img src="https://img.shields.io/discord/1456350064065904867?label=Discord&logo=discord&logoColor=white&color=5865F2&style=for-the-badge" alt="Discord"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
 </p>
 
-**Synurex** is a _personal AI assistant_ you run on your own devices.
+**SKYKOI** is a _personal AI assistant_ you run on your own devices.
 It answers you on the channels you already use (WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, Microsoft Teams, WebChat), plus extension channels like BlueBubbles, Matrix, Zalo, and Zalo Personal. It can speak and listen on macOS/iOS/Android, and can render a live Canvas you control. The Gateway is just the control plane — the product is the assistant.
 
 If you want a personal, single-user assistant that feels local, fast, and always-on, this is it.
 
-[Website](https://synurex.com) · [Docs](https://docs.synurex.com) · [DeepWiki](https://deepwiki.com/ricardoamartinez/synurex-runtime) · [Getting Started](https://docs.synurex.com/start/getting-started) · [Updating](https://docs.synurex.com/install/updating) · [Showcase](https://docs.synurex.com/start/showcase) · [FAQ](https://docs.synurex.com/start/faq) · [Wizard](https://docs.synurex.com/start/wizard) · [Nix](https://github.com/Synurex/nix-synurex) · [Docker](https://docs.synurex.com/install/docker) · [Discord](https://discord.gg/clawd)
+[Website](https://SKYKOI.com) · [Docs](https://docs.SKYKOI.com) · [DeepWiki](https://deepwiki.com/ricardoamartinez/SKYKOI-runtime) · [Getting Started](https://docs.SKYKOI.com/start/getting-started) · [Updating](https://docs.SKYKOI.com/install/updating) · [Showcase](https://docs.SKYKOI.com/start/showcase) · [FAQ](https://docs.SKYKOI.com/start/faq) · [Wizard](https://docs.SKYKOI.com/start/wizard) · [Nix](https://github.com/SKYKOI/nix-SKYKOI) · [Docker](https://docs.SKYKOI.com/install/docker) · [Discord](https://discord.gg/clawd)
 
-Preferred setup: run the onboarding wizard (`synurex onboard`) in your terminal.
+Preferred setup: run the onboarding wizard (`SKYKOI onboard`) in your terminal.
 The wizard guides you step by step through setting up the gateway, workspace, channels, and skills. The CLI wizard is the recommended path and works on **macOS, Linux, and Windows (via WSL2; strongly recommended)**.
 Works with npm, pnpm, or bun.
-New install? Start here: [Getting started](https://docs.synurex.com/start/getting-started)
+New install? Start here: [Getting started](https://docs.SKYKOI.com/start/getting-started)
 
 **Subscriptions (OAuth):**
 
 - **[Anthropic](https://www.anthropic.com/)** (Claude Pro/Max)
 - **[OpenAI](https://openai.com/)** (ChatGPT/Codex)
 
-Model note: while any model is supported, I strongly recommend **Anthropic Pro/Max (100/200) + Opus 4.6** for long‑context strength and better prompt‑injection resistance. See [Onboarding](https://docs.synurex.com/start/onboarding).
+Model note: while any model is supported, I strongly recommend **Anthropic Pro/Max (100/200) + Opus 4.6** for long‑context strength and better prompt‑injection resistance. See [Onboarding](https://docs.SKYKOI.com/start/onboarding).
 
 ## Models (selection + auth)
 
-- Models config + CLI: [Models](https://docs.synurex.com/concepts/models)
-- Auth profile rotation (OAuth vs API keys) + fallbacks: [Model failover](https://docs.synurex.com/concepts/model-failover)
+- Models config + CLI: [Models](https://docs.SKYKOI.com/concepts/models)
+- Auth profile rotation (OAuth vs API keys) + fallbacks: [Model failover](https://docs.SKYKOI.com/concepts/model-failover)
 
 ## Install (recommended)
 
 Runtime: **Node ≥22**.
 
 ```bash
-npm install -g synurex@latest
-# or: pnpm add -g synurex@latest
+npm install -g SKYKOI@latest
+# or: pnpm add -g SKYKOI@latest
 
-Synurex onboard --install-daemon
+SKYKOI onboard --install-daemon
 ```
 
 The wizard installs the Gateway daemon (launchd/systemd user service) so it stays running.
@@ -61,21 +61,21 @@ The wizard installs the Gateway daemon (launchd/systemd user service) so it stay
 
 Runtime: **Node ≥22**.
 
-Full beginner guide (auth, pairing, channels): [Getting started](https://docs.synurex.com/start/getting-started)
+Full beginner guide (auth, pairing, channels): [Getting started](https://docs.SKYKOI.com/start/getting-started)
 
 ```bash
-Synurex onboard --install-daemon
+SKYKOI onboard --install-daemon
 
-Synurex gateway --port 18789 --verbose
+SKYKOI gateway --port 18789 --verbose
 
 # Send a message
-Synurex message send --to +1234567890 --message "Hello from Synurex"
+SKYKOI message send --to +1234567890 --message "Hello from SKYKOI"
 
 # Talk to the assistant (optionally deliver back to any connected channel: WhatsApp/Telegram/Slack/Discord/Google Chat/Signal/iMessage/BlueBubbles/Microsoft Teams/Matrix/Zalo/Zalo Personal/WebChat)
-Synurex agent --message "Ship checklist" --thinking high
+SKYKOI agent --message "Ship checklist" --thinking high
 ```
 
-Upgrading? [Updating guide](https://docs.synurex.com/install/updating) (and run `synurex doctor`).
+Upgrading? [Updating guide](https://docs.SKYKOI.com/install/updating) (and run `SKYKOI doctor`).
 
 ## Development channels
 
@@ -83,101 +83,101 @@ Upgrading? [Updating guide](https://docs.synurex.com/install/updating) (and run 
 - **beta**: prerelease tags (`vYYYY.M.D-beta.N`), npm dist-tag `beta` (macOS app may be missing).
 - **dev**: moving head of `main`, npm dist-tag `dev` (when published).
 
-Switch channels (git + npm): `synurex update --channel stable|beta|dev`.
-Details: [Development channels](https://docs.synurex.com/install/development-channels).
+Switch channels (git + npm): `SKYKOI update --channel stable|beta|dev`.
+Details: [Development channels](https://docs.SKYKOI.com/install/development-channels).
 
 ## From source (development)
 
 Prefer `pnpm` for builds from source. Bun is optional for running TypeScript directly.
 
 ```bash
-git clone https://github.com/ricardoamartinez/synurex-runtime.git
-cd Synurex
+git clone https://github.com/ricardoamartinez/SKYKOI-runtime.git
+cd SKYKOI
 
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run
 pnpm build
 
-pnpm synurex onboard --install-daemon
+pnpm SKYKOI onboard --install-daemon
 
 # Dev loop (auto-reload on TS changes)
 pnpm gateway:watch
 ```
 
-Note: `pnpm synurex ...` runs TypeScript directly (via `tsx`). `pnpm build` produces `dist/` for running via Node / the packaged `Synurex` binary.
+Note: `pnpm SKYKOI ...` runs TypeScript directly (via `tsx`). `pnpm build` produces `dist/` for running via Node / the packaged `SKYKOI` binary.
 
 ## Security defaults (DM access)
 
-Synurex connects to real messaging surfaces. Treat inbound DMs as **untrusted input**.
+SKYKOI connects to real messaging surfaces. Treat inbound DMs as **untrusted input**.
 
-Full security guide: [Security](https://docs.synurex.com/gateway/security)
+Full security guide: [Security](https://docs.SKYKOI.com/gateway/security)
 
 Default behavior on Telegram/WhatsApp/Signal/iMessage/Microsoft Teams/Discord/Google Chat/Slack:
 
 - **DM pairing** (`dmPolicy="pairing"` / `channels.discord.dm.policy="pairing"` / `channels.slack.dm.policy="pairing"`): unknown senders receive a short pairing code and the bot does not process their message.
-- Approve with: `synurex pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
+- Approve with: `SKYKOI pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
 - Public inbound DMs require an explicit opt-in: set `dmPolicy="open"` and include `"*"` in the channel allowlist (`allowFrom` / `channels.discord.dm.allowFrom` / `channels.slack.dm.allowFrom`).
 
-Run `synurex doctor` to surface risky/misconfigured DM policies.
+Run `SKYKOI doctor` to surface risky/misconfigured DM policies.
 
 ## Highlights
 
-- **[Local-first Gateway](https://docs.synurex.com/gateway)** — single control plane for sessions, channels, tools, and events.
-- **[Multi-channel inbox](https://docs.synurex.com/channels)** — WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, BlueBubbles (iMessage), iMessage (legacy), Microsoft Teams, Matrix, Zalo, Zalo Personal, WebChat, macOS, iOS/Android.
-- **[Multi-agent routing](https://docs.synurex.com/gateway/configuration)** — route inbound channels/accounts/peers to isolated agents (workspaces + per-agent sessions).
-- **[Voice Wake](https://docs.synurex.com/nodes/voicewake) + [Talk Mode](https://docs.synurex.com/nodes/talk)** — always-on speech for macOS/iOS/Android with ElevenLabs.
-- **[Live Canvas](https://docs.synurex.com/platforms/mac/canvas)** — agent-driven visual workspace with [A2UI](https://docs.synurex.com/platforms/mac/canvas#canvas-a2ui).
-- **[First-class tools](https://docs.synurex.com/tools)** — browser, canvas, nodes, cron, sessions, and Discord/Slack actions.
-- **[Companion apps](https://docs.synurex.com/platforms/macos)** — macOS menu bar app + iOS/Android [nodes](https://docs.synurex.com/nodes).
-- **[Onboarding](https://docs.synurex.com/start/wizard) + [skills](https://docs.synurex.com/tools/skills)** — wizard-driven setup with bundled/managed/workspace skills.
+- **[Local-first Gateway](https://docs.SKYKOI.com/gateway)** — single control plane for sessions, channels, tools, and events.
+- **[Multi-channel inbox](https://docs.SKYKOI.com/channels)** — WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, BlueBubbles (iMessage), iMessage (legacy), Microsoft Teams, Matrix, Zalo, Zalo Personal, WebChat, macOS, iOS/Android.
+- **[Multi-agent routing](https://docs.SKYKOI.com/gateway/configuration)** — route inbound channels/accounts/peers to isolated agents (workspaces + per-agent sessions).
+- **[Voice Wake](https://docs.SKYKOI.com/nodes/voicewake) + [Talk Mode](https://docs.SKYKOI.com/nodes/talk)** — always-on speech for macOS/iOS/Android with ElevenLabs.
+- **[Live Canvas](https://docs.SKYKOI.com/platforms/mac/canvas)** — agent-driven visual workspace with [A2UI](https://docs.SKYKOI.com/platforms/mac/canvas#canvas-a2ui).
+- **[First-class tools](https://docs.SKYKOI.com/tools)** — browser, canvas, nodes, cron, sessions, and Discord/Slack actions.
+- **[Companion apps](https://docs.SKYKOI.com/platforms/macos)** — macOS menu bar app + iOS/Android [nodes](https://docs.SKYKOI.com/nodes).
+- **[Onboarding](https://docs.SKYKOI.com/start/wizard) + [skills](https://docs.SKYKOI.com/tools/skills)** — wizard-driven setup with bundled/managed/workspace skills.
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ricardoamartinez/synurex-runtime&type=date&legend=top-left)](https://www.star-history.com/#ricardoamartinez/synurex-runtime&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=ricardoamartinez/SKYKOI-runtime&type=date&legend=top-left)](https://www.star-history.com/#ricardoamartinez/SKYKOI-runtime&type=date&legend=top-left)
 
 ## Everything we built so far
 
 ### Core platform
 
-- [Gateway WS control plane](https://docs.synurex.com/gateway) with sessions, presence, config, cron, webhooks, [Control UI](https://docs.synurex.com/web), and [Canvas host](https://docs.synurex.com/platforms/mac/canvas#canvas-a2ui).
-- [CLI surface](https://docs.synurex.com/tools/agent-send): gateway, agent, send, [wizard](https://docs.synurex.com/start/wizard), and [doctor](https://docs.synurex.com/gateway/doctor).
-- [Pi agent runtime](https://docs.synurex.com/concepts/agent) in RPC mode with tool streaming and block streaming.
-- [Session model](https://docs.synurex.com/concepts/session): `main` for direct chats, group isolation, activation modes, queue modes, reply-back. Group rules: [Groups](https://docs.synurex.com/concepts/groups).
-- [Media pipeline](https://docs.synurex.com/nodes/images): images/audio/video, transcription hooks, size caps, temp file lifecycle. Audio details: [Audio](https://docs.synurex.com/nodes/audio).
+- [Gateway WS control plane](https://docs.SKYKOI.com/gateway) with sessions, presence, config, cron, webhooks, [Control UI](https://docs.SKYKOI.com/web), and [Canvas host](https://docs.SKYKOI.com/platforms/mac/canvas#canvas-a2ui).
+- [CLI surface](https://docs.SKYKOI.com/tools/agent-send): gateway, agent, send, [wizard](https://docs.SKYKOI.com/start/wizard), and [doctor](https://docs.SKYKOI.com/gateway/doctor).
+- [Pi agent runtime](https://docs.SKYKOI.com/concepts/agent) in RPC mode with tool streaming and block streaming.
+- [Session model](https://docs.SKYKOI.com/concepts/session): `main` for direct chats, group isolation, activation modes, queue modes, reply-back. Group rules: [Groups](https://docs.SKYKOI.com/concepts/groups).
+- [Media pipeline](https://docs.SKYKOI.com/nodes/images): images/audio/video, transcription hooks, size caps, temp file lifecycle. Audio details: [Audio](https://docs.SKYKOI.com/nodes/audio).
 
 ### Channels
 
-- [Channels](https://docs.synurex.com/channels): [WhatsApp](https://docs.synurex.com/channels/whatsapp) (Baileys), [Telegram](https://docs.synurex.com/channels/telegram) (grammY), [Slack](https://docs.synurex.com/channels/slack) (Bolt), [Discord](https://docs.synurex.com/channels/discord) (discord.js), [Google Chat](https://docs.synurex.com/channels/googlechat) (Chat API), [Signal](https://docs.synurex.com/channels/signal) (signal-cli), [BlueBubbles](https://docs.synurex.com/channels/bluebubbles) (iMessage, recommended), [iMessage](https://docs.synurex.com/channels/imessage) (legacy imsg), [Microsoft Teams](https://docs.synurex.com/channels/msteams) (extension), [Matrix](https://docs.synurex.com/channels/matrix) (extension), [Zalo](https://docs.synurex.com/channels/zalo) (extension), [Zalo Personal](https://docs.synurex.com/channels/zalouser) (extension), [WebChat](https://docs.synurex.com/web/webchat).
-- [Group routing](https://docs.synurex.com/concepts/group-messages): mention gating, reply tags, per-channel chunking and routing. Channel rules: [Channels](https://docs.synurex.com/channels).
+- [Channels](https://docs.SKYKOI.com/channels): [WhatsApp](https://docs.SKYKOI.com/channels/whatsapp) (Baileys), [Telegram](https://docs.SKYKOI.com/channels/telegram) (grammY), [Slack](https://docs.SKYKOI.com/channels/slack) (Bolt), [Discord](https://docs.SKYKOI.com/channels/discord) (discord.js), [Google Chat](https://docs.SKYKOI.com/channels/googlechat) (Chat API), [Signal](https://docs.SKYKOI.com/channels/signal) (signal-cli), [BlueBubbles](https://docs.SKYKOI.com/channels/bluebubbles) (iMessage, recommended), [iMessage](https://docs.SKYKOI.com/channels/imessage) (legacy imsg), [Microsoft Teams](https://docs.SKYKOI.com/channels/msteams) (extension), [Matrix](https://docs.SKYKOI.com/channels/matrix) (extension), [Zalo](https://docs.SKYKOI.com/channels/zalo) (extension), [Zalo Personal](https://docs.SKYKOI.com/channels/zalouser) (extension), [WebChat](https://docs.SKYKOI.com/web/webchat).
+- [Group routing](https://docs.SKYKOI.com/concepts/group-messages): mention gating, reply tags, per-channel chunking and routing. Channel rules: [Channels](https://docs.SKYKOI.com/channels).
 
 ### Apps + nodes
 
-- [macOS app](https://docs.synurex.com/platforms/macos): menu bar control plane, [Voice Wake](https://docs.synurex.com/nodes/voicewake)/PTT, [Talk Mode](https://docs.synurex.com/nodes/talk) overlay, [WebChat](https://docs.synurex.com/web/webchat), debug tools, [remote gateway](https://docs.synurex.com/gateway/remote) control.
-- [iOS node](https://docs.synurex.com/platforms/ios): [Canvas](https://docs.synurex.com/platforms/mac/canvas), [Voice Wake](https://docs.synurex.com/nodes/voicewake), [Talk Mode](https://docs.synurex.com/nodes/talk), camera, screen recording, Bonjour pairing.
-- [Android node](https://docs.synurex.com/platforms/android): [Canvas](https://docs.synurex.com/platforms/mac/canvas), [Talk Mode](https://docs.synurex.com/nodes/talk), camera, screen recording, optional SMS.
-- [macOS node mode](https://docs.synurex.com/nodes): system.run/notify + canvas/camera exposure.
+- [macOS app](https://docs.SKYKOI.com/platforms/macos): menu bar control plane, [Voice Wake](https://docs.SKYKOI.com/nodes/voicewake)/PTT, [Talk Mode](https://docs.SKYKOI.com/nodes/talk) overlay, [WebChat](https://docs.SKYKOI.com/web/webchat), debug tools, [remote gateway](https://docs.SKYKOI.com/gateway/remote) control.
+- [iOS node](https://docs.SKYKOI.com/platforms/ios): [Canvas](https://docs.SKYKOI.com/platforms/mac/canvas), [Voice Wake](https://docs.SKYKOI.com/nodes/voicewake), [Talk Mode](https://docs.SKYKOI.com/nodes/talk), camera, screen recording, Bonjour pairing.
+- [Android node](https://docs.SKYKOI.com/platforms/android): [Canvas](https://docs.SKYKOI.com/platforms/mac/canvas), [Talk Mode](https://docs.SKYKOI.com/nodes/talk), camera, screen recording, optional SMS.
+- [macOS node mode](https://docs.SKYKOI.com/nodes): system.run/notify + canvas/camera exposure.
 
 ### Tools + automation
 
-- [Browser control](https://docs.synurex.com/tools/browser): dedicated Synurex Chrome/Chromium, snapshots, actions, uploads, profiles.
-- [Canvas](https://docs.synurex.com/platforms/mac/canvas): [A2UI](https://docs.synurex.com/platforms/mac/canvas#canvas-a2ui) push/reset, eval, snapshot.
-- [Nodes](https://docs.synurex.com/nodes): camera snap/clip, screen record, [location.get](https://docs.synurex.com/nodes/location-command), notifications.
-- [Cron + wakeups](https://docs.synurex.com/automation/cron-jobs); [webhooks](https://docs.synurex.com/automation/webhook); [Gmail Pub/Sub](https://docs.synurex.com/automation/gmail-pubsub).
-- [Skills platform](https://docs.synurex.com/tools/skills): bundled, managed, and workspace skills with install gating + UI.
+- [Browser control](https://docs.SKYKOI.com/tools/browser): dedicated SKYKOI Chrome/Chromium, snapshots, actions, uploads, profiles.
+- [Canvas](https://docs.SKYKOI.com/platforms/mac/canvas): [A2UI](https://docs.SKYKOI.com/platforms/mac/canvas#canvas-a2ui) push/reset, eval, snapshot.
+- [Nodes](https://docs.SKYKOI.com/nodes): camera snap/clip, screen record, [location.get](https://docs.SKYKOI.com/nodes/location-command), notifications.
+- [Cron + wakeups](https://docs.SKYKOI.com/automation/cron-jobs); [webhooks](https://docs.SKYKOI.com/automation/webhook); [Gmail Pub/Sub](https://docs.SKYKOI.com/automation/gmail-pubsub).
+- [Skills platform](https://docs.SKYKOI.com/tools/skills): bundled, managed, and workspace skills with install gating + UI.
 
 ### Runtime + safety
 
-- [Channel routing](https://docs.synurex.com/concepts/channel-routing), [retry policy](https://docs.synurex.com/concepts/retry), and [streaming/chunking](https://docs.synurex.com/concepts/streaming).
-- [Presence](https://docs.synurex.com/concepts/presence), [typing indicators](https://docs.synurex.com/concepts/typing-indicators), and [usage tracking](https://docs.synurex.com/concepts/usage-tracking).
-- [Models](https://docs.synurex.com/concepts/models), [model failover](https://docs.synurex.com/concepts/model-failover), and [session pruning](https://docs.synurex.com/concepts/session-pruning).
-- [Security](https://docs.synurex.com/gateway/security) and [troubleshooting](https://docs.synurex.com/channels/troubleshooting).
+- [Channel routing](https://docs.SKYKOI.com/concepts/channel-routing), [retry policy](https://docs.SKYKOI.com/concepts/retry), and [streaming/chunking](https://docs.SKYKOI.com/concepts/streaming).
+- [Presence](https://docs.SKYKOI.com/concepts/presence), [typing indicators](https://docs.SKYKOI.com/concepts/typing-indicators), and [usage tracking](https://docs.SKYKOI.com/concepts/usage-tracking).
+- [Models](https://docs.SKYKOI.com/concepts/models), [model failover](https://docs.SKYKOI.com/concepts/model-failover), and [session pruning](https://docs.SKYKOI.com/concepts/session-pruning).
+- [Security](https://docs.SKYKOI.com/gateway/security) and [troubleshooting](https://docs.SKYKOI.com/channels/troubleshooting).
 
 ### Ops + packaging
 
-- [Control UI](https://docs.synurex.com/web) + [WebChat](https://docs.synurex.com/web/webchat) served directly from the Gateway.
-- [Tailscale Serve/Funnel](https://docs.synurex.com/gateway/tailscale) or [SSH tunnels](https://docs.synurex.com/gateway/remote) with token/password auth.
-- [Nix mode](https://docs.synurex.com/install/nix) for declarative config; [Docker](https://docs.synurex.com/install/docker)-based installs.
-- [Doctor](https://docs.synurex.com/gateway/doctor) migrations, [logging](https://docs.synurex.com/logging).
+- [Control UI](https://docs.SKYKOI.com/web) + [WebChat](https://docs.SKYKOI.com/web/webchat) served directly from the Gateway.
+- [Tailscale Serve/Funnel](https://docs.SKYKOI.com/gateway/tailscale) or [SSH tunnels](https://docs.SKYKOI.com/gateway/remote) with token/password auth.
+- [Nix mode](https://docs.SKYKOI.com/install/nix) for declarative config; [Docker](https://docs.SKYKOI.com/install/docker)-based installs.
+- [Doctor](https://docs.SKYKOI.com/gateway/doctor) migrations, [logging](https://docs.SKYKOI.com/logging).
 
 ## How it works (short)
 
@@ -192,7 +192,7 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 └──────────────┬────────────────┘
                │
                ├─ Pi agent (RPC)
-               ├─ CLI (synurex …)
+               ├─ CLI (SKYKOI …)
                ├─ WebChat UI
                ├─ macOS app
                └─ iOS / Android nodes
@@ -200,16 +200,16 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 
 ## Key subsystems
 
-- **[Gateway WebSocket network](https://docs.synurex.com/concepts/architecture)** — single WS control plane for clients, tools, and events (plus ops: [Gateway runbook](https://docs.synurex.com/gateway)).
-- **[Tailscale exposure](https://docs.synurex.com/gateway/tailscale)** — Serve/Funnel for the Gateway dashboard + WS (remote access: [Remote](https://docs.synurex.com/gateway/remote)).
-- **[Browser control](https://docs.synurex.com/tools/browser)** — Synurex‑managed Chrome/Chromium with CDP control.
-- **[Canvas + A2UI](https://docs.synurex.com/platforms/mac/canvas)** — agent‑driven visual workspace (A2UI host: [Canvas/A2UI](https://docs.synurex.com/platforms/mac/canvas#canvas-a2ui)).
-- **[Voice Wake](https://docs.synurex.com/nodes/voicewake) + [Talk Mode](https://docs.synurex.com/nodes/talk)** — always‑on speech and continuous conversation.
-- **[Nodes](https://docs.synurex.com/nodes)** — Canvas, camera snap/clip, screen record, `location.get`, notifications, plus macOS‑only `system.run`/`system.notify`.
+- **[Gateway WebSocket network](https://docs.SKYKOI.com/concepts/architecture)** — single WS control plane for clients, tools, and events (plus ops: [Gateway runbook](https://docs.SKYKOI.com/gateway)).
+- **[Tailscale exposure](https://docs.SKYKOI.com/gateway/tailscale)** — Serve/Funnel for the Gateway dashboard + WS (remote access: [Remote](https://docs.SKYKOI.com/gateway/remote)).
+- **[Browser control](https://docs.SKYKOI.com/tools/browser)** — SKYKOI‑managed Chrome/Chromium with CDP control.
+- **[Canvas + A2UI](https://docs.SKYKOI.com/platforms/mac/canvas)** — agent‑driven visual workspace (A2UI host: [Canvas/A2UI](https://docs.SKYKOI.com/platforms/mac/canvas#canvas-a2ui)).
+- **[Voice Wake](https://docs.SKYKOI.com/nodes/voicewake) + [Talk Mode](https://docs.SKYKOI.com/nodes/talk)** — always‑on speech and continuous conversation.
+- **[Nodes](https://docs.SKYKOI.com/nodes)** — Canvas, camera snap/clip, screen record, `location.get`, notifications, plus macOS‑only `system.run`/`system.notify`.
 
 ## Tailscale access (Gateway dashboard)
 
-Synurex can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (public) while the Gateway stays bound to loopback. Configure `gateway.tailscale.mode`:
+SKYKOI can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (public) while the Gateway stays bound to loopback. Configure `gateway.tailscale.mode`:
 
 - `off`: no Tailscale automation (default).
 - `serve`: tailnet-only HTTPS via `tailscale serve` (uses Tailscale identity headers by default).
@@ -217,12 +217,12 @@ Synurex can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (pub
 
 Notes:
 
-- `gateway.bind` must stay `loopback` when Serve/Funnel is enabled (Synurex enforces this).
+- `gateway.bind` must stay `loopback` when Serve/Funnel is enabled (SKYKOI enforces this).
 - Serve can be forced to require a password by setting `gateway.auth.mode: "password"` or `gateway.auth.allowTailscale: false`.
 - Funnel refuses to start unless `gateway.auth.mode: "password"` is set.
 - Optional: `gateway.tailscale.resetOnExit` to undo Serve/Funnel on shutdown.
 
-Details: [Tailscale guide](https://docs.synurex.com/gateway/tailscale) · [Web surfaces](https://docs.synurex.com/web)
+Details: [Tailscale guide](https://docs.SKYKOI.com/gateway/tailscale) · [Web surfaces](https://docs.SKYKOI.com/web)
 
 ## Remote Gateway (Linux is great)
 
@@ -232,7 +232,7 @@ It’s perfectly fine to run the Gateway on a small Linux instance. Clients (mac
 - **Device nodes** run device‑local actions (`system.run`, camera, screen recording, notifications) via `node.invoke`.
   In short: exec runs where the Gateway lives; device actions run where the device lives.
 
-Details: [Remote access](https://docs.synurex.com/gateway/remote) · [Nodes](https://docs.synurex.com/nodes) · [Security](https://docs.synurex.com/gateway/security)
+Details: [Remote access](https://docs.SKYKOI.com/gateway/remote) · [Nodes](https://docs.SKYKOI.com/nodes) · [Security](https://docs.SKYKOI.com/gateway/security)
 
 ## macOS permissions via the Gateway protocol
 
@@ -247,7 +247,7 @@ Elevated bash (host permissions) is separate from macOS TCC:
 - Use `/elevated on|off` to toggle per‑session elevated access when enabled + allowlisted.
 - Gateway persists the per‑session toggle via `sessions.patch` (WS method) alongside `thinkingLevel`, `verboseLevel`, `model`, `sendPolicy`, and `groupActivation`.
 
-Details: [Nodes](https://docs.synurex.com/nodes) · [macOS app](https://docs.synurex.com/platforms/macos) · [Gateway protocol](https://docs.synurex.com/concepts/architecture)
+Details: [Nodes](https://docs.SKYKOI.com/nodes) · [macOS app](https://docs.SKYKOI.com/platforms/macos) · [Gateway protocol](https://docs.SKYKOI.com/concepts/architecture)
 
 ## Agent to Agent (sessions\_\* tools)
 
@@ -256,13 +256,13 @@ Details: [Nodes](https://docs.synurex.com/nodes) · [macOS app](https://docs.syn
 - `sessions_history` — fetch transcript logs for a session.
 - `sessions_send` — message another session; optional reply‑back ping‑pong + announce step (`REPLY_SKIP`, `ANNOUNCE_SKIP`).
 
-Details: [Session tools](https://docs.synurex.com/concepts/session-tool)
+Details: [Session tools](https://docs.SKYKOI.com/concepts/session-tool)
 
 ## Skills Registry
 
-Synurex includes a skill registry. The agent can search for skills automatically and pull in new ones as needed.
+SKYKOI includes a skill registry. The agent can search for skills automatically and pull in new ones as needed.
 
-[Synurex Skills](https://synurex.com)
+[SKYKOI Skills](https://SKYKOI.com)
 
 ## Chat commands
 
@@ -283,7 +283,7 @@ The Gateway alone delivers a great experience. All apps are optional and add ext
 
 If you plan to build/run companion apps, follow the platform runbooks below.
 
-### macOS (Synurex.app) (optional)
+### macOS (SKYKOI.app) (optional)
 
 - Menu bar control for the Gateway and health.
 - Voice Wake + push-to-talk overlay.
@@ -296,25 +296,25 @@ Note: signed builds required for macOS permissions to stick across rebuilds (see
 
 - Pairs as a node via the Bridge.
 - Voice trigger forwarding + Canvas surface.
-- Controlled via `synurex nodes …`.
+- Controlled via `SKYKOI nodes …`.
 
-Runbook: [iOS connect](https://docs.synurex.com/platforms/ios).
+Runbook: [iOS connect](https://docs.SKYKOI.com/platforms/ios).
 
 ### Android node (optional)
 
 - Pairs via the same Bridge + pairing flow as iOS.
 - Exposes Canvas, Camera, and Screen capture commands.
-- Runbook: [Android connect](https://docs.synurex.com/platforms/android).
+- Runbook: [Android connect](https://docs.SKYKOI.com/platforms/android).
 
 ## Agent workspace + skills
 
-- Workspace root: `~/.synurex/workspace` (configurable via `agents.defaults.workspace`).
+- Workspace root: `~/.SKYKOI/workspace` (configurable via `agents.defaults.workspace`).
 - Injected prompt files: `AGENTS.md`, `SOUL.md`, `TOOLS.md`.
-- Skills: `~/.synurex/workspace/skills/<skill>/SKILL.md`.
+- Skills: `~/.SKYKOI/workspace/skills/<skill>/SKILL.md`.
 
 ## Configuration
 
-Minimal `~/.ricardoamartinez/synurex-runtime.json` (model + defaults):
+Minimal `~/.ricardoamartinez/SKYKOI-runtime.json` (model + defaults):
 
 ```json5
 {
@@ -324,7 +324,7 @@ Minimal `~/.ricardoamartinez/synurex-runtime.json` (model + defaults):
 }
 ```
 
-[Full configuration reference (all keys + examples).](https://docs.synurex.com/gateway/configuration)
+[Full configuration reference (all keys + examples).](https://docs.SKYKOI.com/gateway/configuration)
 
 ## Security model (important)
 
@@ -332,15 +332,15 @@ Minimal `~/.ricardoamartinez/synurex-runtime.json` (model + defaults):
 - **Group/channel safety:** set `agents.defaults.sandbox.mode: "non-main"` to run **non‑main sessions** (groups/channels) inside per‑session Docker sandboxes; bash then runs in Docker for those sessions.
 - **Sandbox defaults:** allowlist `bash`, `process`, `read`, `write`, `edit`, `sessions_list`, `sessions_history`, `sessions_send`, `sessions_spawn`; denylist `browser`, `canvas`, `nodes`, `cron`, `discord`, `gateway`.
 
-Details: [Security guide](https://docs.synurex.com/gateway/security) · [Docker + sandboxing](https://docs.synurex.com/install/docker) · [Sandbox config](https://docs.synurex.com/gateway/configuration)
+Details: [Security guide](https://docs.SKYKOI.com/gateway/security) · [Docker + sandboxing](https://docs.SKYKOI.com/install/docker) · [Sandbox config](https://docs.SKYKOI.com/gateway/configuration)
 
-### [WhatsApp](https://docs.synurex.com/channels/whatsapp)
+### [WhatsApp](https://docs.SKYKOI.com/channels/whatsapp)
 
-- Link the device: `pnpm synurex channels login` (stores creds in `~/.synurex/credentials`).
+- Link the device: `pnpm SKYKOI channels login` (stores creds in `~/.SKYKOI/credentials`).
 - Allowlist who can talk to the assistant via `channels.whatsapp.allowFrom`.
 - If `channels.whatsapp.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
-### [Telegram](https://docs.synurex.com/channels/telegram)
+### [Telegram](https://docs.SKYKOI.com/channels/telegram)
 
 - Set `TELEGRAM_BOT_TOKEN` or `channels.telegram.botToken` (env wins).
 - Optional: set `channels.telegram.groups` (with `channels.telegram.groups."*".requireMention`); when set, it is a group allowlist (include `"*"` to allow all). Also `channels.telegram.allowFrom` or `channels.telegram.webhookUrl` + `channels.telegram.webhookSecret` as needed.
@@ -355,11 +355,11 @@ Details: [Security guide](https://docs.synurex.com/gateway/security) · [Docker 
 }
 ```
 
-### [Slack](https://docs.synurex.com/channels/slack)
+### [Slack](https://docs.SKYKOI.com/channels/slack)
 
 - Set `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` (or `channels.slack.botToken` + `channels.slack.appToken`).
 
-### [Discord](https://docs.synurex.com/channels/discord)
+### [Discord](https://docs.SKYKOI.com/channels/discord)
 
 - Set `DISCORD_BOT_TOKEN` or `channels.discord.token` (env wins).
 - Optional: set `commands.native`, `commands.text`, or `commands.useAccessGroups`, plus `channels.discord.dm.allowFrom`, `channels.discord.guilds`, or `channels.discord.mediaMaxMb` as needed.
@@ -374,27 +374,27 @@ Details: [Security guide](https://docs.synurex.com/gateway/security) · [Docker 
 }
 ```
 
-### [Signal](https://docs.synurex.com/channels/signal)
+### [Signal](https://docs.SKYKOI.com/channels/signal)
 
 - Requires `signal-cli` and a `channels.signal` config section.
 
-### [BlueBubbles (iMessage)](https://docs.synurex.com/channels/bluebubbles)
+### [BlueBubbles (iMessage)](https://docs.SKYKOI.com/channels/bluebubbles)
 
 - **Recommended** iMessage integration.
 - Configure `channels.bluebubbles.serverUrl` + `channels.bluebubbles.password` and a webhook (`channels.bluebubbles.webhookPath`).
 - The BlueBubbles server runs on macOS; the Gateway can run on macOS or elsewhere.
 
-### [iMessage (legacy)](https://docs.synurex.com/channels/imessage)
+### [iMessage (legacy)](https://docs.SKYKOI.com/channels/imessage)
 
 - Legacy macOS-only integration via `imsg` (Messages must be signed in).
 - If `channels.imessage.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
-### [Microsoft Teams](https://docs.synurex.com/channels/msteams)
+### [Microsoft Teams](https://docs.SKYKOI.com/channels/msteams)
 
 - Configure a Teams app + Bot Framework, then add a `msteams` config section.
 - Allowlist who can talk via `msteams.allowFrom`; group access via `msteams.groupAllowFrom` or `msteams.groupPolicy: "open"`.
 
-### [WebChat](https://docs.synurex.com/web/webchat)
+### [WebChat](https://docs.SKYKOI.com/web/webchat)
 
 - Uses the Gateway WebSocket; no separate WebChat port/config.
 
@@ -413,79 +413,79 @@ Browser control (optional):
 
 Use these when you’re past the onboarding flow and want the deeper reference.
 
-- [Start with the docs index for navigation and “what’s where.”](https://docs.synurex.com)
-- [Read the architecture overview for the gateway + protocol model.](https://docs.synurex.com/concepts/architecture)
-- [Use the full configuration reference when you need every key and example.](https://docs.synurex.com/gateway/configuration)
-- [Run the Gateway by the book with the operational runbook.](https://docs.synurex.com/gateway)
-- [Learn how the Control UI/Web surfaces work and how to expose them safely.](https://docs.synurex.com/web)
-- [Understand remote access over SSH tunnels or tailnets.](https://docs.synurex.com/gateway/remote)
-- [Follow the onboarding wizard flow for a guided setup.](https://docs.synurex.com/start/wizard)
-- [Wire external triggers via the webhook surface.](https://docs.synurex.com/automation/webhook)
-- [Set up Gmail Pub/Sub triggers.](https://docs.synurex.com/automation/gmail-pubsub)
-- [Learn the macOS menu bar companion details.](https://docs.synurex.com/platforms/mac/menu-bar)
-- [Platform guides: Windows (WSL2)](https://docs.synurex.com/platforms/windows), [Linux](https://docs.synurex.com/platforms/linux), [macOS](https://docs.synurex.com/platforms/macos), [iOS](https://docs.synurex.com/platforms/ios), [Android](https://docs.synurex.com/platforms/android)
-- [Debug common failures with the troubleshooting guide.](https://docs.synurex.com/channels/troubleshooting)
-- [Review security guidance before exposing anything.](https://docs.synurex.com/gateway/security)
+- [Start with the docs index for navigation and “what’s where.”](https://docs.SKYKOI.com)
+- [Read the architecture overview for the gateway + protocol model.](https://docs.SKYKOI.com/concepts/architecture)
+- [Use the full configuration reference when you need every key and example.](https://docs.SKYKOI.com/gateway/configuration)
+- [Run the Gateway by the book with the operational runbook.](https://docs.SKYKOI.com/gateway)
+- [Learn how the Control UI/Web surfaces work and how to expose them safely.](https://docs.SKYKOI.com/web)
+- [Understand remote access over SSH tunnels or tailnets.](https://docs.SKYKOI.com/gateway/remote)
+- [Follow the onboarding wizard flow for a guided setup.](https://docs.SKYKOI.com/start/wizard)
+- [Wire external triggers via the webhook surface.](https://docs.SKYKOI.com/automation/webhook)
+- [Set up Gmail Pub/Sub triggers.](https://docs.SKYKOI.com/automation/gmail-pubsub)
+- [Learn the macOS menu bar companion details.](https://docs.SKYKOI.com/platforms/mac/menu-bar)
+- [Platform guides: Windows (WSL2)](https://docs.SKYKOI.com/platforms/windows), [Linux](https://docs.SKYKOI.com/platforms/linux), [macOS](https://docs.SKYKOI.com/platforms/macos), [iOS](https://docs.SKYKOI.com/platforms/ios), [Android](https://docs.SKYKOI.com/platforms/android)
+- [Debug common failures with the troubleshooting guide.](https://docs.SKYKOI.com/channels/troubleshooting)
+- [Review security guidance before exposing anything.](https://docs.SKYKOI.com/gateway/security)
 
 ## Advanced docs (discovery + control)
 
-- [Discovery + transports](https://docs.synurex.com/gateway/discovery)
-- [Bonjour/mDNS](https://docs.synurex.com/gateway/bonjour)
-- [Gateway pairing](https://docs.synurex.com/gateway/pairing)
-- [Remote gateway README](https://docs.synurex.com/gateway/remote-gateway-readme)
-- [Control UI](https://docs.synurex.com/web/control-ui)
-- [Dashboard](https://docs.synurex.com/web/dashboard)
+- [Discovery + transports](https://docs.SKYKOI.com/gateway/discovery)
+- [Bonjour/mDNS](https://docs.SKYKOI.com/gateway/bonjour)
+- [Gateway pairing](https://docs.SKYKOI.com/gateway/pairing)
+- [Remote gateway README](https://docs.SKYKOI.com/gateway/remote-gateway-readme)
+- [Control UI](https://docs.SKYKOI.com/web/control-ui)
+- [Dashboard](https://docs.SKYKOI.com/web/dashboard)
 
 ## Operations & troubleshooting
 
-- [Health checks](https://docs.synurex.com/gateway/health)
-- [Gateway lock](https://docs.synurex.com/gateway/gateway-lock)
-- [Background process](https://docs.synurex.com/gateway/background-process)
-- [Browser troubleshooting (Linux)](https://docs.synurex.com/tools/browser-linux-troubleshooting)
-- [Logging](https://docs.synurex.com/logging)
+- [Health checks](https://docs.SKYKOI.com/gateway/health)
+- [Gateway lock](https://docs.SKYKOI.com/gateway/gateway-lock)
+- [Background process](https://docs.SKYKOI.com/gateway/background-process)
+- [Browser troubleshooting (Linux)](https://docs.SKYKOI.com/tools/browser-linux-troubleshooting)
+- [Logging](https://docs.SKYKOI.com/logging)
 
 ## Deep dives
 
-- [Agent loop](https://docs.synurex.com/concepts/agent-loop)
-- [Presence](https://docs.synurex.com/concepts/presence)
-- [TypeBox schemas](https://docs.synurex.com/concepts/typebox)
-- [RPC adapters](https://docs.synurex.com/reference/rpc)
-- [Queue](https://docs.synurex.com/concepts/queue)
+- [Agent loop](https://docs.SKYKOI.com/concepts/agent-loop)
+- [Presence](https://docs.SKYKOI.com/concepts/presence)
+- [TypeBox schemas](https://docs.SKYKOI.com/concepts/typebox)
+- [RPC adapters](https://docs.SKYKOI.com/reference/rpc)
+- [Queue](https://docs.SKYKOI.com/concepts/queue)
 
 ## Workspace & skills
 
-- [Skills config](https://docs.synurex.com/tools/skills-config)
-- [Default AGENTS](https://docs.synurex.com/reference/AGENTS.default)
-- [Templates: AGENTS](https://docs.synurex.com/reference/templates/AGENTS)
-- [Templates: BOOTSTRAP](https://docs.synurex.com/reference/templates/BOOTSTRAP)
-- [Templates: IDENTITY](https://docs.synurex.com/reference/templates/IDENTITY)
-- [Templates: SOUL](https://docs.synurex.com/reference/templates/SOUL)
-- [Templates: TOOLS](https://docs.synurex.com/reference/templates/TOOLS)
-- [Templates: USER](https://docs.synurex.com/reference/templates/USER)
+- [Skills config](https://docs.SKYKOI.com/tools/skills-config)
+- [Default AGENTS](https://docs.SKYKOI.com/reference/AGENTS.default)
+- [Templates: AGENTS](https://docs.SKYKOI.com/reference/templates/AGENTS)
+- [Templates: BOOTSTRAP](https://docs.SKYKOI.com/reference/templates/BOOTSTRAP)
+- [Templates: IDENTITY](https://docs.SKYKOI.com/reference/templates/IDENTITY)
+- [Templates: SOUL](https://docs.SKYKOI.com/reference/templates/SOUL)
+- [Templates: TOOLS](https://docs.SKYKOI.com/reference/templates/TOOLS)
+- [Templates: USER](https://docs.SKYKOI.com/reference/templates/USER)
 
 ## Platform internals
 
-- [macOS dev setup](https://docs.synurex.com/platforms/mac/dev-setup)
-- [macOS menu bar](https://docs.synurex.com/platforms/mac/menu-bar)
-- [macOS voice wake](https://docs.synurex.com/platforms/mac/voicewake)
-- [iOS node](https://docs.synurex.com/platforms/ios)
-- [Android node](https://docs.synurex.com/platforms/android)
-- [Windows (WSL2)](https://docs.synurex.com/platforms/windows)
-- [Linux app](https://docs.synurex.com/platforms/linux)
+- [macOS dev setup](https://docs.SKYKOI.com/platforms/mac/dev-setup)
+- [macOS menu bar](https://docs.SKYKOI.com/platforms/mac/menu-bar)
+- [macOS voice wake](https://docs.SKYKOI.com/platforms/mac/voicewake)
+- [iOS node](https://docs.SKYKOI.com/platforms/ios)
+- [Android node](https://docs.SKYKOI.com/platforms/android)
+- [Windows (WSL2)](https://docs.SKYKOI.com/platforms/windows)
+- [Linux app](https://docs.SKYKOI.com/platforms/linux)
 
 ## Email hooks (Gmail)
 
-- [docs.synurex.com/gmail-pubsub](https://docs.synurex.com/automation/gmail-pubsub)
+- [docs.SKYKOI.com/gmail-pubsub](https://docs.SKYKOI.com/automation/gmail-pubsub)
 
 ## Molty
 
-Synurex was forked from Synurex, which was built for **Molty**, a space lobster AI assistant. 🦞
+SKYKOI was forked from SKYKOI, which was built for **Molty**, a space lobster AI assistant. 🦞
 by Peter Steinberger and the community.
 
-- [synurex.com](https://synurex.com)
+- [SKYKOI.com](https://SKYKOI.com)
 - [soul.md](https://soul.md)
 - [steipete.me](https://steipete.me)
-- [@synurex](https://x.com/Synurex)
+- [@SKYKOI](https://x.com/SKYKOI)
 
 ## Community
 
@@ -532,7 +532,7 @@ Thanks to all clawtributors:
   <a href="https://github.com/Suksham-sharma"><img src="https://avatars.githubusercontent.com/u/94667656?v=4&s=48" width="48" height="48" alt="Suksham-sharma" title="Suksham-sharma"/></a> <a href="https://github.com/T5-AndyML"><img src="https://avatars.githubusercontent.com/u/22801233?v=4&s=48" width="48" height="48" alt="T5-AndyML" title="T5-AndyML"/></a> <a href="https://github.com/tewatia"><img src="https://avatars.githubusercontent.com/u/22875334?v=4&s=48" width="48" height="48" alt="tewatia" title="tewatia"/></a> <a href="https://github.com/thejhinvirtuoso"><img src="https://avatars.githubusercontent.com/u/258521837?v=4&s=48" width="48" height="48" alt="thejhinvirtuoso" title="thejhinvirtuoso"/></a> <a href="https://github.com/travisp"><img src="https://avatars.githubusercontent.com/u/165698?v=4&s=48" width="48" height="48" alt="travisp" title="travisp"/></a> <a href="https://github.com/search?q=VAC"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="VAC" title="VAC"/></a> <a href="https://github.com/search?q=william%20arzt"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="william arzt" title="william arzt"/></a> <a href="https://github.com/yudshj"><img src="https://avatars.githubusercontent.com/u/16971372?v=4&s=48" width="48" height="48" alt="yudshj" title="yudshj"/></a> <a href="https://github.com/zknicker"><img src="https://avatars.githubusercontent.com/u/1164085?v=4&s=48" width="48" height="48" alt="zknicker" title="zknicker"/></a> <a href="https://github.com/0oAstro"><img src="https://avatars.githubusercontent.com/u/79555780?v=4&s=48" width="48" height="48" alt="0oAstro" title="0oAstro"/></a>
   <a href="https://github.com/abhaymundhara"><img src="https://avatars.githubusercontent.com/u/62872231?v=4&s=48" width="48" height="48" alt="abhaymundhara" title="abhaymundhara"/></a> <a href="https://github.com/aduk059"><img src="https://avatars.githubusercontent.com/u/257603478?v=4&s=48" width="48" height="48" alt="aduk059" title="aduk059"/></a> <a href="https://github.com/aisling404"><img src="https://avatars.githubusercontent.com/u/211950534?v=4&s=48" width="48" height="48" alt="aisling404" title="aisling404"/></a> <a href="https://github.com/akramcodez"><img src="https://avatars.githubusercontent.com/u/179671552?v=4&s=48" width="48" height="48" alt="akramcodez" title="akramcodez"/></a> <a href="https://github.com/search?q=alejandro%20maza"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="alejandro maza" title="alejandro maza"/></a> <a href="https://github.com/Alex-Alaniz"><img src="https://avatars.githubusercontent.com/u/88956822?v=4&s=48" width="48" height="48" alt="Alex-Alaniz" title="Alex-Alaniz"/></a> <a href="https://github.com/alexanderatallah"><img src="https://avatars.githubusercontent.com/u/1011391?v=4&s=48" width="48" height="48" alt="alexanderatallah" title="alexanderatallah"/></a> <a href="https://github.com/alexstyl"><img src="https://avatars.githubusercontent.com/u/1665273?v=4&s=48" width="48" height="48" alt="alexstyl" title="alexstyl"/></a> <a href="https://github.com/AlexZhangji"><img src="https://avatars.githubusercontent.com/u/3280924?v=4&s=48" width="48" height="48" alt="AlexZhangji" title="AlexZhangji"/></a> <a href="https://github.com/andrewting19"><img src="https://avatars.githubusercontent.com/u/10536704?v=4&s=48" width="48" height="48" alt="andrewting19" title="andrewting19"/></a>
   <a href="https://github.com/anpoirier"><img src="https://avatars.githubusercontent.com/u/1245729?v=4&s=48" width="48" height="48" alt="anpoirier" title="anpoirier"/></a> <a href="https://github.com/araa47"><img src="https://avatars.githubusercontent.com/u/22760261?v=4&s=48" width="48" height="48" alt="araa47" title="araa47"/></a> <a href="https://github.com/arthyn"><img src="https://avatars.githubusercontent.com/u/5466421?v=4&s=48" width="48" height="48" alt="arthyn" title="arthyn"/></a> <a href="https://github.com/Asleep123"><img src="https://avatars.githubusercontent.com/u/122379135?v=4&s=48" width="48" height="48" alt="Asleep123" title="Asleep123"/></a> <a href="https://github.com/search?q=Ayush%20Ojha"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Ayush Ojha" title="Ayush Ojha"/></a> <a href="https://github.com/Ayush10"><img src="https://avatars.githubusercontent.com/u/7945279?v=4&s=48" width="48" height="48" alt="Ayush10" title="Ayush10"/></a> <a href="https://github.com/bguidolim"><img src="https://avatars.githubusercontent.com/u/987360?v=4&s=48" width="48" height="48" alt="bguidolim" title="bguidolim"/></a> <a href="https://github.com/bolismauro"><img src="https://avatars.githubusercontent.com/u/771999?v=4&s=48" width="48" height="48" alt="bolismauro" title="bolismauro"/></a> <a href="https://github.com/caelum0x"><img src="https://avatars.githubusercontent.com/u/130079063?v=4&s=48" width="48" height="48" alt="caelum0x" title="caelum0x"/></a> <a href="https://github.com/championswimmer"><img src="https://avatars.githubusercontent.com/u/1327050?v=4&s=48" width="48" height="48" alt="championswimmer" title="championswimmer"/></a>
-  <a href="https://github.com/chenyuan99"><img src="https://avatars.githubusercontent.com/u/25518100?v=4&s=48" width="48" height="48" alt="chenyuan99" title="chenyuan99"/></a> <a href="https://github.com/Chloe-VP"><img src="https://avatars.githubusercontent.com/u/257371598?v=4&s=48" width="48" height="48" alt="Chloe-VP" title="Chloe-VP"/></a> <a href="https://github.com/search?q=Synurex%20Maintainers"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Synurex Maintainers" title="Synurex Maintainers"/></a> <a href="https://github.com/conhecendoia"><img src="https://avatars.githubusercontent.com/u/82890727?v=4&s=48" width="48" height="48" alt="conhecendoia" title="conhecendoia"/></a> <a href="https://github.com/dasilva333"><img src="https://avatars.githubusercontent.com/u/947827?v=4&s=48" width="48" height="48" alt="dasilva333" title="dasilva333"/></a> <a href="https://github.com/David-Marsh-Photo"><img src="https://avatars.githubusercontent.com/u/228404527?v=4&s=48" width="48" height="48" alt="David-Marsh-Photo" title="David-Marsh-Photo"/></a> <a href="https://github.com/deepsoumya617"><img src="https://avatars.githubusercontent.com/u/80877391?v=4&s=48" width="48" height="48" alt="deepsoumya617" title="deepsoumya617"/></a> <a href="https://github.com/search?q=Developer"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Developer" title="Developer"/></a> <a href="https://github.com/search?q=Dimitrios%20Ploutarchos"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Dimitrios Ploutarchos" title="Dimitrios Ploutarchos"/></a> <a href="https://github.com/search?q=Drake%20Thomsen"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Drake Thomsen" title="Drake Thomsen"/></a>
+  <a href="https://github.com/chenyuan99"><img src="https://avatars.githubusercontent.com/u/25518100?v=4&s=48" width="48" height="48" alt="chenyuan99" title="chenyuan99"/></a> <a href="https://github.com/Chloe-VP"><img src="https://avatars.githubusercontent.com/u/257371598?v=4&s=48" width="48" height="48" alt="Chloe-VP" title="Chloe-VP"/></a> <a href="https://github.com/search?q=SKYKOI%20Maintainers"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="SKYKOI Maintainers" title="SKYKOI Maintainers"/></a> <a href="https://github.com/conhecendoia"><img src="https://avatars.githubusercontent.com/u/82890727?v=4&s=48" width="48" height="48" alt="conhecendoia" title="conhecendoia"/></a> <a href="https://github.com/dasilva333"><img src="https://avatars.githubusercontent.com/u/947827?v=4&s=48" width="48" height="48" alt="dasilva333" title="dasilva333"/></a> <a href="https://github.com/David-Marsh-Photo"><img src="https://avatars.githubusercontent.com/u/228404527?v=4&s=48" width="48" height="48" alt="David-Marsh-Photo" title="David-Marsh-Photo"/></a> <a href="https://github.com/deepsoumya617"><img src="https://avatars.githubusercontent.com/u/80877391?v=4&s=48" width="48" height="48" alt="deepsoumya617" title="deepsoumya617"/></a> <a href="https://github.com/search?q=Developer"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Developer" title="Developer"/></a> <a href="https://github.com/search?q=Dimitrios%20Ploutarchos"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Dimitrios Ploutarchos" title="Dimitrios Ploutarchos"/></a> <a href="https://github.com/search?q=Drake%20Thomsen"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Drake Thomsen" title="Drake Thomsen"/></a>
   <a href="https://github.com/dvrshil"><img src="https://avatars.githubusercontent.com/u/81693876?v=4&s=48" width="48" height="48" alt="dvrshil" title="dvrshil"/></a> <a href="https://github.com/dxd5001"><img src="https://avatars.githubusercontent.com/u/1886046?v=4&s=48" width="48" height="48" alt="dxd5001" title="dxd5001"/></a> <a href="https://github.com/dylanneve1"><img src="https://avatars.githubusercontent.com/u/31746704?v=4&s=48" width="48" height="48" alt="dylanneve1" title="dylanneve1"/></a> <a href="https://github.com/search?q=Felix%20Krause"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Felix Krause" title="Felix Krause"/></a> <a href="https://github.com/foeken"><img src="https://avatars.githubusercontent.com/u/13864?v=4&s=48" width="48" height="48" alt="foeken" title="foeken"/></a> <a href="https://github.com/frankekn"><img src="https://avatars.githubusercontent.com/u/4488090?v=4&s=48" width="48" height="48" alt="frankekn" title="frankekn"/></a> <a href="https://github.com/fredheir"><img src="https://avatars.githubusercontent.com/u/3304869?v=4&s=48" width="48" height="48" alt="fredheir" title="fredheir"/></a> <a href="https://github.com/search?q=ganghyun%20kim"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="ganghyun kim" title="ganghyun kim"/></a> <a href="https://github.com/grrowl"><img src="https://avatars.githubusercontent.com/u/907140?v=4&s=48" width="48" height="48" alt="grrowl" title="grrowl"/></a> <a href="https://github.com/gtsifrikas"><img src="https://avatars.githubusercontent.com/u/8904378?v=4&s=48" width="48" height="48" alt="gtsifrikas" title="gtsifrikas"/></a>
   <a href="https://github.com/HassanFleyah"><img src="https://avatars.githubusercontent.com/u/228002017?v=4&s=48" width="48" height="48" alt="HassanFleyah" title="HassanFleyah"/></a> <a href="https://github.com/HazAT"><img src="https://avatars.githubusercontent.com/u/363802?v=4&s=48" width="48" height="48" alt="HazAT" title="HazAT"/></a> <a href="https://github.com/hrdwdmrbl"><img src="https://avatars.githubusercontent.com/u/554881?v=4&s=48" width="48" height="48" alt="hrdwdmrbl" title="hrdwdmrbl"/></a> <a href="https://github.com/hugobarauna"><img src="https://avatars.githubusercontent.com/u/2719?v=4&s=48" width="48" height="48" alt="hugobarauna" title="hugobarauna"/></a> <a href="https://github.com/iamEvanYT"><img src="https://avatars.githubusercontent.com/u/47493765?v=4&s=48" width="48" height="48" alt="iamEvanYT" title="iamEvanYT"/></a> <a href="https://github.com/ichbinlucaskim"><img src="https://avatars.githubusercontent.com/u/125564751?v=4&s=48" width="48" height="48" alt="ichbinlucaskim" title="ichbinlucaskim"/></a> <a href="https://github.com/search?q=Jamie%20Openshaw"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Jamie Openshaw" title="Jamie Openshaw"/></a> <a href="https://github.com/search?q=Jane"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Jane" title="Jane"/></a> <a href="https://github.com/search?q=Jarvis%20Deploy"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Jarvis Deploy" title="Jarvis Deploy"/></a> <a href="https://github.com/search?q=Jefferson%20Nunn"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Jefferson Nunn" title="Jefferson Nunn"/></a>
   <a href="https://github.com/jogi47"><img src="https://avatars.githubusercontent.com/u/1710139?v=4&s=48" width="48" height="48" alt="jogi47" title="jogi47"/></a> <a href="https://github.com/kentaro"><img src="https://avatars.githubusercontent.com/u/3458?v=4&s=48" width="48" height="48" alt="kentaro" title="kentaro"/></a> <a href="https://github.com/search?q=Kevin%20Lin"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Kevin Lin" title="Kevin Lin"/></a> <a href="https://github.com/kira-ariaki"><img src="https://avatars.githubusercontent.com/u/257352493?v=4&s=48" width="48" height="48" alt="kira-ariaki" title="kira-ariaki"/></a> <a href="https://github.com/kitze"><img src="https://avatars.githubusercontent.com/u/1160594?v=4&s=48" width="48" height="48" alt="kitze" title="kitze"/></a> <a href="https://github.com/Kiwitwitter"><img src="https://avatars.githubusercontent.com/u/25277769?v=4&s=48" width="48" height="48" alt="Kiwitwitter" title="Kiwitwitter"/></a> <a href="https://github.com/levifig"><img src="https://avatars.githubusercontent.com/u/1605?v=4&s=48" width="48" height="48" alt="levifig" title="levifig"/></a> <a href="https://github.com/search?q=Lloyd"><img src="assets/avatar-placeholder.svg" width="48" height="48" alt="Lloyd" title="Lloyd"/></a> <a href="https://github.com/loganaden"><img src="https://avatars.githubusercontent.com/u/1688420?v=4&s=48" width="48" height="48" alt="loganaden" title="loganaden"/></a> <a href="https://github.com/longjos"><img src="https://avatars.githubusercontent.com/u/740160?v=4&s=48" width="48" height="48" alt="longjos" title="longjos"/></a>

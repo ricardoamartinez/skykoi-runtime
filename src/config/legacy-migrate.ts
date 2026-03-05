@@ -1,9 +1,9 @@
-import type { SynurexConfig } from "./types.js";
+import type { SKYKOIConfig } from "./types.js";
 import { applyLegacyMigrations } from "./legacy.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
 export function migrateLegacyConfig(raw: unknown): {
-  config: SynurexConfig | null;
+  config: SKYKOIConfig | null;
   changes: string[];
 } {
   const { next, changes } = applyLegacyMigrations(raw);

@@ -8,7 +8,7 @@ describe("system-presence", () => {
     const instanceIdLower = instanceIdUpper.toLowerCase();
 
     upsertPresence(instanceIdUpper, {
-      host: "synurex",
+      host: "SKYKOI",
       mode: "ui",
       instanceId: instanceIdUpper,
       reason: "connect",
@@ -39,7 +39,7 @@ describe("system-presence", () => {
 
     upsertPresence(deviceId, {
       deviceId,
-      host: "synurex",
+      host: "SKYKOI",
       roles: ["operator"],
       scopes: ["operator.admin"],
       reason: "connect",

@@ -36,11 +36,11 @@ x-i18n:
 - **配置键：** `exec.host` + `exec.security`（允许每智能体覆盖）。
 - **提升：** 保留 `/elevated` 作为 Gateway 网关完全访问的别名。
 - **询问默认：** `on-miss`。
-- **批准存储：** `~/.synurex/exec-approvals.json`（JSON，无遗留迁移）。
+- **批准存储：** `~/.SKYKOI/exec-approvals.json`（JSON，无遗留迁移）。
 - **运行器：** 无头系统服务；UI 应用托管 Unix socket 用于批准。
 - **节点身份：** 使用现有 `nodeId`。
 - **Socket 认证：** Unix socket + token（跨平台）；如需要稍后拆分。
-- **节点主机状态：** `~/.synurex/node.json`（节点 id + 配对 token）。
+- **节点主机状态：** `~/.SKYKOI/node.json`（节点 id + 配对 token）。
 - **macOS exec 主机：** 在 macOS 应用内运行 `system.run`；节点主机服务通过本地 IPC 转发请求。
 - **无 XPC helper：** 坚持使用 Unix socket + token + 对等检查。
 
@@ -110,7 +110,7 @@ x-i18n:
 
 ## 批准存储（JSON）
 
-路径：`~/.synurex/exec-approvals.json`
+路径：`~/.SKYKOI/exec-approvals.json`
 
 用途：
 
@@ -124,7 +124,7 @@ x-i18n:
 {
   "version": 1,
   "socket": {
-    "path": "~/.synurex/exec-approvals.sock",
+    "path": "~/.SKYKOI/exec-approvals.sock",
     "token": "base64-opaque-token"
   },
   "defaults": {
@@ -173,7 +173,7 @@ x-i18n:
 
 ### IPC
 
-- Unix socket 位于 `~/.synurex/exec-approvals.sock`（0600）。
+- Unix socket 位于 `~/.SKYKOI/exec-approvals.sock`（0600）。
 - Token 存储在 `exec-approvals.json`（0600）中。
 - 对等检查：仅同 UID。
 - 挑战/响应：nonce + HMAC(token, request-hash) 防止重放。

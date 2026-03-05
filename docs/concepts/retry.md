@@ -38,7 +38,7 @@ title: "Retry Policy"
 
 ## Configuration
 
-Set retry policy per provider in `~/.synurex/synurex.json`:
+Set retry policy per provider in `~/.SKYKOI/SKYKOI.json`:
 
 ```json5
 {

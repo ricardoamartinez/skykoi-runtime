@@ -1,15 +1,15 @@
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-  SynurexConfig,
-} from "Synurex/plugin-sdk";
+  SKYKOIConfig,
+} from "SKYKOI/plugin-sdk";
 import {
   createActionGate,
   jsonResult,
   readNumberParam,
   readReactionParams,
   readStringParam,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import { listEnabledGoogleChatAccounts, resolveGoogleChatAccount } from "./accounts.js";
 import {
   createGoogleChatReaction,
@@ -23,13 +23,13 @@ import { resolveGoogleChatOutboundSpace } from "./targets.js";
 
 const providerId = "googlechat";
 
-function listEnabledAccounts(cfg: SynurexConfig) {
+function listEnabledAccounts(cfg: SKYKOIConfig) {
   return listEnabledGoogleChatAccounts(cfg).filter(
     (account) => account.enabled && account.credentialSource !== "none",
   );
 }
 
-function isReactionsEnabled(accounts: ReturnType<typeof listEnabledAccounts>, cfg: SynurexConfig) {
+function isReactionsEnabled(accounts: ReturnType<typeof listEnabledAccounts>, cfg: SKYKOIConfig) {
   for (const account of accounts) {
     const gate = createActionGate(
       (account.config.actions ??

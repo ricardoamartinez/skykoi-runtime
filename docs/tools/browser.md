@@ -2,31 +2,31 @@
 summary: "Integrated browser control service + action commands"
 read_when:
   - Adding agent-controlled browser automation
-  - Debugging why Synurex is interfering with your own Chrome
+  - Debugging why SKYKOI is interfering with your own Chrome
   - Implementing browser settings + lifecycle in the macOS app
-title: "Browser (Synurex-managed)"
+title: "Browser (SKYKOI-managed)"
 ---
 
-# Browser (Synurex-managed)
+# Browser (SKYKOI-managed)
 
-Synurex can run a **dedicated Chrome/Brave/Edge/Chromium profile** that the agent controls.
+SKYKOI can run a **dedicated Chrome/Brave/Edge/Chromium profile** that the agent controls.
 It is isolated from your personal browser and is managed through a small local
 control service inside the Gateway (loopback only).
 
 Beginner view:
 
 - Think of it as a **separate, agent-only browser**.
-- The `Synurex` profile does **not** touch your personal browser profile.
+- The `SKYKOI` profile does **not** touch your personal browser profile.
 - The agent can **open tabs, read pages, click, and type** in a safe lane.
 - The default `chrome` profile uses the **system default Chromium browser** via the
-  extension relay; switch to `Synurex` for the isolated managed browser.
+  extension relay; switch to `SKYKOI` for the isolated managed browser.
 
 ## What you get
 
-- A separate browser profile named **Synurex** (orange accent by default).
+- A separate browser profile named **SKYKOI** (orange accent by default).
 - Deterministic tab control (list/open/focus/close).
 - Agent actions (click/type/drag/select), snapshots, screenshots, PDFs.
-- Optional multi-profile support (`Synurex`, `work`, `remote`, ...).
+- Optional multi-profile support (`SKYKOI`, `work`, `remote`, ...).
 
 This browser is **not** your daily driver. It is a safe, isolated surface for
 agent automation and verification.
@@ -34,26 +34,26 @@ agent automation and verification.
 ## Quick start
 
 ```bash
-Synurex browser --browser-profile Synurex status
-Synurex browser --browser-profile Synurex start
-Synurex browser --browser-profile Synurex open https://example.com
-Synurex browser --browser-profile Synurex snapshot
+SKYKOI browser --browser-profile SKYKOI status
+SKYKOI browser --browser-profile SKYKOI start
+SKYKOI browser --browser-profile SKYKOI open https://example.com
+SKYKOI browser --browser-profile SKYKOI snapshot
 ```
 
 If you get “Browser disabled”, enable it in config (see below) and restart the
 Gateway.
 
-## Profiles: `Synurex` vs `chrome`
+## Profiles: `SKYKOI` vs `chrome`
 
-- `Synurex`: managed, isolated browser (no extension required).
-- `chrome`: extension relay to your **system browser** (requires the Synurex
+- `SKYKOI`: managed, isolated browser (no extension required).
+- `chrome`: extension relay to your **system browser** (requires the SKYKOI
   extension to be attached to a tab).
 
-Set `browser.defaultProfile: "Synurex"` if you want managed mode by default.
+Set `browser.defaultProfile: "SKYKOI"` if you want managed mode by default.
 
 ## Configuration
 
-Browser settings live in `~/.synurex/synurex.json`.
+Browser settings live in `~/.SKYKOI/SKYKOI.json`.
 
 ```json5
 {
@@ -69,7 +69,7 @@ Browser settings live in `~/.synurex/synurex.json`.
     attachOnly: false,
     executablePath: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
     profiles: {
-      Synurex: { cdpPort: 18800, color: "#FF4500" },
+      SKYKOI: { cdpPort: 18800, color: "#FF4500" },
       work: { cdpPort: 18801, color: "#0066CC" },
       remote: { cdpUrl: "http://10.0.0.42:9222", color: "#00AA00" },
     },
@@ -81,27 +81,27 @@ Notes:
 
 - The browser control service binds to loopback on a port derived from `gateway.port`
   (default: `18791`, which is gateway + 2). The relay uses the next port (`18792`).
-- If you override the Gateway port (`gateway.port` or `SYNUREX_GATEWAY_PORT`),
+- If you override the Gateway port (`gateway.port` or `SKYKOI_GATEWAY_PORT`),
   the derived browser ports shift to stay in the same “family”.
 - `cdpUrl` defaults to the relay port when unset.
 - `remoteCdpTimeoutMs` applies to remote (non-loopback) CDP reachability checks.
 - `remoteCdpHandshakeTimeoutMs` applies to remote CDP WebSocket reachability checks.
 - `attachOnly: true` means “never launch a local browser; only attach if it is already running.”
 - `color` + per-profile `color` tint the browser UI so you can see which profile is active.
-- Default profile is `chrome` (extension relay). Use `defaultProfile: "Synurex"` for the managed browser.
+- Default profile is `chrome` (extension relay). Use `defaultProfile: "SKYKOI"` for the managed browser.
 - Auto-detect order: system default browser if Chromium-based; otherwise Chrome → Brave → Edge → Chromium → Chrome Canary.
-- Local `Synurex` profiles auto-assign `cdpPort`/`cdpUrl` — set those only for remote CDP.
+- Local `SKYKOI` profiles auto-assign `cdpPort`/`cdpUrl` — set those only for remote CDP.
 
 ## Use Brave (or another Chromium-based browser)
 
 If your **system default** browser is Chromium-based (Chrome/Brave/Edge/etc),
-Synurex uses it automatically. Set `browser.executablePath` to override
+SKYKOI uses it automatically. Set `browser.executablePath` to override
 auto-detection:
 
 CLI example:
 
 ```bash
-Synurex config set browser.executablePath "/usr/bin/google-chrome"
+SKYKOI config set browser.executablePath "/usr/bin/google-chrome"
 ```
 
 ```json5
@@ -132,20 +132,20 @@ Synurex config set browser.executablePath "/usr/bin/google-chrome"
 - **Local control (default):** the Gateway starts the loopback control service and can launch a local browser.
 - **Remote control (node host):** run a node host on the machine that has the browser; the Gateway proxies browser actions to it.
 - **Remote CDP:** set `browser.profiles.<name>.cdpUrl` (or `browser.cdpUrl`) to
-  attach to a remote Chromium-based browser. In this case, Synurex will not launch a local browser.
+  attach to a remote Chromium-based browser. In this case, SKYKOI will not launch a local browser.
 
 Remote CDP URLs can include auth:
 
 - Query tokens (e.g., `https://provider.example?token=<token>`)
 - HTTP Basic auth (e.g., `https://user:pass@provider.example`)
 
-Synurex preserves the auth when calling `/json/*` endpoints and when connecting
+SKYKOI preserves the auth when calling `/json/*` endpoints and when connecting
 to the CDP WebSocket. Prefer environment variables or secrets managers for
 tokens instead of committing them to config files.
 
 ## Node browser proxy (zero-config default)
 
-If you run a **node host** on the machine that has your browser, Synurex can
+If you run a **node host** on the machine that has your browser, SKYKOI can
 auto-route browser tool calls to that node without any extra browser config.
 This is the default path for remote gateways.
 
@@ -160,7 +160,7 @@ Notes:
 ## Browserless (hosted remote CDP)
 
 [Browserless](https://browserless.io) is a hosted Chromium service that exposes
-CDP endpoints over HTTPS. You can point a Synurex browser profile at a
+CDP endpoints over HTTPS. You can point a SKYKOI browser profile at a
 Browserless region endpoint and authenticate with your API key.
 
 Example:
@@ -202,15 +202,15 @@ Remote CDP tips:
 
 ## Profiles (multi-browser)
 
-Synurex supports multiple named profiles (routing configs). Profiles can be:
+SKYKOI supports multiple named profiles (routing configs). Profiles can be:
 
-- **Synurex-managed**: a dedicated Chromium-based browser instance with its own user data directory + CDP port
+- **SKYKOI-managed**: a dedicated Chromium-based browser instance with its own user data directory + CDP port
 - **remote**: an explicit CDP URL (Chromium-based browser running elsewhere)
 - **extension relay**: your existing Chrome tab(s) via the local relay + Chrome extension
 
 Defaults:
 
-- The `Synurex` profile is auto-created if missing.
+- The `SKYKOI` profile is auto-created if missing.
 - The `chrome` profile is built-in for the Chrome extension relay (points at `http://127.0.0.1:18792` by default).
 - Local CDP ports allocate from **18800–18899** by default.
 - Deleting a profile moves its local data directory to Trash.
@@ -219,7 +219,7 @@ All control endpoints accept `?profile=<name>`; the CLI uses `--browser-profile`
 
 ## Chrome extension relay (use your existing Chrome)
 
-Synurex can also drive **your existing Chrome tabs** (no separate “Synurex” Chrome instance) via a local CDP relay + a Chrome extension.
+SKYKOI can also drive **your existing Chrome tabs** (no separate “SKYKOI” Chrome instance) via a local CDP relay + a Chrome extension.
 
 Full guide: [Chrome extension](/tools/chrome-extension)
 
@@ -227,7 +227,7 @@ Flow:
 
 - The Gateway runs locally (same machine) or a node host runs on the browser machine.
 - A local **relay server** listens at a loopback `cdpUrl` (default: `http://127.0.0.1:18792`).
-- You click the **Synurex Browser Relay** extension icon on a tab to attach (it does not auto-attach).
+- You click the **SKYKOI Browser Relay** extension icon on a tab to attach (it does not auto-attach).
 - The agent controls that tab via the normal `browser` tool, by selecting the right profile.
 
 If the Gateway runs elsewhere, run a node host on the browser machine so the Gateway can proxy browser actions.
@@ -245,22 +245,22 @@ Chrome extension relay takeover requires host browser control, so either:
 1. Load the extension (dev/unpacked):
 
 ```bash
-Synurex browser extension install
+SKYKOI browser extension install
 ```
 
 - Chrome → `chrome://extensions` → enable “Developer mode”
-- “Load unpacked” → select the directory printed by `Synurex browser extension path`
+- “Load unpacked” → select the directory printed by `SKYKOI browser extension path`
 - Pin the extension, then click it on the tab you want to control (badge shows `ON`).
 
 2. Use it:
 
-- CLI: `Synurex browser --browser-profile chrome tabs`
+- CLI: `SKYKOI browser --browser-profile chrome tabs`
 - Agent tool: `browser` with `profile="chrome"`
 
 Optional: if you want a different name or relay port, create your own profile:
 
 ```bash
-Synurex browser create-profile \
+SKYKOI browser create-profile \
   --name my-chrome \
   --driver extension \
   --cdp-url http://127.0.0.1:18792 \
@@ -280,7 +280,7 @@ Notes:
 
 ## Browser selection
 
-When launching locally, Synurex picks the first available:
+When launching locally, SKYKOI picks the first available:
 
 1. Chrome
 2. Brave
@@ -319,12 +319,12 @@ All endpoints accept `?profile=<name>`.
 
 Some features (navigate/act/AI snapshot/role snapshot, element screenshots, PDF) require
 Playwright. If Playwright isn’t installed, those endpoints return a clear 501
-error. ARIA snapshots and basic screenshots still work for Synurex-managed Chrome.
+error. ARIA snapshots and basic screenshots still work for SKYKOI-managed Chrome.
 For the Chrome extension relay driver, ARIA snapshots and screenshots require Playwright.
 
 If you see `Playwright is not available in this gateway build`, install the full
 Playwright package (not `playwright-core`) and restart the gateway, or reinstall
-Synurex with browser support.
+SKYKOI with browser support.
 
 #### Docker Playwright install
 
@@ -332,13 +332,13 @@ If your Gateway runs in Docker, avoid `npx playwright` (npm override conflicts).
 Use the bundled CLI instead:
 
 ```bash
-docker compose run --rm Synurex-cli \
+docker compose run --rm SKYKOI-cli \
   node /app/node_modules/playwright-core/cli.js install chromium
 ```
 
 To persist browser downloads, set `PLAYWRIGHT_BROWSERS_PATH` (for example,
 `/home/node/.cache/ms-playwright`) and make sure `/home/node` is persisted via
-`SYNUREX_HOME_VOLUME` or a bind mount. See [Docker](/install/docker).
+`SKYKOI_HOME_VOLUME` or a bind mount. See [Docker](/install/docker).
 
 ## How it works (internal)
 
@@ -360,79 +360,79 @@ All commands also accept `--json` for machine-readable output (stable payloads).
 
 Basics:
 
-- `Synurex browser status`
-- `Synurex browser start`
-- `Synurex browser stop`
-- `Synurex browser tabs`
-- `Synurex browser tab`
-- `Synurex browser tab new`
-- `Synurex browser tab select 2`
-- `Synurex browser tab close 2`
-- `Synurex browser open https://example.com`
-- `Synurex browser focus abcd1234`
-- `Synurex browser close abcd1234`
+- `SKYKOI browser status`
+- `SKYKOI browser start`
+- `SKYKOI browser stop`
+- `SKYKOI browser tabs`
+- `SKYKOI browser tab`
+- `SKYKOI browser tab new`
+- `SKYKOI browser tab select 2`
+- `SKYKOI browser tab close 2`
+- `SKYKOI browser open https://example.com`
+- `SKYKOI browser focus abcd1234`
+- `SKYKOI browser close abcd1234`
 
 Inspection:
 
-- `Synurex browser screenshot`
-- `Synurex browser screenshot --full-page`
-- `Synurex browser screenshot --ref 12`
-- `Synurex browser screenshot --ref e12`
-- `Synurex browser snapshot`
-- `Synurex browser snapshot --format aria --limit 200`
-- `Synurex browser snapshot --interactive --compact --depth 6`
-- `Synurex browser snapshot --efficient`
-- `Synurex browser snapshot --labels`
-- `Synurex browser snapshot --selector "#main" --interactive`
-- `Synurex browser snapshot --frame "iframe#main" --interactive`
-- `Synurex browser console --level error`
-- `Synurex browser errors --clear`
-- `Synurex browser requests --filter api --clear`
-- `Synurex browser pdf`
-- `Synurex browser responsebody "**/api" --max-chars 5000`
+- `SKYKOI browser screenshot`
+- `SKYKOI browser screenshot --full-page`
+- `SKYKOI browser screenshot --ref 12`
+- `SKYKOI browser screenshot --ref e12`
+- `SKYKOI browser snapshot`
+- `SKYKOI browser snapshot --format aria --limit 200`
+- `SKYKOI browser snapshot --interactive --compact --depth 6`
+- `SKYKOI browser snapshot --efficient`
+- `SKYKOI browser snapshot --labels`
+- `SKYKOI browser snapshot --selector "#main" --interactive`
+- `SKYKOI browser snapshot --frame "iframe#main" --interactive`
+- `SKYKOI browser console --level error`
+- `SKYKOI browser errors --clear`
+- `SKYKOI browser requests --filter api --clear`
+- `SKYKOI browser pdf`
+- `SKYKOI browser responsebody "**/api" --max-chars 5000`
 
 Actions:
 
-- `Synurex browser navigate https://example.com`
-- `Synurex browser resize 1280 720`
-- `Synurex browser click 12 --double`
-- `Synurex browser click e12 --double`
-- `Synurex browser type 23 "hello" --submit`
-- `Synurex browser press Enter`
-- `Synurex browser hover 44`
-- `Synurex browser scrollintoview e12`
-- `Synurex browser drag 10 11`
-- `Synurex browser select 9 OptionA OptionB`
-- `Synurex browser download e12 /tmp/report.pdf`
-- `Synurex browser waitfordownload /tmp/report.pdf`
-- `Synurex browser upload /tmp/file.pdf`
-- `Synurex browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
-- `Synurex browser dialog --accept`
-- `Synurex browser wait --text "Done"`
-- `Synurex browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
-- `Synurex browser evaluate --fn '(el) => el.textContent' --ref 7`
-- `Synurex browser highlight e12`
-- `Synurex browser trace start`
-- `Synurex browser trace stop`
+- `SKYKOI browser navigate https://example.com`
+- `SKYKOI browser resize 1280 720`
+- `SKYKOI browser click 12 --double`
+- `SKYKOI browser click e12 --double`
+- `SKYKOI browser type 23 "hello" --submit`
+- `SKYKOI browser press Enter`
+- `SKYKOI browser hover 44`
+- `SKYKOI browser scrollintoview e12`
+- `SKYKOI browser drag 10 11`
+- `SKYKOI browser select 9 OptionA OptionB`
+- `SKYKOI browser download e12 /tmp/report.pdf`
+- `SKYKOI browser waitfordownload /tmp/report.pdf`
+- `SKYKOI browser upload /tmp/file.pdf`
+- `SKYKOI browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
+- `SKYKOI browser dialog --accept`
+- `SKYKOI browser wait --text "Done"`
+- `SKYKOI browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
+- `SKYKOI browser evaluate --fn '(el) => el.textContent' --ref 7`
+- `SKYKOI browser highlight e12`
+- `SKYKOI browser trace start`
+- `SKYKOI browser trace stop`
 
 State:
 
-- `Synurex browser cookies`
-- `Synurex browser cookies set session abc123 --url "https://example.com"`
-- `Synurex browser cookies clear`
-- `Synurex browser storage local get`
-- `Synurex browser storage local set theme dark`
-- `Synurex browser storage session clear`
-- `Synurex browser set offline on`
-- `Synurex browser set headers --json '{"X-Debug":"1"}'`
-- `Synurex browser set credentials user pass`
-- `Synurex browser set credentials --clear`
-- `Synurex browser set geo 37.7749 -122.4194 --origin "https://example.com"`
-- `Synurex browser set geo --clear`
-- `Synurex browser set media dark`
-- `Synurex browser set timezone America/New_York`
-- `Synurex browser set locale en-US`
-- `Synurex browser set device "iPhone 14"`
+- `SKYKOI browser cookies`
+- `SKYKOI browser cookies set session abc123 --url "https://example.com"`
+- `SKYKOI browser cookies clear`
+- `SKYKOI browser storage local get`
+- `SKYKOI browser storage local set theme dark`
+- `SKYKOI browser storage session clear`
+- `SKYKOI browser set offline on`
+- `SKYKOI browser set headers --json '{"X-Debug":"1"}'`
+- `SKYKOI browser set credentials user pass`
+- `SKYKOI browser set credentials --clear`
+- `SKYKOI browser set geo 37.7749 -122.4194 --origin "https://example.com"`
+- `SKYKOI browser set geo --clear`
+- `SKYKOI browser set media dark`
+- `SKYKOI browser set timezone America/New_York`
+- `SKYKOI browser set locale en-US`
+- `SKYKOI browser set device "iPhone 14"`
 
 Notes:
 
@@ -443,7 +443,7 @@ Notes:
   - `--format ai` (default when Playwright is installed): returns an AI snapshot with numeric refs (`aria-ref="<n>"`).
   - `--format aria`: returns the accessibility tree (no refs; inspection only).
   - `--efficient` (or `--mode efficient`): compact role snapshot preset (interactive + compact + depth + lower maxChars).
-  - Config default (tool/CLI only): set `browser.snapshotDefaults.mode: "efficient"` to use efficient snapshots when the caller does not pass a mode (see [Gateway configuration](/gateway/configuration#browser-Synurex-managed-browser)).
+  - Config default (tool/CLI only): set `browser.snapshotDefaults.mode: "efficient"` to use efficient snapshots when the caller does not pass a mode (see [Gateway configuration](/gateway/configuration#browser-SKYKOI-managed-browser)).
   - Role snapshot options (`--interactive`, `--compact`, `--depth`, `--selector`) force a role-based snapshot with refs like `ref=e12`.
   - `--frame "<iframe selector>"` scopes role snapshots to an iframe (pairs with role refs like `e12`).
   - `--interactive` outputs a flat, easy-to-pick list of interactive elements (best for driving actions).
@@ -453,16 +453,16 @@ Notes:
 
 ## Snapshots and refs
 
-Synurex supports two “snapshot” styles:
+SKYKOI supports two “snapshot” styles:
 
-- **AI snapshot (numeric refs)**: `Synurex browser snapshot` (default; `--format ai`)
+- **AI snapshot (numeric refs)**: `SKYKOI browser snapshot` (default; `--format ai`)
   - Output: a text snapshot that includes numeric refs.
-  - Actions: `Synurex browser click 12`, `Synurex browser type 23 "hello"`.
+  - Actions: `SKYKOI browser click 12`, `SKYKOI browser type 23 "hello"`.
   - Internally, the ref is resolved via Playwright’s `aria-ref`.
 
-- **Role snapshot (role refs like `e12`)**: `Synurex browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
+- **Role snapshot (role refs like `e12`)**: `SKYKOI browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
   - Output: a role-based list/tree with `[ref=e12]` (and optional `[nth=1]`).
-  - Actions: `Synurex browser click e12`, `Synurex browser highlight e12`.
+  - Actions: `SKYKOI browser click e12`, `SKYKOI browser highlight e12`.
   - Internally, the ref is resolved via `getByRole(...)` (plus `nth()` for duplicates).
   - Add `--labels` to include a viewport screenshot with overlayed `e12` labels.
 
@@ -476,18 +476,18 @@ Ref behavior:
 You can wait on more than just time/text:
 
 - Wait for URL (globs supported by Playwright):
-  - `Synurex browser wait --url "**/dash"`
+  - `SKYKOI browser wait --url "**/dash"`
 - Wait for load state:
-  - `Synurex browser wait --load networkidle`
+  - `SKYKOI browser wait --load networkidle`
 - Wait for a JS predicate:
-  - `Synurex browser wait --fn "window.ready===true"`
+  - `SKYKOI browser wait --fn "window.ready===true"`
 - Wait for a selector to become visible:
-  - `Synurex browser wait "#main"`
+  - `SKYKOI browser wait "#main"`
 
 These can be combined:
 
 ```bash
-Synurex browser wait "#main" \
+SKYKOI browser wait "#main" \
   --url "**/dash" \
   --load networkidle \
   --fn "window.ready===true" \
@@ -498,16 +498,16 @@ Synurex browser wait "#main" \
 
 When an action fails (e.g. “not visible”, “strict mode violation”, “covered”):
 
-1. `Synurex browser snapshot --interactive`
+1. `SKYKOI browser snapshot --interactive`
 2. Use `click <ref>` / `type <ref>` (prefer role refs in interactive mode)
-3. If it still fails: `Synurex browser highlight <ref>` to see what Playwright is targeting
+3. If it still fails: `SKYKOI browser highlight <ref>` to see what Playwright is targeting
 4. If the page behaves oddly:
-   - `Synurex browser errors --clear`
-   - `Synurex browser requests --filter api --clear`
+   - `SKYKOI browser errors --clear`
+   - `SKYKOI browser requests --filter api --clear`
 5. For deep debugging: record a trace:
-   - `Synurex browser trace start`
+   - `SKYKOI browser trace start`
    - reproduce the issue
-   - `Synurex browser trace stop` (prints `TRACE:<path>`)
+   - `SKYKOI browser trace stop` (prints `TRACE:<path>`)
 
 ## JSON output
 
@@ -516,10 +516,10 @@ When an action fails (e.g. “not visible”, “strict mode violation”, “co
 Examples:
 
 ```bash
-Synurex browser status --json
-Synurex browser snapshot --interactive --json
-Synurex browser requests --filter api --json
-Synurex browser cookies --json
+SKYKOI browser status --json
+SKYKOI browser snapshot --interactive --json
+SKYKOI browser requests --filter api --json
+SKYKOI browser cookies --json
 ```
 
 Role snapshots in JSON include `refs` plus a small `stats` block (lines/chars/refs/interactive) so tools can reason about payload size and density.
@@ -542,8 +542,8 @@ These are useful for “make the site behave like X” workflows:
 
 ## Security & privacy
 
-- The Synurex browser profile may contain logged-in sessions; treat it as sensitive.
-- `browser act kind=evaluate` / `Synurex browser evaluate` and `wait --fn`
+- The SKYKOI browser profile may contain logged-in sessions; treat it as sensitive.
+- `browser act kind=evaluate` / `SKYKOI browser evaluate` and `wait --fn`
   execute arbitrary JavaScript in the page context. Prompt injection can steer
   this. Disable it with `browser.evaluateEnabled=false` if you do not need it.
 - For logins and anti-bot notes (X/Twitter, etc.), see [Browser login + X/Twitter posting](/tools/browser-login).
@@ -567,7 +567,7 @@ How it maps:
 - `browser act` uses the snapshot `ref` IDs to click/type/drag/select.
 - `browser screenshot` captures pixels (full page or element).
 - `browser` accepts:
-  - `profile` to choose a named browser profile (Synurex, chrome, or remote CDP).
+  - `profile` to choose a named browser profile (SKYKOI, chrome, or remote CDP).
   - `target` (`sandbox` | `host` | `node`) to select where the browser lives.
   - In sandboxed sessions, `target: "host"` requires `agents.defaults.sandbox.browser.allowHostControl=true`.
   - If `target` is omitted: sandboxed sessions default to `sandbox`, non-sandbox sessions default to `host`.

@@ -1,17 +1,17 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { ensureModelAllowlistEntry } from "./model-allowlist.js";
 
 export async function applyDefaultModelChoice(params: {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   setDefaultModel: boolean;
   defaultModel: string;
-  applyDefaultConfig: (config: SynurexConfig) => SynurexConfig;
-  applyProviderConfig: (config: SynurexConfig) => SynurexConfig;
+  applyDefaultConfig: (config: SKYKOIConfig) => SKYKOIConfig;
+  applyProviderConfig: (config: SKYKOIConfig) => SKYKOIConfig;
   noteDefault?: string;
   noteAgentModel: (model: string) => Promise<void>;
   prompter: WizardPrompter;
-}): Promise<{ config: SynurexConfig; agentModelOverride?: string }> {
+}): Promise<{ config: SKYKOIConfig; agentModelOverride?: string }> {
   if (params.setDefaultModel) {
     const next = params.applyDefaultConfig(params.config);
     if (params.noteDefault) {

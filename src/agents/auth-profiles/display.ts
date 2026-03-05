@@ -1,8 +1,8 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import type { AuthProfileStore } from "./types.js";
 
 export function resolveAuthProfileDisplayLabel(params: {
-  cfg?: SynurexConfig;
+  cfg?: SKYKOIConfig;
   store: AuthProfileStore;
   profileId: string;
 }): string {

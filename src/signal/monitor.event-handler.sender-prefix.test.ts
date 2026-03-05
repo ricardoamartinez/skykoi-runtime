@@ -39,7 +39,7 @@ describe("signal event handler sender prefix", () => {
         },
       },
       cfg: {
-        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/Synurex" } },
+        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/SKYKOI" } },
         channels: { signal: {} },
       } as never,
       baseUrl: "http://localhost",

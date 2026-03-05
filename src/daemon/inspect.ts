@@ -15,7 +15,7 @@ export type ExtraGatewayService = {
   label: string;
   detail: string;
   scope: "user" | "system";
-  marker?: "synurex" | "moltbot";
+  marker?: "SKYKOI" | "moltbot";
   legacy?: boolean;
 };
 
@@ -23,13 +23,13 @@ export type FindExtraGatewayServicesOptions = {
   deep?: boolean;
 };
 
-const EXTRA_MARKERS = ["synurex", "moltbot"] as const;
+const EXTRA_MARKERS = ["SKYKOI", "moltbot"] as const;
 const execFileAsync = promisify(execFile);
 
 export function renderGatewayServiceCleanupHints(
   env: Record<string, string | undefined> = process.env as Record<string, string | undefined>,
 ): string[] {
-  const profile = env.SYNUREX_PROFILE;
+  const profile = env.SKYKOI_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);
@@ -73,8 +73,8 @@ function detectMarker(content: string): Marker | null {
 
 function hasGatewayServiceMarker(content: string): boolean {
   const lower = content.toLowerCase();
-  const markerKeys = ["SYNUREX_service_marker"];
-  const kindKeys = ["SYNUREX_service_kind"];
+  const markerKeys = ["SKYKOI_service_marker"];
+  const kindKeys = ["SKYKOI_service_kind"];
   const markerValues = [GATEWAY_SERVICE_MARKER.toLowerCase()];
   const hasMarkerKey = markerKeys.some((key) => lower.includes(key));
   const hasKindKey = kindKeys.some((key) => lower.includes(key));
@@ -87,7 +87,7 @@ function hasGatewayServiceMarker(content: string): boolean {
   );
 }
 
-function isSynurexGatewayLaunchdService(label: string, contents: string): boolean {
+function isSKYKOIGatewayLaunchdService(label: string, contents: string): boolean {
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
@@ -95,26 +95,26 @@ function isSynurexGatewayLaunchdService(label: string, contents: string): boolea
   if (!lowerContents.includes("gateway")) {
     return false;
   }
-  return label.startsWith("ai.synurex.");
+  return label.startsWith("ai.SKYKOI.");
 }
 
-function isSynurexGatewaySystemdService(name: string, contents: string): boolean {
+function isSKYKOIGatewaySystemdService(name: string, contents: string): boolean {
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
-  if (!name.startsWith("Synurex-gateway")) {
+  if (!name.startsWith("SKYKOI-gateway")) {
     return false;
   }
   return contents.toLowerCase().includes("gateway");
 }
 
-function isSynurexGatewayTaskName(name: string): boolean {
+function isSKYKOIGatewayTaskName(name: string): boolean {
   const normalized = name.trim().toLowerCase();
   if (!normalized) {
     return false;
   }
   const defaultName = resolveGatewayWindowsTaskName().toLowerCase();
-  return normalized === defaultName || normalized.startsWith("synurex gateway");
+  return normalized === defaultName || normalized.startsWith("SKYKOI gateway");
 }
 
 function tryExtractPlistLabel(contents: string): string | null {
@@ -177,7 +177,7 @@ async function scanLaunchdDir(params: {
         label,
         detail: `plist: ${fullPath}`,
         scope: params.scope,
-        marker: isLegacyLabel(label) ? "synurex" : "moltbot",
+        marker: isLegacyLabel(label) ? "SKYKOI" : "moltbot",
         legacy: true,
       });
       continue;
@@ -185,7 +185,7 @@ async function scanLaunchdDir(params: {
     if (isIgnoredLaunchdLabel(label)) {
       continue;
     }
-    if (marker === "synurex" && isSynurexGatewayLaunchdService(label, contents)) {
+    if (marker === "SKYKOI" && isSKYKOIGatewayLaunchdService(label, contents)) {
       continue;
     }
     results.push({
@@ -194,7 +194,7 @@ async function scanLaunchdDir(params: {
       detail: `plist: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "synurex" || isLegacyLabel(label),
+      legacy: marker !== "SKYKOI" || isLegacyLabel(label),
     });
   }
 
@@ -232,7 +232,7 @@ async function scanSystemdDir(params: {
     if (!marker) {
       continue;
     }
-    if (marker === "synurex" && isSynurexGatewaySystemdService(name, contents)) {
+    if (marker === "SKYKOI" && isSKYKOIGatewaySystemdService(name, contents)) {
       continue;
     }
     results.push({
@@ -241,7 +241,7 @@ async function scanSystemdDir(params: {
       detail: `unit: ${fullPath}`,
       scope: params.scope,
       marker,
-      legacy: marker !== "synurex",
+      legacy: marker !== "SKYKOI",
     });
   }
 
@@ -414,7 +414,7 @@ export async function findExtraGatewayServices(
       if (!name) {
         continue;
       }
-      if (isSynurexGatewayTaskName(name)) {
+      if (isSKYKOIGatewayTaskName(name)) {
         continue;
       }
       const lowerName = name.toLowerCase();
@@ -435,7 +435,7 @@ export async function findExtraGatewayServices(
         detail: task.taskToRun ? `task: ${name}, run: ${task.taskToRun}` : name,
         scope: "system",
         marker,
-        legacy: marker !== "synurex",
+        legacy: marker !== "SKYKOI",
       });
     }
     return results;

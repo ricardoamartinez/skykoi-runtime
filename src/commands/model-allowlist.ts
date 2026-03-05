@@ -1,12 +1,12 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { resolveAllowlistModelKey } from "../agents/model-selection.js";
 
 export function ensureModelAllowlistEntry(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   modelRef: string;
   defaultProvider?: string;
-}): SynurexConfig {
+}): SKYKOIConfig {
   const rawModelRef = params.modelRef.trim();
   if (!rawModelRef) {
     return params.cfg;

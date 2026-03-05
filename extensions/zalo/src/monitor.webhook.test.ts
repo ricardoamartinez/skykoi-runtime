@@ -1,5 +1,5 @@
 import type { AddressInfo } from "node:net";
-import type { SynurexConfig, PluginRuntime } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig, PluginRuntime } from "SKYKOI/plugin-sdk";
 import { createServer } from "node:http";
 import { describe, expect, it } from "vitest";
 import type { ResolvedZaloAccount } from "./types.js";
@@ -37,7 +37,7 @@ describe("handleZaloWebhookRequest", () => {
     const unregister = registerZaloWebhookTarget({
       token: "tok",
       account,
-      config: {} as SynurexConfig,
+      config: {} as SKYKOIConfig,
       runtime: {},
       core,
       secret: "secret",

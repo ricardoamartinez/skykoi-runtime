@@ -5,15 +5,15 @@
  * These commands are processed before built-in commands and before agent invocation.
  */
 
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type {
-  SynurexPluginCommandDefinition,
+  SKYKOIPluginCommandDefinition,
   PluginCommandContext,
   PluginCommandResult,
 } from "./types.js";
 import { logVerbose } from "../globals.js";
 
-type RegisteredPluginCommand = SynurexPluginCommandDefinition & {
+type RegisteredPluginCommand = SKYKOIPluginCommandDefinition & {
   pluginId: string;
 };
 
@@ -104,7 +104,7 @@ export type CommandRegistrationResult = {
  */
 export function registerPluginCommand(
   pluginId: string,
-  command: SynurexPluginCommandDefinition,
+  command: SKYKOIPluginCommandDefinition,
 ): CommandRegistrationResult {
   // Prevent registration while commands are being processed
   if (registryLocked) {
@@ -231,7 +231,7 @@ export async function executePluginCommand(params: {
   channel: string;
   isAuthorizedSender: boolean;
   commandBody: string;
-  config: SynurexConfig;
+  config: SKYKOIConfig;
 }): Promise<PluginCommandResult> {
   const { command, args, senderId, channel, isAuthorizedSender, commandBody, config } = params;
 

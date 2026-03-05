@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { PluginRecord } from "./registry.js";
 import { defaultSlotIdForKey } from "./slots.js";
 
@@ -59,7 +59,7 @@ const normalizePluginEntries = (entries: unknown): NormalizedPluginsConfig["entr
 };
 
 export const normalizePluginsConfig = (
-  config?: SynurexConfig["plugins"],
+  config?: SKYKOIConfig["plugins"],
 ): NormalizedPluginsConfig => {
   const memorySlot = normalizeSlotValue(config?.slots?.memory);
   return {
@@ -74,13 +74,13 @@ export const normalizePluginsConfig = (
   };
 };
 
-const hasExplicitMemorySlot = (plugins?: SynurexConfig["plugins"]) =>
+const hasExplicitMemorySlot = (plugins?: SKYKOIConfig["plugins"]) =>
   Boolean(plugins?.slots && Object.prototype.hasOwnProperty.call(plugins.slots, "memory"));
 
-const hasExplicitMemoryEntry = (plugins?: SynurexConfig["plugins"]) =>
+const hasExplicitMemoryEntry = (plugins?: SKYKOIConfig["plugins"]) =>
   Boolean(plugins?.entries && Object.prototype.hasOwnProperty.call(plugins.entries, "memory-core"));
 
-const hasExplicitPluginConfig = (plugins?: SynurexConfig["plugins"]) => {
+const hasExplicitPluginConfig = (plugins?: SKYKOIConfig["plugins"]) => {
   if (!plugins) {
     return false;
   }
@@ -106,9 +106,9 @@ const hasExplicitPluginConfig = (plugins?: SynurexConfig["plugins"]) => {
 };
 
 export function applyTestPluginDefaults(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   env: NodeJS.ProcessEnv = process.env,
-): SynurexConfig {
+): SKYKOIConfig {
   if (!env.VITEST) {
     return cfg;
   }
@@ -144,7 +144,7 @@ export function applyTestPluginDefaults(
 }
 
 export function isTestDefaultMemorySlotDisabled(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
   if (!env.VITEST) {

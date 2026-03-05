@@ -8,7 +8,7 @@ const baseConfig = {
       groups: { "*": { requireMention: true } },
     },
   },
-  session: { store: "/tmp/Synurex-sessions.json" },
+  session: { store: "/tmp/SKYKOI-sessions.json" },
 } as const;
 
 describe("applyGroupGating", () => {

@@ -1,6 +1,6 @@
-import type { RuntimeEnv, ReplyPayload, SynurexConfig } from "Synurex/plugin-sdk";
+import type { RuntimeEnv, ReplyPayload, SKYKOIConfig } from "SKYKOI/plugin-sdk";
 import { format } from "node:util";
-import { createReplyPrefixOptions } from "Synurex/plugin-sdk";
+import { createReplyPrefixOptions } from "SKYKOI/plugin-sdk";
 import { getTlonRuntime } from "../runtime.js";
 import { normalizeShip, parseChannelNest } from "../targets.js";
 import { resolveTlonAccount } from "../types.js";
@@ -53,7 +53,7 @@ type UrbitUpdate = {
 };
 
 function resolveChannelAuthorization(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   channelNest: string,
 ): { mode: "restricted" | "open"; allowedShips: string[] } {
   const tlonConfig = cfg.channels?.tlon as

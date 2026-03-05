@@ -102,13 +102,13 @@ export function extractMSTeamsPollVote(
     return null;
   }
   const pollId =
-    readNestedString(value, ["SynurexPollId"]) ??
+    readNestedString(value, ["SKYKOIPollId"]) ??
     readNestedString(value, ["pollId"]) ??
-    readNestedString(value, ["Synurex", "pollId"]) ??
-    readNestedString(value, ["Synurex", "poll", "id"]) ??
-    readNestedString(value, ["data", "SynurexPollId"]) ??
+    readNestedString(value, ["SKYKOI", "pollId"]) ??
+    readNestedString(value, ["SKYKOI", "poll", "id"]) ??
+    readNestedString(value, ["data", "SKYKOIPollId"]) ??
     readNestedString(value, ["data", "pollId"]) ??
-    readNestedString(value, ["data", "Synurex", "pollId"]);
+    readNestedString(value, ["data", "SKYKOI", "pollId"]);
   if (!pollId) {
     return null;
   }
@@ -185,14 +185,14 @@ export function buildMSTeamsPollCard(params: {
         type: "Action.Submit",
         title: "Vote",
         data: {
-          SynurexPollId: pollId,
+          SKYKOIPollId: pollId,
           pollId,
         },
         msteams: {
           type: "messageBack",
-          text: "Synurex poll vote",
+          text: "SKYKOI poll vote",
           displayText: "Vote recorded",
-          value: { SynurexPollId: pollId, pollId },
+          value: { SKYKOIPollId: pollId, pollId },
         },
       },
     ],

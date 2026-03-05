@@ -1,4 +1,4 @@
-import type { SynurexConfig, RuntimeEnv } from "Synurex/plugin-sdk";
+import type { SKYKOIConfig, RuntimeEnv } from "SKYKOI/plugin-sdk";
 import type { MSTeamsConversationStore } from "./conversation-store.js";
 import type { MSTeamsAdapter } from "./messenger.js";
 import type { MSTeamsMonitorLogger } from "./monitor-types.js";
@@ -23,7 +23,7 @@ export type MSTeamsActivityHandler = {
 };
 
 export type MSTeamsMessageHandlerDeps = {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   runtime: RuntimeEnv;
   appId: string;
   adapter: MSTeamsAdapter;

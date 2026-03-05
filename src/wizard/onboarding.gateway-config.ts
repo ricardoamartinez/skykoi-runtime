@@ -1,5 +1,5 @@
 import type { GatewayAuthChoice } from "../commands/onboard-types.js";
-import type { GatewayBindMode, GatewayTailscaleMode, SynurexConfig } from "../config/config.js";
+import type { GatewayBindMode, GatewayTailscaleMode, SKYKOIConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type {
   GatewayWizardSettings,
@@ -12,8 +12,8 @@ import { findTailscaleBinary } from "../infra/tailscale.js";
 
 type ConfigureGatewayOptions = {
   flow: WizardFlow;
-  baseConfig: SynurexConfig;
-  nextConfig: SynurexConfig;
+  baseConfig: SKYKOIConfig;
+  nextConfig: SKYKOIConfig;
   localPort: number;
   quickstartGateway: QuickstartGatewayDefaults;
   prompter: WizardPrompter;
@@ -21,7 +21,7 @@ type ConfigureGatewayOptions = {
 };
 
 type ConfigureGatewayResult = {
-  nextConfig: SynurexConfig;
+  nextConfig: SKYKOIConfig;
   settings: GatewayWizardSettings;
 };
 
@@ -147,7 +147,7 @@ export async function configureGatewayForOnboarding(
   let tailscaleResetOnExit = flow === "quickstart" ? quickstartGateway.tailscaleResetOnExit : false;
   if (tailscaleMode !== "off" && flow !== "quickstart") {
     await prompter.note(
-      ["Docs:", "https://docs.synurex.com/gateway/tailscale", "https://docs.synurex.com/web"].join(
+      ["Docs:", "https://docs.SKYKOI.com/gateway/tailscale", "https://docs.SKYKOI.com/web"].join(
         "\n",
       ),
       "Tailscale",

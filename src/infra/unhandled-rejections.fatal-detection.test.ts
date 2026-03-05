@@ -46,7 +46,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[Synurex] FATAL unhandled rejection:",
+        "[SKYKOI] FATAL unhandled rejection:",
         expect.stringContaining("Out of memory"),
       );
     });
@@ -82,7 +82,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[Synurex] CONFIGURATION ERROR - requires fix:",
+        "[SKYKOI] CONFIGURATION ERROR - requires fix:",
         expect.stringContaining("Invalid config"),
       );
     });
@@ -108,7 +108,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "[Synurex] Non-fatal unhandled rejection (continuing):",
+        "[SKYKOI] Non-fatal unhandled rejection (continuing):",
         expect.stringContaining("fetch failed"),
       );
     });
@@ -131,7 +131,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[Synurex] Unhandled promise rejection:",
+        "[SKYKOI] Unhandled promise rejection:",
         expect.stringContaining("Something went wrong"),
       );
     });

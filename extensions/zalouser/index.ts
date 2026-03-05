@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SKYKOIPluginApi } from "SKYKOI/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { zalouserDock, zalouserPlugin } from "./src/channel.js";
 import { setZalouserRuntime } from "./src/runtime.js";
 import { ZalouserToolSchema, executeZalouserTool } from "./src/tool.js";
@@ -9,7 +9,7 @@ const plugin = {
   name: "Zalo Personal",
   description: "Zalo personal account messaging via zca-cli",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SKYKOIPluginApi) {
     setZalouserRuntime(api.runtime);
     // Register channel plugin (for onboarding & gateway)
     api.registerChannel({ plugin: zalouserPlugin, dock: zalouserDock });

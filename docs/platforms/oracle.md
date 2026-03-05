@@ -1,19 +1,19 @@
 ---
-summary: "Synurex on Oracle Cloud (Always Free ARM)"
+summary: "SKYKOI on Oracle Cloud (Always Free ARM)"
 read_when:
-  - Setting up Synurex on Oracle Cloud
-  - Looking for low-cost VPS hosting for Synurex
-  - Want 24/7 Synurex on a small server
+  - Setting up SKYKOI on Oracle Cloud
+  - Looking for low-cost VPS hosting for SKYKOI
+  - Want 24/7 SKYKOI on a small server
 title: "Oracle Cloud"
 ---
 
-# Synurex on Oracle Cloud (OCI)
+# SKYKOI on Oracle Cloud (OCI)
 
 ## Goal
 
-Run a persistent synurex gateway on Oracle Cloud's **Always Free** ARM tier.
+Run a persistent SKYKOI gateway on Oracle Cloud's **Always Free** ARM tier.
 
-Oracle’s free tier can be a great fit for Synurex (especially if you already have an OCI account), but it comes with tradeoffs:
+Oracle’s free tier can be a great fit for SKYKOI (especially if you already have an OCI account), but it comes with tradeoffs:
 
 - ARM architecture (most things work, but some binaries may be x86-only)
 - Capacity and signup can be finicky
@@ -41,7 +41,7 @@ Oracle’s free tier can be a great fit for Synurex (especially if you already h
 1. Log into [Oracle Cloud Console](https://cloud.oracle.com/)
 2. Navigate to **Compute → Instances → Create Instance**
 3. Configure:
-   - **Name:** `Synurex`
+   - **Name:** `SKYKOI`
    - **Image:** Ubuntu 24.04 (aarch64)
    - **Shape:** `VM.Standard.A1.Flex` (Ampere ARM)
    - **OCPUs:** 2 (or up to 4)
@@ -70,7 +70,7 @@ sudo apt install -y build-essential
 
 ```bash
 # Set hostname
-sudo hostnamectl set-hostname Synurex
+sudo hostnamectl set-hostname SKYKOI
 
 # Set password for ubuntu user
 sudo passwd ubuntu
@@ -83,10 +83,10 @@ sudo loginctl enable-linger ubuntu
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up --ssh --hostname=Synurex
+sudo tailscale up --ssh --hostname=SKYKOI
 ```
 
-This enables Tailscale SSH, so you can connect via `ssh Synurex` from any device on your tailnet — no public IP needed.
+This enables Tailscale SSH, so you can connect via `ssh SKYKOI` from any device on your tailnet — no public IP needed.
 
 Verify:
 
@@ -94,12 +94,12 @@ Verify:
 tailscale status
 ```
 
-**From now on, connect via Tailscale:** `ssh ubuntu@Synurex` (or use the Tailscale IP).
+**From now on, connect via Tailscale:** `ssh ubuntu@SKYKOI` (or use the Tailscale IP).
 
-## 5) Install Synurex
+## 5) Install SKYKOI
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash
+curl -fsSL https://SKYKOI.com/install.sh | bash
 source ~/.bashrc
 ```
 
@@ -113,27 +113,27 @@ Use token auth as the default. It’s predictable and avoids needing any “inse
 
 ```bash
 # Keep the Gateway private on the VM
-synurex config set gateway.bind loopback
+SKYKOI config set gateway.bind loopback
 
 # Require auth for the Gateway + Control UI
-synurex config set gateway.auth.mode token
-synurex doctor --generate-gateway-token
+SKYKOI config set gateway.auth.mode token
+SKYKOI doctor --generate-gateway-token
 
 # Expose over Tailscale Serve (HTTPS + tailnet access)
-synurex config set gateway.tailscale.mode serve
-synurex config set gateway.trustedProxies '["127.0.0.1"]'
+SKYKOI config set gateway.tailscale.mode serve
+SKYKOI config set gateway.trustedProxies '["127.0.0.1"]'
 
-systemctl --user restart Synurex-gateway
+systemctl --user restart SKYKOI-gateway
 ```
 
 ## 7) Verify
 
 ```bash
 # Check version
-Synurex --version
+SKYKOI --version
 
 # Check daemon status
-systemctl --user status Synurex-gateway
+systemctl --user status SKYKOI-gateway
 
 # Check Tailscale Serve
 tailscale serve status
@@ -161,7 +161,7 @@ This blocks SSH on port 22, HTTP, HTTPS, and everything else at the network edge
 From any device on your Tailscale network:
 
 ```
-https://Synurex.<tailnet-name>.ts.net/
+https://SKYKOI.<tailnet-name>.ts.net/
 ```
 
 Replace `<tailnet-name>` with your tailnet name (visible in `tailscale status`).
@@ -178,7 +178,7 @@ No SSH tunnel needed. Tailscale provides:
 
 With the VCN locked down (only UDP 41641 open) and the Gateway bound to loopback, you get strong defense-in-depth: public traffic is blocked at the network edge, and admin access happens over your tailnet.
 
-This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `synurex security audit`, and verify you aren’t accidentally listening on public interfaces.
+This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `SKYKOI security audit`, and verify you aren’t accidentally listening on public interfaces.
 
 ### What's Already Protected
 
@@ -193,8 +193,8 @@ This setup often removes the _need_ for extra host-based firewall rules purely t
 
 ### Still Recommended
 
-- **Credential permissions:** `chmod 700 ~/.Synurex`
-- **Security audit:** `synurex security audit`
+- **Credential permissions:** `chmod 700 ~/.SKYKOI`
+- **Security audit:** `SKYKOI security audit`
 - **System updates:** `sudo apt update && sudo apt upgrade` regularly
 - **Monitor Tailscale:** Review devices in [Tailscale admin console](https://login.tailscale.com/admin)
 
@@ -219,7 +219,7 @@ If Tailscale Serve isn't working, use an SSH tunnel:
 
 ```bash
 # From your local machine (via Tailscale)
-ssh -L 18789:127.0.0.1:18789 ubuntu@Synurex
+ssh -L 18789:127.0.0.1:18789 ubuntu@SKYKOI
 ```
 
 Then open `http://localhost:18789`.
@@ -243,15 +243,15 @@ Free tier ARM instances are popular. Try:
 sudo tailscale status
 
 # Re-authenticate
-sudo tailscale up --ssh --hostname=Synurex --reset
+sudo tailscale up --ssh --hostname=SKYKOI --reset
 ```
 
 ### Gateway won't start
 
 ```bash
-synurex gateway status
-synurex doctor --non-interactive
-journalctl --user -u Synurex-gateway -n 50
+SKYKOI gateway status
+SKYKOI doctor --non-interactive
+journalctl --user -u SKYKOI-gateway -n 50
 ```
 
 ### Can't reach Control UI
@@ -264,7 +264,7 @@ tailscale serve status
 curl http://localhost:18789
 
 # Restart if needed
-systemctl --user restart Synurex-gateway
+systemctl --user restart SKYKOI-gateway
 ```
 
 ### ARM binary issues
@@ -283,13 +283,13 @@ Most npm packages work fine. For binaries, look for `linux-arm64` or `aarch64` r
 
 All state lives in:
 
-- `~/.synurex/` — config, credentials, session data
-- `~/.synurex/workspace/` — workspace (SOUL.md, memory, artifacts)
+- `~/.SKYKOI/` — config, credentials, session data
+- `~/.SKYKOI/workspace/` — workspace (SOUL.md, memory, artifacts)
 
 Back up periodically:
 
 ```bash
-tar -czvf Synurex-backup.tar.gz ~/.Synurex ~/.synurex/workspace
+tar -czvf SKYKOI-backup.tar.gz ~/.SKYKOI ~/.SKYKOI/workspace
 ```
 
 ---

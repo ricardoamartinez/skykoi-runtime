@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelPlugin } from "../../channels/plugins/types.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SKYKOIConfig } from "../../config/config.js";
 import { slackPlugin } from "../../../extensions/slack/src/channel.js";
 import { telegramPlugin } from "../../../extensions/telegram/src/channel.js";
 import { whatsappPlugin } from "../../../extensions/whatsapp/src/channel.js";
@@ -28,7 +28,7 @@ const slackConfig = {
       appToken: "xapp-test",
     },
   },
-} as SynurexConfig;
+} as SKYKOIConfig;
 
 const whatsappConfig = {
   channels: {
@@ -36,7 +36,7 @@ const whatsappConfig = {
       allowFrom: ["*"],
     },
   },
-} as SynurexConfig;
+} as SKYKOIConfig;
 
 describe("runMessageAction context isolation", () => {
   beforeEach(async () => {
@@ -265,7 +265,7 @@ describe("runMessageAction context isolation", () => {
           token: "tg-test",
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     const result = await runMessageAction({
       cfg: multiConfig,
@@ -307,7 +307,7 @@ describe("runMessageAction context isolation", () => {
           },
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     await expect(
       runMessageAction({
@@ -425,7 +425,7 @@ describe("runMessageAction sendAttachment hydration", () => {
           password: "test-password",
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
 
     const result = await runMessageAction({
       cfg,
@@ -459,7 +459,7 @@ describe("runMessageAction sendAttachment hydration", () => {
           password: "test-password",
         },
       },
-    } as SynurexConfig;
+    } as SKYKOIConfig;
     const sandboxDir = await fs.mkdtemp(path.join(os.tmpdir(), "msg-sandbox-"));
     try {
       await runMessageAction({
@@ -651,7 +651,7 @@ describe("runMessageAction accountId defaults", () => {
 
   it("propagates defaultAccountId into params", async () => {
     await runMessageAction({
-      cfg: {} as SynurexConfig,
+      cfg: {} as SKYKOIConfig,
       action: "send",
       params: {
         channel: "discord",

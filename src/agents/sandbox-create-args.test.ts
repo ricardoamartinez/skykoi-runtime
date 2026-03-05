@@ -4,8 +4,8 @@ import { buildSandboxCreateArgs, type SandboxDockerConfig } from "./sandbox.js";
 describe("buildSandboxCreateArgs", () => {
   it("includes hardening and resource flags", () => {
     const cfg: SandboxDockerConfig = {
-      image: "Synurex-sandbox:bookworm-slim",
-      containerPrefix: "Synurex-sbx-",
+      image: "SKYKOI-sandbox:bookworm-slim",
+      containerPrefix: "SKYKOI-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: ["/tmp"],
@@ -23,32 +23,32 @@ describe("buildSandboxCreateArgs", () => {
         core: "0",
       },
       seccompProfile: "/tmp/seccomp.json",
-      apparmorProfile: "Synurex-sandbox",
+      apparmorProfile: "SKYKOI-sandbox",
       dns: ["1.1.1.1"],
       extraHosts: ["internal.service:10.0.0.5"],
     };
 
     const args = buildSandboxCreateArgs({
-      name: "Synurex-sbx-test",
+      name: "SKYKOI-sbx-test",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
-      labels: { "Synurex.sandboxBrowser": "1" },
+      labels: { "SKYKOI.sandboxBrowser": "1" },
     });
 
     expect(args).toEqual(
       expect.arrayContaining([
         "create",
         "--name",
-        "Synurex-sbx-test",
+        "SKYKOI-sbx-test",
         "--label",
-        "Synurex.sandbox=1",
+        "SKYKOI.sandbox=1",
         "--label",
-        "Synurex.sessionKey=main",
+        "SKYKOI.sessionKey=main",
         "--label",
-        "Synurex.createdAtMs=1700000000000",
+        "SKYKOI.createdAtMs=1700000000000",
         "--label",
-        "Synurex.sandboxBrowser=1",
+        "SKYKOI.sandboxBrowser=1",
         "--read-only",
         "--tmpfs",
         "/tmp",
@@ -63,7 +63,7 @@ describe("buildSandboxCreateArgs", () => {
         "--security-opt",
         "seccomp=/tmp/seccomp.json",
         "--security-opt",
-        "apparmor=Synurex-sandbox",
+        "apparmor=SKYKOI-sandbox",
         "--dns",
         "1.1.1.1",
         "--add-host",
@@ -95,8 +95,8 @@ describe("buildSandboxCreateArgs", () => {
 
   it("emits -v flags for custom binds", () => {
     const cfg: SandboxDockerConfig = {
-      image: "Synurex-sandbox:bookworm-slim",
-      containerPrefix: "Synurex-sbx-",
+      image: "SKYKOI-sandbox:bookworm-slim",
+      containerPrefix: "SKYKOI-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -106,7 +106,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "Synurex-sbx-binds",
+      name: "SKYKOI-sbx-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -128,8 +128,8 @@ describe("buildSandboxCreateArgs", () => {
 
   it("omits -v flags when binds is empty or undefined", () => {
     const cfg: SandboxDockerConfig = {
-      image: "Synurex-sandbox:bookworm-slim",
-      containerPrefix: "Synurex-sbx-",
+      image: "SKYKOI-sandbox:bookworm-slim",
+      containerPrefix: "SKYKOI-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -139,7 +139,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "Synurex-sbx-no-binds",
+      name: "SKYKOI-sbx-no-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,

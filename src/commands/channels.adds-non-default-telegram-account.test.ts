@@ -49,7 +49,7 @@ const runtime: RuntimeEnv = {
 };
 
 const baseSnapshot = {
-  path: "/tmp/synurex.json",
+  path: "/tmp/SKYKOI.json",
   exists: true,
   raw: "{}",
   parsed: {},
@@ -369,7 +369,7 @@ describe("channels command", () => {
     });
     expect(lines.join("\n")).toMatch(/Warnings:/);
     expect(lines.join("\n")).toMatch(/Message Content Intent is disabled/i);
-    expect(lines.join("\n")).toMatch(/Run: (?:Synurex|Synurex)( --profile isolated)? doctor/);
+    expect(lines.join("\n")).toMatch(/Run: (?:SKYKOI|SKYKOI)( --profile isolated)? doctor/);
   });
 
   it("surfaces Discord permission audit issues in channels status output", () => {
@@ -424,12 +424,12 @@ describe("channels command", () => {
             accountId: "default",
             enabled: true,
             configured: true,
-            probe: { ok: true, bot: { username: "SYNUREX_bot" } },
+            probe: { ok: true, bot: { username: "SKYKOI_bot" } },
           },
         ],
       },
     });
-    expect(lines.join("\n")).toMatch(/bot:@SYNUREX_bot/);
+    expect(lines.join("\n")).toMatch(/bot:@SKYKOI_bot/);
   });
 
   it("surfaces Telegram group membership audit issues in channels status output", () => {

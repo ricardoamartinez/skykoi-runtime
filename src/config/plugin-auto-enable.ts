@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "./config.js";
+import type { SKYKOIConfig } from "./config.js";
 import { normalizeProviderId } from "../agents/model-selection.js";
 import {
   getChannelPluginCatalogEntry,
@@ -17,7 +17,7 @@ type PluginEnableChange = {
 };
 
 export type PluginAutoEnableResult = {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   changes: string[];
 };
 
@@ -66,7 +66,7 @@ function accountsHaveKeys(value: unknown, keys: string[]): boolean {
 }
 
 function resolveChannelConfig(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   channelId: string,
 ): Record<string, unknown> | null {
   const channels = cfg.channels as Record<string, unknown> | undefined;
@@ -74,7 +74,7 @@ function resolveChannelConfig(
   return isRecord(entry) ? entry : null;
 }
 
-function isTelegramConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boolean {
+function isTelegramConfigured(cfg: SKYKOIConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.TELEGRAM_BOT_TOKEN)) {
     return true;
   }
@@ -91,7 +91,7 @@ function isTelegramConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boole
   return recordHasKeys(entry);
 }
 
-function isDiscordConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boolean {
+function isDiscordConfigured(cfg: SKYKOIConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.DISCORD_BOT_TOKEN)) {
     return true;
   }
@@ -108,7 +108,7 @@ function isDiscordConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boolea
   return recordHasKeys(entry);
 }
 
-function isSlackConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boolean {
+function isSlackConfigured(cfg: SKYKOIConfig, env: NodeJS.ProcessEnv): boolean {
   if (
     hasNonEmptyString(env.SLACK_BOT_TOKEN) ||
     hasNonEmptyString(env.SLACK_APP_TOKEN) ||
@@ -133,7 +133,7 @@ function isSlackConfigured(cfg: SynurexConfig, env: NodeJS.ProcessEnv): boolean 
   return recordHasKeys(entry);
 }
 
-function isSignalConfigured(cfg: SynurexConfig): boolean {
+function isSignalConfigured(cfg: SKYKOIConfig): boolean {
   const entry = resolveChannelConfig(cfg, "signal");
   if (!entry) {
     return false;
@@ -153,7 +153,7 @@ function isSignalConfigured(cfg: SynurexConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isIMessageConfigured(cfg: SynurexConfig): boolean {
+function isIMessageConfigured(cfg: SKYKOIConfig): boolean {
   const entry = resolveChannelConfig(cfg, "imessage");
   if (!entry) {
     return false;
@@ -164,7 +164,7 @@ function isIMessageConfigured(cfg: SynurexConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isWhatsAppConfigured(cfg: SynurexConfig): boolean {
+function isWhatsAppConfigured(cfg: SKYKOIConfig): boolean {
   if (hasAnyWhatsAppAuth(cfg)) {
     return true;
   }
@@ -175,13 +175,13 @@ function isWhatsAppConfigured(cfg: SynurexConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isGenericChannelConfigured(cfg: SynurexConfig, channelId: string): boolean {
+function isGenericChannelConfigured(cfg: SKYKOIConfig, channelId: string): boolean {
   const entry = resolveChannelConfig(cfg, channelId);
   return recordHasKeys(entry);
 }
 
 export function isChannelConfigured(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   channelId: string,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
@@ -203,7 +203,7 @@ export function isChannelConfigured(
   }
 }
 
-function collectModelRefs(cfg: SynurexConfig): string[] {
+function collectModelRefs(cfg: SKYKOIConfig): string[] {
   const refs: string[] = [];
   const pushModelRef = (value: unknown) => {
     if (typeof value === "string" && value.trim()) {
@@ -257,7 +257,7 @@ function extractProviderFromModelRef(value: string): string | null {
   return normalizeProviderId(trimmed.slice(0, slash));
 }
 
-function isProviderConfigured(cfg: SynurexConfig, providerId: string): boolean {
+function isProviderConfigured(cfg: SKYKOIConfig, providerId: string): boolean {
   const normalized = normalizeProviderId(providerId);
 
   const profiles = cfg.auth?.profiles;
@@ -294,7 +294,7 @@ function isProviderConfigured(cfg: SynurexConfig, providerId: string): boolean {
 }
 
 function resolveConfiguredPlugins(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   env: NodeJS.ProcessEnv,
 ): PluginEnableChange[] {
   const changes: PluginEnableChange[] = [];
@@ -330,12 +330,12 @@ function resolveConfiguredPlugins(
   return changes;
 }
 
-function isPluginExplicitlyDisabled(cfg: SynurexConfig, pluginId: string): boolean {
+function isPluginExplicitlyDisabled(cfg: SKYKOIConfig, pluginId: string): boolean {
   const entry = cfg.plugins?.entries?.[pluginId];
   return entry?.enabled === false;
 }
 
-function isPluginDenied(cfg: SynurexConfig, pluginId: string): boolean {
+function isPluginDenied(cfg: SKYKOIConfig, pluginId: string): boolean {
   const deny = cfg.plugins?.deny;
   return Array.isArray(deny) && deny.includes(pluginId);
 }
@@ -350,7 +350,7 @@ function resolvePreferredOverIds(pluginId: string): string[] {
 }
 
 function shouldSkipPreferredPluginAutoEnable(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   entry: PluginEnableChange,
   configured: PluginEnableChange[],
 ): boolean {
@@ -372,7 +372,7 @@ function shouldSkipPreferredPluginAutoEnable(
   return false;
 }
 
-function ensureAllowlisted(cfg: SynurexConfig, pluginId: string): SynurexConfig {
+function ensureAllowlisted(cfg: SKYKOIConfig, pluginId: string): SKYKOIConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) {
     return cfg;
@@ -386,7 +386,7 @@ function ensureAllowlisted(cfg: SynurexConfig, pluginId: string): SynurexConfig 
   };
 }
 
-function registerPluginEntry(cfg: SynurexConfig, pluginId: string): SynurexConfig {
+function registerPluginEntry(cfg: SKYKOIConfig, pluginId: string): SKYKOIConfig {
   const entries = {
     ...cfg.plugins?.entries,
     [pluginId]: {
@@ -414,7 +414,7 @@ function formatAutoEnableChange(entry: PluginEnableChange): string {
 }
 
 export function applyPluginAutoEnable(params: {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   env?: NodeJS.ProcessEnv;
 }): PluginAutoEnableResult {
   const env = params.env ?? process.env;

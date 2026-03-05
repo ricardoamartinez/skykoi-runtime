@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { resolveAgentRoute } from "./resolve-route.js";
 
 describe("resolveAgentRoute", () => {
   test("defaults to main/default when no bindings exist", () => {
-    const cfg: SynurexConfig = {};
+    const cfg: SKYKOIConfig = {};
     const route = resolveAgentRoute({
       cfg,
       channel: "whatsapp",
@@ -18,7 +18,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("dmScope=per-peer isolates DM sessions by sender id", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       session: { dmScope: "per-peer" },
     };
     const route = resolveAgentRoute({
@@ -31,7 +31,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("dmScope=per-channel-peer isolates DM sessions per channel and sender", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       session: { dmScope: "per-channel-peer" },
     };
     const route = resolveAgentRoute({
@@ -44,7 +44,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("identityLinks collapses per-peer DM sessions across providers", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       session: {
         dmScope: "per-peer",
         identityLinks: {
@@ -62,7 +62,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("identityLinks applies to per-channel-peer DM sessions", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       session: {
         dmScope: "per-channel-peer",
         identityLinks: {
@@ -80,7 +80,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("peer binding wins over account binding", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       bindings: [
         {
           agentId: "a",
@@ -108,7 +108,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("discord channel peer binding wins over guild binding", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       bindings: [
         {
           agentId: "chan",
@@ -141,7 +141,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("guild binding wins over account binding when peer not bound", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       bindings: [
         {
           agentId: "guild",
@@ -169,7 +169,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("missing accountId in binding matches default account only", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       bindings: [{ agentId: "defaultAcct", match: { channel: "whatsapp" } }],
     };
 
@@ -192,7 +192,7 @@ describe("resolveAgentRoute", () => {
   });
 
   test("accountId=* matches any account as a channel fallback", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       bindings: [
         {
           agentId: "any",
@@ -211,9 +211,9 @@ describe("resolveAgentRoute", () => {
   });
 
   test("defaultAgentId is used when no binding matches", () => {
-    const cfg: SynurexConfig = {
+    const cfg: SKYKOIConfig = {
       agents: {
-        list: [{ id: "home", default: true, workspace: "~/Synurex-home" }],
+        list: [{ id: "home", default: true, workspace: "~/SKYKOI-home" }],
       },
     };
     const route = resolveAgentRoute({
@@ -228,7 +228,7 @@ describe("resolveAgentRoute", () => {
 });
 
 test("dmScope=per-account-channel-peer isolates DM sessions per account, channel and sender", () => {
-  const cfg: SynurexConfig = {
+  const cfg: SKYKOIConfig = {
     session: { dmScope: "per-account-channel-peer" },
   };
   const route = resolveAgentRoute({
@@ -241,7 +241,7 @@ test("dmScope=per-account-channel-peer isolates DM sessions per account, channel
 });
 
 test("dmScope=per-account-channel-peer uses default accountId when not provided", () => {
-  const cfg: SynurexConfig = {
+  const cfg: SKYKOIConfig = {
     session: { dmScope: "per-account-channel-peer" },
   };
   const route = resolveAgentRoute({

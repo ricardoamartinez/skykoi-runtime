@@ -1,7 +1,7 @@
 {
-  "name": "@Synurex/voice-call",
+  "name": "@SKYKOI/voice-call",
   "version": "2026.2.6-3",
-  "description": "Synurex voice-call plugin",
+  "description": "SKYKOI voice-call plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
@@ -9,9 +9,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SKYKOI": "workspace:*"
   },
-  "Synurex": {
+  "SKYKOI": {
     "extensions": [
       "./index.ts"
     ]

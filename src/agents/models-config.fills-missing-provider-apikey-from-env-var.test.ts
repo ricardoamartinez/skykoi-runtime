@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "Synurex-models-" });
+  return withTempHomeBase(fn, { prefix: "SKYKOI-models-" });
 }
 
-const MODELS_CONFIG: SynurexConfig = {
+const MODELS_CONFIG: SKYKOIConfig = {
   models: {
     providers: {
       "custom-proxy": {
@@ -49,10 +49,10 @@ describe("models-config", () => {
       const prevKey = process.env.MINIMAX_API_KEY;
       process.env.MINIMAX_API_KEY = "sk-minimax-test";
       try {
-        const { ensureSynurexModelsJson } = await import("./models-config.js");
-        const { resolveSynurexAgentDir } = await import("./agent-paths.js");
+        const { ensureSKYKOIModelsJson } = await import("./models-config.js");
+        const { resolveSKYKOIAgentDir } = await import("./agent-paths.js");
 
-        const cfg: SynurexConfig = {
+        const cfg: SKYKOIConfig = {
           models: {
             providers: {
               minimax: {
@@ -74,9 +74,9 @@ describe("models-config", () => {
           },
         };
 
-        await ensureSynurexModelsJson(cfg);
+        await ensureSKYKOIModelsJson(cfg);
 
-        const modelPath = path.join(resolveSynurexAgentDir(), "models.json");
+        const modelPath = path.join(resolveSKYKOIAgentDir(), "models.json");
         const raw = await fs.readFile(modelPath, "utf8");
         const parsed = JSON.parse(raw) as {
           providers: Record<string, { apiKey?: string; models?: Array<{ id: string }> }>;
@@ -96,10 +96,10 @@ describe("models-config", () => {
   it("merges providers by default", async () => {
     await withTempHome(async () => {
       vi.resetModules();
-      const { ensureSynurexModelsJson } = await import("./models-config.js");
-      const { resolveSynurexAgentDir } = await import("./agent-paths.js");
+      const { ensureSKYKOIModelsJson } = await import("./models-config.js");
+      const { resolveSKYKOIAgentDir } = await import("./agent-paths.js");
 
-      const agentDir = resolveSynurexAgentDir();
+      const agentDir = resolveSKYKOIAgentDir();
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "models.json"),
@@ -131,7 +131,7 @@ describe("models-config", () => {
         "utf8",
       );
 
-      await ensureSynurexModelsJson(MODELS_CONFIG);
+      await ensureSKYKOIModelsJson(MODELS_CONFIG);
 
       const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
       const parsed = JSON.parse(raw) as {

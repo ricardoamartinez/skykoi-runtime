@@ -1,5 +1,5 @@
 ---
-summary: "Automated, hardened Synurex installation with Ansible, Tailscale VPN, and firewall isolation"
+summary: "Automated, hardened SKYKOI installation with Ansible, Tailscale VPN, and firewall isolation"
 read_when:
   - You want automated server deployment with security hardening
   - You need firewall-isolated setup with VPN access
@@ -9,19 +9,19 @@ title: "Ansible"
 
 # Ansible Installation
 
-The recommended way to deploy Synurex to production servers is via **[Synurex-ansible](https://github.com/Synurex/Synurex-ansible)** — an automated installer with security-first architecture.
+The recommended way to deploy SKYKOI to production servers is via **[SKYKOI-ansible](https://github.com/SKYKOI/SKYKOI-ansible)** — an automated installer with security-first architecture.
 
 ## Quick Start
 
 One-command install:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Synurex/Synurex-ansible/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/SKYKOI/SKYKOI-ansible/main/install.sh | bash
 ```
 
-> **📦 Full guide: [github.com/Synurex/Synurex-ansible](https://github.com/Synurex/Synurex-ansible)**
+> **📦 Full guide: [github.com/SKYKOI/SKYKOI-ansible](https://github.com/SKYKOI/SKYKOI-ansible)**
 >
-> The Synurex-ansible repo is the source of truth for Ansible deployment. This page is a quick overview.
+> The SKYKOI-ansible repo is the source of truth for Ansible deployment. This page is a quick overview.
 
 ## What You Get
 
@@ -47,22 +47,22 @@ The Ansible playbook installs and configures:
 2. **UFW firewall** (SSH + Tailscale ports only)
 3. **Docker CE + Compose V2** (for agent sandboxes)
 4. **Node.js 22.x + pnpm** (runtime dependencies)
-5. **Synurex** (host-based, not containerized)
+5. **SKYKOI** (host-based, not containerized)
 6. **Systemd service** (auto-start with security hardening)
 
 Note: The gateway runs **directly on the host** (not in Docker), but agent sandboxes use Docker for isolation. See [Sandboxing](/gateway/sandboxing) for details.
 
 ## Post-Install Setup
 
-After installation completes, switch to the Synurex user:
+After installation completes, switch to the SKYKOI user:
 
 ```bash
-sudo -i -u Synurex
+sudo -i -u SKYKOI
 ```
 
 The post-install script will guide you through:
 
-1. **Onboarding wizard**: Configure Synurex settings
+1. **Onboarding wizard**: Configure SKYKOI settings
 2. **Provider login**: Connect WhatsApp/Telegram/Discord/Signal
 3. **Gateway testing**: Verify the installation
 4. **Tailscale setup**: Connect to your VPN mesh
@@ -71,17 +71,17 @@ The post-install script will guide you through:
 
 ```bash
 # Check service status
-sudo systemctl status Synurex
+sudo systemctl status SKYKOI
 
 # View live logs
-sudo journalctl -u Synurex -f
+sudo journalctl -u SKYKOI -f
 
 # Restart gateway
-sudo systemctl restart Synurex
+sudo systemctl restart SKYKOI
 
-# Provider login (run as Synurex user)
-sudo -i -u Synurex
-Synurex channels login
+# Provider login (run as SKYKOI user)
+sudo -i -u SKYKOI
+SKYKOI channels login
 ```
 
 ## Security Architecture
@@ -118,8 +118,8 @@ If you prefer manual control over the automation:
 sudo apt update && sudo apt install -y ansible git
 
 # 2. Clone repository
-git clone https://github.com/Synurex/Synurex-ansible.git
-cd Synurex-ansible
+git clone https://github.com/SKYKOI/SKYKOI-ansible.git
+cd SKYKOI-ansible
 
 # 3. Install Ansible collections
 ansible-galaxy collection install -r requirements.yml
@@ -127,18 +127,18 @@ ansible-galaxy collection install -r requirements.yml
 # 4. Run playbook
 ./run-playbook.sh
 
-# Or run directly (then manually execute /tmp/Synurex-setup.sh after)
+# Or run directly (then manually execute /tmp/SKYKOI-setup.sh after)
 # ansible-playbook playbook.yml --ask-become-pass
 ```
 
-## Updating Synurex
+## Updating SKYKOI
 
-The Ansible installer sets up Synurex for manual updates. See [Updating](/install/updating) for the standard update flow.
+The Ansible installer sets up SKYKOI for manual updates. See [Updating](/install/updating) for the standard update flow.
 
 To re-run the Ansible playbook (e.g., for configuration changes):
 
 ```bash
-cd Synurex-ansible
+cd SKYKOI-ansible
 ./run-playbook.sh
 ```
 
@@ -158,14 +158,14 @@ If you're locked out:
 
 ```bash
 # Check logs
-sudo journalctl -u Synurex -n 100
+sudo journalctl -u SKYKOI -n 100
 
 # Verify permissions
-sudo ls -la /opt/Synurex
+sudo ls -la /opt/SKYKOI
 
 # Test manual start
-sudo -i -u Synurex
-cd ~/Synurex
+sudo -i -u SKYKOI
+cd ~/SKYKOI
 pnpm start
 ```
 
@@ -176,33 +176,33 @@ pnpm start
 sudo systemctl status docker
 
 # Check sandbox image
-sudo docker images | grep Synurex-sandbox
+sudo docker images | grep SKYKOI-sandbox
 
 # Build sandbox image if missing
-cd /opt/Synurex/Synurex
-sudo -u Synurex ./scripts/sandbox-setup.sh
+cd /opt/SKYKOI/SKYKOI
+sudo -u SKYKOI ./scripts/sandbox-setup.sh
 ```
 
 ### Provider login fails
 
-Make sure you're running as the `Synurex` user:
+Make sure you're running as the `SKYKOI` user:
 
 ```bash
-sudo -i -u Synurex
-Synurex channels login
+sudo -i -u SKYKOI
+SKYKOI channels login
 ```
 
 ## Advanced Configuration
 
 For detailed security architecture and troubleshooting:
 
-- [Security Architecture](https://github.com/Synurex/Synurex-ansible/blob/main/docs/security.md)
-- [Technical Details](https://github.com/Synurex/Synurex-ansible/blob/main/docs/architecture.md)
-- [Troubleshooting Guide](https://github.com/Synurex/Synurex-ansible/blob/main/docs/troubleshooting.md)
+- [Security Architecture](https://github.com/SKYKOI/SKYKOI-ansible/blob/main/docs/security.md)
+- [Technical Details](https://github.com/SKYKOI/SKYKOI-ansible/blob/main/docs/architecture.md)
+- [Troubleshooting Guide](https://github.com/SKYKOI/SKYKOI-ansible/blob/main/docs/troubleshooting.md)
 
 ## Related
 
-- [Synurex-ansible](https://github.com/Synurex/Synurex-ansible) — full deployment guide
+- [SKYKOI-ansible](https://github.com/SKYKOI/SKYKOI-ansible) — full deployment guide
 - [Docker](/install/docker) — containerized gateway setup
 - [Sandboxing](/gateway/sandboxing) — agent sandbox configuration
 - [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) — per-agent isolation

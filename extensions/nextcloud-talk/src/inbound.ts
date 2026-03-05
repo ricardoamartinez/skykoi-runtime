@@ -2,9 +2,9 @@ import {
   createReplyPrefixOptions,
   logInboundDrop,
   resolveControlCommandGate,
-  type SynurexConfig,
+  type SKYKOIConfig,
   type RuntimeEnv,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import type { ResolvedNextcloudTalkAccount } from "./accounts.js";
 import type { CoreConfig, NextcloudTalkInboundMessage } from "./types.js";
 import {
@@ -115,7 +115,7 @@ export async function handleNextcloudTalkInbound(params: {
   const effectiveGroupAllowFrom = [...baseGroupAllowFrom, ...storeAllowList].filter(Boolean);
 
   const allowTextCommands = core.channel.commands.shouldHandleTextCommands({
-    cfg: config as SynurexConfig,
+    cfg: config as SKYKOIConfig,
     surface: CHANNEL_ID,
   });
   const useAccessGroups = config.commands?.useAccessGroups !== false;
@@ -123,7 +123,7 @@ export async function handleNextcloudTalkInbound(params: {
     allowFrom: isGroup ? effectiveGroupAllowFrom : effectiveAllowFrom,
     senderId,
   }).allowed;
-  const hasControlCommand = core.channel.text.hasControlCommand(rawBody, config as SynurexConfig);
+  const hasControlCommand = core.channel.text.hasControlCommand(rawBody, config as SKYKOIConfig);
   const commandGate = resolveControlCommandGate({
     useAccessGroups,
     authorizers: [
@@ -200,7 +200,7 @@ export async function handleNextcloudTalkInbound(params: {
     return;
   }
 
-  const mentionRegexes = core.channel.mentions.buildMentionRegexes(config as SynurexConfig);
+  const mentionRegexes = core.channel.mentions.buildMentionRegexes(config as SKYKOIConfig);
   const wasMentioned = mentionRegexes.length
     ? core.channel.mentions.matchesMentionPatterns(rawBody, mentionRegexes)
     : false;
@@ -224,7 +224,7 @@ export async function handleNextcloudTalkInbound(params: {
   }
 
   const route = core.channel.routing.resolveAgentRoute({
-    cfg: config as SynurexConfig,
+    cfg: config as SKYKOIConfig,
     channel: CHANNEL_ID,
     accountId: account.accountId,
     peer: {
@@ -237,7 +237,7 @@ export async function handleNextcloudTalkInbound(params: {
   const storePath = core.channel.session.resolveStorePath(config.session?.store, {
     agentId: route.agentId,
   });
-  const envelopeOptions = core.channel.reply.resolveEnvelopeFormatOptions(config as SynurexConfig);
+  const envelopeOptions = core.channel.reply.resolveEnvelopeFormatOptions(config as SKYKOIConfig);
   const previousTimestamp = core.channel.session.readSessionUpdatedAt({
     storePath,
     sessionKey: route.sessionKey,
@@ -287,7 +287,7 @@ export async function handleNextcloudTalkInbound(params: {
   });
 
   const { onModelSelected, ...prefixOptions } = createReplyPrefixOptions({
-    cfg: config as SynurexConfig,
+    cfg: config as SKYKOIConfig,
     agentId: route.agentId,
     channel: CHANNEL_ID,
     accountId: account.accountId,
@@ -295,7 +295,7 @@ export async function handleNextcloudTalkInbound(params: {
 
   await core.channel.reply.dispatchReplyWithBufferedBlockDispatcher({
     ctx: ctxPayload,
-    cfg: config as SynurexConfig,
+    cfg: config as SKYKOIConfig,
     dispatcherOptions: {
       ...prefixOptions,
       deliver: async (payload) => {

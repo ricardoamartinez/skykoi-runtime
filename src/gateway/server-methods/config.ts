@@ -24,7 +24,7 @@ import {
   writeRestartSentinel,
 } from "../../infra/restart-sentinel.js";
 import { scheduleGatewaySigusr1Restart } from "../../infra/restart.js";
-import { loadSynurexPlugins } from "../../plugins/loader.js";
+import { loadSKYKOIPlugins } from "../../plugins/loader.js";
 import {
   ErrorCodes,
   errorShape,
@@ -121,7 +121,7 @@ export const configHandlers: GatewayRequestHandlers = {
     }
     const cfg = loadConfig();
     const workspaceDir = resolveAgentWorkspaceDir(cfg, resolveDefaultAgentId(cfg));
-    const pluginRegistry = loadSynurexPlugins({
+    const pluginRegistry = loadSKYKOIPlugins({
       config: cfg,
       workspaceDir,
       logger: {

@@ -1,12 +1,12 @@
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 import { loginGeminiCliOAuth } from "./oauth.js";
 
 const PROVIDER_ID = "google-gemini-cli";
 const PROVIDER_LABEL = "Gemini CLI OAuth";
 const DEFAULT_MODEL = "google-gemini-cli/gemini-3-pro-preview";
 const ENV_VARS = [
-  "SYNUREX_GEMINI_OAUTH_CLIENT_ID",
-  "SYNUREX_GEMINI_OAUTH_CLIENT_SECRET",
+  "SKYKOI_GEMINI_OAUTH_CLIENT_ID",
+  "SKYKOI_GEMINI_OAUTH_CLIENT_SECRET",
   "GEMINI_CLI_OAUTH_CLIENT_ID",
   "GEMINI_CLI_OAUTH_CLIENT_SECRET",
 ];

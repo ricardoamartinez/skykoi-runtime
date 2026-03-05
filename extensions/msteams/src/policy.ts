@@ -7,14 +7,14 @@ import type {
   MSTeamsConfig,
   MSTeamsReplyStyle,
   MSTeamsTeamConfig,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 import {
   buildChannelKeyCandidates,
   normalizeChannelSlug,
   resolveToolsBySender,
   resolveChannelEntryMatchWithFallback,
   resolveNestedAllowlistDecision,
-} from "Synurex/plugin-sdk";
+} from "SKYKOI/plugin-sdk";
 
 export type MSTeamsResolvedRouteConfig = {
   teamConfig?: MSTeamsTeamConfig;

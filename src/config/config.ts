@@ -11,4 +11,4 @@ export * from "./paths.js";
 export * from "./runtime-overrides.js";
 export * from "./types.js";
 export { validateConfigObject, validateConfigObjectWithPlugins } from "./validation.js";
-export { SynurexSchema } from "./zod-schema.js";
+export { SKYKOISchema } from "./zod-schema.js";

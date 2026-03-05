@@ -23,7 +23,7 @@ export async function dashboardCommand(
   const bind = cfg.gateway?.bind ?? "loopback";
   const basePath = cfg.gateway?.controlUi?.basePath;
   const customBindHost = cfg.gateway?.customBindHost;
-  const token = cfg.gateway?.auth?.token ?? (process.env.SYNUREX_GATEWAY_TOKEN) ?? "";
+  const token = cfg.gateway?.auth?.token ?? (process.env.SKYKOI_GATEWAY_TOKEN) ?? "";
 
   const links = resolveControlUiLinks({
     port,
@@ -60,7 +60,7 @@ export async function dashboardCommand(
   }
 
   if (opened) {
-    runtime.log("Opened in your browser. Keep that tab to control Synurex.");
+    runtime.log("Opened in your browser. Keep that tab to control SKYKOI.");
   } else if (hint) {
     runtime.log(hint);
   }

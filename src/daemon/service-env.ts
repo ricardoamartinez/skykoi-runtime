@@ -148,26 +148,26 @@ export function buildServiceEnvironment(params: {
   launchdLabel?: string;
 }): Record<string, string | undefined> {
   const { env, port, token, launchdLabel } = params;
-  const profile = env.SYNUREX_PROFILE;
+  const profile = env.SKYKOI_PROFILE;
   const resolvedLaunchdLabel =
     launchdLabel ||
     (process.platform === "darwin" ? resolveGatewayLaunchAgentLabel(profile) : undefined);
   const systemdUnit = `${resolveGatewaySystemdServiceName(profile)}.service`;
-  const stateDir = env.SYNUREX_STATE_DIR;
-  const configPath = env.SYNUREX_CONFIG_PATH;
+  const stateDir = env.SKYKOI_STATE_DIR;
+  const configPath = env.SKYKOI_CONFIG_PATH;
   return {
     HOME: env.HOME,
     PATH: buildMinimalServicePath({ env }),
-    SYNUREX_PROFILE: profile,
-    SYNUREX_STATE_DIR: stateDir,
-    SYNUREX_CONFIG_PATH: configPath,
-    SYNUREX_GATEWAY_PORT: String(port),
-    SYNUREX_GATEWAY_TOKEN: token,
-    SYNUREX_LAUNCHD_LABEL: resolvedLaunchdLabel,
-    SYNUREX_SYSTEMD_UNIT: systemdUnit,
-    SYNUREX_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
-    SYNUREX_SERVICE_KIND: GATEWAY_SERVICE_KIND,
-    SYNUREX_SERVICE_VERSION: VERSION,
+    SKYKOI_PROFILE: profile,
+    SKYKOI_STATE_DIR: stateDir,
+    SKYKOI_CONFIG_PATH: configPath,
+    SKYKOI_GATEWAY_PORT: String(port),
+    SKYKOI_GATEWAY_TOKEN: token,
+    SKYKOI_LAUNCHD_LABEL: resolvedLaunchdLabel,
+    SKYKOI_SYSTEMD_UNIT: systemdUnit,
+    SKYKOI_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
+    SKYKOI_SERVICE_KIND: GATEWAY_SERVICE_KIND,
+    SKYKOI_SERVICE_VERSION: VERSION,
   };
 }
 
@@ -175,20 +175,20 @@ export function buildNodeServiceEnvironment(params: {
   env: Record<string, string | undefined>;
 }): Record<string, string | undefined> {
   const { env } = params;
-  const stateDir = env.SYNUREX_STATE_DIR;
-  const configPath = env.SYNUREX_CONFIG_PATH;
+  const stateDir = env.SKYKOI_STATE_DIR;
+  const configPath = env.SKYKOI_CONFIG_PATH;
   return {
     HOME: env.HOME,
     PATH: buildMinimalServicePath({ env }),
-    SYNUREX_STATE_DIR: stateDir,
-    SYNUREX_CONFIG_PATH: configPath,
-    SYNUREX_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    SYNUREX_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    SYNUREX_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    SYNUREX_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    SYNUREX_LOG_PREFIX: "node",
-    SYNUREX_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    SYNUREX_SERVICE_KIND: NODE_SERVICE_KIND,
-    SYNUREX_SERVICE_VERSION: VERSION,
+    SKYKOI_STATE_DIR: stateDir,
+    SKYKOI_CONFIG_PATH: configPath,
+    SKYKOI_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    SKYKOI_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    SKYKOI_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    SKYKOI_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    SKYKOI_LOG_PREFIX: "node",
+    SKYKOI_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    SKYKOI_SERVICE_KIND: NODE_SERVICE_KIND,
+    SKYKOI_SERVICE_VERSION: VERSION,
   };
 }

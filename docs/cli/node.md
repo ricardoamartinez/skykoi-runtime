@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex node` (headless node host)"
+summary: "CLI reference for `SKYKOI node` (headless node host)"
 read_when:
   - Running the headless node host
   - Pairing a non-macOS node for system.run
 title: "node"
 ---
 
-# `Synurex node`
+# `SKYKOI node`
 
 Run a **headless node host** that connects to the Gateway WebSocket and exposes
 `system.run` / `system.which` on this machine.
@@ -46,7 +46,7 @@ Disable it on the node if needed:
 ## Run (foreground)
 
 ```bash
-Synurex node run --host <gateway-host> --port 18789
+SKYKOI node run --host <gateway-host> --port 18789
 ```
 
 Options:
@@ -63,7 +63,7 @@ Options:
 Install a headless node host as a user service.
 
 ```bash
-Synurex node install --host <gateway-host> --port 18789
+SKYKOI node install --host <gateway-host> --port 18789
 ```
 
 Options:
@@ -80,13 +80,13 @@ Options:
 Manage the service:
 
 ```bash
-Synurex node status
-Synurex node stop
-Synurex node restart
-Synurex node uninstall
+SKYKOI node status
+SKYKOI node stop
+SKYKOI node restart
+SKYKOI node uninstall
 ```
 
-Use `Synurex node run` for a foreground node host (no service).
+Use `SKYKOI node run` for a foreground node host (no service).
 
 Service commands accept `--json` for machine-readable output.
 
@@ -96,17 +96,17 @@ The first connection creates a pending node pair request on the Gateway.
 Approve it via:
 
 ```bash
-Synurex nodes pending
-Synurex nodes approve <requestId>
+SKYKOI nodes pending
+SKYKOI nodes approve <requestId>
 ```
 
 The node host stores its node id, token, display name, and gateway connection info in
-`~/.synurex/node.json`.
+`~/.SKYKOI/node.json`.
 
 ## Exec approvals
 
 `system.run` is gated by local exec approvals:
 
-- `~/.synurex/exec-approvals.json`
+- `~/.SKYKOI/exec-approvals.json`
 - [Exec approvals](/tools/exec-approvals)
-- `Synurex approvals --node <id|name|ip>` (edit from the Gateway)
+- `SKYKOI approvals --node <id|name|ip>` (edit from the Gateway)

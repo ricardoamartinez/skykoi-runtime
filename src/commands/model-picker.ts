@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.js";
 import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
@@ -24,7 +24,7 @@ const PROVIDER_FILTER_THRESHOLD = 30;
 const HIDDEN_ROUTER_MODELS = new Set(["openrouter/auto"]);
 
 type PromptDefaultModelParams = {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   prompter: WizardPrompter;
   allowKeep?: boolean;
   includeManual?: boolean;
@@ -39,7 +39,7 @@ type PromptModelAllowlistResult = { models?: string[] };
 
 function hasAuthForProvider(
   provider: string,
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   store: ReturnType<typeof ensureAuthProfileStore>,
 ) {
   if (listProfilesForProvider(store, provider).length > 0) {
@@ -54,7 +54,7 @@ function hasAuthForProvider(
   return false;
 }
 
-function resolveConfiguredModelRaw(cfg: SynurexConfig): string {
+function resolveConfiguredModelRaw(cfg: SKYKOIConfig): string {
   const raw = cfg.agents?.defaults?.model as { primary?: string } | string | undefined;
   if (typeof raw === "string") {
     return raw.trim();
@@ -62,7 +62,7 @@ function resolveConfiguredModelRaw(cfg: SynurexConfig): string {
   return raw?.primary?.trim() ?? "";
 }
 
-function resolveConfiguredModelKeys(cfg: SynurexConfig): string[] {
+function resolveConfiguredModelKeys(cfg: SKYKOIConfig): string[] {
   const models = cfg.agents?.defaults?.models ?? {};
   return Object.keys(models)
     .map((key) => String(key ?? "").trim())
@@ -299,7 +299,7 @@ export async function promptDefaultModel(
 }
 
 export async function promptModelAllowlist(params: {
-  config: SynurexConfig;
+  config: SKYKOIConfig;
   prompter: WizardPrompter;
   message?: string;
   agentDir?: string;
@@ -450,7 +450,7 @@ export async function promptModelAllowlist(params: {
   return { models: [] };
 }
 
-export function applyPrimaryModel(cfg: SynurexConfig, model: string): SynurexConfig {
+export function applyPrimaryModel(cfg: SKYKOIConfig, model: string): SKYKOIConfig {
   const defaults = cfg.agents?.defaults;
   const existingModel = defaults?.model;
   const existingModels = defaults?.models;
@@ -477,7 +477,7 @@ export function applyPrimaryModel(cfg: SynurexConfig, model: string): SynurexCon
   };
 }
 
-export function applyModelAllowlist(cfg: SynurexConfig, models: string[]): SynurexConfig {
+export function applyModelAllowlist(cfg: SKYKOIConfig, models: string[]): SKYKOIConfig {
   const defaults = cfg.agents?.defaults;
   const normalized = normalizeModelKeys(models);
   if (normalized.length === 0) {
@@ -513,9 +513,9 @@ export function applyModelAllowlist(cfg: SynurexConfig, models: string[]): Synur
 }
 
 export function applyModelFallbacksFromSelection(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   selection: string[],
-): SynurexConfig {
+): SKYKOIConfig {
   const normalized = normalizeModelKeys(selection);
   if (normalized.length <= 1) {
     return cfg;

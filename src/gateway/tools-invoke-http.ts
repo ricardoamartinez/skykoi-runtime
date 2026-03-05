@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createSynurexTools } from "../agents/Synurex-tools.js";
+import { createSKYKOITools } from "../agents/SKYKOI-tools.js";
 import {
   filterToolsByPolicy,
   resolveEffectiveToolPolicy,
@@ -170,9 +170,9 @@ export async function handleToolsInvokeHttpRequest(
 
   // Resolve message channel/account hints (optional headers) for policy inheritance.
   const messageChannel = normalizeMessageChannel(
-    getHeader(req, "x-Synurex-message-channel") ?? "",
+    getHeader(req, "x-SKYKOI-message-channel") ?? "",
   );
-  const accountId = getHeader(req, "x-Synurex-account-id")?.trim() || undefined;
+  const accountId = getHeader(req, "x-SKYKOI-account-id")?.trim() || undefined;
 
   const {
     agentId,
@@ -211,7 +211,7 @@ export async function handleToolsInvokeHttpRequest(
     : undefined;
 
   // Build tool list (core + plugin tools).
-  const allTools = createSynurexTools({
+  const allTools = createSKYKOITools({
     agentSessionKey: sessionKey,
     agentChannel: messageChannel ?? undefined,
     agentAccountId: accountId,

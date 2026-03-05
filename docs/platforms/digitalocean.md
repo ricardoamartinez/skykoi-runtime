@@ -1,16 +1,16 @@
 ---
-summary: "Synurex on DigitalOcean (simple paid VPS option)"
+summary: "SKYKOI on DigitalOcean (simple paid VPS option)"
 read_when:
-  - Setting up Synurex on DigitalOcean
-  - Looking for cheap VPS hosting for Synurex
+  - Setting up SKYKOI on DigitalOcean
+  - Looking for cheap VPS hosting for SKYKOI
 title: "DigitalOcean"
 ---
 
-# Synurex on DigitalOcean
+# SKYKOI on DigitalOcean
 
 ## Goal
 
-Run a persistent synurex gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
+Run a persistent SKYKOI gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
 
 If you want a $0/month option and don’t mind ARM + provider-specific setup, see the [Oracle Cloud guide](/platforms/oracle).
 
@@ -56,7 +56,7 @@ If you want a $0/month option and don’t mind ARM + provider-specific setup, se
 ssh root@YOUR_DROPLET_IP
 ```
 
-## 3) Install Synurex
+## 3) Install SKYKOI
 
 ```bash
 # Update system
@@ -66,17 +66,17 @@ apt update && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt install -y nodejs
 
-# Install Synurex
-curl -fsSL https://synurex.com/install.sh | bash
+# Install SKYKOI
+curl -fsSL https://SKYKOI.com/install.sh | bash
 
 # Verify
-Synurex --version
+SKYKOI --version
 ```
 
 ## 4) Run Onboarding
 
 ```bash
-synurex onboard --install-daemon
+SKYKOI onboard --install-daemon
 ```
 
 The wizard will walk you through:
@@ -90,13 +90,13 @@ The wizard will walk you through:
 
 ```bash
 # Check status
-Synurex status
+SKYKOI status
 
 # Check service
-systemctl --user status Synurex-gateway.service
+systemctl --user status SKYKOI-gateway.service
 
 # View logs
-journalctl --user -u Synurex-gateway.service -f
+journalctl --user -u SKYKOI-gateway.service -f
 ```
 
 ## 6) Access the Dashboard
@@ -120,8 +120,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 tailscale up
 
 # Configure Gateway to use Tailscale Serve
-synurex config set gateway.tailscale.mode serve
-synurex gateway restart
+SKYKOI config set gateway.tailscale.mode serve
+SKYKOI gateway restart
 ```
 
 Open: `https://<magicdns>/`
@@ -134,8 +134,8 @@ Notes:
 **Option C: Tailnet bind (no Serve)**
 
 ```bash
-synurex config set gateway.bind tailnet
-synurex gateway restart
+SKYKOI config set gateway.bind tailnet
+SKYKOI gateway restart
 ```
 
 Open: `http://<tailscale-ip>:18789` (token required).
@@ -145,14 +145,14 @@ Open: `http://<tailscale-ip>:18789` (token required).
 ### Telegram
 
 ```bash
-Synurex pairing list telegram
-Synurex pairing approve telegram <CODE>
+SKYKOI pairing list telegram
+SKYKOI pairing approve telegram <CODE>
 ```
 
 ### WhatsApp
 
 ```bash
-synurex channels login whatsapp
+SKYKOI channels login whatsapp
 # Scan QR code
 ```
 
@@ -194,13 +194,13 @@ htop
 
 All state lives in:
 
-- `~/.synurex/` — config, credentials, session data
-- `~/.synurex/workspace/` — workspace (SOUL.md, memory, etc.)
+- `~/.SKYKOI/` — config, credentials, session data
+- `~/.SKYKOI/workspace/` — workspace (SOUL.md, memory, etc.)
 
 These survive reboots. Back them up periodically:
 
 ```bash
-tar -czvf Synurex-backup.tar.gz ~/.Synurex ~/.synurex/workspace
+tar -czvf SKYKOI-backup.tar.gz ~/.SKYKOI ~/.SKYKOI/workspace
 ```
 
 ---
@@ -230,9 +230,9 @@ For the full setup guide, see [Oracle Cloud](/platforms/oracle). For signup tips
 ### Gateway won't start
 
 ```bash
-synurex gateway status
-synurex doctor --non-interactive
-journalctl -u Synurex --no-pager -n 50
+SKYKOI gateway status
+SKYKOI doctor --non-interactive
+journalctl -u SKYKOI --no-pager -n 50
 ```
 
 ### Port already in use

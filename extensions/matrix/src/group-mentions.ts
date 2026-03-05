@@ -1,4 +1,4 @@
-import type { ChannelGroupContext, GroupToolPolicyConfig } from "Synurex/plugin-sdk";
+import type { ChannelGroupContext, GroupToolPolicyConfig } from "SKYKOI/plugin-sdk";
 import type { CoreConfig } from "./types.js";
 import { resolveMatrixRoomConfig } from "./matrix/monitor/rooms.js";
 

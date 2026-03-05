@@ -1,4 +1,4 @@
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import { emptyPluginConfigSchema } from "SKYKOI/plugin-sdk";
 
 const DEFAULT_BASE_URL = "http://localhost:3000/v1";
 const DEFAULT_API_KEY = "n/a";

@@ -1,4 +1,4 @@
-import type { ChannelOutboundAdapter } from "Synurex/plugin-sdk";
+import type { ChannelOutboundAdapter } from "SKYKOI/plugin-sdk";
 import { sendMessageMatrix, sendPollMatrix } from "./matrix/send.js";
 import { getMatrixRuntime } from "./runtime.js";
 

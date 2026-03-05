@@ -26,9 +26,9 @@ How to see whether the linked channel is healthy from the menu bar app.
 
 ## How the probe works
 
-- App runs `Synurex health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
+- App runs `SKYKOI health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
 - Cache the last good snapshot and the last error separately to avoid flicker; show the timestamp of each.
 
 ## When in doubt
 
-- You can still use the CLI flow in [Gateway health](/gateway/health) (`Synurex status`, `Synurex status --deep`, `Synurex health --json`) and tail `/tmp/Synurex/Synurex-*.log` for `web-heartbeat` / `web-reconnect`.
+- You can still use the CLI flow in [Gateway health](/gateway/health) (`SKYKOI status`, `SKYKOI status --deep`, `SKYKOI health --json`) and tail `/tmp/SKYKOI/SKYKOI-*.log` for `web-heartbeat` / `web-reconnect`.

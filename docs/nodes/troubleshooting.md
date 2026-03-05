@@ -13,19 +13,19 @@ Use this page when a node is visible in status but node tools fail.
 ## Command ladder
 
 ```bash
-Synurex status
-Synurex gateway status
-Synurex logs --follow
-Synurex doctor
-Synurex channels status --probe
+SKYKOI status
+SKYKOI gateway status
+SKYKOI logs --follow
+SKYKOI doctor
+SKYKOI channels status --probe
 ```
 
 Then run node specific checks:
 
 ```bash
-Synurex nodes status
-Synurex nodes describe --node <idOrNameOrIp>
-Synurex approvals get --node <idOrNameOrIp>
+SKYKOI nodes status
+SKYKOI nodes describe --node <idOrNameOrIp>
+SKYKOI approvals get --node <idOrNameOrIp>
 ```
 
 Healthy signals:
@@ -41,9 +41,9 @@ Healthy signals:
 Quick check and fix:
 
 ```bash
-Synurex nodes describe --node <idOrNameOrIp>
-Synurex nodes canvas snapshot --node <idOrNameOrIp>
-Synurex logs --follow
+SKYKOI nodes describe --node <idOrNameOrIp>
+SKYKOI nodes canvas snapshot --node <idOrNameOrIp>
+SKYKOI logs --follow
 ```
 
 If you see `NODE_BACKGROUND_UNAVAILABLE`, bring the node app to the foreground and retry.
@@ -67,10 +67,10 @@ These are different gates:
 Quick checks:
 
 ```bash
-Synurex devices list
-Synurex nodes status
-Synurex approvals get --node <idOrNameOrIp>
-Synurex approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
+SKYKOI devices list
+SKYKOI nodes status
+SKYKOI approvals get --node <idOrNameOrIp>
+SKYKOI approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
 ```
 
 If pairing is missing, approve the node device first.
@@ -90,10 +90,10 @@ If pairing is fine but `system.run` fails, fix exec approvals/allowlist.
 ## Fast recovery loop
 
 ```bash
-Synurex nodes status
-Synurex nodes describe --node <idOrNameOrIp>
-Synurex approvals get --node <idOrNameOrIp>
-Synurex logs --follow
+SKYKOI nodes status
+SKYKOI nodes describe --node <idOrNameOrIp>
+SKYKOI approvals get --node <idOrNameOrIp>
+SKYKOI logs --follow
 ```
 
 If still stuck:

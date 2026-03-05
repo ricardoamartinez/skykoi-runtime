@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SKYKOIConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
 import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
@@ -16,7 +16,7 @@ import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
 
 const channel = "slack" as const;
 
-function setSlackDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
+function setSlackDmPolicy(cfg: SKYKOIConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.slack?.dm?.allowFrom) : undefined;
   return {
@@ -37,11 +37,11 @@ function setSlackDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy) {
 }
 
 function buildSlackManifest(botName: string) {
-  const safeName = botName.trim() || "synurex";
+  const safeName = botName.trim() || "SKYKOI";
   const manifest = {
     display_information: {
       name: safeName,
-      description: `${safeName} connector for Synurex`,
+      description: `${safeName} connector for SKYKOI`,
     },
     features: {
       bot_user: {
@@ -54,8 +54,8 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/Synurex",
-          description: "Send a message to Synurex",
+          command: "/SKYKOI",
+          description: "Send a message to SKYKOI",
           should_escape: false,
         },
       ],
@@ -125,10 +125,10 @@ async function noteSlackTokenHelp(prompter: WizardPrompter, botName: string): Pr
 }
 
 function setSlackGroupPolicy(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): SynurexConfig {
+): SKYKOIConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -163,10 +163,10 @@ function setSlackGroupPolicy(
 }
 
 function setSlackChannelAllowlist(
-  cfg: SynurexConfig,
+  cfg: SKYKOIConfig,
   accountId: string,
   channelKeys: string[],
-): SynurexConfig {
+): SKYKOIConfig {
   const channels = Object.fromEntries(channelKeys.map((key) => [key, { allow: true }]));
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
@@ -201,7 +201,7 @@ function setSlackChannelAllowlist(
   };
 }
 
-function setSlackAllowFrom(cfg: SynurexConfig, allowFrom: string[]): SynurexConfig {
+function setSlackAllowFrom(cfg: SKYKOIConfig, allowFrom: string[]): SKYKOIConfig {
   return {
     ...cfg,
     channels: {
@@ -226,10 +226,10 @@ function parseSlackAllowFromInput(raw: string): string[] {
 }
 
 async function promptSlackAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SKYKOIConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<SynurexConfig> {
+}): Promise<SKYKOIConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)
@@ -370,7 +370,7 @@ export const slackOnboardingAdapter: ChannelOnboardingAdapter = {
     const slackBotName = String(
       await prompter.text({
         message: "Slack bot display name (used for manifest)",
-        initialValue: "Synurex",
+        initialValue: "SKYKOI",
       }),
     ).trim();
     if (!accountConfigured) {

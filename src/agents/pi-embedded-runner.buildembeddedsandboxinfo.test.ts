@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import { describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import type { SandboxContext } from "./sandbox.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import { ensureSKYKOIModelsJson } from "./models-config.js";
 import { buildEmbeddedSandboxInfo } from "./pi-embedded-runner.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
@@ -68,10 +68,10 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies SynurexConfig;
+  }) satisfies SKYKOIConfig;
 
-const _ensureModels = (cfg: SynurexConfig, agentDir: string) =>
-  ensureSynurexModelsJson(cfg, agentDir) as unknown;
+const _ensureModels = (cfg: SKYKOIConfig, agentDir: string) =>
+  ensureSKYKOIModelsJson(cfg, agentDir) as unknown;
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {
@@ -107,14 +107,14 @@ describe("buildEmbeddedSandboxInfo", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "session:test",
-      workspaceDir: "/tmp/Synurex-sandbox",
-      agentWorkspaceDir: "/tmp/Synurex-workspace",
+      workspaceDir: "/tmp/SKYKOI-sandbox",
+      agentWorkspaceDir: "/tmp/SKYKOI-workspace",
       workspaceAccess: "none",
-      containerName: "Synurex-sbx-test",
+      containerName: "SKYKOI-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "Synurex-sandbox:bookworm-slim",
-        containerPrefix: "Synurex-sbx-",
+        image: "SKYKOI-sandbox:bookworm-slim",
+        containerPrefix: "SKYKOI-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: ["/tmp"],
@@ -131,13 +131,13 @@ describe("buildEmbeddedSandboxInfo", () => {
       browser: {
         bridgeUrl: "http://localhost:9222",
         noVncUrl: "http://localhost:6080",
-        containerName: "Synurex-sbx-browser-test",
+        containerName: "SKYKOI-sbx-browser-test",
       },
     } satisfies SandboxContext;
 
     expect(buildEmbeddedSandboxInfo(sandbox)).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/Synurex-sandbox",
+      workspaceDir: "/tmp/SKYKOI-sandbox",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,
       browserBridgeUrl: "http://localhost:9222",
@@ -149,14 +149,14 @@ describe("buildEmbeddedSandboxInfo", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "session:test",
-      workspaceDir: "/tmp/Synurex-sandbox",
-      agentWorkspaceDir: "/tmp/Synurex-workspace",
+      workspaceDir: "/tmp/SKYKOI-sandbox",
+      agentWorkspaceDir: "/tmp/SKYKOI-workspace",
       workspaceAccess: "none",
-      containerName: "Synurex-sbx-test",
+      containerName: "SKYKOI-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "Synurex-sandbox:bookworm-slim",
-        containerPrefix: "Synurex-sbx-",
+        image: "SKYKOI-sandbox:bookworm-slim",
+        containerPrefix: "SKYKOI-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: ["/tmp"],
@@ -180,7 +180,7 @@ describe("buildEmbeddedSandboxInfo", () => {
       }),
     ).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/Synurex-sandbox",
+      workspaceDir: "/tmp/SKYKOI-sandbox",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,
       hostBrowserAllowed: false,

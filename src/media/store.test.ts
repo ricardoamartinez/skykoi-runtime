@@ -12,7 +12,7 @@ describe("media store", () => {
   const envSnapshot: Record<string, string | undefined> = {};
 
   const snapshotEnv = () => {
-    for (const key of ["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "SYNUREX_STATE_DIR"]) {
+    for (const key of ["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "SKYKOI_STATE_DIR"]) {
       envSnapshot[key] = process.env[key];
     }
   };
@@ -29,10 +29,10 @@ describe("media store", () => {
 
   beforeAll(async () => {
     snapshotEnv();
-    home = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-test-home-"));
+    home = await fs.mkdtemp(path.join(os.tmpdir(), "SKYKOI-test-home-"));
     process.env.HOME = home;
     process.env.USERPROFILE = home;
-    process.env.SYNUREX_STATE_DIR = path.join(home, ".synurex");
+    process.env.SKYKOI_STATE_DIR = path.join(home, ".SKYKOI");
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);
       if (match) {
@@ -40,7 +40,7 @@ describe("media store", () => {
         process.env.HOMEPATH = match[2] || "\\";
       }
     }
-    await fs.mkdir(path.join(home, ".synurex"), { recursive: true });
+    await fs.mkdir(path.join(home, ".SKYKOI"), { recursive: true });
     store = await import("./store.js");
   });
 
@@ -63,7 +63,7 @@ describe("media store", () => {
     await withTempStore(async (store, home) => {
       const dir = await store.ensureMediaDir();
       expect(isPathWithinBase(home, dir)).toBe(true);
-      expect(path.normalize(dir)).toContain(`${path.sep}.synurex${path.sep}media`);
+      expect(path.normalize(dir)).toContain(`${path.sep}.SKYKOI${path.sep}media`);
       const stat = await fs.stat(dir);
       expect(stat.isDirectory()).toBe(true);
     });

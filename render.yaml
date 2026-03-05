@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: Synurex
+    name: SKYKOI
     runtime: docker
     plan: starter
     healthCheckPath: /health
@@ -9,13 +9,13 @@ services:
         value: "8080"
       - key: SETUP_PASSWORD
         sync: false
-      - key: SYNUREX_STATE_DIR
-        value: /data/.synurex
-      - key: SYNUREX_WORKSPACE_DIR
+      - key: SKYKOI_STATE_DIR
+        value: /data/.SKYKOI
+      - key: SKYKOI_WORKSPACE_DIR
         value: /data/workspace
-      - key: SYNUREX_GATEWAY_TOKEN
+      - key: SKYKOI_GATEWAY_TOKEN
         generateValue: true
     disk:
-      name: Synurex-data
+      name: SKYKOI-data
       mountPath: /data
       sizeGB: 1

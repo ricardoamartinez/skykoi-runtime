@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SKYKOIConfig } from "../config/config.js";
 import {
   formatUserTime,
   resolveUserTimeFormat,
@@ -32,7 +32,7 @@ export type SystemPromptRuntimeParams = {
 };
 
 export function buildSystemPromptParams(params: {
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   agentId?: string;
   runtime: Omit<RuntimeInfoInput, "agentId">;
   workspaceDir?: string;
@@ -59,7 +59,7 @@ export function buildSystemPromptParams(params: {
 }
 
 function resolveRepoRoot(params: {
-  config?: SynurexConfig;
+  config?: SKYKOIConfig;
   workspaceDir?: string;
   cwd?: string;
 }): string | undefined {

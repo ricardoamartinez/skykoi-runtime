@@ -1,5 +1,5 @@
 ---
-summary: "Install Synurex declaratively with Nix"
+summary: "Install SKYKOI declaratively with Nix"
 read_when:
   - You want reproducible, rollback-able installs
   - You're already using Nix/NixOS/Home Manager
@@ -9,30 +9,30 @@ title: "Nix"
 
 # Nix Installation
 
-The recommended way to run Synurex with Nix is via **[nix-Synurex](https://github.com/Synurex/nix-Synurex)** — a batteries-included Home Manager module.
+The recommended way to run SKYKOI with Nix is via **[nix-SKYKOI](https://github.com/SKYKOI/nix-SKYKOI)** — a batteries-included Home Manager module.
 
 ## Quick Start
 
 Paste this to your AI agent (Claude, Cursor, etc.):
 
 ```text
-I want to set up nix-Synurex on my Mac.
-Repository: github:Synurex/nix-Synurex
+I want to set up nix-SKYKOI on my Mac.
+Repository: github:SKYKOI/nix-SKYKOI
 
 What I need you to do:
 1. Check if Determinate Nix is installed (if not, install it)
-2. Create a local flake at ~/code/Synurex-local using templates/agent-first/flake.nix
+2. Create a local flake at ~/code/SKYKOI-local using templates/agent-first/flake.nix
 3. Help me create a Telegram bot (@BotFather) and get my chat ID (@userinfobot)
 4. Set up secrets (bot token, Anthropic key) - plain files at ~/.secrets/ is fine
 5. Fill in the template placeholders and run home-manager switch
 6. Verify: launchd running, bot responds to messages
 
-Reference the nix-Synurex README for module options.
+Reference the nix-SKYKOI README for module options.
 ```
 
-> **📦 Full guide: [github.com/Synurex/nix-Synurex](https://github.com/Synurex/nix-Synurex)**
+> **📦 Full guide: [github.com/SKYKOI/nix-SKYKOI](https://github.com/SKYKOI/nix-SKYKOI)**
 >
-> The nix-Synurex repo is the source of truth for Nix installation. This page is just a quick overview.
+> The nix-SKYKOI repo is the source of truth for Nix installation. This page is just a quick overview.
 
 ## What you get
 
@@ -45,28 +45,28 @@ Reference the nix-Synurex README for module options.
 
 ## Nix Mode Runtime Behavior
 
-When `SYNUREX_NIX_MODE=1` is set (automatic with nix-Synurex):
+When `SKYKOI_NIX_MODE=1` is set (automatic with nix-SKYKOI):
 
-Synurex supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
+SKYKOI supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
-SYNUREX_NIX_MODE=1
+SKYKOI_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell env vars. You can
 also enable Nix mode via defaults:
 
 ```bash
-defaults write bot.molt.mac Synurex.nixMode -bool true
+defaults write bot.molt.mac SKYKOI.nixMode -bool true
 ```
 
 ### Config + state paths
 
-Synurex reads JSON5 config from `SYNUREX_CONFIG_PATH` and stores mutable data in `SYNUREX_STATE_DIR`.
+SKYKOI reads JSON5 config from `SKYKOI_CONFIG_PATH` and stores mutable data in `SKYKOI_STATE_DIR`.
 
-- `SYNUREX_STATE_DIR` (default: `~/.synurex`)
-- `SYNUREX_CONFIG_PATH` (default: `$SYNUREX_STATE_DIR/synurex.json`)
+- `SKYKOI_STATE_DIR` (default: `~/.SKYKOI`)
+- `SKYKOI_CONFIG_PATH` (default: `$SKYKOI_STATE_DIR/SKYKOI.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config
 stay out of the immutable store.
@@ -82,15 +82,15 @@ stay out of the immutable store.
 The macOS packaging flow expects a stable Info.plist template at:
 
 ```
-apps/macos/Sources/Synurex/Resources/Info.plist
+apps/macos/Sources/SKYKOI/Resources/Info.plist
 ```
 
-[`scripts/package-mac-app.sh`](https://github.com/Synurex/Synurex/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields
+[`scripts/package-mac-app.sh`](https://github.com/SKYKOI/SKYKOI/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields
 (bundle ID, version/build, Git SHA, Sparkle keys). This keeps the plist deterministic for SwiftPM
 packaging and Nix builds (which do not rely on a full Xcode toolchain).
 
 ## Related
 
-- [nix-Synurex](https://github.com/Synurex/nix-Synurex) — full setup guide
+- [nix-SKYKOI](https://github.com/SKYKOI/nix-SKYKOI) — full setup guide
 - [Wizard](/start/wizard) — non-Nix CLI setup
 - [Docker](/install/docker) — containerized setup
