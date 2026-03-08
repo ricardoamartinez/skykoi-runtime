@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { createExecApprovalForwarder } from "./exec-approval-forwarder.js";
 
 const baseRequest = {
@@ -23,7 +23,7 @@ describe("exec approval forwarder", () => {
     const deliver = vi.fn().mockResolvedValue([]);
     const cfg = {
       approvals: { exec: { enabled: true, mode: "session" } },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
 
     const forwarder = createExecApprovalForwarder({
       getConfig: () => cfg,
@@ -58,7 +58,7 @@ describe("exec approval forwarder", () => {
           targets: [{ channel: "telegram", to: "123" }],
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
 
     const forwarder = createExecApprovalForwarder({
       getConfig: () => cfg,

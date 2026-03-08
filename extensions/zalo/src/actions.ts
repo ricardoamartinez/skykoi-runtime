@@ -1,15 +1,15 @@
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-  SynurexConfig,
-} from "Synurex/plugin-sdk";
-import { jsonResult, readStringParam } from "Synurex/plugin-sdk";
+  SkyKoiConfig,
+} from "SkyKoi/plugin-sdk";
+import { jsonResult, readStringParam } from "SkyKoi/plugin-sdk";
 import { listEnabledZaloAccounts } from "./accounts.js";
 import { sendMessageZalo } from "./send.js";
 
 const providerId = "zalo";
 
-function listEnabledAccounts(cfg: SynurexConfig) {
+function listEnabledAccounts(cfg: SkyKoiConfig) {
   return listEnabledZaloAccounts(cfg).filter(
     (account) => account.enabled && account.tokenSource !== "none",
   );

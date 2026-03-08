@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveSynurexPackageRoot } from "../infra/Synurex-root.js";
+import { resolveSkyKoiPackageRoot } from "../infra/SkyKoi-root.js";
 
-export async function resolveSynurexDocsPath(params: {
+export async function resolveSkyKoiDocsPath(params: {
   workspaceDir?: string;
   argv1?: string;
   cwd?: string;
@@ -16,7 +16,7 @@ export async function resolveSynurexDocsPath(params: {
     }
   }
 
-  const packageRoot = await resolveSynurexPackageRoot({
+  const packageRoot = await resolveSkyKoiPackageRoot({
     cwd: params.cwd,
     argv1: params.argv1,
     moduleUrl: params.moduleUrl,

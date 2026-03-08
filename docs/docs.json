@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "Synurex",
+  "name": "SkyKoi",
   "theme": "mint",
   "icons": {
     "library": "lucide"
@@ -27,12 +27,12 @@
     "links": [
       {
         "label": "GitHub",
-        "href": "https://github.com/Synurex/Synurex",
+        "href": "https://github.com/SkyKoi/SkyKoi",
         "icon": "github"
       },
       {
         "label": "Releases",
-        "href": "https://github.com/Synurex/Synurex/releases",
+        "href": "https://github.com/SkyKoi/SkyKoi/releases",
         "icon": "package"
       }
     ]
@@ -252,15 +252,15 @@
     },
     {
       "source": "/clawd",
-      "destination": "/start/Synurex"
+      "destination": "/start/SkyKoi"
     },
     {
       "source": "/start/clawd",
-      "destination": "/start/Synurex"
+      "destination": "/start/SkyKoi"
     },
     {
       "source": "/start/clawd/",
-      "destination": "/start/Synurex"
+      "destination": "/start/SkyKoi"
     },
     {
       "source": "/clawhub",
@@ -805,7 +805,7 @@
               },
               {
                 "group": "Guides",
-                "pages": ["start/Synurex"]
+                "pages": ["start/SkyKoi"]
               }
             ]
           },
@@ -1301,7 +1301,7 @@
               },
               {
                 "group": "指南",
-                "pages": ["zh-CN/start/Synurex"]
+                "pages": ["zh-CN/start/SkyKoi"]
               }
             ]
           },

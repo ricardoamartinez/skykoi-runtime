@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import { zaloPlugin } from "./channel.js";
 
@@ -10,7 +10,7 @@ describe("zalo directory", () => {
           allowFrom: ["zalo:123", "zl:234", "345"],
         },
       },
-    } as unknown as SynurexConfig;
+    } as unknown as SkyKoiConfig;
 
     expect(zaloPlugin.directory).toBeTruthy();
     expect(zaloPlugin.directory?.listPeers).toBeTruthy();

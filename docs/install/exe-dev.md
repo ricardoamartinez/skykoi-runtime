@@ -1,5 +1,5 @@
 ---
-summary: "Run synurex gateway on exe.dev (VM + HTTPS proxy) for remote access"
+summary: "Run skykoi gateway on exe.dev (VM + HTTPS proxy) for remote access"
 read_when:
   - You want a cheap always-on Linux host for the Gateway
   - You want remote Control UI access without running your own VPS
@@ -8,13 +8,13 @@ title: "exe.dev"
 
 # exe.dev
 
-Goal: synurex gateway running on an exe.dev VM, reachable from your laptop via: `https://<vm-name>.exe.xyz`
+Goal: skykoi gateway running on an exe.dev VM, reachable from your laptop via: `https://<vm-name>.exe.xyz`
 
 This page assumes exe.dev's default **exeuntu** image. If you picked a different distro, map packages accordingly.
 
 ## Beginner quick path
 
-1. [https://exe.new/Synurex](https://exe.new/Synurex)
+1. [https://exe.new/SkyKoi](https://exe.new/SkyKoi)
 2. Fill in your auth key/token as needed
 3. Click on "Agent" next to your VM, and wait...
 4. ???
@@ -27,11 +27,11 @@ This page assumes exe.dev's default **exeuntu** image. If you picked a different
 
 ## Automated Install with Shelley
 
-Shelley, [exe.dev](https://exe.dev)'s agent, can install Synurex instantly with our
+Shelley, [exe.dev](https://exe.dev)'s agent, can install SkyKoi instantly with our
 prompt. The prompt used is as below:
 
 ```
-Set up Synurex (https://docs.synurex.com/install) on this VM. Use the non-interactive and accept-risk flags for synurex onboarding. Add the supplied auth or token as needed. Configure nginx to forward from the default port 18789 to the root location on the default enabled site config, making sure to enable Websocket support. Pairing is done by "Synurex devices list" and "Synurex device approve <request id>". Make sure the dashboard shows that Synurex's health is OK. exe.dev handles forwarding from port 8000 to port 80/443 and HTTPS for us, so the final "reachable" should be <vm-name>.exe.xyz, without port specification.
+Set up SkyKoi (https://docs.skykoi.com/install) on this VM. Use the non-interactive and accept-risk flags for skykoi onboarding. Add the supplied auth or token as needed. Configure nginx to forward from the default port 18789 to the root location on the default enabled site config, making sure to enable Websocket support. Pairing is done by "SkyKoi devices list" and "SkyKoi device approve <request id>". Make sure the dashboard shows that SkyKoi's health is OK. exe.dev handles forwarding from port 8000 to port 80/443 and HTTPS for us, so the final "reachable" should be <vm-name>.exe.xyz, without port specification.
 ```
 
 ## Manual installation
@@ -50,7 +50,7 @@ Then connect:
 ssh <vm-name>.exe.xyz
 ```
 
-Tip: keep this VM **stateful**. Synurex stores state under `~/.synurex/` and `~/.synurex/workspace/`.
+Tip: keep this VM **stateful**. SkyKoi stores state under `~/.skykoi/` and `~/.skykoi/workspace/`.
 
 ## 2) Install prerequisites (on the VM)
 
@@ -59,15 +59,15 @@ sudo apt-get update
 sudo apt-get install -y git curl jq ca-certificates openssl
 ```
 
-## 3) Install Synurex
+## 3) Install SkyKoi
 
-Run the Synurex install script:
+Run the SkyKoi install script:
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash
+curl -fsSL https://skykoi.com/install.sh | bash
 ```
 
-## 4) Setup nginx to proxy Synurex to port 8000
+## 4) Setup nginx to proxy SkyKoi to port 8000
 
 Edit `/etc/nginx/sites-enabled/default` with
 
@@ -101,12 +101,12 @@ server {
 }
 ```
 
-## 5) Access Synurex and grant privileges
+## 5) Access SkyKoi and grant privileges
 
 Access `https://<vm-name>.exe.xyz/` (see the Control UI output from onboarding). If it prompts for auth, paste the
-token from `gateway.auth.token` on the VM (retrieve with `synurex config get gateway.auth.token`, or generate one
-with `synurex doctor --generate-gateway-token`). Approve devices with `synurex devices list` and
-`synurex devices approve <requestId>`. When in doubt, use Shelley from your browser!
+token from `gateway.auth.token` on the VM (retrieve with `skykoi config get gateway.auth.token`, or generate one
+with `skykoi doctor --generate-gateway-token`). Approve devices with `skykoi devices list` and
+`skykoi devices approve <requestId>`. When in doubt, use Shelley from your browser!
 
 ## Remote Access
 
@@ -117,10 +117,10 @@ with email auth.
 ## Updating
 
 ```bash
-npm i -g synurex@latest
-synurex doctor
-synurex gateway restart
-Synurex health
+npm i -g skykoi@latest
+skykoi doctor
+skykoi gateway restart
+SkyKoi health
 ```
 
 Guide: [Updating](/install/updating)

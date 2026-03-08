@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
 
 type ChannelSectionBase = {
@@ -6,14 +6,14 @@ type ChannelSectionBase = {
   accounts?: Record<string, Record<string, unknown>>;
 };
 
-function channelHasAccounts(cfg: SynurexConfig, channelKey: string): boolean {
+function channelHasAccounts(cfg: SkyKoiConfig, channelKey: string): boolean {
   const channels = cfg.channels as Record<string, unknown> | undefined;
   const base = channels?.[channelKey] as ChannelSectionBase | undefined;
   return Boolean(base?.accounts && Object.keys(base.accounts).length > 0);
 }
 
 function shouldStoreNameInAccounts(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   channelKey: string;
   accountId: string;
   alwaysUseAccounts?: boolean;
@@ -28,12 +28,12 @@ function shouldStoreNameInAccounts(params: {
 }
 
 export function applyAccountNameToChannelSection(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   channelKey: string;
   accountId: string;
   name?: string;
   alwaysUseAccounts?: boolean;
-}): SynurexConfig {
+}): SkyKoiConfig {
   const trimmed = params.name?.trim();
   if (!trimmed) {
     return params.cfg;
@@ -60,7 +60,7 @@ export function applyAccountNameToChannelSection(params: {
           name: trimmed,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
   const baseAccounts: Record<string, Record<string, unknown>> = base?.accounts ?? {};
   const existingAccount = baseAccounts[accountId] ?? {};
@@ -83,14 +83,14 @@ export function applyAccountNameToChannelSection(params: {
         },
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 export function migrateBaseNameToDefaultAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   channelKey: string;
   alwaysUseAccounts?: boolean;
-}): SynurexConfig {
+}): SkyKoiConfig {
   if (params.alwaysUseAccounts) {
     return params.cfg;
   }
@@ -117,5 +117,5 @@ export function migrateBaseNameToDefaultAccount(params: {
         accounts,
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }

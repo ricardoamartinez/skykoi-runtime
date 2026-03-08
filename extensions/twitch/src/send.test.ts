@@ -10,7 +10,7 @@
  * - Registry integration
  */
 
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { sendMessageTwitchInternal } from "./send.js";
 
@@ -57,7 +57,7 @@ describe("send", () => {
         },
       },
     },
-  } as unknown as SynurexConfig;
+  } as unknown as SkyKoiConfig;
 
   beforeEach(() => {
     vi.clearAllMocks();

@@ -1,5 +1,5 @@
 ---
-summary: "Synurex CLI reference for `Synurex` commands, subcommands, and options"
+summary: "SkyKoi CLI reference for `SkyKoi` commands, subcommands, and options"
 read_when:
   - Adding or modifying CLI commands or options
   - Documenting new command surfaces
@@ -54,10 +54,10 @@ This page describes the current CLI behavior. If commands change, update this do
 
 ## Global flags
 
-- `--dev`: isolate state under `~/.Synurex-dev` and shift default ports.
-- `--profile <name>`: isolate state under `~/.Synurex-<name>`.
+- `--dev`: isolate state under `~/.SkyKoi-dev` and shift default ports.
+- `--profile <name>`: isolate state under `~/.SkyKoi-<name>`.
 - `--no-color`: disable ANSI colors.
-- `--update`: shorthand for `synurex update` (source installs only).
+- `--update`: shorthand for `skykoi update` (source installs only).
 - `-V`, `--version`, `-v`: print version and exit.
 
 ## Output styling
@@ -70,7 +70,7 @@ This page describes the current CLI behavior. If commands change, update this do
 
 ## Color palette
 
-Synurex uses a lobster palette for CLI output.
+SkyKoi uses a lobster palette for CLI output.
 
 - `accent` (#FF5A2D): headings, labels, primary highlights.
 - `accentBright` (#FF7A3D): command names, emphasis.
@@ -86,7 +86,7 @@ Palette source of truth: `src/terminal/palette.ts` (aka “lobster seam”).
 ## Command tree
 
 ```
-Synurex [--dev] [--profile <name>] <command>
+SkyKoi [--dev] [--profile <name>] <command>
   setup
   onboard
   configure
@@ -237,23 +237,23 @@ Synurex [--dev] [--profile <name>] <command>
   tui
 ```
 
-Note: plugins can add additional top-level commands (for example `synurex voicecall`).
+Note: plugins can add additional top-level commands (for example `skykoi voicecall`).
 
 ## Security
 
-- `synurex security audit` — audit config + local state for common security foot-guns.
-- `synurex security audit --deep` — best-effort live Gateway probe.
-- `synurex security audit --fix` — tighten safe defaults and chmod state/config.
+- `skykoi security audit` — audit config + local state for common security foot-guns.
+- `skykoi security audit --deep` — best-effort live Gateway probe.
+- `skykoi security audit --fix` — tighten safe defaults and chmod state/config.
 
 ## Plugins
 
 Manage extensions and their config:
 
-- `synurex plugins list` — discover plugins (use `--json` for machine output).
-- `synurex plugins info <id>` — show details for a plugin.
-- `synurex plugins install <path|.tgz|npm-spec>` — install a plugin (or add a plugin path to `plugins.load.paths`).
-- `synurex plugins enable <id>` / `disable <id>` — toggle `plugins.entries.<id>.enabled`.
-- `synurex plugins doctor` — report plugin load errors.
+- `skykoi plugins list` — discover plugins (use `--json` for machine output).
+- `skykoi plugins info <id>` — show details for a plugin.
+- `skykoi plugins install <path|.tgz|npm-spec>` — install a plugin (or add a plugin path to `plugins.load.paths`).
+- `skykoi plugins enable <id>` / `disable <id>` — toggle `plugins.entries.<id>.enabled`.
+- `skykoi plugins doctor` — report plugin load errors.
 
 Most plugin changes require a gateway restart. See [/plugin](/tools/plugin).
 
@@ -261,9 +261,9 @@ Most plugin changes require a gateway restart. See [/plugin](/tools/plugin).
 
 Vector search over `MEMORY.md` + `memory/*.md`:
 
-- `synurex memory status` — show index stats.
-- `synurex memory index` — reindex memory files.
-- `synurex memory search "<query>"` — semantic search over memory.
+- `skykoi memory status` — show index stats.
+- `skykoi memory index` — reindex memory files.
+- `skykoi memory search "<query>"` — semantic search over memory.
 
 ## Chat slash commands
 
@@ -283,7 +283,7 @@ Initialize config + workspace.
 
 Options:
 
-- `--workspace <dir>`: agent workspace path (default `~/.synurex/workspace`).
+- `--workspace <dir>`: agent workspace path (default `~/.skykoi/workspace`).
 - `--wizard`: run the onboarding wizard.
 - `--non-interactive`: run wizard without prompts.
 - `--mode <local|remote>`: wizard mode.
@@ -343,7 +343,7 @@ Interactive configuration wizard (models, channels, skills, gateway).
 
 ### `config`
 
-Non-interactive config helpers (get/set/unset). Running `synurex config` with no
+Non-interactive config helpers (get/set/unset). Running `skykoi config` with no
 subcommand launches the wizard.
 
 Subcommands:
@@ -372,8 +372,8 @@ Manage chat channel accounts (WhatsApp/Telegram/Discord/Google Chat/Slack/Matter
 Subcommands:
 
 - `channels list`: show configured channels and auth profiles.
-- `channels status`: check gateway reachability and channel health (`--probe` runs extra checks; use `synurex health` or `synurex status --deep` for gateway health probes).
-- Tip: `channels status` prints warnings with suggested fixes when it can detect common misconfigurations (then points you to `synurex doctor`).
+- `channels status`: check gateway reachability and channel health (`--probe` runs extra checks; use `skykoi health` or `skykoi status --deep` for gateway health probes).
+- Tip: `channels status` prints warnings with suggested fixes when it can detect common misconfigurations (then points you to `skykoi doctor`).
 - `channels logs`: show recent channel logs from the gateway log file.
 - `channels add`: wizard-style setup when no flags are passed; flags switch to non-interactive mode.
 - `channels remove`: disable by default; pass `--delete` to remove config entries without prompts.
@@ -413,11 +413,11 @@ More detail: [/concepts/oauth](/concepts/oauth)
 Examples:
 
 ```bash
-synurex channels add --channel telegram --account alerts --name "Alerts Bot" --token $TELEGRAM_BOT_TOKEN
-synurex channels add --channel discord --account work --name "Work Bot" --token $DISCORD_BOT_TOKEN
-synurex channels remove --channel discord --account work --delete
-synurex channels status --probe
-Synurex status --deep
+skykoi channels add --channel telegram --account alerts --name "Alerts Bot" --token $TELEGRAM_BOT_TOKEN
+skykoi channels add --channel discord --account work --name "Work Bot" --token $DISCORD_BOT_TOKEN
+skykoi channels remove --channel discord --account work --delete
+skykoi channels status --probe
+SkyKoi status --deep
 ```
 
 ### `skills`
@@ -436,7 +436,7 @@ Options:
 - `--json`: output JSON (no styling).
 - `-v`, `--verbose`: include missing requirements detail.
 
-Tip: use `npx Synurex Skills` to search, install, and sync skills.
+Tip: use `npx SkyKoi Skills` to search, install, and sync skills.
 
 ### `pairing`
 
@@ -486,8 +486,8 @@ Subcommands:
 
 Examples:
 
-- `synurex message send --target +15555550123 --message "Hi"`
-- `synurex message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi`
+- `skykoi message send --target +15555550123 --message "Hi"`
+- `skykoi message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi`
 
 ### `agent`
 
@@ -572,12 +572,12 @@ Notes:
 
 ### Usage tracking
 
-Synurex can surface provider usage/quota when OAuth/API creds are available.
+SkyKoi can surface provider usage/quota when OAuth/API creds are available.
 
 Surfaces:
 
 - `/status` (adds a short provider usage line when available)
-- `synurex status --usage` (prints full provider breakdown)
+- `skykoi status --usage` (prints full provider breakdown)
 - macOS menu bar (Usage section under Context)
 
 Notes:
@@ -687,7 +687,7 @@ Notes:
 
 - `gateway status` probes the Gateway RPC by default using the service’s resolved port/config (override with `--url/--token/--password`).
 - `gateway status` supports `--no-probe`, `--deep`, and `--json` for scripting.
-- `gateway status` also surfaces legacy or extra gateway services when it can detect them (`--deep` adds system-level scans). Profile-named Synurex services are treated as first-class and aren't flagged as "extra".
+- `gateway status` also surfaces legacy or extra gateway services when it can detect them (`--deep` adds system-level scans). Profile-named SkyKoi services are treated as first-class and aren't flagged as "extra".
 - `gateway status` prints which config path the CLI uses vs which config the service likely uses (service env), plus the resolved probe target URL.
 - `gateway install|uninstall|start|stop|restart` support `--json` for scripting (default output stays human-friendly).
 - `gateway install` defaults to Node runtime; bun is **not recommended** (WhatsApp/Telegram bugs).
@@ -705,11 +705,11 @@ Notes:
 Examples:
 
 ```bash
-Synurex logs --follow
-Synurex logs --limit 200
-Synurex logs --plain
-Synurex logs --json
-Synurex logs --no-color
+SkyKoi logs --follow
+SkyKoi logs --limit 200
+SkyKoi logs --plain
+SkyKoi logs --json
+SkyKoi logs --no-color
 ```
 
 ### `gateway <subcommand>`
@@ -745,13 +745,13 @@ Preferred Anthropic auth (setup-token):
 
 ```bash
 claude setup-token
-Synurex models auth setup-token --provider anthropic
-Synurex models status
+SkyKoi models auth setup-token --provider anthropic
+SkyKoi models status
 ```
 
 ### `models` (root)
 
-`synurex models` is an alias for `models status`.
+`skykoi models` is an alias for `models status`.
 
 Root options:
 
@@ -907,7 +907,7 @@ All `cron` commands accept `--url`, `--token`, `--timeout`, `--expect-final`.
 ## Node host
 
 `node` runs a **headless node host** or manages it as a background service. See
-[`synurex node`](/cli/node).
+[`skykoi node`](/cli/node).
 
 Subcommands:
 
@@ -962,7 +962,7 @@ Location:
 
 ## Browser
 
-Browser control CLI (dedicated Chrome/Brave/Edge/Chromium). See [`synurex browser`](/cli/browser) and the [Browser tool](/tools/browser).
+Browser control CLI (dedicated Chrome/Brave/Edge/Chromium). See [`skykoi browser`](/cli/browser) and the [Browser tool](/tools/browser).
 
 Common options:
 

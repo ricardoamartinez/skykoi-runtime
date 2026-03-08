@@ -402,7 +402,7 @@ export async function statusCommand(
     },
   ];
 
-  runtime.log(theme.heading("synurex status"));
+  runtime.log(theme.heading("skykoi status"));
   runtime.log("");
   runtime.log(theme.heading("Overview"));
   runtime.log(
@@ -459,8 +459,8 @@ export async function statusCommand(
       runtime.log(theme.muted(`… +${sorted.length - shown.length} more`));
     }
   }
-  runtime.log(theme.muted(`Full report: ${formatCliCommand("synurex security audit")}`));
-  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("synurex security audit --deep")}`));
+  runtime.log(theme.muted(`Full report: ${formatCliCommand("skykoi security audit")}`));
+  runtime.log(theme.muted(`Deep probe: ${formatCliCommand("skykoi security audit --deep")}`));
 
   runtime.log("");
   runtime.log(theme.heading("Channels"));
@@ -624,8 +624,8 @@ export async function statusCommand(
   }
 
   runtime.log("");
-  runtime.log("FAQ: https://docs.synurex.com/faq");
-  runtime.log("Troubleshooting: https://docs.synurex.com/troubleshooting");
+  runtime.log("FAQ: https://docs.skykoi.com/faq");
+  runtime.log("Troubleshooting: https://docs.skykoi.com/troubleshooting");
   runtime.log("");
   const updateHint = formatUpdateAvailableHint(update);
   if (updateHint) {
@@ -633,11 +633,11 @@ export async function statusCommand(
     runtime.log("");
   }
   runtime.log("Next steps:");
-  runtime.log(`  Need to share?      ${formatCliCommand("synurex status --all")}`);
-  runtime.log(`  Need to debug live? ${formatCliCommand("synurex logs --follow")}`);
+  runtime.log(`  Need to share?      ${formatCliCommand("skykoi status --all")}`);
+  runtime.log(`  Need to debug live? ${formatCliCommand("skykoi logs --follow")}`);
   if (gatewayReachable) {
-    runtime.log(`  Need to test channels? ${formatCliCommand("synurex status --deep")}`);
+    runtime.log(`  Need to test channels? ${formatCliCommand("skykoi status --deep")}`);
   } else {
-    runtime.log(`  Fix reachability first: ${formatCliCommand("synurex gateway probe")}`);
+    runtime.log(`  Fix reachability first: ${formatCliCommand("skykoi gateway probe")}`);
   }
 }

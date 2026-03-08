@@ -2,11 +2,11 @@ import { createJiti } from "jiti";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
 import type {
-  SynurexPluginDefinition,
-  SynurexPluginModule,
+  SkyKoiPluginDefinition,
+  SkyKoiPluginModule,
   PluginDiagnostic,
   PluginLogger,
 } from "./types.js";
@@ -19,7 +19,7 @@ import {
   resolveMemorySlotDecision,
   type NormalizedPluginsConfig,
 } from "./config-state.js";
-import { discoverSynurexPlugins } from "./discovery.js";
+import { discoverSkyKoiPlugins } from "./discovery.js";
 import { initializeGlobalHookRunner } from "./hook-runner-global.js";
 import { loadPluginManifestRegistry } from "./manifest-registry.js";
 import { createPluginRegistry, type PluginRecord, type PluginRegistry } from "./registry.js";
@@ -30,7 +30,7 @@ import { validateJsonSchemaValue } from "./schema-validator.js";
 export type PluginLoadResult = PluginRegistry;
 
 export type PluginLoadOptions = {
-  config?: SynurexConfig;
+  config?: SkyKoiConfig;
   workspaceDir?: string;
   logger?: PluginLogger;
   coreGatewayHandlers?: Record<string, GatewayRequestHandler>;
@@ -103,8 +103,8 @@ function validatePluginConfig(params: {
 }
 
 function resolvePluginModuleExport(moduleExport: unknown): {
-  definition?: SynurexPluginDefinition;
-  register?: SynurexPluginDefinition["register"];
+  definition?: SkyKoiPluginDefinition;
+  register?: SkyKoiPluginDefinition["register"];
 } {
   const resolved =
     moduleExport &&
@@ -114,11 +114,11 @@ function resolvePluginModuleExport(moduleExport: unknown): {
       : moduleExport;
   if (typeof resolved === "function") {
     return {
-      register: resolved as SynurexPluginDefinition["register"],
+      register: resolved as SkyKoiPluginDefinition["register"],
     };
   }
   if (resolved && typeof resolved === "object") {
-    const def = resolved as SynurexPluginDefinition;
+    const def = resolved as SkyKoiPluginDefinition;
     const register = def.register ?? def.activate;
     return { definition: def, register };
   }
@@ -166,7 +166,7 @@ function pushDiagnostics(diagnostics: PluginDiagnostic[], append: PluginDiagnost
   diagnostics.push(...append);
 }
 
-export function loadSynurexPlugins(options: PluginLoadOptions = {}): PluginRegistry {
+export function loadSkyKoiPlugins(options: PluginLoadOptions = {}): PluginRegistry {
   const cfg = options.config ?? {};
   const logger = options.logger ?? defaultLogger();
   const validateOnly = options.mode === "validate";
@@ -194,7 +194,7 @@ export function loadSynurexPlugins(options: PluginLoadOptions = {}): PluginRegis
     coreGatewayHandlers: options.coreGatewayHandlers as Record<string, GatewayRequestHandler>,
   });
 
-  const discovery = discoverSynurexPlugins({
+  const discovery = discoverSkyKoiPlugins({
     workspaceDir: options.workspaceDir,
     extraPaths: normalized.loadPaths,
   });
@@ -213,7 +213,7 @@ export function loadSynurexPlugins(options: PluginLoadOptions = {}): PluginRegis
     extensions: [".ts", ".tsx", ".mts", ".cts", ".mtsx", ".ctsx", ".js", ".mjs", ".cjs", ".json"],
     ...(pluginSdkAlias
       ? {
-          alias: { "Synurex/plugin-sdk": pluginSdkAlias },
+          alias: { "SkyKoi/plugin-sdk": pluginSdkAlias },
         }
       : {}),
   });
@@ -291,9 +291,9 @@ export function loadSynurexPlugins(options: PluginLoadOptions = {}): PluginRegis
       continue;
     }
 
-    let mod: SynurexPluginModule | null = null;
+    let mod: SkyKoiPluginModule | null = null;
     try {
-      mod = jiti(candidate.source) as SynurexPluginModule;
+      mod = jiti(candidate.source) as SkyKoiPluginModule;
     } catch (err) {
       logger.error(`[plugins] ${record.id} failed to load from ${record.source}: ${String(err)}`);
       record.status = "error";

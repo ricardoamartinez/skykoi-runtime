@@ -7,30 +7,30 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 const tempDirs: string[] = [];
 
 function makeTempDir() {
-  const dir = path.join(os.tmpdir(), `Synurex-plugins-${randomUUID()}`);
+  const dir = path.join(os.tmpdir(), `SkyKoi-plugins-${randomUUID()}`);
   fs.mkdirSync(dir, { recursive: true });
   tempDirs.push(dir);
   return dir;
 }
 
 async function withStateDir<T>(stateDir: string, fn: () => Promise<T>) {
-  const prev = process.env.SYNUREX_STATE_DIR;
-  const prevBundled = process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
-  process.env.SYNUREX_STATE_DIR = stateDir;
-  process.env.SYNUREX_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+  const prev = process.env.SKYKOI_STATE_DIR;
+  const prevBundled = process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
+  process.env.SKYKOI_STATE_DIR = stateDir;
+  process.env.SKYKOI_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
   vi.resetModules();
   try {
     return await fn();
   } finally {
     if (prev === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = prev;
+      process.env.SKYKOI_STATE_DIR = prev;
     }
     if (prevBundled === undefined) {
-      delete process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
+      delete process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.SYNUREX_BUNDLED_PLUGINS_DIR = prevBundled;
+      process.env.SKYKOI_BUNDLED_PLUGINS_DIR = prevBundled;
     }
     vi.resetModules();
   }
@@ -46,7 +46,7 @@ afterEach(() => {
   }
 });
 
-describe("discoverSynurexPlugins", () => {
+describe("discoverSkyKoiPlugins", () => {
   it("discovers global and workspace extensions", async () => {
     const stateDir = makeTempDir();
     const workspaceDir = path.join(stateDir, "workspace");
@@ -55,13 +55,13 @@ describe("discoverSynurexPlugins", () => {
     fs.mkdirSync(globalExt, { recursive: true });
     fs.writeFileSync(path.join(globalExt, "alpha.ts"), "export default function () {}", "utf-8");
 
-    const workspaceExt = path.join(workspaceDir, ".synurex", "extensions");
+    const workspaceExt = path.join(workspaceDir, ".skykoi", "extensions");
     fs.mkdirSync(workspaceExt, { recursive: true });
     fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverSynurexPlugins } = await import("./discovery.js");
-      return discoverSynurexPlugins({ workspaceDir });
+      const { discoverSkyKoiPlugins } = await import("./discovery.js");
+      return discoverSkyKoiPlugins({ workspaceDir });
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -78,7 +78,7 @@ describe("discoverSynurexPlugins", () => {
       path.join(globalExt, "package.json"),
       JSON.stringify({
         name: "pack",
-        Synurex: { extensions: ["./src/one.ts", "./src/two.ts"] },
+        SkyKoi: { extensions: ["./src/one.ts", "./src/two.ts"] },
       }),
       "utf-8",
     );
@@ -94,8 +94,8 @@ describe("discoverSynurexPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverSynurexPlugins } = await import("./discovery.js");
-      return discoverSynurexPlugins({});
+      const { discoverSkyKoiPlugins } = await import("./discovery.js");
+      return discoverSkyKoiPlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -111,8 +111,8 @@ describe("discoverSynurexPlugins", () => {
     fs.writeFileSync(
       path.join(globalExt, "package.json"),
       JSON.stringify({
-        name: "@Synurex/voice-call",
-        Synurex: { extensions: ["./src/index.ts"] },
+        name: "@SkyKoi/voice-call",
+        SkyKoi: { extensions: ["./src/index.ts"] },
       }),
       "utf-8",
     );
@@ -123,8 +123,8 @@ describe("discoverSynurexPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverSynurexPlugins } = await import("./discovery.js");
-      return discoverSynurexPlugins({});
+      const { discoverSkyKoiPlugins } = await import("./discovery.js");
+      return discoverSkyKoiPlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -139,16 +139,16 @@ describe("discoverSynurexPlugins", () => {
     fs.writeFileSync(
       path.join(packDir, "package.json"),
       JSON.stringify({
-        name: "@Synurex/demo-plugin-dir",
-        Synurex: { extensions: ["./index.js"] },
+        name: "@SkyKoi/demo-plugin-dir",
+        SkyKoi: { extensions: ["./index.js"] },
       }),
       "utf-8",
     );
     fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverSynurexPlugins } = await import("./discovery.js");
-      return discoverSynurexPlugins({ extraPaths: [packDir] });
+      const { discoverSkyKoiPlugins } = await import("./discovery.js");
+      return discoverSkyKoiPlugins({ extraPaths: [packDir] });
     });
 
     const ids = candidates.map((c) => c.idHint);

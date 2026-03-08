@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import { slackPlugin } from "../../../extensions/slack/src/channel.js";
 import { telegramPlugin } from "../../../extensions/telegram/src/channel.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
@@ -39,7 +39,7 @@ const slackConfig = {
       appToken: "xapp-test",
     },
   },
-} as SynurexConfig;
+} as SkyKoiConfig;
 
 const telegramConfig = {
   channels: {
@@ -47,7 +47,7 @@ const telegramConfig = {
       botToken: "telegram-test",
     },
   },
-} as SynurexConfig;
+} as SkyKoiConfig;
 
 describe("runMessageAction threading auto-injection", () => {
   beforeEach(async () => {

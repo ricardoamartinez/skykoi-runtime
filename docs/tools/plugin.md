@@ -1,5 +1,5 @@
 ---
-summary: "Synurex plugins/extensions: discovery, config, and safety"
+summary: "SkyKoi plugins/extensions: discovery, config, and safety"
 read_when:
   - Adding or modifying plugins/extensions
   - Documenting plugin install or load rules
@@ -10,11 +10,11 @@ title: "Plugins"
 
 ## Quick start (new to plugins?)
 
-A plugin is just a **small code module** that extends Synurex with extra
+A plugin is just a **small code module** that extends SkyKoi with extra
 features (commands, tools, and Gateway RPC).
 
 Most of the time, you’ll use plugins when you want a feature that’s not built
-into core Synurex yet (or you want to keep optional features out of your main
+into core SkyKoi yet (or you want to keep optional features out of your main
 install).
 
 Fast path:
@@ -22,13 +22,13 @@ Fast path:
 1. See what’s already loaded:
 
 ```bash
-Synurex plugins list
+SkyKoi plugins list
 ```
 
 2. Install an official plugin (example: Voice Call):
 
 ```bash
-Synurex plugins install @Synurex/voice-call
+SkyKoi plugins install @SkyKoi/voice-call
 ```
 
 3. Restart the Gateway, then configure under `plugins.entries.<id>.config`.
@@ -37,21 +37,21 @@ See [Voice Call](/plugins/voice-call) for a concrete example plugin.
 
 ## Available plugins (official)
 
-- Microsoft Teams is plugin-only as of 2026.1.15; install `@Synurex/msteams` if you use Teams.
+- Microsoft Teams is plugin-only as of 2026.1.15; install `@SkyKoi/msteams` if you use Teams.
 - Memory (Core) — bundled memory search plugin (enabled by default via `plugins.slots.memory`)
 - Memory (LanceDB) — bundled long-term memory plugin (auto-recall/capture; set `plugins.slots.memory = "memory-lancedb"`)
-- [Voice Call](/plugins/voice-call) — `@Synurex/voice-call`
-- [Zalo Personal](/plugins/zalouser) — `@Synurex/zalouser`
-- [Matrix](/channels/matrix) — `@Synurex/matrix`
-- [Nostr](/channels/nostr) — `@Synurex/nostr`
-- [Zalo](/channels/zalo) — `@Synurex/zalo`
-- [Microsoft Teams](/channels/msteams) — `@Synurex/msteams`
+- [Voice Call](/plugins/voice-call) — `@SkyKoi/voice-call`
+- [Zalo Personal](/plugins/zalouser) — `@SkyKoi/zalouser`
+- [Matrix](/channels/matrix) — `@SkyKoi/matrix`
+- [Nostr](/channels/nostr) — `@SkyKoi/nostr`
+- [Zalo](/channels/zalo) — `@SkyKoi/zalo`
+- [Microsoft Teams](/channels/msteams) — `@SkyKoi/msteams`
 - Google Antigravity OAuth (provider auth) — bundled as `google-antigravity-auth` (disabled by default)
 - Gemini CLI OAuth (provider auth) — bundled as `google-gemini-cli-auth` (disabled by default)
 - Qwen OAuth (provider auth) — bundled as `qwen-portal-auth` (disabled by default)
 - Copilot Proxy (provider auth) — local VS Code Copilot Proxy bridge; distinct from built-in `github-copilot` device login (bundled, disabled by default)
 
-Synurex plugins are **TypeScript modules** loaded at runtime via jiti. **Config
+SkyKoi plugins are **TypeScript modules** loaded at runtime via jiti. **Config
 validation does not execute plugin code**; it uses the plugin manifest and JSON
 Schema instead. See [Plugin manifest](/plugins/manifest).
 
@@ -75,7 +75,7 @@ Plugins can access selected core helpers via `api.runtime`. For telephony TTS:
 
 ```ts
 const result = await api.runtime.tts.textToSpeechTelephony({
-  text: "Hello from Synurex",
+  text: "Hello from SkyKoi",
   cfg: api.config,
 });
 ```
@@ -88,7 +88,7 @@ Notes:
 
 ## Discovery & precedence
 
-Synurex scans, in order:
+SkyKoi scans, in order:
 
 1. Config paths
 
@@ -96,23 +96,23 @@ Synurex scans, in order:
 
 2. Workspace extensions
 
-- `<workspace>/.synurex/extensions/*.ts`
-- `<workspace>/.synurex/extensions/*/index.ts`
+- `<workspace>/.skykoi/extensions/*.ts`
+- `<workspace>/.skykoi/extensions/*/index.ts`
 
 3. Global extensions
 
-- `~/.synurex/extensions/*.ts`
-- `~/.synurex/extensions/*/index.ts`
+- `~/.skykoi/extensions/*.ts`
+- `~/.skykoi/extensions/*/index.ts`
 
-4. Bundled extensions (shipped with Synurex, **disabled by default**)
+4. Bundled extensions (shipped with SkyKoi, **disabled by default**)
 
-- `<Synurex>/extensions/*`
+- `<SkyKoi>/extensions/*`
 
 Bundled plugins must be enabled explicitly via `plugins.entries.<id>.enabled`
-or `Synurex plugins enable <id>`. Installed plugins are enabled by default,
+or `SkyKoi plugins enable <id>`. Installed plugins are enabled by default,
 but can be disabled the same way.
 
-Each plugin must include a `Synurex.plugin.json` file in its root. If a path
+Each plugin must include a `SkyKoi.plugin.json` file in its root. If a path
 points at a file, the plugin root is the file's directory and must contain the
 manifest.
 
@@ -121,12 +121,12 @@ wins and lower-precedence copies are ignored.
 
 ### Package packs
 
-A plugin directory may include a `package.json` with `Synurex.extensions`:
+A plugin directory may include a `package.json` with `SkyKoi.extensions`:
 
 ```json
 {
   "name": "my-pack",
-  "Synurex": {
+  "SkyKoi": {
     "extensions": ["./src/safety.ts", "./src/tools.ts"]
   }
 }
@@ -140,15 +140,15 @@ If your plugin imports npm deps, install them in that directory so
 
 ### Channel catalog metadata
 
-Channel plugins can advertise onboarding metadata via `Synurex.channel` and
-install hints via `Synurex.install`. This keeps the core catalog data-free.
+Channel plugins can advertise onboarding metadata via `SkyKoi.channel` and
+install hints via `SkyKoi.install`. This keeps the core catalog data-free.
 
 Example:
 
 ```json
 {
-  "name": "@Synurex/nextcloud-talk",
-  "Synurex": {
+  "name": "@SkyKoi/nextcloud-talk",
+  "SkyKoi": {
     "extensions": ["./index.ts"],
     "channel": {
       "id": "nextcloud-talk",
@@ -161,7 +161,7 @@ Example:
       "aliases": ["nc-talk", "nc"]
     },
     "install": {
-      "npmSpec": "@Synurex/nextcloud-talk",
+      "npmSpec": "@SkyKoi/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }
@@ -169,16 +169,16 @@ Example:
 }
 ```
 
-Synurex can also merge **external channel catalogs** (for example, an MPM
+SkyKoi can also merge **external channel catalogs** (for example, an MPM
 registry export). Drop a JSON file at one of:
 
-- `~/.synurex/mpm/plugins.json`
-- `~/.synurex/mpm/catalog.json`
-- `~/.synurex/plugins/catalog.json`
+- `~/.skykoi/mpm/plugins.json`
+- `~/.skykoi/mpm/catalog.json`
+- `~/.skykoi/plugins/catalog.json`
 
-Or point `SYNUREX_PLUGIN_CATALOG_PATHS` (or `SYNUREX_MPM_CATALOG_PATHS`) at
+Or point `SKYKOI_PLUGIN_CATALOG_PATHS` (or `SKYKOI_MPM_CATALOG_PATHS`) at
 one or more JSON files (comma/semicolon/`PATH`-delimited). Each file should
-contain `{ "entries": [ { "name": "@scope/pkg", "Synurex": { "channel": {...}, "install": {...} } } ] }`.
+contain `{ "entries": [ { "name": "@scope/pkg", "SkyKoi": { "channel": {...}, "install": {...} } } ] }`.
 
 ## Plugin IDs
 
@@ -187,7 +187,7 @@ Default plugin ids:
 - Package packs: `package.json` `name`
 - Standalone file: file base name (`~/.../voice-call.ts` → `voice-call`)
 
-If a plugin exports `id`, Synurex uses it but warns when it doesn’t match the
+If a plugin exports `id`, SkyKoi uses it but warns when it doesn’t match the
 configured id.
 
 ## Config
@@ -222,7 +222,7 @@ Validation rules (strict):
 - Unknown `channels.<id>` keys are **errors** unless a plugin manifest declares
   the channel id.
 - Plugin config is validated using the JSON Schema embedded in
-  `Synurex.plugin.json` (`configSchema`).
+  `SkyKoi.plugin.json` (`configSchema`).
 - If a plugin is disabled, its config is preserved and a **warning** is emitted.
 
 ## Plugin slots (exclusive categories)
@@ -247,7 +247,7 @@ are disabled with diagnostics.
 
 The Control UI uses `config.schema` (JSON Schema + `uiHints`) to render better forms.
 
-Synurex augments `uiHints` at runtime based on discovered plugins:
+SkyKoi augments `uiHints` at runtime based on discovered plugins:
 
 - Adds per-plugin labels for `plugins.entries.<id>` / `.enabled` / `.config`
 - Merges optional plugin-provided config field hints under:
@@ -279,24 +279,24 @@ Example:
 ## CLI
 
 ```bash
-Synurex plugins list
-Synurex plugins info <id>
-Synurex plugins install <path>                 # copy a local file/dir into ~/.synurex/extensions/<id>
-Synurex plugins install ./extensions/voice-call # relative path ok
-Synurex plugins install ./plugin.tgz           # install from a local tarball
-Synurex plugins install ./plugin.zip           # install from a local zip
-Synurex plugins install -l ./extensions/voice-call # link (no copy) for dev
-Synurex plugins install @Synurex/voice-call # install from npm
-Synurex plugins update <id>
-Synurex plugins update --all
-Synurex plugins enable <id>
-Synurex plugins disable <id>
-Synurex plugins doctor
+SkyKoi plugins list
+SkyKoi plugins info <id>
+SkyKoi plugins install <path>                 # copy a local file/dir into ~/.skykoi/extensions/<id>
+SkyKoi plugins install ./extensions/voice-call # relative path ok
+SkyKoi plugins install ./plugin.tgz           # install from a local tarball
+SkyKoi plugins install ./plugin.zip           # install from a local zip
+SkyKoi plugins install -l ./extensions/voice-call # link (no copy) for dev
+SkyKoi plugins install @SkyKoi/voice-call # install from npm
+SkyKoi plugins update <id>
+SkyKoi plugins update --all
+SkyKoi plugins enable <id>
+SkyKoi plugins disable <id>
+SkyKoi plugins doctor
 ```
 
 `plugins update` only works for npm installs tracked under `plugins.installs`.
 
-Plugins may also register their own top‑level commands (example: `Synurex voicecall`).
+Plugins may also register their own top‑level commands (example: `SkyKoi voicecall`).
 
 ## Plugin API (overview)
 
@@ -313,7 +313,7 @@ event-driven automation without a separate hook pack install.
 ### Example
 
 ```
-import { registerPluginHooksFromDir } from "Synurex/plugin-sdk";
+import { registerPluginHooksFromDir } from "SkyKoi/plugin-sdk";
 
 export default function register(api) {
   registerPluginHooksFromDir(api, "./hooks");
@@ -324,18 +324,18 @@ Notes:
 
 - Hook directories follow the normal hook structure (`HOOK.md` + `handler.ts`).
 - Hook eligibility rules still apply (OS/bins/env/config requirements).
-- Plugin-managed hooks show up in `Synurex hooks list` with `plugin:<id>`.
-- You cannot enable/disable plugin-managed hooks via `Synurex hooks`; enable/disable the plugin instead.
+- Plugin-managed hooks show up in `SkyKoi hooks list` with `plugin:<id>`.
+- You cannot enable/disable plugin-managed hooks via `SkyKoi hooks`; enable/disable the plugin instead.
 
 ## Provider plugins (model auth)
 
 Plugins can register **model provider auth** flows so users can run OAuth or
-API-key setup inside Synurex (no external scripts needed).
+API-key setup inside SkyKoi (no external scripts needed).
 
 Register a provider via `api.registerProvider(...)`. Each provider exposes one
 or more auth methods (OAuth, API key, device code, etc.). These methods power:
 
-- `Synurex models auth login --provider <id> [--method <id>]`
+- `SkyKoi models auth login --provider <id> [--method <id>]`
 
 Example:
 
@@ -561,7 +561,7 @@ Command handler context:
 - `isAuthorizedSender`: Whether the sender is an authorized user
 - `args`: Arguments passed after the command (if `acceptsArgs: true`)
 - `commandBody`: The full command text
-- `config`: The current Synurex config
+- `config`: The current SkyKoi config
 
 Command options:
 
@@ -624,14 +624,14 @@ it’s present in your workspace/managed skills locations.
 
 Recommended packaging:
 
-- Main package: `Synurex` (this repo)
-- Plugins: separate npm packages under `@Synurex/*` (example: `@Synurex/voice-call`)
+- Main package: `SkyKoi` (this repo)
+- Plugins: separate npm packages under `@SkyKoi/*` (example: `@SkyKoi/voice-call`)
 
 Publishing contract:
 
-- Plugin `package.json` must include `Synurex.extensions` with one or more entry files.
+- Plugin `package.json` must include `SkyKoi.extensions` with one or more entry files.
 - Entry files can be `.js` or `.ts` (jiti loads TS at runtime).
-- `Synurex plugins install <npm-spec>` uses `npm pack`, extracts into `~/.synurex/extensions/<id>/`, and enables it in config.
+- `SkyKoi plugins install <npm-spec>` uses `npm pack`, extracts into `~/.skykoi/extensions/<id>/`, and enables it in config.
 - Config key stability: scoped packages are normalized to the **unscoped** id for `plugins.entries.*`.
 
 ## Example plugin: Voice Call
@@ -640,7 +640,7 @@ This repo includes a voice‑call plugin (Twilio or log fallback):
 
 - Source: `extensions/voice-call`
 - Skill: `skills/voice-call`
-- CLI: `Synurex voicecall start|status`
+- CLI: `SkyKoi voicecall start|status`
 - Tool: `voice_call`
 - RPC: `voicecall.start`, `voicecall.status`
 - Config (twilio): `provider: "twilio"` + `twilio.accountSid/authToken/from` (optional `statusCallbackUrl`, `twimlUrl`)
@@ -661,4 +661,4 @@ Plugins run in-process with the Gateway. Treat them as trusted code:
 Plugins can (and should) ship tests:
 
 - In-repo plugins can keep Vitest tests under `src/**` (example: `src/plugins/voice-call.plugin.test.ts`).
-- Separately published plugins should run their own CI (lint/build/test) and validate `Synurex.extensions` points at the built entrypoint (`dist/index.js`).
+- Separately published plugins should run their own CI (lint/build/test) and validate `SkyKoi.extensions` points at the built entrypoint (`dist/index.js`).

@@ -1,30 +1,30 @@
 ---
-summary: "Synurex Skills guide: public skills registry + CLI workflows"
+summary: "SkyKoi Skills guide: public skills registry + CLI workflows"
 read_when:
-  - Introducing Synurex Skills to new users
+  - Introducing SkyKoi Skills to new users
   - Installing, searching, or publishing skills
-  - Explaining Synurex Skills CLI flags and sync behavior
-title: "Synurex Skills"
+  - Explaining SkyKoi Skills CLI flags and sync behavior
+title: "SkyKoi Skills"
 ---
 
-# Synurex Skills
+# SkyKoi Skills
 
-Synurex Skills is the **public skill registry for Synurex**. It is a free service: all skills are public, open, and visible to everyone for sharing and reuse. A skill is just a folder with a `SKILL.md` file (plus supporting text files). You can browse skills in the web app or use the CLI to search, install, update, and publish skills.
+SkyKoi Skills is the **public skill registry for SkyKoi**. It is a free service: all skills are public, open, and visible to everyone for sharing and reuse. A skill is just a folder with a `SKILL.md` file (plus supporting text files). You can browse skills in the web app or use the CLI to search, install, update, and publish skills.
 
-Site: [Synurex Skills.ai](https://synurex.com/skills)
+Site: [SkyKoi Skills.ai](https://skykoi.com/skills)
 
-## What Synurex Skills is
+## What SkyKoi Skills is
 
-- A public registry for Synurex skills.
+- A public registry for SkyKoi skills.
 - A versioned store of skill bundles and metadata.
 - A discovery surface for search, tags, and usage signals.
 
 ## How it works
 
 1. A user publishes a skill bundle (files + metadata).
-2. Synurex Skills stores the bundle, parses metadata, and assigns a version.
+2. SkyKoi Skills stores the bundle, parses metadata, and assigns a version.
 3. The registry indexes the skill for search and discovery.
-4. Users browse, download, and install skills in Synurex.
+4. Users browse, download, and install skills in SkyKoi.
 
 ## What you can do
 
@@ -36,7 +36,7 @@ Site: [Synurex Skills.ai](https://synurex.com/skills)
 
 ## Who this is for (beginner-friendly)
 
-If you want to add new capabilities to your Synurex agent, Synurex Skills is the easiest way to find and install skills. You do not need to know how the backend works. You can:
+If you want to add new capabilities to your SkyKoi agent, SkyKoi Skills is the easiest way to find and install skills. You do not need to know how the backend works. You can:
 
 - Search for skills by plain language.
 - Install a skill into your workspace.
@@ -47,33 +47,33 @@ If you want to add new capabilities to your Synurex agent, Synurex Skills is the
 
 1. Install the CLI (see next section).
 2. Search for something you need:
-   - `Synurex Skills search "calendar"`
+   - `SkyKoi Skills search "calendar"`
 3. Install a skill:
-   - `Synurex Skills install <skill-slug>`
-4. Start a new Synurex session so it picks up the new skill.
+   - `SkyKoi Skills install <skill-slug>`
+4. Start a new SkyKoi session so it picks up the new skill.
 
 ## Install the CLI
 
 Pick one:
 
 ```bash
-npm i -g Synurex Skills
+npm i -g SkyKoi Skills
 ```
 
 ```bash
-pnpm add -g Synurex Skills
+pnpm add -g SkyKoi Skills
 ```
 
-## How it fits into Synurex
+## How it fits into SkyKoi
 
-By default, the CLI installs skills into `./skills` under your current working directory. If a Synurex workspace is configured, `Synurex Skills` falls back to that workspace unless you override `--workdir` (or `Synurex Skills_WORKDIR`). Synurex loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.synurex/skills` or bundled skills, workspace skills take precedence.
+By default, the CLI installs skills into `./skills` under your current working directory. If a SkyKoi workspace is configured, `SkyKoi Skills` falls back to that workspace unless you override `--workdir` (or `SkyKoi Skills_WORKDIR`). SkyKoi loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.skykoi/skills` or bundled skills, workspace skills take precedence.
 
 For more detail on how skills are loaded, shared, and gated, see
 [Skills](/tools/skills).
 
 ## Skill system overview
 
-A skill is a versioned bundle of files that teaches Synurex how to perform a
+A skill is a versioned bundle of files that teaches SkyKoi how to perform a
 specific task. Each publish creates a new version, and the registry keeps a
 history of versions so users can audit changes.
 
@@ -83,7 +83,7 @@ A typical skill includes:
 - Optional configs, scripts, or supporting files used by the skill.
 - Metadata such as tags, summary, and install requirements.
 
-Synurex Skills uses metadata to power discovery and safely expose skill capabilities.
+SkyKoi Skills uses metadata to power discovery and safely expose skill capabilities.
 The registry also tracks usage signals (such as stars and downloads) to improve
 ranking and visibility.
 
@@ -99,7 +99,7 @@ ranking and visibility.
 
 ## Security and moderation
 
-Synurex Skills is open by default. Anyone can upload skills, but a GitHub account must
+SkyKoi Skills is open by default. Anyone can upload skills, but a GitHub account must
 be at least one week old to publish. This helps slow down abuse without blocking
 legitimate contributors.
 
@@ -112,14 +112,14 @@ Reporting and moderation:
 - Moderators can view hidden skills, unhide them, delete them, or ban users.
 - Abusing the report feature can result in account bans.
 
-Interested in becoming a moderator? Ask in the Synurex Discord and contact a
+Interested in becoming a moderator? Ask in the SkyKoi Discord and contact a
 moderator or maintainer.
 
 ## CLI commands and parameters
 
 Global options (apply to all commands):
 
-- `--workdir <dir>`: Working directory (default: current dir; falls back to Synurex workspace).
+- `--workdir <dir>`: Working directory (default: current dir; falls back to SkyKoi workspace).
 - `--dir <dir>`: Skills directory, relative to workdir (default: `skills`).
 - `--site <url>`: Site base URL (browser login).
 - `--registry <url>`: Registry API base URL.
@@ -128,9 +128,9 @@ Global options (apply to all commands):
 
 Auth:
 
-- `Synurex Skills login` (browser flow) or `Synurex Skills login --token <token>`
-- `Synurex Skills logout`
-- `Synurex Skills whoami`
+- `SkyKoi Skills login` (browser flow) or `SkyKoi Skills login --token <token>`
+- `SkyKoi Skills logout`
+- `SkyKoi Skills whoami`
 
 Options:
 
@@ -140,29 +140,29 @@ Options:
 
 Search:
 
-- `Synurex Skills search "query"`
+- `SkyKoi Skills search "query"`
 - `--limit <n>`: Max results.
 
 Install:
 
-- `Synurex Skills install <slug>`
+- `SkyKoi Skills install <slug>`
 - `--version <version>`: Install a specific version.
 - `--force`: Overwrite if the folder already exists.
 
 Update:
 
-- `Synurex Skills update <slug>`
-- `Synurex Skills update --all`
+- `SkyKoi Skills update <slug>`
+- `SkyKoi Skills update --all`
 - `--version <version>`: Update to a specific version (single slug only).
 - `--force`: Overwrite when local files do not match any published version.
 
 List:
 
-- `Synurex Skills list` (reads `.Synurex Skills/lock.json`)
+- `SkyKoi Skills list` (reads `.SkyKoi Skills/lock.json`)
 
 Publish:
 
-- `Synurex Skills publish <path>`
+- `SkyKoi Skills publish <path>`
 - `--slug <slug>`: Skill slug.
 - `--name <name>`: Display name.
 - `--version <version>`: Semver version.
@@ -171,12 +171,12 @@ Publish:
 
 Delete/undelete (owner/admin only):
 
-- `Synurex Skills delete <slug> --yes`
-- `Synurex Skills undelete <slug> --yes`
+- `SkyKoi Skills delete <slug> --yes`
+- `SkyKoi Skills undelete <slug> --yes`
 
 Sync (scan local skills + publish new/updated):
 
-- `Synurex Skills sync`
+- `SkyKoi Skills sync`
 - `--root <dir...>`: Extra scan roots.
 - `--all`: Upload everything without prompts.
 - `--dry-run`: Show what would be uploaded.
@@ -190,19 +190,19 @@ Sync (scan local skills + publish new/updated):
 ### Search for skills
 
 ```bash
-Synurex Skills search "postgres backups"
+SkyKoi Skills search "postgres backups"
 ```
 
 ### Download new skills
 
 ```bash
-Synurex Skills install my-skill-pack
+SkyKoi Skills install my-skill-pack
 ```
 
 ### Update installed skills
 
 ```bash
-Synurex Skills update --all
+SkyKoi Skills update --all
 ```
 
 ### Back up your skills (publish or sync)
@@ -210,13 +210,13 @@ Synurex Skills update --all
 For a single skill folder:
 
 ```bash
-Synurex Skills publish ./my-skill --slug my-skill --name "My Skill" --version 1.0.0 --tags latest
+SkyKoi Skills publish ./my-skill --slug my-skill --name "My Skill" --version 1.0.0 --tags latest
 ```
 
 To scan and back up many skills at once:
 
 ```bash
-Synurex Skills sync --all
+SkyKoi Skills sync --all
 ```
 
 ## Advanced details (technical)
@@ -233,25 +233,25 @@ Updates compare the local skill contents to registry versions using a content ha
 
 ### Sync scanning and fallback roots
 
-`Synurex Skills sync` scans your current workdir first. If no skills are found, it falls back to known legacy locations (for example `~/Synurex/skills` and `~/.synurex/skills`). This is designed to find older skill installs without extra flags.
+`SkyKoi Skills sync` scans your current workdir first. If no skills are found, it falls back to known legacy locations (for example `~/SkyKoi/skills` and `~/.skykoi/skills`). This is designed to find older skill installs without extra flags.
 
 ### Storage and lockfile
 
-- Installed skills are recorded in `.Synurex Skills/lock.json` under your workdir.
-- Auth tokens are stored in the Synurex Skills CLI config file (override via `Synurex Skills_CONFIG_PATH`).
+- Installed skills are recorded in `.SkyKoi Skills/lock.json` under your workdir.
+- Auth tokens are stored in the SkyKoi Skills CLI config file (override via `SkyKoi Skills_CONFIG_PATH`).
 
 ### Telemetry (install counts)
 
-When you run `Synurex Skills sync` while logged in, the CLI sends a minimal snapshot to compute install counts. You can disable this entirely:
+When you run `SkyKoi Skills sync` while logged in, the CLI sends a minimal snapshot to compute install counts. You can disable this entirely:
 
 ```bash
-export Synurex Skills_DISABLE_TELEMETRY=1
+export SkyKoi Skills_DISABLE_TELEMETRY=1
 ```
 
 ## Environment variables
 
-- `Synurex Skills_SITE`: Override the site URL.
-- `Synurex Skills_REGISTRY`: Override the registry API URL.
-- `Synurex Skills_CONFIG_PATH`: Override where the CLI stores the token/config.
-- `Synurex Skills_WORKDIR`: Override the default workdir.
-- `Synurex Skills_DISABLE_TELEMETRY=1`: Disable telemetry on `sync`.
+- `SkyKoi Skills_SITE`: Override the site URL.
+- `SkyKoi Skills_REGISTRY`: Override the registry API URL.
+- `SkyKoi Skills_CONFIG_PATH`: Override where the CLI stores the token/config.
+- `SkyKoi Skills_WORKDIR`: Override the default workdir.
+- `SkyKoi Skills_DISABLE_TELEMETRY=1`: Disable telemetry on `sync`.

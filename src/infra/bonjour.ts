@@ -26,7 +26,7 @@ export type GatewayBonjourAdvertiseOpts = {
 };
 
 function isDisabledByEnv() {
-  if (isTruthyEnvValue(process.env.SYNUREX_DISABLE_BONJOUR)) {
+  if (isTruthyEnvValue(process.env.SKYKOI_DISABLE_BONJOUR)) {
     return true;
   }
   if (process.env.NODE_ENV === "test") {
@@ -40,12 +40,12 @@ function isDisabledByEnv() {
 
 function safeServiceName(name: string) {
   const trimmed = name.trim();
-  return trimmed.length > 0 ? trimmed : "synurex";
+  return trimmed.length > 0 ? trimmed : "skykoi";
 }
 
 function prettifyInstanceName(name: string) {
   const normalized = name.trim().replace(/\s+/g, " ");
-  return normalized.replace(/\s+\(Synurex\)\s*$/i, "").trim() || normalized;
+  return normalized.replace(/\s+\(SkyKoi\)\s*$/i, "").trim() || normalized;
 }
 
 type BonjourService = {
@@ -95,17 +95,17 @@ export async function startGatewayBonjourAdvertiser(
   // `Mac.localdomain`) can confuse some resolvers/browsers and break discovery.
   // Keep only the first label and normalize away a trailing `.local`.
   const hostnameRaw =
-    process.env.SYNUREX_MDNS_HOSTNAME?.trim() ||
-    "synurex";
+    process.env.SKYKOI_MDNS_HOSTNAME?.trim() ||
+    "skykoi";
   const hostname =
     hostnameRaw
       .replace(/\.local$/i, "")
       .split(".")[0]
-      .trim() || "synurex";
+      .trim() || "skykoi";
   const instanceName =
     typeof opts.instanceName === "string" && opts.instanceName.trim()
       ? opts.instanceName.trim()
-      : `${hostname} (Synurex)`;
+      : `${hostname} (SkyKoi)`;
   const displayName = prettifyInstanceName(instanceName);
 
   const txtBase: Record<string, string> = {
@@ -146,7 +146,7 @@ export async function startGatewayBonjourAdvertiser(
 
   const gateway = responder.createService({
     name: safeServiceName(instanceName),
-    type: "Synurex-gw",
+    type: "SkyKoi-gw",
     protocol: Protocol.TCP,
     port: opts.gatewayPort,
     domain: "local",

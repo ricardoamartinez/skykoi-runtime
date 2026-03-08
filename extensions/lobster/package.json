@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/lobster",
+  "name": "@SkyKoi/lobster",
   "version": "2026.2.6-3",
   "description": "Lobster workflow tool plugin (typed pipelines + resumable approvals)",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

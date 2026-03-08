@@ -51,24 +51,24 @@ export function registerAgentCommands(program: Command, args: { agentChannelOpti
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['Synurex agent --to +15555550123 --message "status update"', "Start a new session."],
-  ['Synurex agent --agent ops --message "Summarize logs"', "Use a specific agent."],
+  ['SkyKoi agent --to +15555550123 --message "status update"', "Start a new session."],
+  ['SkyKoi agent --agent ops --message "Summarize logs"', "Use a specific agent."],
   [
-    'Synurex agent --session-id 1234 --message "Summarize inbox" --thinking medium',
+    'SkyKoi agent --session-id 1234 --message "Summarize inbox" --thinking medium',
     "Target a session with explicit thinking level.",
   ],
   [
-    'Synurex agent --to +15555550123 --message "Trace logs" --verbose on --json',
+    'SkyKoi agent --to +15555550123 --message "Trace logs" --verbose on --json',
     "Enable verbose logging and JSON output.",
   ],
-  ['Synurex agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
+  ['SkyKoi agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
   [
-    'Synurex agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
+    'SkyKoi agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
     "Send reply to a different channel/target.",
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.synurex.com/cli/agent")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.skykoi.com/cli/agent")}`,
     )
     .action(async (opts) => {
       const verboseLevel = typeof opts.verbose === "string" ? opts.verbose.toLowerCase() : "";
@@ -86,7 +86,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.synurex.com/cli/age
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.synurex.com/cli/agents")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.skykoi.com/cli/agents")}\n`,
     );
 
   agents
@@ -155,14 +155,14 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.synurex.com/cli/age
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['Synurex agents set-identity --agent main --name "synurex" --emoji "🦞"', "Set name + emoji."],
-  ["synurex agents set-identity --agent main --avatar avatars/Synurex.png", "Set avatar path."],
+  ['SkyKoi agents set-identity --agent main --name "skykoi" --emoji "🦞"', "Set name + emoji."],
+  ["skykoi agents set-identity --agent main --avatar avatars/SkyKoi.png", "Set avatar path."],
   [
-    "synurex agents set-identity --workspace ~/.synurex/workspace --from-identity",
+    "skykoi agents set-identity --workspace ~/.skykoi/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "synurex agents set-identity --identity-file ~/.synurex/workspace/IDENTITY.md --agent main",
+    "skykoi agents set-identity --identity-file ~/.skykoi/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

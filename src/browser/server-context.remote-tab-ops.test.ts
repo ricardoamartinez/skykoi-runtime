@@ -4,15 +4,15 @@ import type { BrowserServerState } from "./server-context.js";
 vi.mock("./chrome.js", () => ({
   isChromeCdpReady: vi.fn(async () => true),
   isChromeReachable: vi.fn(async () => true),
-  launchSynurexChrome: vi.fn(async () => {
+  launchSkyKoiChrome: vi.fn(async () => {
     throw new Error("unexpected launch");
   }),
-  resolveSynurexUserDataDir: vi.fn(() => "/tmp/Synurex"),
-  stopSynurexChrome: vi.fn(async () => {}),
+  resolveSkyKoiUserDataDir: vi.fn(() => "/tmp/SkyKoi"),
+  stopSkyKoiChrome: vi.fn(async () => {}),
 }));
 
 function makeState(
-  profile: "remote" | "synurex",
+  profile: "remote" | "skykoi",
 ): BrowserServerState & { profiles: Map<string, { lastTargetId?: string | null }> } {
   return {
     // oxlint-disable-next-line typescript/no-explicit-any
@@ -37,7 +37,7 @@ function makeState(
           cdpPort: 443,
           color: "#00AA00",
         },
-        Synurex: { cdpPort: 18800, color: "#FF4500" },
+        SkyKoi: { cdpPort: 18800, color: "#FF4500" },
       },
     },
     profiles: new Map(),
@@ -277,12 +277,12 @@ describe("browser server-context tab selection state", () => {
     global.fetch = fetchMock;
 
     const { createBrowserRouteContext } = await import("./server-context.js");
-    const state = makeState("synurex");
+    const state = makeState("skykoi");
     const ctx = createBrowserRouteContext({ getState: () => state });
-    const Synurex = ctx.forProfile("synurex");
+    const SkyKoi = ctx.forProfile("skykoi");
 
-    const opened = await Synurex.openTab("https://created.example");
+    const opened = await SkyKoi.openTab("https://created.example");
     expect(opened.targetId).toBe("CREATED");
-    expect(state.profiles.get("synurex")?.lastTargetId).toBe("CREATED");
+    expect(state.profiles.get("skykoi")?.lastTargetId).toBe("CREATED");
   });
 });

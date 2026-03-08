@@ -4,7 +4,7 @@ import { ContextProvider } from "@lit/context";
 
 import { v0_8 } from "@a2ui/lit";
 import "@a2ui/lit/ui";
-import { themeContext } from "@SYNUREX/a2ui-theme-context";
+import { themeContext } from "@SKYKOI/a2ui-theme-context";
 
 const modalStyles = css`
   dialog {
@@ -41,7 +41,7 @@ const buttonShadow = isAndroid ? "0 2px 10px rgba(6, 182, 212, 0.14)" : "0 10px 
 const statusShadow = isAndroid ? "0 2px 10px rgba(0, 0, 0, 0.18)" : "0 10px 24px rgba(0, 0, 0, 0.25)";
 const statusBlur = isAndroid ? "10px" : "14px";
 
-const SYNUREXTheme = {
+const SKYKOITheme = {
   components: {
     AudioPlayer: emptyClasses(),
     Button: emptyClasses(),
@@ -151,7 +151,7 @@ const SYNUREXTheme = {
   },
 };
 
-class SYNUREXA2UIHost extends LitElement {
+class SKYKOIA2UIHost extends LitElement {
   static properties = {
     surfaces: { state: true },
     pendingAction: { state: true },
@@ -161,7 +161,7 @@ class SYNUREXA2UIHost extends LitElement {
   #processor = v0_8.Data.createSignalA2uiMessageProcessor();
   themeProvider = new ContextProvider(this, {
     context: themeContext,
-    initialValue: SYNUREXTheme,
+    initialValue: SKYKOITheme,
   });
 
   surfaces = [];
@@ -176,10 +176,10 @@ class SYNUREXA2UIHost extends LitElement {
       position: relative;
       box-sizing: border-box;
       padding:
-        var(--SYNUREX-a2ui-inset-top, 0px)
-        var(--SYNUREX-a2ui-inset-right, 0px)
-        var(--SYNUREX-a2ui-inset-bottom, 0px)
-        var(--SYNUREX-a2ui-inset-left, 0px);
+        var(--SKYKOI-a2ui-inset-top, 0px)
+        var(--SKYKOI-a2ui-inset-right, 0px)
+        var(--SKYKOI-a2ui-inset-bottom, 0px)
+        var(--SKYKOI-a2ui-inset-left, 0px);
     }
 
     #surfaces {
@@ -188,14 +188,14 @@ class SYNUREXA2UIHost extends LitElement {
       gap: 12px;
       height: 100%;
       overflow: auto;
-      padding-bottom: var(--SYNUREX-a2ui-scroll-pad-bottom, 0px);
+      padding-bottom: var(--SKYKOI-a2ui-scroll-pad-bottom, 0px);
     }
 
     .status {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      top: var(--SYNUREX-a2ui-status-top, 12px);
+      top: var(--SKYKOI-a2ui-status-top, 12px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -216,7 +216,7 @@ class SYNUREXA2UIHost extends LitElement {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: var(--SYNUREX-a2ui-toast-bottom, 12px);
+      bottom: var(--SKYKOI-a2ui-toast-bottom, 12px);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -242,7 +242,7 @@ class SYNUREXA2UIHost extends LitElement {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      top: var(--SYNUREX-a2ui-empty-top, var(--SYNUREX-a2ui-status-top, 12px));
+      top: var(--SKYKOI-a2ui-empty-top, var(--SKYKOI-a2ui-status-top, 12px));
       text-align: center;
       opacity: 0.8;
       padding: 10px 12px;
@@ -280,10 +280,10 @@ class SYNUREXA2UIHost extends LitElement {
       reset: () => this.reset(),
       getSurfaces: () => Array.from(this.#processor.getSurfaces().keys()),
     };
-    globalThis.SYNUREXA2UI = api;
+    globalThis.SKYKOIA2UI = api;
     this.addEventListener("a2uiaction", (evt) => this.#handleA2UIAction(evt));
     this.#statusListener = (evt) => this.#handleActionStatus(evt);
-    for (const eventName of ["SYNUREX:a2ui-action-status"]) {
+    for (const eventName of ["SKYKOI:a2ui-action-status"]) {
       globalThis.addEventListener(eventName, this.#statusListener);
     }
     this.#syncSurfaces();
@@ -292,7 +292,7 @@ class SYNUREXA2UIHost extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this.#statusListener) {
-      for (const eventName of ["SYNUREX:a2ui-action-status"]) {
+      for (const eventName of ["SKYKOI:a2ui-action-status"]) {
         globalThis.removeEventListener(eventName, this.#statusListener);
       }
       this.#statusListener = null;
@@ -397,15 +397,15 @@ class SYNUREXA2UIHost extends LitElement {
       ...(Object.keys(context).length ? { context } : {}),
     };
 
-    globalThis.__SYNUREXLastA2UIAction = userAction;
+    globalThis.__SKYKOILastA2UIAction = userAction;
 
     const handler =
-      globalThis.webkit?.messageHandlers?.SYNUREXCanvasA2UIAction ??
-      globalThis.SYNUREXCanvasA2UIAction;
+      globalThis.webkit?.messageHandlers?.SKYKOICanvasA2UIAction ??
+      globalThis.SKYKOICanvasA2UIAction;
     if (handler?.postMessage) {
       try {
         // WebKit message handlers support structured objects; Android's JS interface expects strings.
-        if (handler === globalThis.SYNUREXCanvasA2UIAction) {
+        if (handler === globalThis.SKYKOICanvasA2UIAction) {
           handler.postMessage(JSON.stringify({ userAction }));
         } else {
           handler.postMessage({ userAction });
@@ -485,6 +485,6 @@ class SYNUREXA2UIHost extends LitElement {
   }
 }
 
-if (!customElements.get("SYNUREX-a2ui-host")) {
-  customElements.define("SYNUREX-a2ui-host", SYNUREXA2UIHost);
+if (!customElements.get("SKYKOI-a2ui-host")) {
+  customElements.define("SKYKOI-a2ui-host", SKYKOIA2UIHost);
 }

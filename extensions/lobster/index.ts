@@ -1,7 +1,7 @@
-import type { SynurexPluginApi } from "../../src/plugins/types.js";
+import type { SkyKoiPluginApi } from "../../src/plugins/types.js";
 import { createLobsterTool } from "./src/lobster-tool.js";
 
-export default function register(api: SynurexPluginApi) {
+export default function register(api: SkyKoiPluginApi) {
   api.registerTool(
     (ctx) => {
       if (ctx.sandboxed) {

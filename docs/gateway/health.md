@@ -11,25 +11,25 @@ Short guide to verify channel connectivity without guessing.
 
 ## Quick checks
 
-- `Synurex status` — local summary: gateway reachability/mode, update hint, linked channel auth age, sessions + recent activity.
-- `Synurex status --all` — full local diagnosis (read-only, color, safe to paste for debugging).
-- `Synurex status --deep` — also probes the running Gateway (per-channel probes when supported).
-- `Synurex health --json` — asks the running Gateway for a full health snapshot (WS-only; no direct Baileys socket).
+- `SkyKoi status` — local summary: gateway reachability/mode, update hint, linked channel auth age, sessions + recent activity.
+- `SkyKoi status --all` — full local diagnosis (read-only, color, safe to paste for debugging).
+- `SkyKoi status --deep` — also probes the running Gateway (per-channel probes when supported).
+- `SkyKoi health --json` — asks the running Gateway for a full health snapshot (WS-only; no direct Baileys socket).
 - Send `/status` as a standalone message in WhatsApp/WebChat to get a status reply without invoking the agent.
-- Logs: tail `/tmp/Synurex/Synurex-*.log` and filter for `web-heartbeat`, `web-reconnect`, `web-auto-reply`, `web-inbound`.
+- Logs: tail `/tmp/SkyKoi/SkyKoi-*.log` and filter for `web-heartbeat`, `web-reconnect`, `web-auto-reply`, `web-inbound`.
 
 ## Deep diagnostics
 
-- Creds on disk: `ls -l ~/.synurex/credentials/whatsapp/<accountId>/creds.json` (mtime should be recent).
-- Session store: `ls -l ~/.synurex/agents/<agentId>/sessions/sessions.json` (path can be overridden in config). Count and recent recipients are surfaced via `status`.
-- Relink flow: `Synurex channels logout && Synurex channels login --verbose` when status codes 409–515 or `loggedOut` appear in logs. (Note: the QR login flow auto-restarts once for status 515 after pairing.)
+- Creds on disk: `ls -l ~/.skykoi/credentials/whatsapp/<accountId>/creds.json` (mtime should be recent).
+- Session store: `ls -l ~/.skykoi/agents/<agentId>/sessions/sessions.json` (path can be overridden in config). Count and recent recipients are surfaced via `status`.
+- Relink flow: `SkyKoi channels logout && SkyKoi channels login --verbose` when status codes 409–515 or `loggedOut` appear in logs. (Note: the QR login flow auto-restarts once for status 515 after pairing.)
 
 ## When something fails
 
-- `logged out` or status 409–515 → relink with `Synurex channels logout` then `Synurex channels login`.
-- Gateway unreachable → start it: `Synurex gateway --port 18789` (use `--force` if the port is busy).
+- `logged out` or status 409–515 → relink with `SkyKoi channels logout` then `SkyKoi channels login`.
+- Gateway unreachable → start it: `SkyKoi gateway --port 18789` (use `--force` if the port is busy).
 - No inbound messages → confirm linked phone is online and the sender is allowed (`channels.whatsapp.allowFrom`); for group chats, ensure allowlist + mention rules match (`channels.whatsapp.groups`, `agents.list[].groupChat.mentionPatterns`).
 
 ## Dedicated "health" command
 
-`Synurex health --json` asks the running Gateway for its health snapshot (no direct channel sockets from the CLI). It reports linked creds/auth age when available, per-channel probe summaries, session-store summary, and a probe duration. It exits non-zero if the Gateway is unreachable or the probe fails/timeouts. Use `--timeout <ms>` to override the 10s default.
+`SkyKoi health --json` asks the running Gateway for its health snapshot (no direct channel sockets from the CLI). It reports linked creds/auth age when available, per-channel probe summaries, session-store summary, and a probe duration. It exits non-zero if the Gateway is unreachable or the probe fails/timeouts. Use `--timeout <ms>` to override the 10s default.

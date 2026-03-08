@@ -99,15 +99,15 @@ const runtime = {
 describe("onboard (non-interactive): gateway and remote auth", () => {
   const prev = {
     home: process.env.HOME,
-    stateDir: process.env.SYNUREX_STATE_DIR,
-    configPath: process.env.SYNUREX_CONFIG_PATH,
-    skipChannels: process.env.SYNUREX_SKIP_CHANNELS,
-    skipGmail: process.env.SYNUREX_SKIP_GMAIL_WATCHER,
-    skipCron: process.env.SYNUREX_SKIP_CRON,
-    skipCanvas: process.env.SYNUREX_SKIP_CANVAS_HOST,
-    skipBrowser: process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER,
-    token: process.env.SYNUREX_GATEWAY_TOKEN,
-    password: process.env.SYNUREX_GATEWAY_PASSWORD,
+    stateDir: process.env.SKYKOI_STATE_DIR,
+    configPath: process.env.SKYKOI_CONFIG_PATH,
+    skipChannels: process.env.SKYKOI_SKIP_CHANNELS,
+    skipGmail: process.env.SKYKOI_SKIP_GMAIL_WATCHER,
+    skipCron: process.env.SKYKOI_SKIP_CRON,
+    skipCanvas: process.env.SKYKOI_SKIP_CANVAS_HOST,
+    skipBrowser: process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER,
+    token: process.env.SKYKOI_GATEWAY_TOKEN,
+    password: process.env.SKYKOI_GATEWAY_PASSWORD,
   };
   let tempHome: string | undefined;
 
@@ -116,21 +116,21 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       throw new Error("temp home not initialized");
     }
     const stateDir = await fs.mkdtemp(path.join(tempHome, prefix));
-    process.env.SYNUREX_STATE_DIR = stateDir;
-    delete process.env.SYNUREX_CONFIG_PATH;
+    process.env.SKYKOI_STATE_DIR = stateDir;
+    delete process.env.SKYKOI_CONFIG_PATH;
     return stateDir;
   };
 
   beforeAll(async () => {
-    process.env.SYNUREX_SKIP_CHANNELS = "1";
-    process.env.SYNUREX_SKIP_GMAIL_WATCHER = "1";
-    process.env.SYNUREX_SKIP_CRON = "1";
-    process.env.SYNUREX_SKIP_CANVAS_HOST = "1";
-    process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER = "1";
-    delete process.env.SYNUREX_GATEWAY_TOKEN;
-    delete process.env.SYNUREX_GATEWAY_PASSWORD;
+    process.env.SKYKOI_SKIP_CHANNELS = "1";
+    process.env.SKYKOI_SKIP_GMAIL_WATCHER = "1";
+    process.env.SKYKOI_SKIP_CRON = "1";
+    process.env.SKYKOI_SKIP_CANVAS_HOST = "1";
+    process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER = "1";
+    delete process.env.SKYKOI_GATEWAY_TOKEN;
+    delete process.env.SKYKOI_GATEWAY_PASSWORD;
 
-    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-onboard-"));
+    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-onboard-"));
     process.env.HOME = tempHome;
   });
 
@@ -139,21 +139,21 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       await fs.rm(tempHome, { recursive: true, force: true });
     }
     process.env.HOME = prev.home;
-    process.env.SYNUREX_STATE_DIR = prev.stateDir;
-    process.env.SYNUREX_CONFIG_PATH = prev.configPath;
-    process.env.SYNUREX_SKIP_CHANNELS = prev.skipChannels;
-    process.env.SYNUREX_SKIP_GMAIL_WATCHER = prev.skipGmail;
-    process.env.SYNUREX_SKIP_CRON = prev.skipCron;
-    process.env.SYNUREX_SKIP_CANVAS_HOST = prev.skipCanvas;
-    process.env.SYNUREX_SKIP_BROWSER_CONTROL_SERVER = prev.skipBrowser;
-    process.env.SYNUREX_GATEWAY_TOKEN = prev.token;
-    process.env.SYNUREX_GATEWAY_PASSWORD = prev.password;
+    process.env.SKYKOI_STATE_DIR = prev.stateDir;
+    process.env.SKYKOI_CONFIG_PATH = prev.configPath;
+    process.env.SKYKOI_SKIP_CHANNELS = prev.skipChannels;
+    process.env.SKYKOI_SKIP_GMAIL_WATCHER = prev.skipGmail;
+    process.env.SKYKOI_SKIP_CRON = prev.skipCron;
+    process.env.SKYKOI_SKIP_CANVAS_HOST = prev.skipCanvas;
+    process.env.SKYKOI_SKIP_BROWSER_CONTROL_SERVER = prev.skipBrowser;
+    process.env.SKYKOI_GATEWAY_TOKEN = prev.token;
+    process.env.SKYKOI_GATEWAY_PASSWORD = prev.password;
   });
 
   it("writes gateway token auth into config and gateway enforces it", async () => {
     const stateDir = await initStateDir("state-noninteractive-");
     const token = "tok_test_123";
-    const workspace = path.join(stateDir, "synurex");
+    const workspace = path.join(stateDir, "skykoi");
 
     const { runNonInteractiveOnboarding } = await import("./onboard-non-interactive.js");
     await runNonInteractiveOnboarding(
@@ -236,11 +236,11 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
       return;
     }
     const stateDir = await initStateDir("state-lan-");
-    process.env.SYNUREX_STATE_DIR = stateDir;
-    process.env.SYNUREX_CONFIG_PATH = path.join(stateDir, "synurex.json");
+    process.env.SKYKOI_STATE_DIR = stateDir;
+    process.env.SKYKOI_CONFIG_PATH = path.join(stateDir, "skykoi.json");
 
     const port = await getFreeGatewayPort();
-    const workspace = path.join(stateDir, "synurex");
+    const workspace = path.join(stateDir, "skykoi");
 
     // Other test files mock ../config/config.js. This onboarding flow needs the real
     // implementation so it can persist the config and then read it back (Windows CI

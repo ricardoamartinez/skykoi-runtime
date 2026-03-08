@@ -1,11 +1,11 @@
 import type { App } from "@slack/bolt";
 import { describe, expect, it } from "vitest";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { createSlackMonitorContext, normalizeSlackChannelType } from "./context.js";
 
 const baseParams = () => ({
-  cfg: {} as SynurexConfig,
+  cfg: {} as SkyKoiConfig,
   accountId: "default",
   botToken: "token",
   app: { client: {} } as App,
@@ -29,7 +29,7 @@ const baseParams = () => ({
   replyToMode: "off" as const,
   slashCommand: {
     enabled: false,
-    name: "synurex",
+    name: "skykoi",
     sessionPrefix: "slack:slash",
     ephemeral: true,
   },

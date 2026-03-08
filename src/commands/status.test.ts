@@ -3,15 +3,15 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 let previousProfile: string | undefined;
 
 beforeAll(() => {
-  previousProfile = process.env.SYNUREX_PROFILE;
-  process.env.SYNUREX_PROFILE = "isolated";
+  previousProfile = process.env.SKYKOI_PROFILE;
+  process.env.SKYKOI_PROFILE = "isolated";
 });
 
 afterAll(() => {
   if (previousProfile === undefined) {
-    delete process.env.SYNUREX_PROFILE;
+    delete process.env.SKYKOI_PROFILE;
   } else {
-    process.env.SYNUREX_PROFILE = previousProfile;
+    process.env.SKYKOI_PROFILE = previousProfile;
   }
 });
 
@@ -94,7 +94,7 @@ vi.mock("../memory/manager.js", () => ({
         files: 2,
         chunks: 3,
         dirty: false,
-        workspaceDir: "/tmp/Synurex",
+        workspaceDir: "/tmp/SkyKoi",
         dbPath: "/tmp/memory.sqlite",
         provider: "openai",
         model: "text-embedding-3-small",
@@ -209,8 +209,8 @@ vi.mock("../gateway/call.js", async (importOriginal) => {
 vi.mock("../gateway/session-utils.js", () => ({
   listAgentsForGateway: mocks.listAgentsForGateway,
 }));
-vi.mock("../infra/Synurex-root.js", () => ({
-  resolveSynurexPackageRoot: vi.fn().mockResolvedValue("/tmp/Synurex"),
+vi.mock("../infra/SkyKoi-root.js", () => ({
+  resolveSkyKoiPackageRoot: vi.fn().mockResolvedValue("/tmp/SkyKoi"),
 }));
 vi.mock("../infra/os-summary.js", () => ({
   resolveOsSummary: () => ({
@@ -222,11 +222,11 @@ vi.mock("../infra/os-summary.js", () => ({
 }));
 vi.mock("../infra/update-check.js", () => ({
   checkUpdateStatus: vi.fn().mockResolvedValue({
-    root: "/tmp/Synurex",
+    root: "/tmp/SkyKoi",
     installKind: "git",
     packageManager: "pnpm",
     git: {
-      root: "/tmp/Synurex",
+      root: "/tmp/SkyKoi",
       branch: "main",
       upstream: "origin/main",
       dirty: false,
@@ -237,8 +237,8 @@ vi.mock("../infra/update-check.js", () => ({
     deps: {
       manager: "pnpm",
       status: "ok",
-      lockfilePath: "/tmp/Synurex/pnpm-lock.yaml",
-      markerPath: "/tmp/Synurex/node_modules/.modules.yaml",
+      lockfilePath: "/tmp/SkyKoi/pnpm-lock.yaml",
+      markerPath: "/tmp/SkyKoi/node_modules/.modules.yaml",
     },
     registry: { latestVersion: "0.0.0" },
   }),
@@ -315,7 +315,7 @@ describe("statusCommand", () => {
     (runtime.log as vi.Mock).mockClear();
     await statusCommand({}, runtime as never);
     const logs = (runtime.log as vi.Mock).mock.calls.map((c) => String(c[0]));
-    expect(logs.some((l) => l.includes("synurex status"))).toBe(true);
+    expect(logs.some((l) => l.includes("skykoi status"))).toBe(true);
     expect(logs.some((l) => l.includes("Overview"))).toBe(true);
     expect(logs.some((l) => l.includes("Security audit"))).toBe(true);
     expect(logs.some((l) => l.includes("Summary:"))).toBe(true);
@@ -335,17 +335,17 @@ describe("statusCommand", () => {
     expect(
       logs.some(
         (l) =>
-          l.includes("synurex status --all") ||
-          l.includes("synurex --profile isolated status --all") ||
-          l.includes("synurex status --all") ||
-          l.includes("synurex --profile isolated status --all"),
+          l.includes("skykoi status --all") ||
+          l.includes("skykoi --profile isolated status --all") ||
+          l.includes("skykoi status --all") ||
+          l.includes("skykoi --profile isolated status --all"),
       ),
     ).toBe(true);
   });
 
   it("shows gateway auth when reachable", async () => {
-    const prevToken = process.env.SYNUREX_GATEWAY_TOKEN;
-    process.env.SYNUREX_GATEWAY_TOKEN = "abcd1234";
+    const prevToken = process.env.SKYKOI_GATEWAY_TOKEN;
+    process.env.SKYKOI_GATEWAY_TOKEN = "abcd1234";
     try {
       mocks.probeGateway.mockResolvedValueOnce({
         ok: true,
@@ -364,9 +364,9 @@ describe("statusCommand", () => {
       expect(logs.some((l) => l.includes("auth token"))).toBe(true);
     } finally {
       if (prevToken === undefined) {
-        delete process.env.SYNUREX_GATEWAY_TOKEN;
+        delete process.env.SKYKOI_GATEWAY_TOKEN;
       } else {
-        process.env.SYNUREX_GATEWAY_TOKEN = prevToken;
+        process.env.SKYKOI_GATEWAY_TOKEN = prevToken;
       }
     }
   });

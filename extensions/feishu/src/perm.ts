@@ -1,5 +1,5 @@
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
+import type { SkyKoiPluginApi } from "SkyKoi/plugin-sdk";
 import { listEnabledFeishuAccounts } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
 import { FeishuPermSchema, type FeishuPermParams } from "./perm-schema.js";
@@ -117,7 +117,7 @@ async function removeMember(
 
 // ============ Tool Registration ============
 
-export function registerFeishuPermTools(api: SynurexPluginApi) {
+export function registerFeishuPermTools(api: SkyKoiPluginApi) {
   if (!api.config) {
     api.logger.debug?.("feishu_perm: No config available, skipping perm tools");
     return;

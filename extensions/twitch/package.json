@@ -1,7 +1,7 @@
 {
-  "name": "@Synurex/twitch",
+  "name": "@SkyKoi/twitch",
   "version": "2026.2.6-3",
-  "description": "Synurex Twitch channel plugin",
+  "description": "SkyKoi Twitch channel plugin",
   "type": "module",
   "dependencies": {
     "@twurple/api": "^8.0.3",
@@ -10,9 +10,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

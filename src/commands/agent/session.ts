@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import {
   normalizeThinkLevel,
   normalizeVerboseLevel,
@@ -39,7 +39,7 @@ type SessionKeyResolution = {
 };
 
 export function resolveSessionKeyForRequest(opts: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   to?: string;
   sessionId?: string;
   sessionKey?: string;
@@ -82,7 +82,7 @@ export function resolveSessionKeyForRequest(opts: {
 }
 
 export function resolveSession(opts: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   to?: string;
   sessionId?: string;
   sessionKey?: string;

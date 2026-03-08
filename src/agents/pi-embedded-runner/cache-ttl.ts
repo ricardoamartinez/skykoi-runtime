@@ -1,6 +1,6 @@
 type CustomEntryLike = { type?: unknown; customType?: unknown; data?: unknown };
 
-export const CACHE_TTL_CUSTOM_TYPE = "Synurex.cache-ttl";
+export const CACHE_TTL_CUSTOM_TYPE = "SkyKoi.cache-ttl";
 
 export type CacheTtlEntryData = {
   timestamp: number;

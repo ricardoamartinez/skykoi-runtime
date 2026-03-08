@@ -1,14 +1,14 @@
 ---
-summary: "Synurex macOS companion app (menu bar + gateway broker)"
+summary: "SkyKoi macOS companion app (menu bar + gateway broker)"
 read_when:
   - Implementing macOS app features
   - Changing gateway lifecycle or node bridging on macOS
 title: "macOS App"
 ---
 
-# Synurex macOS Companion (menu bar + gateway broker)
+# SkyKoi macOS Companion (menu bar + gateway broker)
 
-The macOS app is the **menu‑bar companion** for Synurex. It owns permissions,
+The macOS app is the **menu‑bar companion** for SkyKoi. It owns permissions,
 manages/attaches to the Gateway locally (launchd or manual), and exposes macOS
 capabilities to the agent as a node.
 
@@ -21,12 +21,12 @@ capabilities to the agent as a node.
 - Exposes macOS‑only tools (Canvas, Camera, Screen Recording, `system.run`).
 - Starts the local node host service in **remote** mode (launchd), and stops it in **local** mode.
 - Optionally hosts **PeekabooBridge** for UI automation.
-- Installs the global CLI (`Synurex`) via npm/pnpm on request (bun not recommended for the Gateway runtime).
+- Installs the global CLI (`SkyKoi`) via npm/pnpm on request (bun not recommended for the Gateway runtime).
 
 ## Local vs remote mode
 
 - **Local** (default): the app attaches to a running local Gateway if present;
-  otherwise it enables the launchd service via `Synurex gateway install`.
+  otherwise it enables the launchd service via `SkyKoi gateway install`.
 - **Remote**: the app connects to a Gateway over SSH/Tailscale and never starts
   a local process.
   The app starts the local **node host service** so the remote Gateway can reach this Mac.
@@ -35,7 +35,7 @@ capabilities to the agent as a node.
 ## Launchd control
 
 The app manages a per‑user LaunchAgent labeled `bot.molt.gateway`
-(or `bot.molt.<profile>` when using `--profile`/`SYNUREX_PROFILE`; legacy `com.synurex.*` still unloads).
+(or `bot.molt.<profile>` when using `--profile`/`SKYKOI_PROFILE`; legacy `com.skykoi.*` still unloads).
 
 ```bash
 launchctl kickstart -k gui/$UID/bot.molt.gateway
@@ -45,7 +45,7 @@ launchctl bootout gui/$UID/bot.molt.gateway
 Replace the label with `bot.molt.<profile>` when running a named profile.
 
 If the LaunchAgent isn’t installed, enable it from the app or run
-`Synurex gateway install`.
+`SkyKoi gateway install`.
 
 ## Node capabilities (mac)
 
@@ -78,7 +78,7 @@ Gateway -> Node Service (WS)
 Security + ask + allowlist are stored locally on the Mac in:
 
 ```
-~/.synurex/exec-approvals.json
+~/.skykoi/exec-approvals.json
 ```
 
 Example:
@@ -108,14 +108,14 @@ Notes:
 
 ## Deep links
 
-The app registers the `Synurex://` URL scheme for local actions.
+The app registers the `SkyKoi://` URL scheme for local actions.
 
-### `Synurex://agent`
+### `SkyKoi://agent`
 
 Triggers a Gateway `agent` request.
 
 ```bash
-open 'Synurex://agent?message=Hello%20from%20deep%20link'
+open 'SkyKoi://agent?message=Hello%20from%20deep%20link'
 ```
 
 Query parameters:
@@ -134,7 +134,7 @@ Safety:
 
 ## Onboarding flow (typical)
 
-1. Install and launch **Synurex.app**.
+1. Install and launch **SkyKoi.app**.
 2. Complete the permissions checklist (TCC prompts).
 3. Ensure **Local** mode is active and the Gateway is running.
 4. Install the CLI if you want terminal access.
@@ -142,7 +142,7 @@ Safety:
 ## Build & dev workflow (native)
 
 - `cd apps/macos && swift build`
-- `swift run Synurex` (or Xcode)
+- `swift run SkyKoi` (or Xcode)
 - Package app: `scripts/package-mac-app.sh`
 
 ## Debug gateway connectivity (macOS CLI)
@@ -152,8 +152,8 @@ logic that the macOS app uses, without launching the app.
 
 ```bash
 cd apps/macos
-swift run Synurex-mac connect --json
-swift run Synurex-mac discover --timeout 3000 --json
+swift run SkyKoi-mac connect --json
+swift run SkyKoi-mac discover --timeout 3000 --json
 ```
 
 Connect options:
@@ -170,7 +170,7 @@ Discovery options:
 - `--timeout <ms>`: overall discovery window (default: `2000`)
 - `--json`: structured output for diffing
 
-Tip: compare against `Synurex gateway discover --json` to see whether the
+Tip: compare against `SkyKoi gateway discover --json` to see whether the
 macOS app’s discovery pipeline (NWBrowser + tailnet DNS‑SD fallback) differs from
 the Node CLI’s `dns-sd` based discovery.
 

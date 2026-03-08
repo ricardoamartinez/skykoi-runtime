@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex dns` (wide-area discovery helpers)"
+summary: "CLI reference for `SkyKoi dns` (wide-area discovery helpers)"
 read_when:
   - You want wide-area discovery (DNS-SD) via Tailscale + CoreDNS
-  - You’re setting up split DNS for a custom discovery domain (example: Synurex.internal)
+  - You’re setting up split DNS for a custom discovery domain (example: SkyKoi.internal)
 title: "dns"
 ---
 
-# `Synurex dns`
+# `SkyKoi dns`
 
 DNS helpers for wide-area discovery (Tailscale + CoreDNS). Currently focused on macOS + Homebrew CoreDNS.
 
@@ -18,6 +18,6 @@ Related:
 ## Setup
 
 ```bash
-Synurex dns setup
-Synurex dns setup --apply
+SkyKoi dns setup
+SkyKoi dns setup --apply
 ```

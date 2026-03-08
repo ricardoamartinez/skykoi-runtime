@@ -1,15 +1,15 @@
 ---
 name: soul-evil
 description: "Swap SOUL.md with SOUL_EVIL.md during a purge window or by random chance"
-homepage: https://docs.synurex.com/hooks/soul-evil
+homepage: https://docs.skykoi.com/hooks/soul-evil
 metadata:
   {
-    "synurex":
+    "skykoi":
       {
         "emoji": "😈",
         "events": ["agent:bootstrap"],
         "requires": { "config": ["hooks.internal.entries.soul-evil.enabled"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Synurex" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with SkyKoi" }],
       },
   }
 ---
@@ -31,7 +31,7 @@ You can change the filename via hook config.
 
 ## Configuration
 
-Add this to your config (`~/.synurex/synurex.json`):
+Add this to your config (`~/.skykoi/skykoi.json`):
 
 ```json
 {
@@ -67,5 +67,5 @@ Add this to your config (`~/.synurex/synurex.json`):
 ## Enable
 
 ```bash
-Synurex hooks enable soul-evil
+SkyKoi hooks enable soul-evil
 ```

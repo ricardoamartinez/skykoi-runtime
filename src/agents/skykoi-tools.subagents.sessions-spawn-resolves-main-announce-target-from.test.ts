@@ -24,10 +24,10 @@ vi.mock("../config/config.js", async (importOriginal) => {
 
 import { emitAgentEvent } from "../infra/agent-events.js";
 import "./test-helpers/fast-core-tools.js";
-import { createSynurexTools } from "./Synurex-tools.js";
+import { createSkyKoiTools } from "./SkyKoi-tools.js";
 import { resetSubagentRegistryForTests } from "./subagent-registry.js";
 
-describe("Synurex-tools: subagents", () => {
+describe("SkyKoi-tools: subagents", () => {
   beforeEach(() => {
     configOverride = {
       session: {
@@ -101,7 +101,7 @@ describe("Synurex-tools: subagents", () => {
       return {};
     });
 
-    const tool = createSynurexTools({
+    const tool = createSkyKoiTools({
       agentSessionKey: "main",
       agentChannel: "whatsapp",
     }).find((candidate) => candidate.name === "sessions_spawn");
@@ -165,7 +165,7 @@ describe("Synurex-tools: subagents", () => {
     resetSubagentRegistryForTests();
     callGatewayMock.mockReset();
 
-    const tool = createSynurexTools({
+    const tool = createSkyKoiTools({
       agentSessionKey: "main",
       agentChannel: "whatsapp",
     }).find((candidate) => candidate.name === "sessions_spawn");

@@ -5,7 +5,7 @@ import { resolveConfigDir, resolveUserPath } from "../utils.js";
 import { resolveBundledPluginsDir } from "./bundled-dir.js";
 import {
   getPackageManifestMetadata,
-  type SynurexPackageManifest,
+  type SkyKoiPackageManifest,
   type PackageManifest,
 } from "./manifest.js";
 
@@ -21,7 +21,7 @@ export type PluginCandidate = {
   packageVersion?: string;
   packageDescription?: string;
   packageDir?: string;
-  packageManifest?: SynurexPackageManifest;
+  packageManifest?: SkyKoiPackageManifest;
 };
 
 export type PluginDiscoveryResult = {
@@ -70,7 +70,7 @@ function deriveIdHint(params: {
   }
 
   // Prefer the unscoped name so config keys stay stable even when the npm
-  // package is scoped (example: @Synurex/voice-call -> voice-call).
+  // package is scoped (example: @SkyKoi/voice-call -> voice-call).
   const unscoped = rawPackageName.includes("/")
     ? (rawPackageName.split("/").pop() ?? rawPackageName)
     : rawPackageName;
@@ -298,7 +298,7 @@ function discoverFromPath(params: {
   }
 }
 
-export function discoverSynurexPlugins(params: {
+export function discoverSkyKoiPlugins(params: {
   workspaceDir?: string;
   extraPaths?: string[];
 }): PluginDiscoveryResult {
@@ -327,7 +327,7 @@ export function discoverSynurexPlugins(params: {
   }
   if (workspaceDir) {
     const workspaceRoot = resolveUserPath(workspaceDir);
-    const workspaceExtDirs = [path.join(workspaceRoot, ".synurex", "extensions")];
+    const workspaceExtDirs = [path.join(workspaceRoot, ".skykoi", "extensions")];
     for (const dir of workspaceExtDirs) {
       discoverInDirectory({
         dir,

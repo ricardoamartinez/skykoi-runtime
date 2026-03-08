@@ -4,7 +4,7 @@ import type {
   OnboardOptions,
   ResetScope,
 } from "../commands/onboard-types.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { QuickstartGatewayDefaults, WizardFlow } from "./onboarding.types.js";
 import { ensureAuthProfileStore } from "../agents/auth-profiles.js";
@@ -55,11 +55,11 @@ async function requireRiskAcknowledgement(params: {
     [
       "Security warning — please read.",
       "",
-      "Synurex is a hobby project and still in beta. Expect sharp edges.",
+      "SkyKoi is a hobby project and still in beta. Expect sharp edges.",
       "This bot can read files and run actions if tools are enabled.",
       "A bad prompt can trick it into doing unsafe things.",
       "",
-      "If you’re not comfortable with basic security and access control, don’t run Synurex.",
+      "If you’re not comfortable with basic security and access control, don’t run SkyKoi.",
       "Ask someone experienced to help before enabling tools or exposing it to the internet.",
       "",
       "Recommended baseline:",
@@ -69,10 +69,10 @@ async function requireRiskAcknowledgement(params: {
       "- Use the strongest available model for any bot with tools or untrusted inboxes.",
       "",
       "Run regularly:",
-      "synurex security audit --deep",
-      "synurex security audit --fix",
+      "skykoi security audit --deep",
+      "skykoi security audit --fix",
       "",
-      "Must read: https://docs.synurex.com/gateway/security",
+      "Must read: https://docs.skykoi.com/gateway/security",
     ].join("\n"),
     "Security",
   );
@@ -92,11 +92,11 @@ export async function runOnboardingWizard(
   prompter: WizardPrompter,
 ) {
   printWizardHeader(runtime);
-  await prompter.intro("Synurex onboarding");
+  await prompter.intro("SkyKoi onboarding");
   await requireRiskAcknowledgement({ opts, prompter });
 
   const snapshot = await readConfigFileSnapshot();
-  let baseConfig: SynurexConfig = snapshot.valid ? snapshot.config : {};
+  let baseConfig: SkyKoiConfig = snapshot.valid ? snapshot.config : {};
 
   if (snapshot.exists && !snapshot.valid) {
     await prompter.note(summarizeExistingConfig(baseConfig), "Invalid config");
@@ -105,19 +105,19 @@ export async function runOnboardingWizard(
         [
           ...snapshot.issues.map((iss) => `- ${iss.path}: ${iss.message}`),
           "",
-          "Docs: https://docs.synurex.com/gateway/configuration",
+          "Docs: https://docs.skykoi.com/gateway/configuration",
         ].join("\n"),
         "Config issues",
       );
     }
     await prompter.outro(
-      `Config invalid. Run \`${formatCliCommand("synurex doctor")}\` to repair it, then re-run onboarding.`,
+      `Config invalid. Run \`${formatCliCommand("skykoi doctor")}\` to repair it, then re-run onboarding.`,
     );
     runtime.exit(1);
     return;
   }
 
-  const quickstartHint = `Configure details later via ${formatCliCommand("synurex configure")}.`;
+  const quickstartHint = `Configure details later via ${formatCliCommand("skykoi configure")}.`;
   const manualHint = "Configure port, network, Tailscale, and auth options.";
   const explicitFlowRaw = opts.flow?.trim();
   const normalizedExplicitFlow = explicitFlowRaw === "manual" ? "advanced" : explicitFlowRaw;
@@ -294,8 +294,8 @@ export async function runOnboardingWizard(
   const localUrl = `ws://127.0.0.1:${localPort}`;
   const localProbe = await probeGatewayReachable({
     url: localUrl,
-    token: baseConfig.gateway?.auth?.token ?? process.env.SYNUREX_GATEWAY_TOKEN,
-    password: baseConfig.gateway?.auth?.password ?? process.env.SYNUREX_GATEWAY_PASSWORD,
+    token: baseConfig.gateway?.auth?.token ?? process.env.SKYKOI_GATEWAY_TOKEN,
+    password: baseConfig.gateway?.auth?.password ?? process.env.SKYKOI_GATEWAY_PASSWORD,
   });
   const remoteUrl = baseConfig.gateway?.remote?.url?.trim() ?? "";
   const remoteProbe = remoteUrl
@@ -351,7 +351,7 @@ export async function runOnboardingWizard(
 
   const workspaceDir = resolveUserPath(workspaceInput.trim() || DEFAULT_WORKSPACE);
 
-  let nextConfig: SynurexConfig = {
+  let nextConfig: SkyKoiConfig = {
     ...baseConfig,
     agents: {
       ...baseConfig.agents,

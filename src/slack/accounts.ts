@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { SlackAccountConfig } from "../config/types.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
@@ -28,7 +28,7 @@ export type ResolvedSlackAccount = {
   channels?: SlackAccountConfig["channels"];
 };
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SkyKoiConfig): string[] {
   const accounts = cfg.channels?.slack?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -36,7 +36,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listSlackAccountIds(cfg: SynurexConfig): string[] {
+export function listSlackAccountIds(cfg: SkyKoiConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -44,7 +44,7 @@ export function listSlackAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultSlackAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultSlackAccountId(cfg: SkyKoiConfig): string {
   const ids = listSlackAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -53,7 +53,7 @@ export function resolveDefaultSlackAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
 ): SlackAccountConfig | undefined {
   const accounts = cfg.channels?.slack?.accounts;
@@ -63,7 +63,7 @@ function resolveAccountConfig(
   return accounts[accountId] as SlackAccountConfig | undefined;
 }
 
-function mergeSlackAccountConfig(cfg: SynurexConfig, accountId: string): SlackAccountConfig {
+function mergeSlackAccountConfig(cfg: SkyKoiConfig, accountId: string): SlackAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.slack ?? {}) as SlackAccountConfig & {
     accounts?: unknown;
   };
@@ -72,7 +72,7 @@ function mergeSlackAccountConfig(cfg: SynurexConfig, accountId: string): SlackAc
 }
 
 export function resolveSlackAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
 }): ResolvedSlackAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -113,7 +113,7 @@ export function resolveSlackAccount(params: {
   };
 }
 
-export function listEnabledSlackAccounts(cfg: SynurexConfig): ResolvedSlackAccount[] {
+export function listEnabledSlackAccounts(cfg: SkyKoiConfig): ResolvedSlackAccount[] {
   return listSlackAccountIds(cfg)
     .map((accountId) => resolveSlackAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

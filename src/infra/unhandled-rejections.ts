@@ -132,7 +132,7 @@ export function isUnhandledRejectionHandled(reason: unknown): boolean {
       }
     } catch (err) {
       console.error(
-        "[Synurex] Unhandled rejection handler failed:",
+        "[SkyKoi] Unhandled rejection handler failed:",
         err instanceof Error ? (err.stack ?? err.message) : err,
       );
     }
@@ -149,31 +149,31 @@ export function installUnhandledRejectionHandler(): void {
     // AbortError is typically an intentional cancellation (e.g., during shutdown)
     // Log it but don't crash - these are expected during graceful shutdown
     if (isAbortError(reason)) {
-      console.warn("[Synurex] Suppressed AbortError:", formatUncaughtError(reason));
+      console.warn("[SkyKoi] Suppressed AbortError:", formatUncaughtError(reason));
       return;
     }
 
     if (isFatalError(reason)) {
-      console.error("[Synurex] FATAL unhandled rejection:", formatUncaughtError(reason));
+      console.error("[SkyKoi] FATAL unhandled rejection:", formatUncaughtError(reason));
       process.exit(1);
       return;
     }
 
     if (isConfigError(reason)) {
-      console.error("[Synurex] CONFIGURATION ERROR - requires fix:", formatUncaughtError(reason));
+      console.error("[SkyKoi] CONFIGURATION ERROR - requires fix:", formatUncaughtError(reason));
       process.exit(1);
       return;
     }
 
     if (isTransientNetworkError(reason)) {
       console.warn(
-        "[Synurex] Non-fatal unhandled rejection (continuing):",
+        "[SkyKoi] Non-fatal unhandled rejection (continuing):",
         formatUncaughtError(reason),
       );
       return;
     }
 
-    console.error("[Synurex] Unhandled promise rejection:", formatUncaughtError(reason));
+    console.error("[SkyKoi] Unhandled promise rejection:", formatUncaughtError(reason));
     process.exit(1);
   });
 }

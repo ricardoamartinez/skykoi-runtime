@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import { describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { resolveSessionAgentIds } from "./agent-scope.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import { ensureSkyKoiModelsJson } from "./models-config.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
   const actual = await vi.importActual<typeof import("@mariozechner/pi-ai")>("@mariozechner/pi-ai");
@@ -67,10 +67,10 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies SynurexConfig;
+  }) satisfies SkyKoiConfig;
 
-const _ensureModels = (cfg: SynurexConfig, agentDir: string) =>
-  ensureSynurexModelsJson(cfg, agentDir) as unknown;
+const _ensureModels = (cfg: SkyKoiConfig, agentDir: string) =>
+  ensureSkyKoiModelsJson(cfg, agentDir) as unknown;
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {
@@ -103,7 +103,7 @@ describe("resolveSessionAgentIds", () => {
     agents: {
       list: [{ id: "main" }, { id: "beta", default: true }],
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 
   it("falls back to the configured default when sessionKey is missing", () => {
     const { defaultAgentId, sessionAgentId } = resolveSessionAgentIds({

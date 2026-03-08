@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CliDeps } from "../cli/deps.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { CronJob } from "./types.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 import { telegramOutbound } from "../channels/plugins/outbound/telegram.js";
@@ -23,11 +23,11 @@ import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
 import { runCronIsolatedAgentTurn } from "./isolated-agent.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "Synurex-cron-" });
+  return withTempHomeBase(fn, { prefix: "SkyKoi-cron-" });
 }
 
 async function writeSessionStore(home: string) {
-  const dir = path.join(home, ".synurex", "sessions");
+  const dir = path.join(home, ".skykoi", "sessions");
   await fs.mkdir(dir, { recursive: true });
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(
@@ -52,17 +52,17 @@ async function writeSessionStore(home: string) {
 function makeCfg(
   home: string,
   storePath: string,
-  overrides: Partial<SynurexConfig> = {},
-): SynurexConfig {
-  const base: SynurexConfig = {
+  overrides: Partial<SkyKoiConfig> = {},
+): SkyKoiConfig {
+  const base: SkyKoiConfig = {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: path.join(home, "synurex"),
+        workspace: path.join(home, "skykoi"),
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
   return { ...base, ...overrides };
 }
 

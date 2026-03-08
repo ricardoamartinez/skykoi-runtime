@@ -1,9 +1,9 @@
 ---
 name: voice-call
-description: Start voice calls via the Synurex voice-call plugin.
+description: Start voice calls via the SkyKoi voice-call plugin.
 metadata:
   {
-    "Synurex":
+    "SkyKoi":
       {
         "emoji": "📞",
         "skillKey": "voice-call",
@@ -19,8 +19,8 @@ Use the voice-call plugin to start or inspect calls (Twilio, Telnyx, Plivo, or m
 ## CLI
 
 ```bash
-Synurex voicecall call --to "+15555550123" --message "Hello from Synurex"
-Synurex voicecall status --call-id <id>
+SkyKoi voicecall call --to "+15555550123" --message "Hello from SkyKoi"
+SkyKoi voicecall status --call-id <id>
 ```
 
 ## Tool

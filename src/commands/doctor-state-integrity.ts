@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
 import {
@@ -117,7 +117,7 @@ function findOtherStateDirs(stateDir: string): string[] {
       if (entry.name.startsWith(".")) {
         continue;
       }
-      const candidates = [".synurex"].map((dir) => path.resolve(root, entry.name, dir));
+      const candidates = [".skykoi"].map((dir) => path.resolve(root, entry.name, dir));
       for (const candidate of candidates) {
         if (candidate === resolvedState) {
           continue;
@@ -132,7 +132,7 @@ function findOtherStateDirs(stateDir: string): string[] {
 }
 
 export async function noteStateIntegrity(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   prompter: DoctorPrompterLike,
   configPath?: string,
 ) {
@@ -141,7 +141,7 @@ export async function noteStateIntegrity(
   const env = process.env;
   const homedir = os.homedir;
   const stateDir = resolveStateDir(env, homedir);
-  const defaultStateDir = path.join(homedir(), ".synurex");
+  const defaultStateDir = path.join(homedir(), ".skykoi");
   const oauthDir = resolveOAuthDir(env, stateDir);
   const agentId = resolveDefaultAgentId(cfg);
   const sessionsDir = resolveSessionTranscriptsDirForAgent(agentId, env, homedir);
@@ -387,7 +387,7 @@ export function noteWorkspaceBackupTip(workspaceDir: string) {
   note(
     [
       "- Tip: back up the workspace in a private git repo (GitHub or GitLab).",
-      "- Keep ~/.synurex out of git; it contains credentials and session history.",
+      "- Keep ~/.skykoi out of git; it contains credentials and session history.",
       "- Details: /concepts/agent-workspace#git-backup-recommended",
     ].join("\n"),
     "Workspace",

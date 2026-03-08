@@ -1,7 +1,7 @@
 {
-  "name": "@Synurex/matrix",
+  "name": "@SkyKoi/matrix",
   "version": "2026.2.6-3",
-  "description": "Synurex Matrix channel plugin",
+  "description": "SkyKoi Matrix channel plugin",
   "type": "module",
   "dependencies": {
     "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
@@ -11,9 +11,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@Synurex/matrix",
+      "npmSpec": "@SkyKoi/matrix",
       "localPath": "extensions/matrix",
       "defaultChoice": "npm"
     }

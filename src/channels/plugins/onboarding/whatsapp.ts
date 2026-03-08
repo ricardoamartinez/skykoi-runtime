@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SkyKoiConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
@@ -20,15 +20,15 @@ import { promptAccountId } from "./helpers.js";
 
 const channel = "whatsapp" as const;
 
-function setWhatsAppDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy): SynurexConfig {
+function setWhatsAppDmPolicy(cfg: SkyKoiConfig, dmPolicy: DmPolicy): SkyKoiConfig {
   return mergeWhatsAppConfig(cfg, { dmPolicy });
 }
 
-function setWhatsAppAllowFrom(cfg: SynurexConfig, allowFrom?: string[]): SynurexConfig {
+function setWhatsAppAllowFrom(cfg: SkyKoiConfig, allowFrom?: string[]): SkyKoiConfig {
   return mergeWhatsAppConfig(cfg, { allowFrom }, { unsetOnUndefined: ["allowFrom"] });
 }
 
-function setWhatsAppSelfChatMode(cfg: SynurexConfig, selfChatMode: boolean): SynurexConfig {
+function setWhatsAppSelfChatMode(cfg: SkyKoiConfig, selfChatMode: boolean): SkyKoiConfig {
   return mergeWhatsAppConfig(cfg, { selfChatMode });
 }
 
@@ -41,25 +41,25 @@ async function pathExists(filePath: string): Promise<boolean> {
   }
 }
 
-async function detectWhatsAppLinked(cfg: SynurexConfig, accountId: string): Promise<boolean> {
+async function detectWhatsAppLinked(cfg: SkyKoiConfig, accountId: string): Promise<boolean> {
   const { authDir } = resolveWhatsAppAuthDir({ cfg, accountId });
   const credsPath = path.join(authDir, "creds.json");
   return await pathExists(credsPath);
 }
 
 async function promptWhatsAppAllowFrom(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   _runtime: RuntimeEnv,
   prompter: WizardPrompter,
   options?: { forceAllowlist?: boolean },
-): Promise<SynurexConfig> {
+): Promise<SkyKoiConfig> {
   const existingPolicy = cfg.channels?.whatsapp?.dmPolicy ?? "pairing";
   const existingAllowFrom = cfg.channels?.whatsapp?.allowFrom ?? [];
   const existingLabel = existingAllowFrom.length > 0 ? existingAllowFrom.join(", ") : "unset";
 
   if (options?.forceAllowlist) {
     await prompter.note(
-      "We need the sender/owner number so Synurex can allowlist you.",
+      "We need the sender/owner number so SkyKoi can allowlist you.",
       "WhatsApp number",
     );
     const entry = await prompter.text({
@@ -115,13 +115,13 @@ async function promptWhatsAppAllowFrom(
     message: "WhatsApp phone setup",
     options: [
       { value: "personal", label: "This is my personal phone number" },
-      { value: "separate", label: "Separate phone just for Synurex" },
+      { value: "separate", label: "Separate phone just for SkyKoi" },
     ],
   });
 
   if (phoneMode === "personal") {
     await prompter.note(
-      "We need the sender/owner number so Synurex can allowlist you.",
+      "We need the sender/owner number so SkyKoi can allowlist you.",
       "WhatsApp number",
     );
     const entry = await prompter.text({
@@ -341,7 +341,7 @@ export const whatsappOnboardingAdapter: ChannelOnboardingAdapter = {
       }
     } else if (!linked) {
       await prompter.note(
-        `Run \`${formatCliCommand("synurex channels login")}\` later to link WhatsApp.`,
+        `Run \`${formatCliCommand("skykoi channels login")}\` later to link WhatsApp.`,
         "WhatsApp",
       );
     }

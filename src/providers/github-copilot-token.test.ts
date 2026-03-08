@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const loadJsonFile = vi.fn();
 const saveJsonFile = vi.fn();
-const resolveStateDir = vi.fn().mockReturnValue("/tmp/Synurex-state");
+const resolveStateDir = vi.fn().mockReturnValue("/tmp/SkyKoi-state");
 
 vi.mock("../infra/json-file.js", () => ({
   loadJsonFile,
@@ -19,7 +19,7 @@ describe("github-copilot token", () => {
     loadJsonFile.mockReset();
     saveJsonFile.mockReset();
     resolveStateDir.mockReset();
-    resolveStateDir.mockReturnValue("/tmp/Synurex-state");
+    resolveStateDir.mockReturnValue("/tmp/SkyKoi-state");
   });
 
   it("derives baseUrl from token", async () => {

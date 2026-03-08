@@ -1,15 +1,15 @@
 ---
 name: boot-md
 description: "Run BOOT.md on gateway startup"
-homepage: https://docs.synurex.com/hooks#boot-md
+homepage: https://docs.skykoi.com/hooks#boot-md
 metadata:
   {
-    "synurex":
+    "skykoi":
       {
         "emoji": "🚀",
         "events": ["gateway:startup"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Synurex" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with SkyKoi" }],
       },
   }
 ---

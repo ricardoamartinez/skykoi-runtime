@@ -39,7 +39,7 @@ const logCommand: HookHandler = async (event) => {
 
   try {
     // Create log directory
-    const stateDir = process.env.SYNUREX_STATE_DIR?.trim() || path.join(os.homedir(), ".synurex");
+    const stateDir = process.env.SKYKOI_STATE_DIR?.trim() || path.join(os.homedir(), ".skykoi");
     const logDir = path.join(stateDir, "logs");
     await fs.mkdir(logDir, { recursive: true });
 

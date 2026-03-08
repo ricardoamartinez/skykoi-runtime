@@ -22,17 +22,17 @@ macOS 应用使用 `WKWebView` 嵌入一个智能体控制的 **Canvas 面板**�
 
 Canvas 状态存储在 Application Support 下：
 
-- `~/Library/Application Support/Synurex/canvas/<session>/...`
+- `~/Library/Application Support/SkyKoi/canvas/<session>/...`
 
 Canvas 面板通过**自定义 URL 方案**提供这些文件：
 
-- `Synurex-canvas://<session>/<path>`
+- `SkyKoi-canvas://<session>/<path>`
 
 示例：
 
-- `Synurex-canvas://main/` → `<canvasRoot>/main/index.html`
-- `Synurex-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
-- `Synurex-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
+- `SkyKoi-canvas://main/` → `<canvasRoot>/main/index.html`
+- `SkyKoi-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
+- `SkyKoi-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
 
 如果根目录下没有 `index.html`，应用会显示一个**内置脚手架页面**。
 
@@ -57,10 +57,10 @@ Canvas 通过 **Gateway 网关 WebSocket** 暴露，因此智能体可以：
 CLI 示例：
 
 ```bash
-Synurex nodes canvas present --node <id>
-Synurex nodes canvas navigate --node <id> --url "/"
-Synurex nodes canvas eval --node <id> --js "document.title"
-Synurex nodes canvas snapshot --node <id>
+SkyKoi nodes canvas present --node <id>
+SkyKoi nodes canvas navigate --node <id> --url "/"
+SkyKoi nodes canvas eval --node <id> --js "document.title"
+SkyKoi nodes canvas snapshot --node <id>
 ```
 
 注意事项：
@@ -76,7 +76,7 @@ A2UI 由 Gateway 网关 canvas 主机托管并在 Canvas 面板内渲染。
 默认 A2UI 主机 URL：
 
 ```
-http://<gateway-host>:18793/__SYNUREX__/a2ui/
+http://<gateway-host>:18793/__SKYKOI__/a2ui/
 ```
 
 ### A2UI 命令（v0.8）
@@ -98,25 +98,25 @@ cat > /tmp/a2ui-v0.8.jsonl <<'EOFA2'
 {"beginRendering":{"surfaceId":"main","root":"root"}}
 EOFA2
 
-Synurex nodes canvas a2ui push --jsonl /tmp/a2ui-v0.8.jsonl --node <id>
+SkyKoi nodes canvas a2ui push --jsonl /tmp/a2ui-v0.8.jsonl --node <id>
 ```
 
 快速测试：
 
 ```bash
-Synurex nodes canvas a2ui push --node <id> --text "Hello from A2UI"
+SkyKoi nodes canvas a2ui push --node <id> --text "Hello from A2UI"
 ```
 
 ## 从 Canvas 触发智能体运行
 
 Canvas 可以通过深层链接触发新的智能体运行：
 
-- `Synurex://agent?...`
+- `SkyKoi://agent?...`
 
 示例（在 JS 中）：
 
 ```js
-window.location.href = "Synurex://agent?message=Review%20this%20design";
+window.location.href = "SkyKoi://agent?message=Review%20this%20design";
 ```
 
 除非提供有效密钥，否则应用会提示确认。

@@ -1,8 +1,8 @@
 import type { AgentTool, AgentToolResult } from "@mariozechner/pi-agent-core";
 import fs from "node:fs/promises";
 import { describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import type { SkyKoiConfig } from "../config/config.js";
+import { ensureSkyKoiModelsJson } from "./models-config.js";
 import { splitSdkTools } from "./pi-embedded-runner.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
@@ -68,10 +68,10 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies SynurexConfig;
+  }) satisfies SkyKoiConfig;
 
-const _ensureModels = (cfg: SynurexConfig, agentDir: string) =>
-  ensureSynurexModelsJson(cfg, agentDir) as unknown;
+const _ensureModels = (cfg: SkyKoiConfig, agentDir: string) =>
+  ensureSkyKoiModelsJson(cfg, agentDir) as unknown;
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {

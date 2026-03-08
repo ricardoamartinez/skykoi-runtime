@@ -21,7 +21,7 @@ agent (with a session switcher for other sessions).
 - Auto‑open for testing:
 
   ```bash
-  dist/Synurex.app/Contents/MacOS/Synurex --webchat
+  dist/SkyKoi.app/Contents/MacOS/SkyKoi --webchat
   ```
 
 - Logs: `./scripts/clawlog.sh` (subsystem `bot.molt`, category `WebChatSwiftUI`).

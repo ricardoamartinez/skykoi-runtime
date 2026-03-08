@@ -8,7 +8,7 @@ title: "Brave Search"
 
 # Brave Search API
 
-Synurex uses Brave Search as the default provider for `web_search`.
+SkyKoi uses Brave Search as the default provider for `web_search`.
 
 ## Get an API key
 

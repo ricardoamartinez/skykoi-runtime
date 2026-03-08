@@ -26,7 +26,7 @@ beforeEach(() => {
 
   readConfigFileSnapshot.mockReset();
   writeConfigFile.mockReset().mockResolvedValue(undefined);
-  resolveSynurexPackageRoot.mockReset().mockResolvedValue(null);
+  resolveSkyKoiPackageRoot.mockReset().mockResolvedValue(null);
   runGatewayUpdate.mockReset().mockResolvedValue({
     status: "skipped",
     mode: "unknown",
@@ -34,7 +34,7 @@ beforeEach(() => {
     durationMs: 0,
   });
   legacyReadConfigFileSnapshot.mockReset().mockResolvedValue({
-    path: "/tmp/synurex.json",
+    path: "/tmp/skykoi.json",
     exists: false,
     raw: null,
     parsed: {},
@@ -75,11 +75,11 @@ beforeEach(() => {
 
   originalIsTTY = process.stdin.isTTY;
   setStdinTty(true);
-  originalStateDir = process.env.SYNUREX_STATE_DIR;
-  originalUpdateInProgress = process.env.SYNUREX_UPDATE_IN_PROGRESS;
-  process.env.SYNUREX_UPDATE_IN_PROGRESS = "1";
-  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "Synurex-doctor-state-"));
-  process.env.SYNUREX_STATE_DIR = tempStateDir;
+  originalStateDir = process.env.SKYKOI_STATE_DIR;
+  originalUpdateInProgress = process.env.SKYKOI_UPDATE_IN_PROGRESS;
+  process.env.SKYKOI_UPDATE_IN_PROGRESS = "1";
+  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "SkyKoi-doctor-state-"));
+  process.env.SKYKOI_STATE_DIR = tempStateDir;
   fs.mkdirSync(path.join(tempStateDir, "agents", "main", "sessions"), {
     recursive: true,
   });
@@ -89,14 +89,14 @@ beforeEach(() => {
 afterEach(() => {
   setStdinTty(originalIsTTY);
   if (originalStateDir === undefined) {
-    delete process.env.SYNUREX_STATE_DIR;
+    delete process.env.SKYKOI_STATE_DIR;
   } else {
-    process.env.SYNUREX_STATE_DIR = originalStateDir;
+    process.env.SKYKOI_STATE_DIR = originalStateDir;
   }
   if (originalUpdateInProgress === undefined) {
-    delete process.env.SYNUREX_UPDATE_IN_PROGRESS;
+    delete process.env.SKYKOI_UPDATE_IN_PROGRESS;
   } else {
-    process.env.SYNUREX_UPDATE_IN_PROGRESS = originalUpdateInProgress;
+    process.env.SKYKOI_UPDATE_IN_PROGRESS = originalUpdateInProgress;
   }
   if (tempStateDir) {
     fs.rmSync(tempStateDir, { recursive: true, force: true });
@@ -109,7 +109,7 @@ const confirm = vi.fn().mockResolvedValue(true);
 const select = vi.fn().mockResolvedValue("node");
 const note = vi.fn();
 const writeConfigFile = vi.fn().mockResolvedValue(undefined);
-const resolveSynurexPackageRoot = vi.fn().mockResolvedValue(null);
+const resolveSkyKoiPackageRoot = vi.fn().mockResolvedValue(null);
 const runGatewayUpdate = vi.fn().mockResolvedValue({
   status: "skipped",
   mode: "unknown",
@@ -133,7 +133,7 @@ const runCommandWithTimeout = vi.fn().mockResolvedValue({
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 
 const legacyReadConfigFileSnapshot = vi.fn().mockResolvedValue({
-  path: "/tmp/synurex.json",
+  path: "/tmp/skykoi.json",
   exists: false,
   raw: null,
   parsed: {},
@@ -173,14 +173,14 @@ vi.mock("../agents/skills-status.js", () => ({
 }));
 
 vi.mock("../plugins/loader.js", () => ({
-  loadSynurexPlugins: () => ({ plugins: [], diagnostics: [] }),
+  loadSkyKoiPlugins: () => ({ plugins: [], diagnostics: [] }),
 }));
 
 vi.mock("../config/config.js", async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,
-    CONFIG_PATH: "/tmp/synurex.json",
+    CONFIG_PATH: "/tmp/skykoi.json",
     createConfigIO,
     readConfigFileSnapshot,
     writeConfigFile,
@@ -215,8 +215,8 @@ vi.mock("../process/exec.js", () => ({
   runCommandWithTimeout,
 }));
 
-vi.mock("../infra/Synurex-root.js", () => ({
-  resolveSynurexPackageRoot,
+vi.mock("../infra/SkyKoi-root.js", () => ({
+  resolveSkyKoiPackageRoot,
 }));
 
 vi.mock("../infra/update-runner.js", () => ({
@@ -328,7 +328,7 @@ vi.mock("./doctor-state-migrations.js", () => ({
 describe("doctor command", () => {
   it("warns when per-agent sandbox docker/browser/prune overrides are ignored under shared scope", async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/synurex.json",
+      path: "/tmp/skykoi.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -344,7 +344,7 @@ describe("doctor command", () => {
           list: [
             {
               id: "work",
-              workspace: "~/Synurex-work",
+              workspace: "~/SkyKoi-work",
               sandbox: {
                 mode: "all",
                 scope: "shared",
@@ -387,13 +387,13 @@ describe("doctor command", () => {
 
   it("does not warn when only the active workspace is present", async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/synurex.json",
+      path: "/tmp/skykoi.json",
       exists: true,
       raw: "{}",
       parsed: {},
       valid: true,
       config: {
-        agents: { defaults: { workspace: "/Users/steipete/Synurex" } },
+        agents: { defaults: { workspace: "/Users/steipete/SkyKoi" } },
       },
       issues: [],
       legacyIssues: [],
@@ -402,11 +402,11 @@ describe("doctor command", () => {
     note.mockClear();
     const homedirSpy = vi.spyOn(os, "homedir").mockReturnValue("/Users/steipete");
     const realExists = fs.existsSync;
-    const legacyPath = path.join("/Users/steipete", "synurex");
+    const legacyPath = path.join("/Users/steipete", "skykoi");
     const legacyAgentsPath = path.join(legacyPath, "AGENTS.md");
     const existsSpy = vi.spyOn(fs, "existsSync").mockImplementation((value) => {
       if (
-        value === "/Users/steipete/Synurex" ||
+        value === "/Users/steipete/SkyKoi" ||
         value === legacyPath ||
         value === legacyAgentsPath
       ) {

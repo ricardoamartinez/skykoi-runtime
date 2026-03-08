@@ -246,12 +246,12 @@ describe("resolveConfigEnvVars", () => {
       const config = {
         gateway: {
           auth: {
-            token: "${SYNUREX_GATEWAY_TOKEN}",
+            token: "${SKYKOI_GATEWAY_TOKEN}",
           },
         },
       };
       const result = resolveConfigEnvVars(config, {
-        SYNUREX_GATEWAY_TOKEN: "secret-token",
+        SKYKOI_GATEWAY_TOKEN: "secret-token",
       });
       expect(result).toEqual({
         gateway: {

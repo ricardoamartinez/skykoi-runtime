@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { applyDefaultModelChoice } from "./auth-choice.default-model.js";
 
@@ -25,8 +25,8 @@ describe("applyDefaultModelChoice", () => {
       setDefaultModel: false,
       defaultModel,
       // Simulate a provider function that does not explicitly add the entry.
-      applyProviderConfig: (config: SynurexConfig) => config,
-      applyDefaultConfig: (config: SynurexConfig) => config,
+      applyProviderConfig: (config: SkyKoiConfig) => config,
+      applyDefaultConfig: (config: SkyKoiConfig) => config,
       noteAgentModel,
       prompter: makePrompter(),
     });
@@ -42,8 +42,8 @@ describe("applyDefaultModelChoice", () => {
       config: {},
       setDefaultModel: false,
       defaultModel,
-      applyProviderConfig: (config: SynurexConfig) => config,
-      applyDefaultConfig: (config: SynurexConfig) => config,
+      applyProviderConfig: (config: SkyKoiConfig) => config,
+      applyDefaultConfig: (config: SkyKoiConfig) => config,
       noteAgentModel: async () => {},
       prompter: makePrompter(),
     });
@@ -58,7 +58,7 @@ describe("applyDefaultModelChoice", () => {
       config: {},
       setDefaultModel: true,
       defaultModel,
-      applyProviderConfig: (config: SynurexConfig) => config,
+      applyProviderConfig: (config: SkyKoiConfig) => config,
       applyDefaultConfig: () => ({
         agents: {
           defaults: {

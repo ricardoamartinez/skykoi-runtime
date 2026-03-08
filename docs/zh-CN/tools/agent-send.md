@@ -1,7 +1,7 @@
 ---
 read_when:
   - 添加或修改智能体 CLI 入口点
-summary: 直接 `Synurex agent` CLI 运行（带可选投递）
+summary: 直接 `SkyKoi agent` CLI 运行（带可选投递）
 title: Agent Send
 x-i18n:
   generated_at: "2026-02-03T07:54:52Z"
@@ -12,9 +12,9 @@ x-i18n:
   workflow: 15
 ---
 
-# `Synurex agent`（直接智能体运行）
+# `SkyKoi agent`（直接智能体运行）
 
-`Synurex agent` 运行单个智能体回合，无需入站聊天消息。
+`SkyKoi agent` 运行单个智能体回合，无需入站聊天消息。
 默认情况下它**通过 Gateway 网关**运行；添加 `--local` 以强制在当前机器上使用嵌入式运行时。
 
 ## 行为
@@ -29,7 +29,7 @@ x-i18n:
 - 输出：
   - 默认：打印回复文本（加上 `MEDIA:<url>` 行）
   - `--json`：打印结构化负载 + 元数据
-- 可选使用 `--deliver` + `--channel` 将回复投递回渠道（目标格式与 `Synurex message --target` 匹配）。
+- 可选使用 `--deliver` + `--channel` 将回复投递回渠道（目标格式与 `SkyKoi message --target` 匹配）。
 - 使用 `--reply-channel`/`--reply-to`/`--reply-account` 覆盖投递而不更改会话。
 
 如果 Gateway 网关不可达，CLI 会**回退**到嵌入式本地运行。
@@ -37,12 +37,12 @@ x-i18n:
 ## 示例
 
 ```bash
-Synurex agent --to +15555550123 --message "status update"
-Synurex agent --agent ops --message "Summarize logs"
-Synurex agent --session-id 1234 --message "Summarize inbox" --thinking medium
-Synurex agent --to +15555550123 --message "Trace logs" --verbose on --json
-Synurex agent --to +15555550123 --message "Summon reply" --deliver
-Synurex agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
+SkyKoi agent --to +15555550123 --message "status update"
+SkyKoi agent --agent ops --message "Summarize logs"
+SkyKoi agent --session-id 1234 --message "Summarize inbox" --thinking medium
+SkyKoi agent --to +15555550123 --message "Trace logs" --verbose on --json
+SkyKoi agent --to +15555550123 --message "Summon reply" --deliver
+SkyKoi agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
 ```
 
 ## 标志

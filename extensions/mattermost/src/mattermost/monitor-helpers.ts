@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import type WebSocket from "ws";
 import { Buffer } from "node:buffer";
 
@@ -128,9 +128,9 @@ function normalizeAgentId(value: string | undefined | null): string {
   );
 }
 
-type AgentEntry = NonNullable<NonNullable<SynurexConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<SkyKoiConfig["agents"]>["list"]>[number];
 
-function listAgents(cfg: SynurexConfig): AgentEntry[] {
+function listAgents(cfg: SkyKoiConfig): AgentEntry[] {
   const list = cfg.agents?.list;
   if (!Array.isArray(list)) {
     return [];
@@ -138,12 +138,12 @@ function listAgents(cfg: SynurexConfig): AgentEntry[] {
   return list.filter((entry): entry is AgentEntry => Boolean(entry && typeof entry === "object"));
 }
 
-function resolveAgentEntry(cfg: SynurexConfig, agentId: string): AgentEntry | undefined {
+function resolveAgentEntry(cfg: SkyKoiConfig, agentId: string): AgentEntry | undefined {
   const id = normalizeAgentId(agentId);
   return listAgents(cfg).find((entry) => normalizeAgentId(entry.id) === id);
 }
 
-export function resolveIdentityName(cfg: SynurexConfig, agentId: string): string | undefined {
+export function resolveIdentityName(cfg: SkyKoiConfig, agentId: string): string | undefined {
   const entry = resolveAgentEntry(cfg, agentId);
   return entry?.identity?.name?.trim() || undefined;
 }

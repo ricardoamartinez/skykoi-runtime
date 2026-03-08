@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { Logger as TsLogger } from "tslog";
-import type { SynurexConfig } from "../config/types.js";
+import type { SkyKoiConfig } from "../config/types.js";
 import type { ConsoleStyle } from "./console.js";
 import { readLoggingConfig } from "./config.js";
 import { type LogLevel, levelToMinLevel, normalizeLogLevel } from "./levels.js";
@@ -10,10 +10,10 @@ import { loggingState } from "./state.js";
 
 // Pin to /tmp so mac Debug UI and docs match; os.tmpdir() can be a per-user
 // randomized path on macOS which made the “Open log” button a no-op.
-export const DEFAULT_LOG_DIR = "/tmp/Synurex";
-export const DEFAULT_LOG_FILE = path.join(DEFAULT_LOG_DIR, "Synurex.log"); // legacy single-file path
+export const DEFAULT_LOG_DIR = "/tmp/SkyKoi";
+export const DEFAULT_LOG_FILE = path.join(DEFAULT_LOG_DIR, "SkyKoi.log"); // legacy single-file path
 
-const LOG_PREFIX = "synurex";
+const LOG_PREFIX = "skykoi";
 const LOG_SUFFIX = ".log";
 const MAX_LOG_AGE_MS = 24 * 60 * 60 * 1000; // 24h
 
@@ -52,12 +52,12 @@ function attachExternalTransport(logger: TsLogger<LogObj>, transport: LogTranspo
 }
 
 function resolveSettings(): ResolvedSettings {
-  let cfg: SynurexConfig["logging"] | undefined =
+  let cfg: SkyKoiConfig["logging"] | undefined =
     (loggingState.overrideSettings as LoggerSettings | null) ?? readLoggingConfig();
   if (!cfg) {
     try {
       const loaded = requireConfig("../config/config.js") as {
-        loadConfig?: () => SynurexConfig;
+        loadConfig?: () => SkyKoiConfig;
       };
       cfg = loaded.loadConfig?.().logging;
     } catch {
@@ -94,7 +94,7 @@ function buildLogger(settings: ResolvedSettings): TsLogger<LogObj> {
     pruneOldRollingLogs(path.dirname(settings.file));
   }
   const logger = new TsLogger<LogObj>({
-    name: "synurex",
+    name: "skykoi",
     minLevel: levelToMinLevel(settings.level),
     type: "hidden", // no ansi formatting
   });

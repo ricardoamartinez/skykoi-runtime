@@ -1,5 +1,5 @@
 import type { ReplyPayload } from "../auto-reply/types.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { SignalReactionNotificationMode } from "../config/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { chunkTextWithMode, resolveChunkMode, resolveTextChunkLimit } from "../auto-reply/chunk.js";
@@ -40,7 +40,7 @@ export type MonitorSignalOpts = {
   abortSignal?: AbortSignal;
   account?: string;
   accountId?: string;
-  config?: SynurexConfig;
+  config?: SkyKoiConfig;
   baseUrl?: string;
   autoStart?: boolean;
   startupTimeoutMs?: number;

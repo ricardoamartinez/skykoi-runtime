@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 import util from "node:util";
-import type { SynurexConfig } from "../config/types.js";
+import type { SkyKoiConfig } from "../config/types.js";
 import { isVerbose } from "../globals.js";
 import { stripAnsi } from "../terminal/ansi.js";
 import { readLoggingConfig } from "./config.js";
@@ -35,7 +35,7 @@ function normalizeConsoleStyle(style?: string): ConsoleStyle {
 }
 
 function resolveConsoleSettings(): ConsoleSettings {
-  let cfg: SynurexConfig["logging"] | undefined =
+  let cfg: SkyKoiConfig["logging"] | undefined =
     (loggingState.overrideSettings as LoggerSettings | null) ?? readLoggingConfig();
   if (!cfg) {
     if (loggingState.resolvingConsoleSettings) {
@@ -44,7 +44,7 @@ function resolveConsoleSettings(): ConsoleSettings {
       loggingState.resolvingConsoleSettings = true;
       try {
         const loaded = requireConfig("../config/config.js") as {
-          loadConfig?: () => SynurexConfig;
+          loadConfig?: () => SkyKoiConfig;
         };
         cfg = loaded.loadConfig?.().logging;
       } catch {

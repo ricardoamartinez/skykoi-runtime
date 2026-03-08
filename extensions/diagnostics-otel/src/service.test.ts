@@ -95,15 +95,15 @@ vi.mock("@opentelemetry/semantic-conventions", () => ({
   },
 }));
 
-vi.mock("Synurex/plugin-sdk", async () => {
-  const actual = await vi.importActual<typeof import("Synurex/plugin-sdk")>("Synurex/plugin-sdk");
+vi.mock("SkyKoi/plugin-sdk", async () => {
+  const actual = await vi.importActual<typeof import("SkyKoi/plugin-sdk")>("SkyKoi/plugin-sdk");
   return {
     ...actual,
     registerLogTransport: registerLogTransportMock,
   };
 });
 
-import { emitDiagnosticEvent } from "Synurex/plugin-sdk";
+import { emitDiagnosticEvent } from "SkyKoi/plugin-sdk";
 import { createDiagnosticsOtelService } from "./service.js";
 
 describe("diagnostics-otel service", () => {
@@ -191,26 +191,26 @@ describe("diagnostics-otel service", () => {
       attempt: 2,
     });
 
-    expect(telemetryState.counters.get("Synurex.webhook.received")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SkyKoi.webhook.received")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.webhook.duration_ms")?.record,
+      telemetryState.histograms.get("SkyKoi.webhook.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.message.queued")?.add).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.message.processed")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SkyKoi.message.queued")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SkyKoi.message.processed")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.message.duration_ms")?.record,
+      telemetryState.histograms.get("SkyKoi.message.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.histograms.get("Synurex.queue.wait_ms")?.record).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.session.stuck")?.add).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("SkyKoi.queue.wait_ms")?.record).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SkyKoi.session.stuck")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("Synurex.session.stuck_age_ms")?.record,
+      telemetryState.histograms.get("SkyKoi.session.stuck_age_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("Synurex.run.attempt")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("SkyKoi.run.attempt")?.add).toHaveBeenCalled();
 
     const spanNames = telemetryState.tracer.startSpan.mock.calls.map((call) => call[0]);
-    expect(spanNames).toContain("Synurex.webhook.processed");
-    expect(spanNames).toContain("Synurex.message.processed");
-    expect(spanNames).toContain("Synurex.session.stuck");
+    expect(spanNames).toContain("SkyKoi.webhook.processed");
+    expect(spanNames).toContain("SkyKoi.message.processed");
+    expect(spanNames).toContain("SkyKoi.session.stuck");
 
     expect(registerLogTransportMock).toHaveBeenCalledTimes(1);
     expect(registeredTransports).toHaveLength(1);

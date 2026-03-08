@@ -29,8 +29,8 @@ const mocks = vi.hoisted(() => {
 
   return {
     store,
-    resolveSynurexAgentDir: vi.fn().mockReturnValue("/tmp/Synurex-agent"),
-    resolveAgentDir: vi.fn().mockReturnValue("/tmp/Synurex-agent"),
+    resolveSkyKoiAgentDir: vi.fn().mockReturnValue("/tmp/SkyKoi-agent"),
+    resolveAgentDir: vi.fn().mockReturnValue("/tmp/SkyKoi-agent"),
     resolveAgentModelPrimary: vi.fn().mockReturnValue(undefined),
     resolveAgentModelFallbacksOverride: vi.fn().mockReturnValue(undefined),
     listAgentIds: vi.fn().mockReturnValue(["main", "jeremiah"]),
@@ -43,7 +43,7 @@ const mocks = vi.hoisted(() => {
     resolveAuthProfileDisplayLabel: vi.fn(({ profileId }: { profileId: string }) => profileId),
     resolveAuthStorePathForDisplay: vi
       .fn()
-      .mockReturnValue("/tmp/Synurex-agent/auth-profiles.json"),
+      .mockReturnValue("/tmp/SkyKoi-agent/auth-profiles.json"),
     resolveEnvApiKey: vi.fn((provider: string) => {
       if (provider === "openai") {
         return {
@@ -76,7 +76,7 @@ const mocks = vi.hoisted(() => {
 });
 
 vi.mock("../../agents/agent-paths.js", () => ({
-  resolveSynurexAgentDir: mocks.resolveSynurexAgentDir,
+  resolveSkyKoiAgentDir: mocks.resolveSkyKoiAgentDir,
 }));
 
 vi.mock("../../agents/agent-scope.js", () => ({
@@ -128,9 +128,9 @@ describe("modelsStatusCommand auth overview", () => {
     await modelsStatusCommand({ json: true }, runtime as never);
     const payload = JSON.parse(String((runtime.log as vi.Mock).mock.calls[0][0]));
 
-    expect(mocks.resolveSynurexAgentDir).toHaveBeenCalled();
+    expect(mocks.resolveSkyKoiAgentDir).toHaveBeenCalled();
     expect(payload.defaultModel).toBe("anthropic/claude-opus-4-5");
-    expect(payload.auth.storePath).toBe("/tmp/Synurex-agent/auth-profiles.json");
+    expect(payload.auth.storePath).toBe("/tmp/SkyKoi-agent/auth-profiles.json");
     expect(payload.auth.shellEnvFallback.enabled).toBe(true);
     expect(payload.auth.shellEnvFallback.appliedKeys).toContain("OPENAI_API_KEY");
     expect(payload.auth.missingProvidersInUse).toEqual([]);
@@ -171,14 +171,14 @@ describe("modelsStatusCommand auth overview", () => {
 
     mocks.resolveAgentModelPrimary.mockReturnValue("openai/gpt-4");
     mocks.resolveAgentModelFallbacksOverride.mockReturnValue(["openai/gpt-3.5"]);
-    mocks.resolveAgentDir.mockReturnValue("/tmp/Synurex-agent-custom");
+    mocks.resolveAgentDir.mockReturnValue("/tmp/SkyKoi-agent-custom");
 
     try {
       await modelsStatusCommand({ json: true, agent: "Jeremiah" }, localRuntime as never);
       expect(mocks.resolveAgentDir).toHaveBeenCalledWith(expect.anything(), "jeremiah");
       const payload = JSON.parse(String((localRuntime.log as vi.Mock).mock.calls[0][0]));
       expect(payload.agentId).toBe("jeremiah");
-      expect(payload.agentDir).toBe("/tmp/Synurex-agent-custom");
+      expect(payload.agentDir).toBe("/tmp/SkyKoi-agent-custom");
       expect(payload.defaultModel).toBe("openai/gpt-4");
       expect(payload.fallbacks).toEqual(["openai/gpt-3.5"]);
       expect(payload.modelConfig).toEqual({

@@ -1,7 +1,7 @@
 ---
 summary: "LINE Messaging API plugin setup, config, and usage"
 read_when:
-  - You want to connect Synurex to LINE
+  - You want to connect SkyKoi to LINE
   - You need LINE webhook + credential setup
   - You want LINE-specific message options
 title: LINE
@@ -9,7 +9,7 @@ title: LINE
 
 # LINE (plugin)
 
-LINE connects to Synurex via the LINE Messaging API. The plugin runs as a webhook
+LINE connects to SkyKoi via the LINE Messaging API. The plugin runs as a webhook
 receiver on the gateway and uses your channel access token + channel secret for
 authentication.
 
@@ -22,13 +22,13 @@ are not supported.
 Install the LINE plugin:
 
 ```bash
-Synurex plugins install @Synurex/line
+SkyKoi plugins install @SkyKoi/line
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-Synurex plugins install ./extensions/line
+SkyKoi plugins install ./extensions/line
 ```
 
 ## Setup
@@ -107,8 +107,8 @@ Direct messages default to pairing. Unknown senders get a pairing code and their
 messages are ignored until approved.
 
 ```bash
-Synurex pairing list line
-Synurex pairing approve line <CODE>
+SkyKoi pairing list line
+SkyKoi pairing approve line <CODE>
 ```
 
 Allowlists and policies:

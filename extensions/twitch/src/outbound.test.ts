@@ -9,7 +9,7 @@
  * - Abort signal handling
  */
 
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { twitchOutbound } from "./outbound.js";
 
@@ -49,7 +49,7 @@ describe("outbound", () => {
         },
       },
     },
-  } as unknown as SynurexConfig;
+  } as unknown as SkyKoiConfig;
 
   beforeEach(() => {
     vi.clearAllMocks();

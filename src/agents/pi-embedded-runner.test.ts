@@ -3,8 +3,8 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import type { SynurexConfig } from "../config/config.js";
-import { ensureSynurexModelsJson } from "./models-config.js";
+import type { SkyKoiConfig } from "../config/config.js";
+import { ensureSkyKoiModelsJson } from "./models-config.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
   const actual = await vi.importActual<typeof import("@mariozechner/pi-ai")>("@mariozechner/pi-ai");
@@ -99,7 +99,7 @@ let sessionCounter = 0;
 beforeAll(async () => {
   vi.useRealTimers();
   ({ runEmbeddedPiAgent } = await import("./pi-embedded-runner.js"));
-  tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-embedded-agent-"));
+  tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-embedded-agent-"));
   agentDir = path.join(tempRoot, "agent");
   workspaceDir = path.join(tempRoot, "workspace");
   await fs.mkdir(agentDir, { recursive: true });
@@ -134,9 +134,9 @@ const makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies SynurexConfig;
+  }) satisfies SkyKoiConfig;
 
-const ensureModels = (cfg: SynurexConfig) => ensureSynurexModelsJson(cfg, agentDir) as unknown;
+const ensureModels = (cfg: SkyKoiConfig) => ensureSkyKoiModelsJson(cfg, agentDir) as unknown;
 
 const nextSessionFile = () => {
   sessionCounter += 1;
@@ -198,7 +198,7 @@ describe("runEmbeddedPiAgent", () => {
           },
         },
       },
-    } satisfies SynurexConfig;
+    } satisfies SkyKoiConfig;
 
     await expect(
       runEmbeddedPiAgent({
@@ -229,7 +229,7 @@ describe("runEmbeddedPiAgent", () => {
           workspace: fallbackWorkspace,
         },
       },
-    } satisfies SynurexConfig;
+    } satisfies SkyKoiConfig;
     await ensureModels(cfg);
 
     const result = await runEmbeddedPiAgent({
@@ -266,7 +266,7 @@ describe("runEmbeddedPiAgent", () => {
           },
         ],
       },
-    } satisfies SynurexConfig;
+    } satisfies SkyKoiConfig;
     await ensureModels(cfg);
 
     await expect(

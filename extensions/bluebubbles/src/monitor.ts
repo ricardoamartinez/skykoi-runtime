@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import {
   createReplyPrefixOptions,
   logAckFailure,
@@ -7,7 +7,7 @@ import {
   logTypingFailure,
   resolveAckReaction,
   resolveControlCommandGate,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { ResolvedBlueBubblesAccount } from "./accounts.js";
 import type { BlueBubblesAccountConfig, BlueBubblesAttachment } from "./types.js";
 import { downloadBlueBubblesAttachment } from "./attachments.js";
@@ -30,7 +30,7 @@ export type BlueBubblesRuntimeEnv = {
 
 export type BlueBubblesMonitorOptions = {
   account: ResolvedBlueBubblesAccount;
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   runtime: BlueBubblesRuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
@@ -270,7 +270,7 @@ function logGroupAllowlistHint(params: {
 
 type WebhookTarget = {
   account: ResolvedBlueBubblesAccount;
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   runtime: BlueBubblesRuntimeEnv;
   core: BlueBubblesCoreRuntime;
   path: string;
@@ -371,7 +371,7 @@ const targetDebouncers = new Map<
 >();
 
 function resolveBlueBubblesDebounceMs(
-  config: SynurexConfig,
+  config: SkyKoiConfig,
   core: BlueBubblesCoreRuntime,
 ): number {
   const inbound = config.messages?.inbound;
@@ -1098,7 +1098,7 @@ function maskSecret(value: string): string {
 }
 
 function resolveBlueBubblesAckReaction(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   agentId: string;
   core: BlueBubblesCoreRuntime;
   runtime: BlueBubblesRuntimeEnv;

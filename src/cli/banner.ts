@@ -18,7 +18,7 @@ const hasJsonFlag = (argv: string[]) =>
 const hasVersionFlag = (argv: string[]) =>
   argv.some((arg) => arg === "--version" || arg === "-V" || arg === "-v");
 
-// ─── Aurora gradient (matches synurex.com provisioning animation) ────
+// ─── Aurora gradient (matches skykoi.com provisioning animation) ────
 // Colors: purple → pink → blue → orange → purple (looping)
 const AURORA_STOPS: [number, number, number][] = [
   [147, 51, 234],  // #9333ea purple
@@ -58,8 +58,8 @@ const RESET = "\x1b[0m";
 const BOLD = "\x1b[1m";
 const DIM = "\x1b[2m";
 
-// ─── Synurex ASCII art (exact match from synurex.com) ────────────────
-const SYNUREX_ASCII = [
+// ─── SkyKoi ASCII art (exact match from skykoi.com) ────────────────
+const SKYKOI_ASCII = [
   "╔═╗╦ ╦╔╗╔╦ ╦╦═╗╔═╗═╗ ╦",
   "╚═╗╚╦╝║║║║ ║╠╦╝║╣ ╔╩╦╝",
   "╚═╝ ╩ ╝╚╝╚═╝╩╚═╚═╝╩ ╚═",
@@ -85,11 +85,11 @@ export function formatCliBannerArt(options: BannerOptions = {}): string {
   const rich = options.richTty ?? isRich();
 
   if (!rich) {
-    return SYNUREX_ASCII.join("\n");
+    return SKYKOI_ASCII.join("\n");
   }
 
   // Apply gradient at phase 0 (static snapshot)
-  return SYNUREX_ASCII.map((line, lineIdx) => {
+  return SKYKOI_ASCII.map((line, lineIdx) => {
     const offset = lineIdx * 0.15; // slight shift per row for diagonal effect
     return auroraLine(line, offset);
   }).join("\n");
@@ -105,11 +105,11 @@ export async function animateCliBanner(options: BannerOptions = {}): Promise<voi
   if (!rich) return;
 
   const columns = options.columns ?? process.stdout.columns ?? 80;
-  const artWidth = Math.max(...SYNUREX_ASCII.map((l) => l.length));
+  const artWidth = Math.max(...SKYKOI_ASCII.map((l) => l.length));
   const padLeft = Math.max(0, Math.floor((columns - artWidth) / 2));
   const padding = " ".repeat(padLeft);
 
-  const totalLines = SYNUREX_ASCII.length;
+  const totalLines = SKYKOI_ASCII.length;
   const FRAMES = 30;
   const FRAME_MS = 50; // 50ms per frame = ~1.5s total animation
 
@@ -129,7 +129,7 @@ export async function animateCliBanner(options: BannerOptions = {}): Promise<voi
 
     for (let lineIdx = 0; lineIdx < totalLines; lineIdx++) {
       const offset = phase + lineIdx * 0.15;
-      const colored = auroraLine(SYNUREX_ASCII[lineIdx], offset);
+      const colored = auroraLine(SKYKOI_ASCII[lineIdx], offset);
       process.stdout.write(`\r${padding}${colored}\x1b[K\n`);
     }
 
@@ -140,7 +140,7 @@ export async function animateCliBanner(options: BannerOptions = {}): Promise<voi
   process.stdout.write(`\x1b[${totalLines}A`);
   for (let lineIdx = 0; lineIdx < totalLines; lineIdx++) {
     const offset = lineIdx * 0.15;
-    const colored = auroraLine(SYNUREX_ASCII[lineIdx], offset);
+    const colored = auroraLine(SKYKOI_ASCII[lineIdx], offset);
     process.stdout.write(`\r${padding}${colored}\x1b[K\n`);
   }
 
@@ -155,7 +155,7 @@ export function formatCliBannerLine(version: string, options: BannerOptions = {}
   const commitLabel = commit ?? "unknown";
   const tagline = pickTagline(options);
   const rich = options.richTty ?? isRich();
-  const title = "⚡ Synurex";
+  const title = "⚡ SkyKoi";
   const prefix = "⚡ ";
   const columns = options.columns ?? process.stdout.columns ?? 120;
   const plainFullLine = `${title} ${version} (${commitLabel}) — ${tagline}`;

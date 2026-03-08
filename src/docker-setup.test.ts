@@ -40,7 +40,7 @@ describe("docker-setup.sh", () => {
       return;
     }
 
-    const rootDir = await mkdtemp(join(tmpdir(), "Synurex-docker-setup-"));
+    const rootDir = await mkdtemp(join(tmpdir(), "SkyKoi-docker-setup-"));
     const scriptPath = join(rootDir, "docker-setup.sh");
     const dockerfilePath = join(rootDir, "Dockerfile");
     const composePath = join(rootDir, "docker-compose.yml");
@@ -52,7 +52,7 @@ describe("docker-setup.sh", () => {
     await writeFile(dockerfilePath, "FROM scratch\n");
     await writeFile(
       composePath,
-      "services:\n  Synurex-gateway:\n    image: noop\n  Synurex-cli:\n    image: noop\n",
+      "services:\n  SkyKoi-gateway:\n    image: noop\n  SkyKoi-cli:\n    image: noop\n",
     );
     await writeDockerStub(binDir, logPath);
 
@@ -60,13 +60,13 @@ describe("docker-setup.sh", () => {
       ...process.env,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
       DOCKER_STUB_LOG: logPath,
-      SYNUREX_GATEWAY_TOKEN: "test-token",
-      SYNUREX_CONFIG_DIR: join(rootDir, "config"),
-      SYNUREX_WORKSPACE_DIR: join(rootDir, "synurex"),
+      SKYKOI_GATEWAY_TOKEN: "test-token",
+      SKYKOI_CONFIG_DIR: join(rootDir, "config"),
+      SKYKOI_WORKSPACE_DIR: join(rootDir, "skykoi"),
     };
-    delete env.SYNUREX_DOCKER_APT_PACKAGES;
-    delete env.SYNUREX_EXTRA_MOUNTS;
-    delete env.SYNUREX_HOME_VOLUME;
+    delete env.SKYKOI_DOCKER_APT_PACKAGES;
+    delete env.SKYKOI_EXTRA_MOUNTS;
+    delete env.SKYKOI_HOME_VOLUME;
 
     const result = spawnSync("bash", [scriptPath], {
       cwd: rootDir,
@@ -77,12 +77,12 @@ describe("docker-setup.sh", () => {
     expect(result.status).toBe(0);
 
     const envFile = await readFile(join(rootDir, ".env"), "utf8");
-    expect(envFile).toContain("SYNUREX_DOCKER_APT_PACKAGES=");
-    expect(envFile).toContain("SYNUREX_EXTRA_MOUNTS=");
-    expect(envFile).toContain("SYNUREX_HOME_VOLUME=");
+    expect(envFile).toContain("SKYKOI_DOCKER_APT_PACKAGES=");
+    expect(envFile).toContain("SKYKOI_EXTRA_MOUNTS=");
+    expect(envFile).toContain("SKYKOI_HOME_VOLUME=");
   });
 
-  it("plumbs SYNUREX_DOCKER_APT_PACKAGES into .env and docker build args", async () => {
+  it("plumbs SKYKOI_DOCKER_APT_PACKAGES into .env and docker build args", async () => {
     const assocCheck = spawnSync("bash", ["-c", "declare -A _t=()"], {
       encoding: "utf8",
     });
@@ -90,7 +90,7 @@ describe("docker-setup.sh", () => {
       return;
     }
 
-    const rootDir = await mkdtemp(join(tmpdir(), "Synurex-docker-setup-"));
+    const rootDir = await mkdtemp(join(tmpdir(), "SkyKoi-docker-setup-"));
     const scriptPath = join(rootDir, "docker-setup.sh");
     const dockerfilePath = join(rootDir, "Dockerfile");
     const composePath = join(rootDir, "docker-compose.yml");
@@ -102,7 +102,7 @@ describe("docker-setup.sh", () => {
     await writeFile(dockerfilePath, "FROM scratch\n");
     await writeFile(
       composePath,
-      "services:\n  Synurex-gateway:\n    image: noop\n  Synurex-cli:\n    image: noop\n",
+      "services:\n  SkyKoi-gateway:\n    image: noop\n  SkyKoi-cli:\n    image: noop\n",
     );
     await writeDockerStub(binDir, logPath);
 
@@ -110,12 +110,12 @@ describe("docker-setup.sh", () => {
       ...process.env,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
       DOCKER_STUB_LOG: logPath,
-      SYNUREX_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
-      SYNUREX_GATEWAY_TOKEN: "test-token",
-      SYNUREX_CONFIG_DIR: join(rootDir, "config"),
-      SYNUREX_WORKSPACE_DIR: join(rootDir, "synurex"),
-      SYNUREX_EXTRA_MOUNTS: "",
-      SYNUREX_HOME_VOLUME: "",
+      SKYKOI_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
+      SKYKOI_GATEWAY_TOKEN: "test-token",
+      SKYKOI_CONFIG_DIR: join(rootDir, "config"),
+      SKYKOI_WORKSPACE_DIR: join(rootDir, "skykoi"),
+      SKYKOI_EXTRA_MOUNTS: "",
+      SKYKOI_HOME_VOLUME: "",
     };
 
     const result = spawnSync("bash", [scriptPath], {
@@ -127,10 +127,10 @@ describe("docker-setup.sh", () => {
     expect(result.status).toBe(0);
 
     const envFile = await readFile(join(rootDir, ".env"), "utf8");
-    expect(envFile).toContain("SYNUREX_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(envFile).toContain("SKYKOI_DOCKER_APT_PACKAGES=ffmpeg build-essential");
 
     const log = await readFile(logPath, "utf8");
-    expect(log).toContain("--build-arg SYNUREX_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(log).toContain("--build-arg SKYKOI_DOCKER_APT_PACKAGES=ffmpeg build-essential");
   });
 
   it("keeps docker-compose gateway command in sync", async () => {

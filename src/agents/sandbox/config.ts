@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type {
   SandboxBrowserConfig,
   SandboxConfig,
@@ -124,7 +124,7 @@ export function resolveSandboxPruneConfig(params: {
 }
 
 export function resolveSandboxConfigForAgent(
-  cfg?: SynurexConfig,
+  cfg?: SkyKoiConfig,
   agentId?: string,
 ): SandboxConfig {
   const agent = cfg?.agents?.defaults?.sandbox;

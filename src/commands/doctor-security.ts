@@ -1,5 +1,5 @@
 import type { ChannelId } from "../channels/plugins/types.js";
-import type { SynurexConfig, GatewayBindMode } from "../config/config.js";
+import type { SkyKoiConfig, GatewayBindMode } from "../config/config.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import { listChannelPlugins } from "../channels/plugins/index.js";
 import { formatCliCommand } from "../cli/command-format.js";
@@ -8,9 +8,9 @@ import { isLoopbackHost, resolveGatewayBindHost } from "../gateway/net.js";
 import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
 import { note } from "../terminal/note.js";
 
-export async function noteSecurityWarnings(cfg: SynurexConfig) {
+export async function noteSecurityWarnings(cfg: SkyKoiConfig) {
   const warnings: string[] = [];
-  const auditHint = `- Run: ${formatCliCommand("synurex security audit --deep")}`;
+  const auditHint = `- Run: ${formatCliCommand("skykoi security audit --deep")}`;
 
   // ===========================================
   // GATEWAY NETWORK EXPOSURE CHECK
@@ -48,19 +48,19 @@ export async function noteSecurityWarnings(cfg: SynurexConfig) {
       const authFixLines =
         resolvedAuth.mode === "password"
           ? [
-              `  Fix: ${formatCliCommand("synurex configure")} to set a password`,
-              `  Or switch to token: ${formatCliCommand("synurex config set gateway.auth.mode token")}`,
+              `  Fix: ${formatCliCommand("skykoi configure")} to set a password`,
+              `  Or switch to token: ${formatCliCommand("skykoi config set gateway.auth.mode token")}`,
             ]
           : [
-              `  Fix: ${formatCliCommand("synurex doctor --fix")} to generate a token`,
+              `  Fix: ${formatCliCommand("skykoi doctor --fix")} to generate a token`,
               `  Or set token directly: ${formatCliCommand(
-                "synurex config set gateway.auth.mode token",
+                "skykoi config set gateway.auth.mode token",
               )}`,
             ];
       warnings.push(
         `- CRITICAL: Gateway bound to ${bindDescriptor} without authentication.`,
         `  Anyone on your network (or internet if port-forwarded) can fully control your agent.`,
-        `  Fix: ${formatCliCommand("synurex config set gateway.bind loopback")}`,
+        `  Fix: ${formatCliCommand("skykoi config set gateway.bind loopback")}`,
         ...authFixLines,
       );
     } else {

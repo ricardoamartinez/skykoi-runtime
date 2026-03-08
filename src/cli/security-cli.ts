@@ -33,7 +33,7 @@ export function registerSecurityCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.synurex.com/cli/security")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.skykoi.com/cli/security")}\n`,
     );
 
   security
@@ -65,12 +65,12 @@ export function registerSecurityCli(program: Command) {
       const muted = (text: string) => (rich ? theme.muted(text) : text);
 
       const lines: string[] = [];
-      lines.push(heading("Synurex security audit"));
+      lines.push(heading("SkyKoi security audit"));
       lines.push(muted(`Summary: ${formatSummary(report.summary)}`));
-      lines.push(muted(`Run deeper: ${formatCliCommand("synurex security audit --deep")}`));
+      lines.push(muted(`Run deeper: ${formatCliCommand("skykoi security audit --deep")}`));
 
       if (opts.fix) {
-        lines.push(muted(`Fix: ${formatCliCommand("synurex security audit --fix")}`));
+        lines.push(muted(`Fix: ${formatCliCommand("skykoi security audit --fix")}`));
         if (!fixResult) {
           lines.push(muted("Fixes: failed to apply (unexpected error)"));
         } else if (

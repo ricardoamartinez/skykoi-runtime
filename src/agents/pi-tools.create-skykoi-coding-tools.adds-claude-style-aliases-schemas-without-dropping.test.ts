@@ -4,14 +4,14 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createSynurexTools } from "./Synurex-tools.js";
-import { __testing, createSynurexCodingTools } from "./pi-tools.js";
+import { createSkyKoiTools } from "./SkyKoi-tools.js";
+import { __testing, createSkyKoiCodingTools } from "./pi-tools.js";
 import { createSandboxedReadTool } from "./pi-tools.read.js";
 import { createBrowserTool } from "./tools/browser-tool.js";
 
-const defaultTools = createSynurexCodingTools();
+const defaultTools = createSkyKoiCodingTools();
 
-describe("createSynurexCodingTools", () => {
+describe("createSkyKoiCodingTools", () => {
   describe("Claude/Gemini alias support", () => {
     it("adds Claude-style aliases to schemas without dropping metadata", () => {
       const base: AgentTool = {
@@ -250,7 +250,7 @@ describe("createSynurexCodingTools", () => {
     expect(offenders).toEqual([]);
   });
   it("keeps raw core tool schemas union-free", () => {
-    const tools = createSynurexTools();
+    const tools = createSkyKoiTools();
     const coreTools = new Set([
       "browser",
       "canvas",
@@ -306,7 +306,7 @@ describe("createSynurexCodingTools", () => {
     expect(offenders).toEqual([]);
   });
   it("does not expose provider-specific message tools", () => {
-    const tools = createSynurexCodingTools({ messageProvider: "discord" });
+    const tools = createSkyKoiCodingTools({ messageProvider: "discord" });
     const names = new Set(tools.map((tool) => tool.name));
     expect(names.has("discord")).toBe(false);
     expect(names.has("slack")).toBe(false);
@@ -314,7 +314,7 @@ describe("createSynurexCodingTools", () => {
     expect(names.has("whatsapp")).toBe(false);
   });
   it("filters session tools for sub-agent sessions by default", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       sessionKey: "agent:main:subagent:test",
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -329,7 +329,7 @@ describe("createSynurexCodingTools", () => {
     expect(names.has("apply_patch")).toBe(false);
   });
   it("supports allow-only sub-agent tool policy", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       sessionKey: "agent:main:subagent:test",
       // Intentionally partial config; only fields used by pi-tools are provided.
       config: {
@@ -347,7 +347,7 @@ describe("createSynurexCodingTools", () => {
   });
 
   it("applies tool profiles before allow/deny policies", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       config: { tools: { profile: "messaging" } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -358,7 +358,7 @@ describe("createSynurexCodingTools", () => {
     expect(names.has("browser")).toBe(false);
   });
   it("expands group shorthands in global tool policy", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       config: { tools: { allow: ["group:fs"] } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -369,7 +369,7 @@ describe("createSynurexCodingTools", () => {
     expect(names.has("browser")).toBe(false);
   });
   it("expands group shorthands in global tool deny policy", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       config: { tools: { deny: ["group:fs"] } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -379,7 +379,7 @@ describe("createSynurexCodingTools", () => {
     expect(names.has("exec")).toBe(true);
   });
   it("lets agent profiles override global profiles", () => {
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       sessionKey: "agent:work:main",
       config: {
         tools: { profile: "coding" },
@@ -463,8 +463,8 @@ describe("createSynurexCodingTools", () => {
     }
   });
   it("applies sandbox path guards to file_path alias", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-sbx-"));
-    const outsidePath = path.join(os.tmpdir(), "Synurex-outside.txt");
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-sbx-"));
+    const outsidePath = path.join(os.tmpdir(), "SkyKoi-outside.txt");
     await fs.writeFile(outsidePath, "outside", "utf8");
     try {
       const readTool = createSandboxedReadTool(tmpDir);

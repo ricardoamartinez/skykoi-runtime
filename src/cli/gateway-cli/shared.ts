@@ -82,25 +82,25 @@ export function extractGatewayMiskeys(parsed: unknown): {
 }
 
 export function renderGatewayServiceStopHints(env: NodeJS.ProcessEnv = process.env): string[] {
-  const profile = env.SYNUREX_PROFILE;
+  const profile = env.SKYKOI_PROFILE;
   switch (process.platform) {
     case "darwin":
       return [
-        `Tip: ${formatCliCommand("synurex gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: launchctl bootout gui/$UID/${resolveGatewayLaunchAgentLabel(profile)}`,
       ];
     case "linux":
       return [
-        `Tip: ${formatCliCommand("synurex gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: systemctl --user stop ${resolveGatewaySystemdServiceName(profile)}.service`,
       ];
     case "win32":
       return [
-        `Tip: ${formatCliCommand("synurex gateway stop")}`,
+        `Tip: ${formatCliCommand("skykoi gateway stop")}`,
         `Or: schtasks /End /TN "${resolveGatewayWindowsTaskName(profile)}"`,
       ];
     default:
-      return [`Tip: ${formatCliCommand("synurex gateway stop")}`];
+      return [`Tip: ${formatCliCommand("skykoi gateway stop")}`];
   }
 }
 

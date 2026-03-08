@@ -12,7 +12,7 @@ describe("getShellConfig", () => {
   const tempDirs: string[] = [];
 
   const createTempBin = (files: string[]) => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "Synurex-shell-"));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "SkyKoi-shell-"));
     tempDirs.push(dir);
     for (const name of files) {
       const filePath = path.join(dir, name);

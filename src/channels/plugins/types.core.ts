@@ -1,7 +1,7 @@
 import type { AgentTool, AgentToolResult } from "@mariozechner/pi-agent-core";
 import type { TSchema } from "@sinclair/typebox";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { PollInput } from "../../polls.js";
 import type { GatewayClientMode, GatewayClientName } from "../../utils/message-channel.js";
 import type { NormalizedChatType } from "../chat-type.js";
@@ -14,7 +14,7 @@ export type ChannelOutboundTargetMode = "explicit" | "implicit" | "heartbeat";
 
 export type ChannelAgentTool = AgentTool<TSchema, unknown>;
 
-export type ChannelAgentToolFactory = (params: { cfg?: SynurexConfig }) => ChannelAgentTool[];
+export type ChannelAgentToolFactory = (params: { cfg?: SkyKoiConfig }) => ChannelAgentTool[];
 
 export type ChannelSetupInput = {
   name?: string;
@@ -149,7 +149,7 @@ export type ChannelLogSink = {
 };
 
 export type ChannelGroupContext = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   groupId?: string | null;
   /** Human label for channel-like group conversations (e.g. #general). */
   groupChannel?: string | null;
@@ -186,7 +186,7 @@ export type ChannelSecurityDmPolicy = {
 };
 
 export type ChannelSecurityContext<ResolvedAccount = unknown> = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
   account: ResolvedAccount;
 };
@@ -194,13 +194,13 @@ export type ChannelSecurityContext<ResolvedAccount = unknown> = {
 export type ChannelMentionAdapter = {
   stripPatterns?: (params: {
     ctx: MsgContext;
-    cfg: SynurexConfig | undefined;
+    cfg: SkyKoiConfig | undefined;
     agentId?: string;
   }) => string[];
   stripMentions?: (params: {
     text: string;
     ctx: MsgContext;
-    cfg: SynurexConfig | undefined;
+    cfg: SkyKoiConfig | undefined;
     agentId?: string;
   }) => string;
 };
@@ -214,13 +214,13 @@ export type ChannelStreamingAdapter = {
 
 export type ChannelThreadingAdapter = {
   resolveReplyToMode?: (params: {
-    cfg: SynurexConfig;
+    cfg: SkyKoiConfig;
     accountId?: string | null;
     chatType?: string | null;
   }) => "off" | "first" | "all";
   allowTagsWhenOff?: boolean;
   buildToolContext?: (params: {
-    cfg: SynurexConfig;
+    cfg: SkyKoiConfig;
     accountId?: string | null;
     context: ChannelThreadingContext;
     hasRepliedRef?: { value: boolean };
@@ -266,7 +266,7 @@ export type ChannelMessagingAdapter = {
 };
 
 export type ChannelAgentPromptAdapter = {
-  messageToolHints?: (params: { cfg: SynurexConfig; accountId?: string | null }) => string[];
+  messageToolHints?: (params: { cfg: SkyKoiConfig; accountId?: string | null }) => string[];
 };
 
 export type ChannelDirectoryEntryKind = "user" | "group" | "channel";
@@ -286,7 +286,7 @@ export type ChannelMessageActionName = ChannelMessageActionNameFromList;
 export type ChannelMessageActionContext = {
   channel: ChannelId;
   action: ChannelMessageActionName;
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   params: Record<string, unknown>;
   accountId?: string | null;
   gateway?: {
@@ -307,10 +307,10 @@ export type ChannelToolSend = {
 };
 
 export type ChannelMessageActionAdapter = {
-  listActions?: (params: { cfg: SynurexConfig }) => ChannelMessageActionName[];
+  listActions?: (params: { cfg: SkyKoiConfig }) => ChannelMessageActionName[];
   supportsAction?: (params: { action: ChannelMessageActionName }) => boolean;
-  supportsButtons?: (params: { cfg: SynurexConfig }) => boolean;
-  supportsCards?: (params: { cfg: SynurexConfig }) => boolean;
+  supportsButtons?: (params: { cfg: SkyKoiConfig }) => boolean;
+  supportsCards?: (params: { cfg: SkyKoiConfig }) => boolean;
   extractToolSend?: (params: { args: Record<string, unknown> }) => ChannelToolSend | null;
   handleAction?: (ctx: ChannelMessageActionContext) => Promise<AgentToolResult<unknown>>;
 };
@@ -324,7 +324,7 @@ export type ChannelPollResult = {
 };
 
 export type ChannelPollContext = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   to: string;
   poll: PollInput;
   accountId?: string | null;

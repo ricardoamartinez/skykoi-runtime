@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 学习如何配置 Synurex
+  - 学习如何配置 SkyKoi
   - 寻找配置示例
-  - 首次设置 Synurex
-summary: 符合模式的常见 Synurex 设置配置示例
+  - 首次设置 SkyKoi
+summary: 符合模式的常见 SkyKoi 设置配置示例
 title: 配置示例
 x-i18n:
   generated_at: "2026-02-03T07:48:39Z"
@@ -24,12 +24,12 @@ x-i18n:
 
 ```json5
 {
-  agent: { workspace: "~/.synurex/workspace" },
+  agent: { workspace: "~/.skykoi/workspace" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
 
-保存到 `~/.synurex/synurex.json`，你就可以从该号码私信机器人了。
+保存到 `~/.skykoi/skykoi.json`，你就可以从该号码私信机器人了。
 
 ### 推荐的入门配置
 
@@ -41,7 +41,7 @@ x-i18n:
     emoji: "🦞",
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
     model: { primary: "anthropic/claude-sonnet-4-5" },
   },
   channels: {
@@ -96,7 +96,7 @@ x-i18n:
   // 日志
   logging: {
     level: "info",
-    file: "/tmp/Synurex/Synurex.log",
+    file: "/tmp/SkyKoi/SkyKoi.log",
     consoleLevel: "info",
     consoleStyle: "pretty",
     redactSensitive: "tools",
@@ -104,7 +104,7 @@ x-i18n:
 
   // 消息格式
   messages: {
-    messagePrefix: "[Synurex]",
+    messagePrefix: "[SkyKoi]",
     responsePrefix: ">",
     ackReaction: "👀",
     ackReactionScope: "group-mentions",
@@ -113,7 +113,7 @@ x-i18n:
   // 路由 + 队列
   routing: {
     groupChat: {
-      mentionPatterns: ["@Synurex", "Synurex"],
+      mentionPatterns: ["@SkyKoi", "SkyKoi"],
       historyLimit: 50,
     },
     queue: {
@@ -166,7 +166,7 @@ x-i18n:
       discord: { mode: "idle", idleMinutes: 10080 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.synurex/agents/default/sessions/sessions.json",
+    store: "~/.skykoi/agents/default/sessions/sessions.json",
     typingIntervalSeconds: 5,
     sendPolicy: {
       default: "allow",
@@ -199,7 +199,7 @@ x-i18n:
       dm: { enabled: true, allowFrom: ["steipete"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-Synurex",
+          slug: "friends-of-SkyKoi",
           requireMention: false,
           channels: {
             general: { allow: true },
@@ -219,7 +219,7 @@ x-i18n:
       dm: { enabled: true, allowFrom: ["U123"] },
       slashCommand: {
         enabled: true,
-        name: "Synurex",
+        name: "SkyKoi",
         sessionPrefix: "slack:slash",
         ephemeral: true,
       },
@@ -229,7 +229,7 @@ x-i18n:
   // 智能体运行时
   agents: {
     defaults: {
-      workspace: "~/.synurex/workspace",
+      workspace: "~/.skykoi/workspace",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-5",
@@ -282,9 +282,9 @@ x-i18n:
       sandbox: {
         mode: "non-main",
         perSession: true,
-        workspaceRoot: "~/.synurex/sandboxes",
+        workspaceRoot: "~/.skykoi/sandboxes",
         docker: {
-          image: "Synurex-sandbox:bookworm-slim",
+          image: "SkyKoi-sandbox:bookworm-slim",
           workdir: "/workspace",
           readOnlyRoot: true,
           tmpfs: ["/tmp", "/var/tmp", "/run"],
@@ -349,7 +349,7 @@ x-i18n:
   // Cron 作业
   cron: {
     enabled: true,
-    store: "~/.synurex/cron/cron.json",
+    store: "~/.skykoi/cron/cron.json",
     maxConcurrentRuns: 2,
   },
 
@@ -359,7 +359,7 @@ x-i18n:
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.synurex/hooks",
+    transformsDir: "~/.skykoi/hooks",
     mappings: [
       {
         id: "gmail-hook",
@@ -379,7 +379,7 @@ x-i18n:
       },
     ],
     gmail: {
-      account: "Synurex@gmail.com",
+      account: "SkyKoi@gmail.com",
       label: "INBOX",
       topic: "projects/<project-id>/topics/gog-gmail-watch",
       subscription: "gog-gmail-watch-push",
@@ -398,7 +398,7 @@ x-i18n:
     mode: "local",
     port: 18789,
     bind: "loopback",
-    controlUi: { enabled: true, basePath: "/Synurex" },
+    controlUi: { enabled: true, basePath: "/SkyKoi" },
     auth: {
       mode: "token",
       token: "gateway-token",
@@ -436,7 +436,7 @@ x-i18n:
 
 ```json5
 {
-  agent: { workspace: "~/.synurex/workspace" },
+  agent: { workspace: "~/.skykoi/workspace" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -474,7 +474,7 @@ x-i18n:
     },
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
     model: {
       primary: "anthropic/claude-sonnet-4-5",
       fallbacks: ["anthropic/claude-opus-4-5"],
@@ -513,7 +513,7 @@ x-i18n:
     },
   },
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
     model: {
       primary: "anthropic/claude-opus-4-5",
       fallbacks: ["minimax/MiniMax-M2.1"],
@@ -531,7 +531,7 @@ x-i18n:
     theme: "professional assistant",
   },
   agent: {
-    workspace: "~/work-Synurex",
+    workspace: "~/work-SkyKoi",
     elevated: { enabled: false },
   },
   channels: {
@@ -552,7 +552,7 @@ x-i18n:
 ```json5
 {
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
     model: { primary: "lmstudio/minimax-m2.1-gs32" },
   },
   models: {

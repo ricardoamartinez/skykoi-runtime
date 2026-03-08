@@ -1,5 +1,5 @@
-import type { ChannelOnboardingAdapter, SynurexConfig, WizardPrompter } from "Synurex/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "Synurex/plugin-sdk";
+import type { ChannelOnboardingAdapter, SkyKoiConfig, WizardPrompter } from "SkyKoi/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "SkyKoi/plugin-sdk";
 import {
   listMattermostAccountIds,
   resolveDefaultMattermostAccountId,
@@ -16,7 +16,7 @@ async function noteMattermostSetup(prompter: WizardPrompter): Promise<void> {
       "2) Create a bot + copy its token",
       "3) Use your server base URL (e.g., https://chat.example.com)",
       "Tip: the bot must be a member of any channel you want it to monitor.",
-      "Docs: https://docs.synurex.ai/channels/mattermost",
+      "Docs: https://docs.skykoi.ai/channels/mattermost",
     ].join("\n"),
     "Mattermost bot token",
   );
@@ -176,7 +176,7 @@ export const mattermostOnboardingAdapter: ChannelOnboardingAdapter = {
 
     return { cfg: next, accountId };
   },
-  disable: (cfg: SynurexConfig) => ({
+  disable: (cfg: SkyKoiConfig) => ({
     ...cfg,
     channels: {
       ...cfg.channels,

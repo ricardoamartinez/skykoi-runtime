@@ -333,7 +333,7 @@ export async function runTui(opts: TuiOptions) {
     const statusDot = isBusy ? theme.accent("●") : theme.online("●");
     const statusLabel = isBusy ? theme.dim("Working") : theme.dim("Online");
     header.setText(
-      `${theme.header("⚡ Synurex")}${dot}${theme.accentSoft(agentLabel)}${dot}${statusDot} ${statusLabel}${dot}${theme.dim(sessionLabel)}`,
+      `${theme.header("⚡ SkyKoi")}${dot}${theme.accentSoft(agentLabel)}${dot}${statusDot} ${statusLabel}${dot}${theme.dim(sessionLabel)}`,
     );
   };
   let statusText: Text | null = null;

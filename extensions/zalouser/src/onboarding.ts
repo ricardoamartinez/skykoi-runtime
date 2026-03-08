@@ -1,16 +1,16 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  SynurexConfig,
+  SkyKoiConfig,
   WizardPrompter,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   promptAccountId,
   promptChannelAccessConfig,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { ZcaFriend, ZcaGroup } from "./types.js";
 import {
   listZalouserAccountIds,
@@ -23,9 +23,9 @@ import { runZca, runZcaInteractive, checkZcaInstalled, parseJsonOutput } from ".
 const channel = "zalouser" as const;
 
 function setZalouserDmPolicy(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   dmPolicy: "pairing" | "allowlist" | "open" | "disabled",
-): SynurexConfig {
+): SkyKoiConfig {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.zalouser?.allowFrom) : undefined;
   return {
@@ -38,7 +38,7 @@ function setZalouserDmPolicy(
         ...(allowFrom ? { allowFrom } : {}),
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
@@ -50,17 +50,17 @@ async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
       "1) Install zca-cli",
       "2) You'll scan a QR code with your Zalo app",
       "",
-      "Docs: https://docs.synurex.ai/channels/zalouser",
+      "Docs: https://docs.skykoi.ai/channels/zalouser",
     ].join("\n"),
     "Zalo Personal Setup",
   );
 }
 
 async function promptZalouserAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<SynurexConfig> {
+}): Promise<SkyKoiConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZalouserAccountSync({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -138,7 +138,7 @@ async function promptZalouserAllowFrom(params: {
             allowFrom: unique,
           },
         },
-      } as SynurexConfig;
+      } as SkyKoiConfig;
     }
 
     return {
@@ -159,15 +159,15 @@ async function promptZalouserAllowFrom(params: {
           },
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
 }
 
 function setZalouserGroupPolicy(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): SynurexConfig {
+): SkyKoiConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -179,7 +179,7 @@ function setZalouserGroupPolicy(
           groupPolicy,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
   return {
     ...cfg,
@@ -198,14 +198,14 @@ function setZalouserGroupPolicy(
         },
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 function setZalouserGroupAllowlist(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
   groupKeys: string[],
-): SynurexConfig {
+): SkyKoiConfig {
   const groups = Object.fromEntries(groupKeys.map((key) => [key, { allow: true }]));
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
@@ -218,7 +218,7 @@ function setZalouserGroupAllowlist(
           groups,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
   return {
     ...cfg,
@@ -237,11 +237,11 @@ function setZalouserGroupAllowlist(
         },
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 async function resolveZalouserGroups(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId: string;
   entries: string[];
 }): Promise<Array<{ input: string; resolved: boolean; id?: string }>> {
@@ -340,7 +340,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
           "The `zca` binary was not found in PATH.",
           "",
           "Install zca-cli, then re-run onboarding:",
-          "Docs: https://docs.synurex.ai/channels/zalouser",
+          "Docs: https://docs.skykoi.ai/channels/zalouser",
         ].join("\n"),
         "Missing Dependency",
       );
@@ -417,7 +417,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             profile: account.profile !== "default" ? account.profile : undefined,
           },
         },
-      } as SynurexConfig;
+      } as SkyKoiConfig;
     } else {
       next = {
         ...next,
@@ -436,7 +436,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SkyKoiConfig;
     }
 
     if (forceAllowFrom) {

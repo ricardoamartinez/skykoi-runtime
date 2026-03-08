@@ -16,19 +16,19 @@ const formatLine = (label: string, value: string) => {
 };
 
 function resolveTaskName(env: Record<string, string | undefined>): string {
-  const override = env.SYNUREX_WINDOWS_TASK_NAME?.trim();
+  const override = env.SKYKOI_WINDOWS_TASK_NAME?.trim();
   if (override) {
     return override;
   }
-  return resolveGatewayWindowsTaskName(env.SYNUREX_PROFILE);
+  return resolveGatewayWindowsTaskName(env.SKYKOI_PROFILE);
 }
 
 export function resolveTaskScriptPath(env: Record<string, string | undefined>): string {
-  const override = env.SYNUREX_TASK_SCRIPT?.trim();
+  const override = env.SKYKOI_TASK_SCRIPT?.trim();
   if (override) {
     return override;
   }
-  const scriptName = env.SYNUREX_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
+  const scriptName = env.SKYKOI_TASK_SCRIPT_NAME?.trim() || "gateway.cmd";
   const stateDir = resolveGatewayStateDir(env);
   return path.join(stateDir, scriptName);
 }
@@ -258,8 +258,8 @@ export async function installScheduledTask({
   const taskDescription =
     description ??
     formatGatewayServiceDescription({
-      profile: env.SYNUREX_PROFILE,
-      version: environment?.SYNUREX_SERVICE_VERSION ?? env.SYNUREX_SERVICE_VERSION,
+      profile: env.SKYKOI_PROFILE,
+      version: environment?.SKYKOI_SERVICE_VERSION ?? env.SKYKOI_SERVICE_VERSION,
     });
   const script = buildTaskScript({
     description: taskDescription,

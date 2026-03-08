@@ -105,7 +105,7 @@ describe("gateway server hooks", () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-Synurex-token": "hook-secret",
+          "x-SkyKoi-token": "hook-secret",
         },
         body: JSON.stringify({ text: "Header auth" }),
       });

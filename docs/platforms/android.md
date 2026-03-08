@@ -34,12 +34,12 @@ Android connects directly to the Gateway WebSocket (default `ws://<host>:18789`)
   - Same LAN with mDNS/NSD, **or**
   - Same Tailscale tailnet using Wide-Area Bonjour / unicast DNS-SD (see below), **or**
   - Manual gateway host/port (fallback)
-- You can run the CLI (`Synurex`) on the gateway machine (or via SSH).
+- You can run the CLI (`SkyKoi`) on the gateway machine (or via SSH).
 
 ### 1) Start the Gateway
 
 ```bash
-Synurex gateway --port 18789 --verbose
+SkyKoi gateway --port 18789 --verbose
 ```
 
 Confirm in logs you see something like:
@@ -48,7 +48,7 @@ Confirm in logs you see something like:
 
 For tailnet-only setups (recommended for Vienna ⇄ London), bind the gateway to the tailnet IP:
 
-- Set `gateway.bind: "tailnet"` in `~/.synurex/synurex.json` on the gateway host.
+- Set `gateway.bind: "tailnet"` in `~/.skykoi/skykoi.json` on the gateway host.
 - Restart the Gateway / macOS menubar app.
 
 ### 2) Verify discovery (optional)
@@ -56,7 +56,7 @@ For tailnet-only setups (recommended for Vienna ⇄ London), bind the gateway to
 From the gateway machine:
 
 ```bash
-dns-sd -B _Synurex-gw._tcp local.
+dns-sd -B _SkyKoi-gw._tcp local.
 ```
 
 More debugging notes: [Bonjour](/gateway/bonjour).
@@ -65,7 +65,7 @@ More debugging notes: [Bonjour](/gateway/bonjour).
 
 Android NSD/mDNS discovery won’t cross networks. If your Android node and the gateway are on different networks but connected via Tailscale, use Wide-Area Bonjour / unicast DNS-SD instead:
 
-1. Set up a DNS-SD zone (example `Synurex.internal.`) on the gateway host and publish `_Synurex-gw._tcp` records.
+1. Set up a DNS-SD zone (example `SkyKoi.internal.`) on the gateway host and publish `_SkyKoi-gw._tcp` records.
 2. Configure Tailscale split DNS for your chosen domain pointing at that DNS server.
 
 Details and example CoreDNS config: [Bonjour](/gateway/bonjour).
@@ -89,8 +89,8 @@ After the first successful pairing, Android auto-reconnects on launch:
 On the gateway machine:
 
 ```bash
-Synurex nodes pending
-Synurex nodes approve <requestId>
+SkyKoi nodes pending
+SkyKoi nodes approve <requestId>
 ```
 
 Pairing details: [Gateway pairing](/gateway/pairing).
@@ -100,13 +100,13 @@ Pairing details: [Gateway pairing](/gateway/pairing).
 - Via nodes status:
 
   ```bash
-  Synurex nodes status
+  SkyKoi nodes status
   ```
 
 - Via Gateway:
 
   ```bash
-  Synurex gateway call node.list --params "{}"
+  SkyKoi gateway call node.list --params "{}"
   ```
 
 ### 6) Chat + history
@@ -125,18 +125,18 @@ If you want the node to show real HTML/CSS/JS that the agent can edit on disk, p
 
 Note: nodes use the standalone canvas host on `canvasHost.port` (default `18793`).
 
-1. Create `~/.synurex/workspace/canvas/index.html` on the gateway host.
+1. Create `~/.skykoi/workspace/canvas/index.html` on the gateway host.
 
 2. Navigate the node to it (LAN):
 
 ```bash
-Synurex nodes invoke --node "<Android Node>" --command canvas.navigate --params '{"url":"http://<gateway-hostname>.local:18793/__SYNUREX__/canvas/"}'
+SkyKoi nodes invoke --node "<Android Node>" --command canvas.navigate --params '{"url":"http://<gateway-hostname>.local:18793/__SKYKOI__/canvas/"}'
 ```
 
-Tailnet (optional): if both devices are on Tailscale, use a MagicDNS name or tailnet IP instead of `.local`, e.g. `http://<gateway-magicdns>:18793/__SYNUREX__/canvas/`.
+Tailnet (optional): if both devices are on Tailscale, use a MagicDNS name or tailnet IP instead of `.local`, e.g. `http://<gateway-magicdns>:18793/__SKYKOI__/canvas/`.
 
 This server injects a live-reload client into HTML and reloads on file changes.
-The A2UI host lives at `http://<gateway-host>:18793/__SYNUREX__/a2ui/`.
+The A2UI host lives at `http://<gateway-host>:18793/__SKYKOI__/a2ui/`.
 
 Canvas commands (foreground only):
 

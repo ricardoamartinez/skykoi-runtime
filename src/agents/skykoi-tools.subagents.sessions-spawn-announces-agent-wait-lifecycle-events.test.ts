@@ -23,10 +23,10 @@ vi.mock("../config/config.js", async (importOriginal) => {
 
 import "./test-helpers/fast-core-tools.js";
 import { sleep } from "../utils.js";
-import { createSynurexTools } from "./Synurex-tools.js";
+import { createSkyKoiTools } from "./SkyKoi-tools.js";
 import { resetSubagentRegistryForTests } from "./subagent-registry.js";
 
-describe("Synurex-tools: subagents", () => {
+describe("SkyKoi-tools: subagents", () => {
   beforeEach(() => {
     configOverride = {
       session: {
@@ -90,7 +90,7 @@ describe("Synurex-tools: subagents", () => {
       return {};
     });
 
-    const tool = createSynurexTools({
+    const tool = createSkyKoiTools({
       agentSessionKey: "discord:group:req",
       agentChannel: "discord",
     }).find((candidate) => candidate.name === "sessions_spawn");

@@ -2,10 +2,10 @@ import {
   createReplyPrefixContext,
   createTypingCallbacks,
   logTypingFailure,
-  type SynurexConfig,
+  type SkyKoiConfig,
   type RuntimeEnv,
   type ReplyPayload,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { MentionTarget } from "./mention.js";
 import { resolveFeishuAccount } from "./accounts.js";
 import { getFeishuRuntime } from "./runtime.js";
@@ -29,7 +29,7 @@ function shouldUseCard(text: string): boolean {
 }
 
 export type CreateFeishuReplyDispatcherParams = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   agentId: string;
   runtime: RuntimeEnv;
   chatId: string;

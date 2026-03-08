@@ -1,5 +1,5 @@
 import type { ChannelId } from "../channels/plugins/types.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { AgentBinding } from "../config/types.js";
 import type { ChannelChoice } from "./onboard-types.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
@@ -37,10 +37,10 @@ export function describeBinding(binding: AgentBinding) {
 }
 
 export function applyAgentBindings(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   bindings: AgentBinding[],
 ): {
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   added: AgentBinding[];
   skipped: AgentBinding[];
   conflicts: Array<{ binding: AgentBinding; existingAgentId: string }>;
@@ -89,7 +89,7 @@ export function applyAgentBindings(
   };
 }
 
-function resolveDefaultAccountId(cfg: SynurexConfig, provider: ChannelId): string {
+function resolveDefaultAccountId(cfg: SkyKoiConfig, provider: ChannelId): string {
   const plugin = getChannelPlugin(provider);
   if (!plugin) {
     return DEFAULT_ACCOUNT_ID;
@@ -100,7 +100,7 @@ function resolveDefaultAccountId(cfg: SynurexConfig, provider: ChannelId): strin
 export function buildChannelBindings(params: {
   agentId: string;
   selection: ChannelChoice[];
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   accountIds?: Partial<Record<ChannelChoice, string>>;
 }): AgentBinding[] {
   const bindings: AgentBinding[] = [];
@@ -124,7 +124,7 @@ export function buildChannelBindings(params: {
 export function parseBindingSpecs(params: {
   agentId: string;
   specs?: string[];
-  config: SynurexConfig;
+  config: SkyKoiConfig;
 }): { bindings: AgentBinding[]; errors: string[] } {
   const bindings: AgentBinding[] = [];
   const errors: string[] = [];

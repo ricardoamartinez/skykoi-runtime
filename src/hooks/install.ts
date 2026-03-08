@@ -97,14 +97,14 @@ function resolveSafeInstallDir(
   return { ok: true, path: targetDir };
 }
 
-async function ensureSynurexHooks(manifest: HookPackageManifest) {
+async function ensureSkyKoiHooks(manifest: HookPackageManifest) {
   const hooks = manifest[MANIFEST_KEY]?.hooks;
   if (!Array.isArray(hooks)) {
-    throw new Error("package.json missing Synurex.hooks");
+    throw new Error("package.json missing SkyKoi.hooks");
   }
   const list = hooks.map((e) => (typeof e === "string" ? e.trim() : "")).filter(Boolean);
   if (list.length === 0) {
-    throw new Error("package.json Synurex.hooks is empty");
+    throw new Error("package.json SkyKoi.hooks is empty");
   }
   return list;
 }
@@ -163,7 +163,7 @@ async function installHookPackageFromDir(params: {
 
   let hookEntries: string[];
   try {
-    hookEntries = await ensureSynurexHooks(manifest);
+    hookEntries = await ensureSkyKoiHooks(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }
@@ -352,7 +352,7 @@ export async function installHooksFromArchive(params: {
     return { ok: false, error: `unsupported archive: ${archivePath}` };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-hook-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-hook-"));
   const extractDir = path.join(tmpDir, "extract");
   await fs.mkdir(extractDir, { recursive: true });
 
@@ -412,7 +412,7 @@ export async function installHooksFromNpmSpec(params: {
     return { ok: false, error: "missing npm spec" };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-hook-pack-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-hook-pack-"));
   logger.info?.(`Downloading ${spec}…`);
   const res = await runCommandWithTimeout(["npm", "pack", spec], {
     timeoutMs: Math.max(timeoutMs, 300_000),

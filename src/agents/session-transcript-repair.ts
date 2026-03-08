@@ -81,7 +81,7 @@ function makeMissingToolResult(params: {
     content: [
       {
         type: "text",
-        text: "[synurex] missing tool result in session history; inserted synthetic error result for transcript repair.",
+        text: "[skykoi] missing tool result in session history; inserted synthetic error result for transcript repair.",
       },
     ],
     isError: true,
@@ -219,9 +219,25 @@ export function repairToolUseResultPairing(messages: AgentMessage[]): ToolUseRep
     // (e.g., partialJson: true) and should not have synthetic tool_results created.
     // Creating synthetic results for incomplete tool calls causes API 400 errors:
     // "unexpected tool_use_id found in tool_result blocks"
-    // See: https://github.com/Synurex/Synurex/issues/4597
+    // See: https://github.com/SkyKoi/SkyKoi/issues/4597
     const stopReason = (assistant as { stopReason?: string }).stopReason;
     if (stopReason === "error" || stopReason === "aborted") {
+      // Strip tool_call blocks from aborted/errored messages so they don't
+      // produce orphaned tool_use blocks that the API rejects with
+      // "unexpected tool_use_id found in tool_result blocks"
+      if (Array.isArray(assistant.content)) {
+        const stripped = assistant.content.filter(
+          (block) => !block || typeof block !== "object" || !isToolCallBlock(block as ToolCallBlock),
+        );
+        if (stripped.length !== assistant.content.length) {
+          changed = true;
+          if (stripped.length === 0) {
+            stripped.push({ type: "text", text: "[Message was aborted]" });
+          }
+          out.push({ ...msg, content: stripped } as AgentMessage);
+          continue;
+        }
+      }
       out.push(msg);
       continue;
     }

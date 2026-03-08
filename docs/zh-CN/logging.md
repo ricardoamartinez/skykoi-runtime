@@ -16,7 +16,7 @@ x-i18n:
 
 # 日志
 
-Synurex 在两个地方记录日志：
+SkyKoi 在两个地方记录日志：
 
 - **文件日志**（JSON 行）由 Gateway 网关写入。
 - **控制台输出**显示在终端和控制 UI 中。
@@ -27,16 +27,16 @@ Synurex 在两个地方记录日志：
 
 默认情况下，Gateway 网关在以下位置写入滚动日志文件：
 
-`/tmp/Synurex/Synurex-YYYY-MM-DD.log`
+`/tmp/SkyKoi/SkyKoi-YYYY-MM-DD.log`
 
 日期使用 Gateway 网关主机的本地时区。
 
-你可以在 `~/.synurex/synurex.json` 中覆盖此设置：
+你可以在 `~/.skykoi/skykoi.json` 中覆盖此设置：
 
 ```json
 {
   "logging": {
-    "file": "/path/to/Synurex.log"
+    "file": "/path/to/SkyKoi.log"
   }
 }
 ```
@@ -48,7 +48,7 @@ Synurex 在两个地方记录日志：
 使用 CLI 通过 RPC 跟踪 Gateway 网关日志文件：
 
 ```bash
-Synurex logs --follow
+SkyKoi logs --follow
 ```
 
 输出模式：
@@ -69,7 +69,7 @@ Synurex logs --follow
 如果 Gateway 网关无法访问，CLI 会打印一个简短提示运行：
 
 ```bash
-Synurex doctor
+SkyKoi doctor
 ```
 
 ### 控制 UI（Web）
@@ -82,7 +82,7 @@ Synurex doctor
 要过滤渠道活动（WhatsApp/Telegram 等），使用：
 
 ```bash
-Synurex channels logs --channel whatsapp
+SkyKoi channels logs --channel whatsapp
 ```
 
 ## 日志格式
@@ -103,13 +103,13 @@ Synurex channels logs --channel whatsapp
 
 ## 配置日志
 
-所有日志配置都在 `~/.synurex/synurex.json` 的 `logging` 下。
+所有日志配置都在 `~/.skykoi/skykoi.json` 的 `logging` 下。
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/Synurex/Synurex-YYYY-MM-DD.log",
+    "file": "/tmp/SkyKoi/SkyKoi-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -152,7 +152,7 @@ Synurex channels logs --channel whatsapp
 
 - **OpenTelemetry（OTel）**：追踪、指标和日志的数据模型 + SDK。
 - **OTLP**：用于将 OTel 数据导出到收集器/后端的线路协议。
-- Synurex 目前通过 **OTLP/HTTP（protobuf）** 导出。
+- SkyKoi 目前通过 **OTLP/HTTP（protobuf）** 导出。
 
 ### 导出的信号
 
@@ -211,7 +211,7 @@ Synurex channels logs --channel whatsapp
 环境变量覆盖（一次性）：
 
 ```
-SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
+SKYKOI_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 注意：
@@ -240,7 +240,7 @@ SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "Synurex-gateway",
+      "serviceName": "SkyKoi-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -253,7 +253,7 @@ SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
 
 注意：
 
-- 你也可以使用 `Synurex plugins enable diagnostics-otel` 启用插件。
+- 你也可以使用 `SkyKoi plugins enable diagnostics-otel` 启用插件。
 - `protocol` 目前仅支持 `http/protobuf`。`grpc` 被忽略。
 - 指标包括令牌使用、成本、上下文大小、运行持续时间和消息流计数器/直方图（webhooks、队列、会话状态、队列深度/等待）。
 - 追踪/指标可以通过 `traces` / `metrics` 切换（默认：开启）。启用时，追踪包括模型使用 span 加上 webhook/消息处理 span。
@@ -264,45 +264,45 @@ SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
 
 模型使用：
 
-- `Synurex.tokens`（计数器，属性：`Synurex.token`、`Synurex.channel`、`Synurex.provider`、`Synurex.model`）
-- `Synurex.cost.usd`（计数器，属性：`Synurex.channel`、`Synurex.provider`、`Synurex.model`）
-- `Synurex.run.duration_ms`（直方图，属性：`Synurex.channel`、`Synurex.provider`、`Synurex.model`）
-- `Synurex.context.tokens`（直方图，属性：`Synurex.context`、`Synurex.channel`、`Synurex.provider`、`Synurex.model`）
+- `SkyKoi.tokens`（计数器，属性：`SkyKoi.token`、`SkyKoi.channel`、`SkyKoi.provider`、`SkyKoi.model`）
+- `SkyKoi.cost.usd`（计数器，属性：`SkyKoi.channel`、`SkyKoi.provider`、`SkyKoi.model`）
+- `SkyKoi.run.duration_ms`（直方图，属性：`SkyKoi.channel`、`SkyKoi.provider`、`SkyKoi.model`）
+- `SkyKoi.context.tokens`（直方图，属性：`SkyKoi.context`、`SkyKoi.channel`、`SkyKoi.provider`、`SkyKoi.model`）
 
 消息流：
 
-- `Synurex.webhook.received`（计数器，属性：`Synurex.channel`、`Synurex.webhook`）
-- `Synurex.webhook.error`（计数器，属性：`Synurex.channel`、`Synurex.webhook`）
-- `Synurex.webhook.duration_ms`（直方图，属性：`Synurex.channel`、`Synurex.webhook`）
-- `Synurex.message.queued`（计数器，属性：`Synurex.channel`、`Synurex.source`）
-- `Synurex.message.processed`（计数器，属性：`Synurex.channel`、`Synurex.outcome`）
-- `Synurex.message.duration_ms`（直方图，属性：`Synurex.channel`、`Synurex.outcome`）
+- `SkyKoi.webhook.received`（计数器，属性：`SkyKoi.channel`、`SkyKoi.webhook`）
+- `SkyKoi.webhook.error`（计数器，属性：`SkyKoi.channel`、`SkyKoi.webhook`）
+- `SkyKoi.webhook.duration_ms`（直方图，属性：`SkyKoi.channel`、`SkyKoi.webhook`）
+- `SkyKoi.message.queued`（计数器，属性：`SkyKoi.channel`、`SkyKoi.source`）
+- `SkyKoi.message.processed`（计数器，属性：`SkyKoi.channel`、`SkyKoi.outcome`）
+- `SkyKoi.message.duration_ms`（直方图，属性：`SkyKoi.channel`、`SkyKoi.outcome`）
 
 队列 + 会话：
 
-- `Synurex.queue.lane.enqueue`（计数器，属性：`Synurex.lane`）
-- `Synurex.queue.lane.dequeue`（计数器，属性：`Synurex.lane`）
-- `Synurex.queue.depth`（直方图，属性：`Synurex.lane` 或 `Synurex.channel=heartbeat`）
-- `Synurex.queue.wait_ms`（直方图，属性：`Synurex.lane`）
-- `Synurex.session.state`（计数器，属性：`Synurex.state`、`Synurex.reason`）
-- `Synurex.session.stuck`（计数器，属性：`Synurex.state`）
-- `Synurex.session.stuck_age_ms`（直方图，属性：`Synurex.state`）
-- `Synurex.run.attempt`（计数器，属性：`Synurex.attempt`）
+- `SkyKoi.queue.lane.enqueue`（计数器，属性：`SkyKoi.lane`）
+- `SkyKoi.queue.lane.dequeue`（计数器，属性：`SkyKoi.lane`）
+- `SkyKoi.queue.depth`（直方图，属性：`SkyKoi.lane` 或 `SkyKoi.channel=heartbeat`）
+- `SkyKoi.queue.wait_ms`（直方图，属性：`SkyKoi.lane`）
+- `SkyKoi.session.state`（计数器，属性：`SkyKoi.state`、`SkyKoi.reason`）
+- `SkyKoi.session.stuck`（计数器，属性：`SkyKoi.state`）
+- `SkyKoi.session.stuck_age_ms`（直方图，属性：`SkyKoi.state`）
+- `SkyKoi.run.attempt`（计数器，属性：`SkyKoi.attempt`）
 
 ### 导出的 span（名称 + 关键属性）
 
-- `Synurex.model.usage`
-  - `Synurex.channel`、`Synurex.provider`、`Synurex.model`
-  - `Synurex.sessionKey`、`Synurex.sessionId`
-  - `Synurex.tokens.*`（input/output/cache_read/cache_write/total）
-- `Synurex.webhook.processed`
-  - `Synurex.channel`、`Synurex.webhook`、`Synurex.chatId`
-- `Synurex.webhook.error`
-  - `Synurex.channel`、`Synurex.webhook`、`Synurex.chatId`、`Synurex.error`
-- `Synurex.message.processed`
-  - `Synurex.channel`、`Synurex.outcome`、`Synurex.chatId`、`Synurex.messageId`、`Synurex.sessionKey`、`Synurex.sessionId`、`Synurex.reason`
-- `Synurex.session.stuck`
-  - `Synurex.state`、`Synurex.ageMs`、`Synurex.queueDepth`、`Synurex.sessionKey`、`Synurex.sessionId`
+- `SkyKoi.model.usage`
+  - `SkyKoi.channel`、`SkyKoi.provider`、`SkyKoi.model`
+  - `SkyKoi.sessionKey`、`SkyKoi.sessionId`
+  - `SkyKoi.tokens.*`（input/output/cache_read/cache_write/total）
+- `SkyKoi.webhook.processed`
+  - `SkyKoi.channel`、`SkyKoi.webhook`、`SkyKoi.chatId`
+- `SkyKoi.webhook.error`
+  - `SkyKoi.channel`、`SkyKoi.webhook`、`SkyKoi.chatId`、`SkyKoi.error`
+- `SkyKoi.message.processed`
+  - `SkyKoi.channel`、`SkyKoi.outcome`、`SkyKoi.chatId`、`SkyKoi.messageId`、`SkyKoi.sessionKey`、`SkyKoi.sessionId`、`SkyKoi.reason`
+- `SkyKoi.session.stuck`
+  - `SkyKoi.state`、`SkyKoi.ageMs`、`SkyKoi.queueDepth`、`SkyKoi.sessionKey`、`SkyKoi.sessionId`
 
 ### 采样 + 刷新
 
@@ -324,6 +324,6 @@ SYNUREX_DIAGNOSTICS=telegram.http,telegram.payload
 
 ## 故障排除提示
 
-- **Gateway 网关无法访问？** 先运行 `Synurex doctor`。
+- **Gateway 网关无法访问？** 先运行 `SkyKoi doctor`。
 - **日志为空？** 检查 Gateway 网关是否正在运行并写入 `logging.file` 中的文件路径。
 - **需要更多细节？** 将 `logging.level` 设置为 `debug` 或 `trace` 并重试。

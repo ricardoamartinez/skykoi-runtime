@@ -2,14 +2,14 @@
  * Twitch onboarding adapter for CLI setup wizard.
  */
 
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import {
   formatDocsLink,
   promptChannelAccessConfig,
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { TwitchAccountConfig, TwitchRole } from "./types.js";
 import { DEFAULT_ACCOUNT_ID, getAccountConfig } from "./config.js";
 import { isAccountConfigured } from "./utils/twitch.js";
@@ -20,9 +20,9 @@ const channel = "twitch" as const;
  * Set Twitch account configuration
  */
 function setTwitchAccount(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   account: Partial<TwitchAccountConfig>,
-): SynurexConfig {
+): SkyKoiConfig {
   const existing = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   const merged: TwitchAccountConfig = {
     username: account.username ?? existing?.username ?? "",
@@ -70,7 +70,7 @@ async function noteTwitchSetupHelp(prompter: WizardPrompter): Promise<void> {
       "2. Generate a token with scopes: chat:read and chat:write",
       "   Use https://twitchtokengenerator.com/ or https://twitchapps.com/tmi/",
       "3. Copy the token (starts with 'oauth:') and Client ID",
-      "Env vars supported: SYNUREX_TWITCH_ACCESS_TOKEN",
+      "Env vars supported: SKYKOI_TWITCH_ACCESS_TOKEN",
       `Docs: ${formatDocsLink("/channels/twitch", "channels/twitch")}`,
     ].join("\n"),
     "Twitch setup",
@@ -207,15 +207,15 @@ async function promptRefreshTokenSetup(
  * Configure with env token path (returns early if user chooses env token).
  */
 async function configureWithEnvToken(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   prompter: WizardPrompter,
   account: TwitchAccountConfig | null,
   envToken: string,
   forceAllowFrom: boolean,
   dmPolicy: ChannelOnboardingDmPolicy,
-): Promise<{ cfg: SynurexConfig } | null> {
+): Promise<{ cfg: SkyKoiConfig } | null> {
   const useEnv = await prompter.confirm({
-    message: "Twitch env var SYNUREX_TWITCH_ACCESS_TOKEN detected. Use env token?",
+    message: "Twitch env var SKYKOI_TWITCH_ACCESS_TOKEN detected. Use env token?",
     initialValue: true,
   });
   if (!useEnv) {
@@ -243,10 +243,10 @@ async function configureWithEnvToken(
  * Set Twitch access control (role-based)
  */
 function setTwitchAccessControl(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   allowedRoles: TwitchRole[],
   requireMention: boolean,
-): SynurexConfig {
+): SkyKoiConfig {
   const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   if (!account) {
     return cfg;
@@ -322,7 +322,7 @@ export const twitchOnboardingAdapter: ChannelOnboardingAdapter = {
       await noteTwitchSetupHelp(prompter);
     }
 
-    const envToken = process.env.SYNUREX_TWITCH_ACCESS_TOKEN?.trim();
+    const envToken = process.env.SKYKOI_TWITCH_ACCESS_TOKEN?.trim();
 
     // Check if env var is set and config is empty
     if (envToken && !account?.accessToken) {

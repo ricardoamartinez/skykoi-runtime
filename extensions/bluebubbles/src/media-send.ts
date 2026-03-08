@@ -1,6 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveChannelMediaMaxBytes, type SynurexConfig } from "Synurex/plugin-sdk";
+import { resolveChannelMediaMaxBytes, type SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import { sendBlueBubblesAttachment } from "./attachments.js";
 import { resolveBlueBubblesMessageId } from "./monitor.js";
 import { getBlueBubblesRuntime } from "./runtime.js";
@@ -55,7 +55,7 @@ function resolveFilenameFromSource(source?: string): string | undefined {
 }
 
 export async function sendBlueBubblesMedia(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   to: string;
   mediaUrl?: string;
   mediaPath?: string;

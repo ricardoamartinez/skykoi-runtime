@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { DmPolicy } from "../../config/types.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { WizardPrompter } from "../../wizard/prompts.js";
@@ -23,11 +23,11 @@ export type SetupChannelsOptions = {
 };
 
 export type PromptAccountIdParams = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   prompter: WizardPrompter;
   label: string;
   currentId?: string;
-  listAccountIds: (cfg: SynurexConfig) => string[];
+  listAccountIds: (cfg: SkyKoiConfig) => string[];
   defaultAccountId: string;
 };
 
@@ -42,13 +42,13 @@ export type ChannelOnboardingStatus = {
 };
 
 export type ChannelOnboardingStatusContext = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   options?: SetupChannelsOptions;
   accountOverrides: Partial<Record<ChannelId, string>>;
 };
 
 export type ChannelOnboardingConfigureContext = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
   options?: SetupChannelsOptions;
@@ -58,7 +58,7 @@ export type ChannelOnboardingConfigureContext = {
 };
 
 export type ChannelOnboardingResult = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string;
 };
 
@@ -67,13 +67,13 @@ export type ChannelOnboardingDmPolicy = {
   channel: ChannelId;
   policyKey: string;
   allowFromKey: string;
-  getCurrent: (cfg: SynurexConfig) => DmPolicy;
-  setPolicy: (cfg: SynurexConfig, policy: DmPolicy) => SynurexConfig;
+  getCurrent: (cfg: SkyKoiConfig) => DmPolicy;
+  setPolicy: (cfg: SkyKoiConfig, policy: DmPolicy) => SkyKoiConfig;
   promptAllowFrom?: (params: {
-    cfg: SynurexConfig;
+    cfg: SkyKoiConfig;
     prompter: WizardPrompter;
     accountId?: string;
-  }) => Promise<SynurexConfig>;
+  }) => Promise<SkyKoiConfig>;
 };
 
 export type ChannelOnboardingAdapter = {
@@ -82,5 +82,5 @@ export type ChannelOnboardingAdapter = {
   configure: (ctx: ChannelOnboardingConfigureContext) => Promise<ChannelOnboardingResult>;
   dmPolicy?: ChannelOnboardingDmPolicy;
   onAccountRecorded?: (accountId: string, options?: SetupChannelsOptions) => void;
-  disable?: (cfg: SynurexConfig) => SynurexConfig;
+  disable?: (cfg: SkyKoiConfig) => SkyKoiConfig;
 };

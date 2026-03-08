@@ -2,7 +2,7 @@
 read_when:
   - 你想要索引或搜索语义记忆
   - 你正在调试记忆可用性或索引问题
-summary: "`Synurex memory`（status/index/search）的 CLI 参考"
+summary: "`SkyKoi memory`（status/index/search）的 CLI 参考"
 title: memory
 x-i18n:
   generated_at: "2026-02-01T20:21:11Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `Synurex memory`
+# `SkyKoi memory`
 
 管理语义记忆的索引和搜索。
 由活跃的记忆插件提供（默认：`memory-core`；设置 `plugins.slots.memory = "none"` 可禁用）。
@@ -26,15 +26,15 @@ x-i18n:
 ## 示例
 
 ```bash
-Synurex memory status
-Synurex memory status --deep
-Synurex memory status --deep --index
-Synurex memory status --deep --index --verbose
-Synurex memory index
-Synurex memory index --verbose
-Synurex memory search "release checklist"
-Synurex memory status --agent main
-Synurex memory index --agent main --verbose
+SkyKoi memory status
+SkyKoi memory status --deep
+SkyKoi memory status --deep --index
+SkyKoi memory status --deep --index --verbose
+SkyKoi memory index
+SkyKoi memory index --verbose
+SkyKoi memory search "release checklist"
+SkyKoi memory status --agent main
+SkyKoi memory index --agent main --verbose
 ```
 
 ## 选项

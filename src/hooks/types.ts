@@ -7,7 +7,7 @@ export type HookInstallSpec = {
   bins?: string[];
 };
 
-export type SynurexHookMetadata = {
+export type SkyKoiHookMetadata = {
   always?: boolean;
   hookKey?: string;
   emoji?: string;
@@ -35,7 +35,7 @@ export type ParsedHookFrontmatter = Record<string, string>;
 export type Hook = {
   name: string;
   description: string;
-  source: "Synurex-bundled" | "Synurex-managed" | "Synurex-workspace" | "Synurex-plugin";
+  source: "SkyKoi-bundled" | "SkyKoi-managed" | "SkyKoi-workspace" | "SkyKoi-plugin";
   pluginId?: string;
   filePath: string; // Path to HOOK.md
   baseDir: string; // Directory containing hook
@@ -47,7 +47,7 @@ export type HookSource = Hook["source"];
 export type HookEntry = {
   hook: Hook;
   frontmatter: ParsedHookFrontmatter;
-  metadata?: SynurexHookMetadata;
+  metadata?: SkyKoiHookMetadata;
   invocation?: HookInvocationPolicy;
 };
 

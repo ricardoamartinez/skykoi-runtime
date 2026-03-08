@@ -1,6 +1,6 @@
 import JSON5 from "json5";
 import type {
-  SynurexHookMetadata,
+  SkyKoiHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
@@ -76,9 +76,9 @@ function parseFrontmatterBool(value: string | undefined, fallback: boolean): boo
   return parsed === undefined ? fallback : parsed;
 }
 
-export function resolveSynurexMetadata(
+export function resolveSkyKoiMetadata(
   frontmatter: ParsedHookFrontmatter,
-): SynurexHookMetadata | undefined {
+): SkyKoiHookMetadata | undefined {
   const raw = getFrontmatterValue(frontmatter, "metadata");
   if (!raw) {
     return undefined;

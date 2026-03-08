@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `Synurex onboard` (interactive onboarding wizard)"
+summary: "CLI reference for `SkyKoi onboard` (interactive onboarding wizard)"
 read_when:
   - You want guided setup for gateway, workspace, auth, channels, and skills
 title: "onboard"
 ---
 
-# `Synurex onboard`
+# `SkyKoi onboard`
 
 Interactive onboarding wizard (local or remote Gateway setup).
 
@@ -19,23 +19,23 @@ Interactive onboarding wizard (local or remote Gateway setup).
 ## Examples
 
 ```bash
-Synurex onboard
-Synurex onboard --flow quickstart
-Synurex onboard --flow manual
-Synurex onboard --mode remote --remote-url ws://gateway-host:18789
+SkyKoi onboard
+SkyKoi onboard --flow quickstart
+SkyKoi onboard --flow manual
+SkyKoi onboard --mode remote --remote-url ws://gateway-host:18789
 ```
 
 Flow notes:
 
 - `quickstart`: minimal prompts, auto-generates a gateway token.
 - `manual`: full prompts for port/bind/auth (alias of `advanced`).
-- Fastest first chat: `Synurex dashboard` (Control UI, no channel setup).
+- Fastest first chat: `SkyKoi dashboard` (Control UI, no channel setup).
 
 ## Common follow-up commands
 
 ```bash
-Synurex configure
-Synurex agents add <name>
+SkyKoi configure
+SkyKoi agents add <name>
 ```
 
 <Note>

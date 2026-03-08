@@ -13,7 +13,7 @@ import {
   resolveConfiguredModelRef,
   resolveDefaultModelForAgent,
 } from "../agents/model-selection.js";
-import { type SynurexConfig, loadConfig } from "../config/config.js";
+import { type SkyKoiConfig, loadConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import {
   buildGroupDisplayName,
@@ -93,7 +93,7 @@ function isWorkspaceRelativePath(value: string): boolean {
 }
 
 function resolveIdentityAvatarUrl(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   agentId: string,
   avatar: string | undefined,
 ): string | undefined {
@@ -247,7 +247,7 @@ function listExistingAgentIdsFromDisk(): string[] {
   }
 }
 
-function listConfiguredAgentIds(cfg: SynurexConfig): string[] {
+function listConfiguredAgentIds(cfg: SkyKoiConfig): string[] {
   const agents = cfg.agents?.list ?? [];
   if (agents.length > 0) {
     const ids = new Set<string>();
@@ -279,7 +279,7 @@ function listConfiguredAgentIds(cfg: SynurexConfig): string[] {
   return sorted;
 }
 
-export function listAgentsForGateway(cfg: SynurexConfig): {
+export function listAgentsForGateway(cfg: SkyKoiConfig): {
   defaultId: string;
   mainKey: string;
   scope: SessionScope;
@@ -347,12 +347,12 @@ function canonicalizeSessionKeyForAgent(agentId: string, key: string): string {
   return `agent:${normalizeAgentId(agentId)}:${key}`;
 }
 
-function resolveDefaultStoreAgentId(cfg: SynurexConfig): string {
+function resolveDefaultStoreAgentId(cfg: SkyKoiConfig): string {
   return normalizeAgentId(resolveDefaultAgentId(cfg));
 }
 
 export function resolveSessionStoreKey(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   sessionKey: string;
 }): string {
   const raw = params.sessionKey.trim();
@@ -385,7 +385,7 @@ export function resolveSessionStoreKey(params: {
   return canonicalizeSessionKeyForAgent(agentId, raw);
 }
 
-function resolveSessionStoreAgentId(cfg: SynurexConfig, canonicalKey: string): string {
+function resolveSessionStoreAgentId(cfg: SkyKoiConfig, canonicalKey: string): string {
   if (canonicalKey === "global" || canonicalKey === "unknown") {
     return resolveDefaultStoreAgentId(cfg);
   }
@@ -410,7 +410,7 @@ function canonicalizeSpawnedByForAgent(agentId: string, spawnedBy?: string): str
   return `agent:${normalizeAgentId(agentId)}:${raw}`;
 }
 
-export function resolveGatewaySessionStoreTarget(params: { cfg: SynurexConfig; key: string }): {
+export function resolveGatewaySessionStoreTarget(params: { cfg: SkyKoiConfig; key: string }): {
   agentId: string;
   storePath: string;
   canonicalKey: string;
@@ -468,7 +468,7 @@ function mergeSessionEntryIntoCombined(params: {
   }
 }
 
-export function loadCombinedSessionStoreForGateway(cfg: SynurexConfig): {
+export function loadCombinedSessionStoreForGateway(cfg: SkyKoiConfig): {
   storePath: string;
   store: Record<string, SessionEntry>;
 } {
@@ -511,7 +511,7 @@ export function loadCombinedSessionStoreForGateway(cfg: SynurexConfig): {
   return { storePath, store: combined };
 }
 
-export function getSessionDefaults(cfg: SynurexConfig): GatewaySessionsDefaults {
+export function getSessionDefaults(cfg: SkyKoiConfig): GatewaySessionsDefaults {
   const resolved = resolveConfiguredModelRef({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,
@@ -529,7 +529,7 @@ export function getSessionDefaults(cfg: SynurexConfig): GatewaySessionsDefaults 
 }
 
 export function resolveSessionModelRef(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   entry?: SessionEntry,
   agentId?: string,
 ): { provider: string; model: string } {
@@ -551,7 +551,7 @@ export function resolveSessionModelRef(
 }
 
 export function listSessionsFromStore(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
   opts: import("./protocol/index.js").SessionsListParams;

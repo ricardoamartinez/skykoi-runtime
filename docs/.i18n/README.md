@@ -1,4 +1,4 @@
-# Synurex docs i18n assets
+# SkyKoi docs i18n assets
 
 This folder stores **generated** and **config** files for documentation translations.
 

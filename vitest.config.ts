@@ -12,7 +12,7 @@ const ciWorkers = isWindows ? 2 : 3;
 export default defineConfig({
   resolve: {
     alias: {
-      "Synurex/plugin-sdk": path.join(repoRoot, "src", "plugin-sdk", "index.ts"),
+      "SkyKoi/plugin-sdk": path.join(repoRoot, "src", "plugin-sdk", "index.ts"),
     },
   },
   test: {
@@ -28,7 +28,7 @@ export default defineConfig({
       "apps/macos/.build/**",
       "**/node_modules/**",
       "**/vendor/**",
-      "dist/Synurex.app/**",
+      "dist/SkyKoi.app/**",
       "**/*.live.test.ts",
       "**/*.e2e.test.ts",
     ],

@@ -4,7 +4,7 @@ import path from "node:path";
 import { resolveBrewPathDirs } from "./brew.js";
 import { isTruthyEnvValue } from "./env.js";
 
-type EnsureSynurexPathOpts = {
+type EnsureSkyKoiPathOpts = {
   execPath?: string;
   cwd?: string;
   homeDir?: string;
@@ -47,7 +47,7 @@ function mergePath(params: { existing: string; prepend: string[] }): string {
   return merged.join(path.delimiter);
 }
 
-function candidateBinDirs(opts: EnsureSynurexPathOpts): string[] {
+function candidateBinDirs(opts: EnsureSkyKoiPathOpts): string[] {
   const execPath = opts.execPath ?? process.execPath;
   const cwd = opts.cwd ?? process.cwd();
   const homeDir = opts.homeDir ?? os.homedir();
@@ -55,10 +55,10 @@ function candidateBinDirs(opts: EnsureSynurexPathOpts): string[] {
 
   const candidates: string[] = [];
 
-  // Bundled macOS app: `synurex` lives next to the executable (process.execPath).
+  // Bundled macOS app: `skykoi` lives next to the executable (process.execPath).
   try {
     const execDir = path.dirname(execPath);
-    const siblingCli = path.join(execDir, "synurex");
+    const siblingCli = path.join(execDir, "skykoi");
     if (isExecutable(siblingCli)) {
       candidates.push(execDir);
     }
@@ -66,10 +66,10 @@ function candidateBinDirs(opts: EnsureSynurexPathOpts): string[] {
     // ignore
   }
 
-  // Project-local installs (best effort): if a `node_modules/.bin/Synurex` exists near cwd,
+  // Project-local installs (best effort): if a `node_modules/.bin/SkyKoi` exists near cwd,
   // include it. This helps when running under launchd or other minimal PATH environments.
   const localBinDir = path.join(cwd, "node_modules", ".bin");
-  if (isExecutable(path.join(localBinDir, "synurex"))) {
+  if (isExecutable(path.join(localBinDir, "skykoi"))) {
     candidates.push(localBinDir);
   }
 
@@ -98,14 +98,14 @@ function candidateBinDirs(opts: EnsureSynurexPathOpts): string[] {
 }
 
 /**
- * Best-effort PATH bootstrap so skills that require the `synurex` CLI can run
+ * Best-effort PATH bootstrap so skills that require the `skykoi` CLI can run
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
-export function ensureSynurexCliOnPath(opts: EnsureSynurexPathOpts = {}) {
-  if (isTruthyEnvValue(process.env.SYNUREX_PATH_BOOTSTRAPPED)) {
+export function ensureSkyKoiCliOnPath(opts: EnsureSkyKoiPathOpts = {}) {
+  if (isTruthyEnvValue(process.env.SKYKOI_PATH_BOOTSTRAPPED)) {
     return;
   }
-  process.env.SYNUREX_PATH_BOOTSTRAPPED = "1";
+  process.env.SKYKOI_PATH_BOOTSTRAPPED = "1";
 
   const existing = opts.pathEnv ?? process.env.PATH ?? "";
   const prepend = candidateBinDirs(opts);

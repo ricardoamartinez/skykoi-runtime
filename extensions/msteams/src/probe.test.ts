@@ -1,4 +1,4 @@
-import type { MSTeamsConfig } from "Synurex/plugin-sdk";
+import type { MSTeamsConfig } from "SkyKoi/plugin-sdk";
 import { describe, expect, it, vi } from "vitest";
 
 const hostMockState = vi.hoisted(() => ({

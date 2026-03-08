@@ -1,4 +1,4 @@
-import type { LineChannelData, SynurexPluginApi, ReplyPayload } from "Synurex/plugin-sdk";
+import type { LineChannelData, SkyKoiPluginApi, ReplyPayload } from "SkyKoi/plugin-sdk";
 import {
   createActionCard,
   createImageCard,
@@ -7,7 +7,7 @@ import {
   createReceiptCard,
   type CardAction,
   type ListItem,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 
 const CARD_USAGE = `Usage: /card <type> "title" "body" [options]
 
@@ -154,7 +154,7 @@ function parseCardArgs(argsStr: string): {
   return result;
 }
 
-export function registerLineCardCommand(api: SynurexPluginApi): void {
+export function registerLineCardCommand(api: SkyKoiPluginApi): void {
   api.registerCommand({
     name: "card",
     description: "Send a rich card message (LINE).",

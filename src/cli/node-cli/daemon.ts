@@ -47,7 +47,7 @@ type NodeDaemonStatusOptions = {
 };
 
 function renderNodeServiceStartHints(): string[] {
-  const base = [formatCliCommand("synurex node install"), formatCliCommand("synurex node start")];
+  const base = [formatCliCommand("skykoi node install"), formatCliCommand("skykoi node start")];
   switch (process.platform) {
     case "darwin":
       return [
@@ -173,7 +173,7 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
     });
     if (!json) {
       defaultRuntime.log(`Node service already ${service.loadedText}.`);
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("synurex node install --force")}`);
+      defaultRuntime.log(`Reinstall with: ${formatCliCommand("skykoi node install --force")}`);
     }
     return;
   }
@@ -588,7 +588,7 @@ export async function runNodeDaemonStatus(opts: NodeDaemonStatusOptions = {}) {
   };
   const hintEnv = {
     ...baseEnv,
-    SYNUREX_LOG_PREFIX: baseEnv.SYNUREX_LOG_PREFIX ?? "node",
+    SKYKOI_LOG_PREFIX: baseEnv.SKYKOI_LOG_PREFIX ?? "node",
   } as NodeJS.ProcessEnv;
 
   if (runtime?.missingUnit) {

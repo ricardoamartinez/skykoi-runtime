@@ -6,7 +6,7 @@ import {
   MarkdownConfigSchema,
   ToolPolicySchema,
   requireOpenAllowFrom,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import { z } from "zod";
 
 export const NextcloudTalkRoomSchema = z

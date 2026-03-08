@@ -8,7 +8,7 @@ title: "Background Exec and Process Tool"
 
 # Background Exec + Process Tool
 
-Synurex runs shell commands through the `exec` tool and keeps long‑running tasks in memory. The `process` tool manages those background sessions.
+SkyKoi runs shell commands through the `exec` tool and keeps long‑running tasks in memory. The `process` tool manages those background sessions.
 
 ## exec tool
 
@@ -37,7 +37,7 @@ Environment overrides:
 
 - `PI_BASH_YIELD_MS`: default yield (ms)
 - `PI_BASH_MAX_OUTPUT_CHARS`: in‑memory output cap (chars)
-- `SYNUREX_BASH_PENDING_MAX_OUTPUT_CHARS`: pending stdout/stderr cap per stream (chars)
+- `SKYKOI_BASH_PENDING_MAX_OUTPUT_CHARS`: pending stdout/stderr cap per stream (chars)
 - `PI_BASH_JOB_TTL_MS`: TTL for finished sessions (ms, bounded to 1m–3h)
 
 Config (preferred):

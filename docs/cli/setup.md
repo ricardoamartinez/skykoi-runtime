@@ -1,14 +1,14 @@
 ---
-summary: "CLI reference for `Synurex setup` (initialize config + workspace)"
+summary: "CLI reference for `SkyKoi setup` (initialize config + workspace)"
 read_when:
   - You’re doing first-run setup without the full onboarding wizard
   - You want to set the default workspace path
 title: "setup"
 ---
 
-# `Synurex setup`
+# `SkyKoi setup`
 
-Initialize `~/.synurex/synurex.json` and the agent workspace.
+Initialize `~/.skykoi/skykoi.json` and the agent workspace.
 
 Related:
 
@@ -18,12 +18,12 @@ Related:
 ## Examples
 
 ```bash
-Synurex setup
-Synurex setup --workspace ~/.synurex/workspace
+SkyKoi setup
+SkyKoi setup --workspace ~/.skykoi/workspace
 ```
 
 To run the wizard via setup:
 
 ```bash
-Synurex setup --wizard
+SkyKoi setup --wizard
 ```

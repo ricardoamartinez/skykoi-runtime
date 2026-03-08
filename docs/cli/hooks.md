@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `synurex hooks` (agent hooks)"
+summary: "CLI reference for `skykoi hooks` (agent hooks)"
 read_when:
   - You want to manage agent hooks
   - You want to install or update hooks
 title: "hooks"
 ---
 
-# `synurex hooks`
+# `skykoi hooks`
 
 Manage agent hooks (event-driven automations for commands like `/new`, `/reset`, and gateway startup).
 
@@ -18,7 +18,7 @@ Related:
 ## List All Hooks
 
 ```bash
-Synurex hooks list
+SkyKoi hooks list
 ```
 
 List all discovered hooks from workspace, managed, and bundled directories.
@@ -44,7 +44,7 @@ Ready:
 **Example (verbose):**
 
 ```bash
-Synurex hooks list --verbose
+SkyKoi hooks list --verbose
 ```
 
 Shows missing requirements for ineligible hooks.
@@ -52,7 +52,7 @@ Shows missing requirements for ineligible hooks.
 **Example (JSON):**
 
 ```bash
-Synurex hooks list --json
+SkyKoi hooks list --json
 ```
 
 Returns structured JSON for programmatic use.
@@ -60,7 +60,7 @@ Returns structured JSON for programmatic use.
 ## Get Hook Information
 
 ```bash
-Synurex hooks info <name>
+SkyKoi hooks info <name>
 ```
 
 Show detailed information about a specific hook.
@@ -76,7 +76,7 @@ Show detailed information about a specific hook.
 **Example:**
 
 ```bash
-Synurex hooks info session-memory
+SkyKoi hooks info session-memory
 ```
 
 **Output:**
@@ -87,10 +87,10 @@ Synurex hooks info session-memory
 Save session context to memory when /new command is issued
 
 Details:
-  Source: Synurex-bundled
-  Path: /path/to/Synurex/hooks/bundled/session-memory/HOOK.md
-  Handler: /path/to/Synurex/hooks/bundled/session-memory/handler.ts
-  Homepage: https://docs.synurex.com/hooks#session-memory
+  Source: SkyKoi-bundled
+  Path: /path/to/SkyKoi/hooks/bundled/session-memory/HOOK.md
+  Handler: /path/to/SkyKoi/hooks/bundled/session-memory/handler.ts
+  Homepage: https://docs.skykoi.com/hooks#session-memory
   Events: command:new
 
 Requirements:
@@ -100,7 +100,7 @@ Requirements:
 ## Check Hooks Eligibility
 
 ```bash
-Synurex hooks check
+SkyKoi hooks check
 ```
 
 Show summary of hook eligibility status (how many are ready vs. not ready).
@@ -122,12 +122,12 @@ Not ready: 0
 ## Enable a Hook
 
 ```bash
-Synurex hooks enable <name>
+SkyKoi hooks enable <name>
 ```
 
-Enable a specific hook by adding it to your config (`~/.synurex/config.json`).
+Enable a specific hook by adding it to your config (`~/.skykoi/config.json`).
 
-**Note:** Hooks managed by plugins show `plugin:<id>` in `synurex hooks list` and
+**Note:** Hooks managed by plugins show `plugin:<id>` in `skykoi hooks list` and
 can’t be enabled/disabled here. Enable/disable the plugin instead.
 
 **Arguments:**
@@ -137,7 +137,7 @@ can’t be enabled/disabled here. Enable/disable the plugin instead.
 **Example:**
 
 ```bash
-Synurex hooks enable session-memory
+SkyKoi hooks enable session-memory
 ```
 
 **Output:**
@@ -159,7 +159,7 @@ Synurex hooks enable session-memory
 ## Disable a Hook
 
 ```bash
-Synurex hooks disable <name>
+SkyKoi hooks disable <name>
 ```
 
 Disable a specific hook by updating your config.
@@ -171,7 +171,7 @@ Disable a specific hook by updating your config.
 **Example:**
 
 ```bash
-Synurex hooks disable command-logger
+SkyKoi hooks disable command-logger
 ```
 
 **Output:**
@@ -187,14 +187,14 @@ Synurex hooks disable command-logger
 ## Install Hooks
 
 ```bash
-Synurex hooks install <path-or-spec>
+SkyKoi hooks install <path-or-spec>
 ```
 
 Install a hook pack from a local folder/archive or npm.
 
 **What it does:**
 
-- Copies the hook pack into `~/.synurex/hooks/<id>`
+- Copies the hook pack into `~/.skykoi/hooks/<id>`
 - Enables the installed hooks in `hooks.internal.entries.*`
 - Records the install under `hooks.internal.installs`
 
@@ -208,23 +208,23 @@ Install a hook pack from a local folder/archive or npm.
 
 ```bash
 # Local directory
-Synurex hooks install ./my-hook-pack
+SkyKoi hooks install ./my-hook-pack
 
 # Local archive
-Synurex hooks install ./my-hook-pack.zip
+SkyKoi hooks install ./my-hook-pack.zip
 
 # NPM package
-Synurex hooks install @Synurex/my-hook-pack
+SkyKoi hooks install @SkyKoi/my-hook-pack
 
 # Link a local directory without copying
-Synurex hooks install -l ./my-hook-pack
+SkyKoi hooks install -l ./my-hook-pack
 ```
 
 ## Update Hooks
 
 ```bash
-Synurex hooks update <id>
-Synurex hooks update --all
+SkyKoi hooks update <id>
+SkyKoi hooks update --all
 ```
 
 Update installed hook packs (npm installs only).
@@ -243,10 +243,10 @@ Saves session context to memory when you issue `/new`.
 **Enable:**
 
 ```bash
-Synurex hooks enable session-memory
+SkyKoi hooks enable session-memory
 ```
 
-**Output:** `~/.synurex/workspace/memory/YYYY-MM-DD-slug.md`
+**Output:** `~/.skykoi/workspace/memory/YYYY-MM-DD-slug.md`
 
 **See:** [session-memory documentation](/automation/hooks#session-memory)
 
@@ -257,22 +257,22 @@ Logs all command events to a centralized audit file.
 **Enable:**
 
 ```bash
-Synurex hooks enable command-logger
+SkyKoi hooks enable command-logger
 ```
 
-**Output:** `~/.synurex/logs/commands.log`
+**Output:** `~/.skykoi/logs/commands.log`
 
 **View logs:**
 
 ```bash
 # Recent commands
-tail -n 20 ~/.synurex/logs/commands.log
+tail -n 20 ~/.skykoi/logs/commands.log
 
 # Pretty-print
-cat ~/.synurex/logs/commands.log | jq .
+cat ~/.skykoi/logs/commands.log | jq .
 
 # Filter by action
-grep '"action":"new"' ~/.synurex/logs/commands.log | jq .
+grep '"action":"new"' ~/.skykoi/logs/commands.log | jq .
 ```
 
 **See:** [command-logger documentation](/automation/hooks#command-logger)
@@ -284,7 +284,7 @@ Swaps injected `SOUL.md` content with `SOUL_EVIL.md` during a purge window or by
 **Enable:**
 
 ```bash
-Synurex hooks enable soul-evil
+SkyKoi hooks enable soul-evil
 ```
 
 **See:** [SOUL Evil Hook](/hooks/soul-evil)
@@ -298,7 +298,7 @@ Runs `BOOT.md` when the gateway starts (after channels start).
 **Enable**:
 
 ```bash
-Synurex hooks enable boot-md
+SkyKoi hooks enable boot-md
 ```
 
 **See:** [boot-md documentation](/automation/hooks#boot-md)

@@ -1,4 +1,4 @@
-export type SynurexVersion = {
+export type SkyKoiVersion = {
   major: number;
   minor: number;
   patch: number;
@@ -7,7 +7,7 @@ export type SynurexVersion = {
 
 const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:-(\d+))?/;
 
-export function parseSynurexVersion(raw: string | null | undefined): SynurexVersion | null {
+export function parseSkyKoiVersion(raw: string | null | undefined): SkyKoiVersion | null {
   if (!raw) {
     return null;
   }
@@ -24,12 +24,12 @@ export function parseSynurexVersion(raw: string | null | undefined): SynurexVers
   };
 }
 
-export function compareSynurexVersions(
+export function compareSkyKoiVersions(
   a: string | null | undefined,
   b: string | null | undefined,
 ): number | null {
-  const parsedA = parseSynurexVersion(a);
-  const parsedB = parseSynurexVersion(b);
+  const parsedA = parseSkyKoiVersion(a);
+  const parsedB = parseSkyKoiVersion(b);
   if (!parsedA || !parsedB) {
     return null;
   }

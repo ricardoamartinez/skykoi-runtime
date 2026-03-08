@@ -1,7 +1,7 @@
 {
-  "name": "@Synurex/memory-lancedb",
+  "name": "@SkyKoi/memory-lancedb",
   "version": "2026.2.6-3",
-  "description": "Synurex LanceDB-backed long-term memory plugin with auto-recall/capture",
+  "description": "SkyKoi LanceDB-backed long-term memory plugin with auto-recall/capture",
   "type": "module",
   "dependencies": {
     "@lancedb/lancedb": "^0.24.1",
@@ -9,9 +9,9 @@
     "openai": "^6.18.0"
   },
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/minimax-portal-auth",
+  "name": "@SkyKoi/minimax-portal-auth",
   "version": "2026.2.6-3",
-  "description": "Synurex MiniMax Portal OAuth provider plugin",
+  "description": "SkyKoi MiniMax Portal OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

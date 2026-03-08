@@ -1,4 +1,4 @@
-import type { ChannelOutboundAdapter } from "Synurex/plugin-sdk";
+import type { ChannelOutboundAdapter } from "SkyKoi/plugin-sdk";
 import { sendMediaFeishu } from "./media.js";
 import { getFeishuRuntime } from "./runtime.js";
 import { sendMessageFeishu } from "./send.js";

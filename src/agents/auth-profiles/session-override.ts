@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import { updateSessionStore, type SessionEntry } from "../../config/sessions.js";
 import {
   ensureAuthProfileStore,
@@ -39,7 +39,7 @@ export async function clearSessionAuthProfileOverride(params: {
 }
 
 export async function resolveSessionAuthProfileOverride(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   provider: string;
   agentDir: string;
   sessionEntry?: SessionEntry;

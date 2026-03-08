@@ -8,7 +8,7 @@ describe("multi-agent agentDir validation", () => {
   it("rejects shared agents.list agentDir", async () => {
     vi.resetModules();
     const { validateConfigObject } = await import("./config.js");
-    const shared = path.join(tmpdir(), "Synurex-shared-agentdir");
+    const shared = path.join(tmpdir(), "SkyKoi-shared-agentdir");
     const res = validateConfigObject({
       agents: {
         list: [
@@ -26,16 +26,16 @@ describe("multi-agent agentDir validation", () => {
 
   it("throws on shared agentDir during loadConfig()", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".synurex");
+      const configDir = path.join(home, ".skykoi");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "synurex.json"),
+        path.join(configDir, "skykoi.json"),
         JSON.stringify(
           {
             agents: {
               list: [
-                { id: "a", agentDir: "~/.synurex/agents/shared/agent" },
-                { id: "b", agentDir: "~/.synurex/agents/shared/agent" },
+                { id: "a", agentDir: "~/.skykoi/agents/shared/agent" },
+                { id: "b", agentDir: "~/.skykoi/agents/shared/agent" },
               ],
             },
             bindings: [{ agentId: "a", match: { channel: "telegram" } }],

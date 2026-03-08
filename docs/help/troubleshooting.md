@@ -1,7 +1,7 @@
 ---
-summary: "Symptom first troubleshooting hub for Synurex"
+summary: "Symptom first troubleshooting hub for SkyKoi"
 read_when:
-  - Synurex is not working and you need the fastest path to a fix
+  - SkyKoi is not working and you need the fastest path to a fix
   - You want a triage flow before diving into deep runbooks
 title: "Troubleshooting"
 ---
@@ -15,30 +15,30 @@ If you only have 2 minutes, use this page as a triage front door.
 Run this exact ladder in order:
 
 ```bash
-Synurex status
-Synurex status --all
-Synurex gateway probe
-Synurex gateway status
-Synurex doctor
-Synurex channels status --probe
-Synurex logs --follow
+SkyKoi status
+SkyKoi status --all
+SkyKoi gateway probe
+SkyKoi gateway status
+SkyKoi doctor
+SkyKoi channels status --probe
+SkyKoi logs --follow
 ```
 
 Good output in one line:
 
-- `Synurex status` → shows configured channels and no obvious auth errors.
-- `Synurex status --all` → full report is present and shareable.
-- `Synurex gateway probe` → expected gateway target is reachable.
-- `Synurex gateway status` → `Runtime: running` and `RPC probe: ok`.
-- `Synurex doctor` → no blocking config/service errors.
-- `Synurex channels status --probe` → channels report `connected` or `ready`.
-- `Synurex logs --follow` → steady activity, no repeating fatal errors.
+- `SkyKoi status` → shows configured channels and no obvious auth errors.
+- `SkyKoi status --all` → full report is present and shareable.
+- `SkyKoi gateway probe` → expected gateway target is reachable.
+- `SkyKoi gateway status` → `Runtime: running` and `RPC probe: ok`.
+- `SkyKoi doctor` → no blocking config/service errors.
+- `SkyKoi channels status --probe` → channels report `connected` or `ready`.
+- `SkyKoi logs --follow` → steady activity, no repeating fatal errors.
 
 ## Decision tree
 
 ```mermaid
 flowchart TD
-  A[Synurex is not working] --> B{What breaks first}
+  A[SkyKoi is not working] --> B{What breaks first}
   B --> C[No replies]
   B --> D[Dashboard or Control UI will not connect]
   B --> E[Gateway will not start or service not running]
@@ -59,11 +59,11 @@ flowchart TD
 <AccordionGroup>
   <Accordion title="No replies">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex channels status --probe
-    Synurex pairing list <channel>
-    Synurex logs --follow
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi channels status --probe
+    SkyKoi pairing list <channel>
+    SkyKoi logs --follow
     ```
 
     Good output looks like:
@@ -89,16 +89,16 @@ flowchart TD
 
   <Accordion title="Dashboard or Control UI will not connect">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex logs --follow
-    Synurex doctor
-    Synurex channels status --probe
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi logs --follow
+    SkyKoi doctor
+    SkyKoi channels status --probe
     ```
 
     Good output looks like:
 
-    - `Dashboard: http://...` is shown in `Synurex gateway status`
+    - `Dashboard: http://...` is shown in `SkyKoi gateway status`
     - `RPC probe: ok`
     - No auth loop in logs
 
@@ -118,11 +118,11 @@ flowchart TD
 
   <Accordion title="Gateway will not start or service installed but not running">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex logs --follow
-    Synurex doctor
-    Synurex channels status --probe
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi logs --follow
+    SkyKoi doctor
+    SkyKoi channels status --probe
     ```
 
     Good output looks like:
@@ -147,11 +147,11 @@ flowchart TD
 
   <Accordion title="Channel connects but messages do not flow">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex logs --follow
-    Synurex doctor
-    Synurex channels status --probe
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi logs --follow
+    SkyKoi doctor
+    SkyKoi channels status --probe
     ```
 
     Good output looks like:
@@ -175,12 +175,12 @@ flowchart TD
 
   <Accordion title="Cron or heartbeat did not fire or did not deliver">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex cron status
-    Synurex cron list
-    Synurex cron runs --id <jobId> --limit 20
-    Synurex logs --follow
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi cron status
+    SkyKoi cron list
+    SkyKoi cron runs --id <jobId> --limit 20
+    SkyKoi logs --follow
     ```
 
     Good output looks like:
@@ -206,11 +206,11 @@ flowchart TD
 
   <Accordion title="Node is paired but tool fails camera canvas screen exec">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex nodes status
-    Synurex nodes describe --node <idOrNameOrIp>
-    Synurex logs --follow
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi nodes status
+    SkyKoi nodes describe --node <idOrNameOrIp>
+    SkyKoi logs --follow
     ```
 
     Good output looks like:
@@ -236,17 +236,17 @@ flowchart TD
 
   <Accordion title="Browser tool fails">
     ```bash
-    Synurex status
-    Synurex gateway status
-    Synurex browser status
-    Synurex logs --follow
-    Synurex doctor
+    SkyKoi status
+    SkyKoi gateway status
+    SkyKoi browser status
+    SkyKoi logs --follow
+    SkyKoi doctor
     ```
 
     Good output looks like:
 
     - Browser status shows `running: true` and a chosen browser/profile.
-    - `Synurex` profile starts or `chrome` relay has an attached tab.
+    - `SkyKoi` profile starts or `chrome` relay has an attached tab.
 
     Common log signatures:
 

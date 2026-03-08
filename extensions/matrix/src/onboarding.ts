@@ -5,7 +5,7 @@ import {
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { CoreConfig, DmPolicy } from "./types.js";
 import { listMatrixDirectoryGroupsLive } from "./directory-live.js";
 import { resolveMatrixAccount } from "./matrix/accounts.js";
@@ -336,7 +336,7 @@ export const matrixOnboardingAdapter: ChannelOnboardingAdapter = {
     const deviceName = String(
       await prompter.text({
         message: "Matrix device name (optional)",
-        initialValue: existing.deviceName ?? "Synurex Gateway",
+        initialValue: existing.deviceName ?? "SkyKoi Gateway",
       }),
     ).trim();
 

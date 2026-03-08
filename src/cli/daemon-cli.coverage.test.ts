@@ -81,43 +81,43 @@ vi.mock("./progress.js", () => ({
 
 describe("daemon-cli coverage", () => {
   const originalEnv = {
-    SYNUREX_STATE_DIR: process.env.SYNUREX_STATE_DIR,
-    SYNUREX_CONFIG_PATH: process.env.SYNUREX_CONFIG_PATH,
-    SYNUREX_GATEWAY_PORT: process.env.SYNUREX_GATEWAY_PORT,
-    SYNUREX_PROFILE: process.env.SYNUREX_PROFILE,
+    SKYKOI_STATE_DIR: process.env.SKYKOI_STATE_DIR,
+    SKYKOI_CONFIG_PATH: process.env.SKYKOI_CONFIG_PATH,
+    SKYKOI_GATEWAY_PORT: process.env.SKYKOI_GATEWAY_PORT,
+    SKYKOI_PROFILE: process.env.SKYKOI_PROFILE,
   };
 
   beforeEach(() => {
-    process.env.SYNUREX_STATE_DIR = "/tmp/Synurex-cli-state";
-    process.env.SYNUREX_CONFIG_PATH = "/tmp/Synurex-cli-state/synurex.json";
-    delete process.env.SYNUREX_GATEWAY_PORT;
-    delete process.env.SYNUREX_PROFILE;
+    process.env.SKYKOI_STATE_DIR = "/tmp/SkyKoi-cli-state";
+    process.env.SKYKOI_CONFIG_PATH = "/tmp/SkyKoi-cli-state/skykoi.json";
+    delete process.env.SKYKOI_GATEWAY_PORT;
+    delete process.env.SKYKOI_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
   afterEach(() => {
-    if (originalEnv.SYNUREX_STATE_DIR !== undefined) {
-      process.env.SYNUREX_STATE_DIR = originalEnv.SYNUREX_STATE_DIR;
+    if (originalEnv.SKYKOI_STATE_DIR !== undefined) {
+      process.env.SKYKOI_STATE_DIR = originalEnv.SKYKOI_STATE_DIR;
     } else {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     }
 
-    if (originalEnv.SYNUREX_CONFIG_PATH !== undefined) {
-      process.env.SYNUREX_CONFIG_PATH = originalEnv.SYNUREX_CONFIG_PATH;
+    if (originalEnv.SKYKOI_CONFIG_PATH !== undefined) {
+      process.env.SKYKOI_CONFIG_PATH = originalEnv.SKYKOI_CONFIG_PATH;
     } else {
-      delete process.env.SYNUREX_CONFIG_PATH;
+      delete process.env.SKYKOI_CONFIG_PATH;
     }
 
-    if (originalEnv.SYNUREX_GATEWAY_PORT !== undefined) {
-      process.env.SYNUREX_GATEWAY_PORT = originalEnv.SYNUREX_GATEWAY_PORT;
+    if (originalEnv.SKYKOI_GATEWAY_PORT !== undefined) {
+      process.env.SKYKOI_GATEWAY_PORT = originalEnv.SKYKOI_GATEWAY_PORT;
     } else {
-      delete process.env.SYNUREX_GATEWAY_PORT;
+      delete process.env.SKYKOI_GATEWAY_PORT;
     }
 
-    if (originalEnv.SYNUREX_PROFILE !== undefined) {
-      process.env.SYNUREX_PROFILE = originalEnv.SYNUREX_PROFILE;
+    if (originalEnv.SKYKOI_PROFILE !== undefined) {
+      process.env.SKYKOI_PROFILE = originalEnv.SKYKOI_PROFILE;
     } else {
-      delete process.env.SYNUREX_PROFILE;
+      delete process.env.SKYKOI_PROFILE;
     }
   });
 
@@ -148,10 +148,10 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        SYNUREX_PROFILE: "dev",
-        SYNUREX_STATE_DIR: "/tmp/Synurex-daemon-state",
-        SYNUREX_CONFIG_PATH: "/tmp/Synurex-daemon-state/synurex.json",
-        SYNUREX_GATEWAY_PORT: "19001",
+        SKYKOI_PROFILE: "dev",
+        SKYKOI_STATE_DIR: "/tmp/SkyKoi-daemon-state",
+        SKYKOI_CONFIG_PATH: "/tmp/SkyKoi-daemon-state/skykoi.json",
+        SKYKOI_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",
     });

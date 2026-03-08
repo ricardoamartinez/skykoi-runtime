@@ -1,11 +1,11 @@
 import type { CliDeps } from "../../../cli/deps.js";
-import type { SynurexConfig } from "../../../config/config.js";
+import type { SkyKoiConfig } from "../../../config/config.js";
 import type { HookHandler } from "../../hooks.js";
 import { createDefaultDeps } from "../../../cli/deps.js";
 import { runBootOnce } from "../../../gateway/boot.js";
 
 type BootHookContext = {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   workspaceDir?: string;
   deps?: CliDeps;
 };

@@ -1,4 +1,4 @@
-import type { AgentElevatedAllowFromConfig, SynurexConfig } from "../../config/config.js";
+import type { AgentElevatedAllowFromConfig, SkyKoiConfig } from "../../config/config.js";
 import type { MsgContext } from "../templating.js";
 import { resolveAgentConfig } from "../../agents/agent-scope.js";
 import { getChannelDock } from "../../channels/dock.js";
@@ -132,7 +132,7 @@ function isApprovedElevatedSender(params: {
 }
 
 export function resolveElevatedPermissions(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   agentId: string;
   ctx: MsgContext;
   provider: string;
@@ -226,7 +226,7 @@ export function formatElevatedUnavailableMessage(params: {
   lines.push("- agents.list[].tools.elevated.allowFrom.<provider>");
   if (params.sessionKey) {
     lines.push(
-      `See: ${formatCliCommand(`synurex sandbox explain --session ${params.sessionKey}`)}`,
+      `See: ${formatCliCommand(`skykoi sandbox explain --session ${params.sessionKey}`)}`,
     );
   }
   return lines.join("\n");

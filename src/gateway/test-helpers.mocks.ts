@@ -189,12 +189,12 @@ export const resetTestPluginRegistry = () => {
 };
 
 const testConfigRoot = {
-  value: path.join(os.tmpdir(), `Synurex-gateway-test-${process.pid}-${crypto.randomUUID()}`),
+  value: path.join(os.tmpdir(), `SkyKoi-gateway-test-${process.pid}-${crypto.randomUUID()}`),
 };
 
 export const setTestConfigRoot = (root: string) => {
   testConfigRoot.value = root;
-  process.env.SYNUREX_CONFIG_PATH = path.join(root, "synurex.json");
+  process.env.SKYKOI_CONFIG_PATH = path.join(root, "skykoi.json");
 };
 
 export const testTailnetIPv4 = hoisted.testTailnetIPv4;
@@ -287,7 +287,7 @@ vi.mock("../config/sessions.js", async () => {
 
 vi.mock("../config/config.js", async () => {
   const actual = await vi.importActual<typeof import("../config/config.js")>("../config/config.js");
-  const resolveConfigPath = () => path.join(testConfigRoot.value, "synurex.json");
+  const resolveConfigPath = () => path.join(testConfigRoot.value, "skykoi.json");
   const hashConfigRaw = (raw: string | null) =>
     crypto
       .createHash("sha256")
@@ -405,7 +405,7 @@ vi.mock("../config/config.js", async () => {
           : {};
       const defaults = {
         model: { primary: "anthropic/claude-opus-4-6" },
-        workspace: path.join(os.tmpdir(), "Synurex-gateway-test"),
+        workspace: path.join(os.tmpdir(), "SkyKoi-gateway-test"),
         ...fileDefaults,
         ...testState.agentConfig,
       };
@@ -595,11 +595,11 @@ vi.mock("../plugins/loader.js", async () => {
     await vi.importActual<typeof import("../plugins/loader.js")>("../plugins/loader.js");
   return {
     ...actual,
-    loadSynurexPlugins: () => pluginRegistryState.registry,
+    loadSkyKoiPlugins: () => pluginRegistryState.registry,
   };
 });
 
-process.env.SYNUREX_SKIP_CHANNELS = "1";
-process.env.SYNUREX_SKIP_CRON = "1";
-process.env.SYNUREX_SKIP_CHANNELS = "1";
-process.env.SYNUREX_SKIP_CRON = "1";
+process.env.SKYKOI_SKIP_CHANNELS = "1";
+process.env.SKYKOI_SKIP_CRON = "1";
+process.env.SKYKOI_SKIP_CHANNELS = "1";
+process.env.SKYKOI_SKIP_CRON = "1";

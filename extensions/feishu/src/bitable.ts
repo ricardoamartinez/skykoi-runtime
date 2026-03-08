@@ -1,4 +1,4 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
+import type { SkyKoiPluginApi } from "SkyKoi/plugin-sdk";
 import { Type } from "@sinclair/typebox";
 import type { FeishuConfig } from "./types.js";
 import { createFeishuClient } from "./client.js";
@@ -307,7 +307,7 @@ const UpdateRecordSchema = Type.Object({
 
 // ============ Tool Registration ============
 
-export function registerFeishuBitableTools(api: SynurexPluginApi) {
+export function registerFeishuBitableTools(api: SkyKoiPluginApi) {
   const feishuCfg = api.config?.channels?.feishu as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     api.logger.debug?.("feishu_bitable: Feishu credentials not configured, skipping bitable tools");

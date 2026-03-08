@@ -1,7 +1,7 @@
 ---
-summary: "Use Venice AI privacy-focused models in Synurex"
+summary: "Use Venice AI privacy-focused models in SkyKoi"
 read_when:
-  - You want privacy-focused inference in Synurex
+  - You want privacy-focused inference in SkyKoi
   - You want Venice AI setup guidance
 title: "Venice AI"
 ---
@@ -12,7 +12,7 @@ title: "Venice AI"
 
 Venice AI provides privacy-focused AI inference with support for uncensored models and access to major proprietary models through their anonymized proxy. All inference is private by default—no training on your data, no logging.
 
-## Why Venice in Synurex
+## Why Venice in SkyKoi
 
 - **Private inference** for open-source models (no logging).
 - **Uncensored models** when you need them.
@@ -47,7 +47,7 @@ Venice offers two privacy levels — understanding this is key to choosing your 
 2. Go to **Settings → API Keys → Create new key**
 3. Copy your API key (format: `vapi_xxxxxxxxxxxx`)
 
-### 2. Configure Synurex
+### 2. Configure SkyKoi
 
 **Option A: Environment Variable**
 
@@ -58,7 +58,7 @@ export VENICE_API_KEY="vapi_xxxxxxxxxxxx"
 **Option B: Interactive Setup (Recommended)**
 
 ```bash
-Synurex onboard --auth-choice venice-api-key
+SkyKoi onboard --auth-choice venice-api-key
 ```
 
 This will:
@@ -71,7 +71,7 @@ This will:
 **Option C: Non-interactive**
 
 ```bash
-Synurex onboard --non-interactive \
+SkyKoi onboard --non-interactive \
   --auth-choice venice-api-key \
   --venice-api-key "vapi_xxxxxxxxxxxx"
 ```
@@ -79,12 +79,12 @@ Synurex onboard --non-interactive \
 ### 3. Verify Setup
 
 ```bash
-Synurex chat --model venice/llama-3.3-70b "Hello, are you working?"
+SkyKoi chat --model venice/llama-3.3-70b "Hello, are you working?"
 ```
 
 ## Model Selection
 
-After setup, Synurex shows all available Venice models. Pick based on your needs:
+After setup, SkyKoi shows all available Venice models. Pick based on your needs:
 
 - **Default (our pick)**: `venice/llama-3.3-70b` for private, balanced performance.
 - **Best overall quality**: `venice/claude-opus-45` for hard jobs (Opus remains the strongest).
@@ -94,19 +94,19 @@ After setup, Synurex shows all available Venice models. Pick based on your needs
 Change your default model anytime:
 
 ```bash
-Synurex models set venice/claude-opus-45
-Synurex models set venice/llama-3.3-70b
+SkyKoi models set venice/claude-opus-45
+SkyKoi models set venice/llama-3.3-70b
 ```
 
 List all available models:
 
 ```bash
-Synurex models list | grep venice
+SkyKoi models list | grep venice
 ```
 
-## Configure via `Synurex configure`
+## Configure via `SkyKoi configure`
 
-1. Run `Synurex configure`
+1. Run `SkyKoi configure`
 2. Select **Model/auth**
 3. Choose **Venice AI**
 
@@ -162,7 +162,7 @@ Synurex models list | grep venice
 
 ## Model Discovery
 
-Synurex automatically discovers models from the Venice API when `VENICE_API_KEY` is set. If the API is unreachable, it falls back to a static catalog.
+SkyKoi automatically discovers models from the Venice API when `VENICE_API_KEY` is set. If the API is unreachable, it falls back to a static catalog.
 
 The `/models` endpoint is public (no auth needed for listing), but inference requires a valid API key.
 
@@ -195,19 +195,19 @@ Venice uses a credit-based system. Check [venice.ai/pricing](https://venice.ai/p
 
 ```bash
 # Use default private model
-Synurex chat --model venice/llama-3.3-70b
+SkyKoi chat --model venice/llama-3.3-70b
 
 # Use Claude via Venice (anonymized)
-Synurex chat --model venice/claude-opus-45
+SkyKoi chat --model venice/claude-opus-45
 
 # Use uncensored model
-Synurex chat --model venice/venice-uncensored
+SkyKoi chat --model venice/venice-uncensored
 
 # Use vision model with image
-Synurex chat --model venice/qwen3-vl-235b-a22b
+SkyKoi chat --model venice/qwen3-vl-235b-a22b
 
 # Use coding model
-Synurex chat --model venice/qwen3-coder-480b-a35b-instruct
+SkyKoi chat --model venice/qwen3-coder-480b-a35b-instruct
 ```
 
 ## Troubleshooting
@@ -216,14 +216,14 @@ Synurex chat --model venice/qwen3-coder-480b-a35b-instruct
 
 ```bash
 echo $VENICE_API_KEY
-Synurex models list | grep venice
+SkyKoi models list | grep venice
 ```
 
 Ensure the key starts with `vapi_`.
 
 ### Model not available
 
-The Venice model catalog updates dynamically. Run `Synurex models list` to see currently available models. Some models may be temporarily offline.
+The Venice model catalog updates dynamically. Run `SkyKoi models list` to see currently available models. Some models may be temporarily offline.
 
 ### Connection issues
 

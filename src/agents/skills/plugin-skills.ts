@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
   normalizePluginsConfig,
@@ -13,7 +13,7 @@ const log = createSubsystemLogger("skills");
 
 export function resolvePluginSkillDirs(params: {
   workspaceDir: string;
-  config?: SynurexConfig;
+  config?: SkyKoiConfig;
 }): string[] {
   const workspaceDir = params.workspaceDir.trim();
   if (!workspaceDir) {

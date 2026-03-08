@@ -16,29 +16,29 @@ Start at [/help/troubleshooting](/help/troubleshooting) if you want the fast tri
 Run these first, in this order:
 
 ```bash
-Synurex status
-Synurex gateway status
-Synurex logs --follow
-Synurex doctor
-Synurex channels status --probe
+SkyKoi status
+SkyKoi gateway status
+SkyKoi logs --follow
+SkyKoi doctor
+SkyKoi channels status --probe
 ```
 
 Expected healthy signals:
 
-- `Synurex gateway status` shows `Runtime: running` and `RPC probe: ok`.
-- `Synurex doctor` reports no blocking config/service issues.
-- `Synurex channels status --probe` shows connected/ready channels.
+- `SkyKoi gateway status` shows `Runtime: running` and `RPC probe: ok`.
+- `SkyKoi doctor` reports no blocking config/service issues.
+- `SkyKoi channels status --probe` shows connected/ready channels.
 
 ## No replies
 
 If channels are up but nothing answers, check routing and policy before reconnecting anything.
 
 ```bash
-Synurex status
-Synurex channels status --probe
-Synurex pairing list <channel>
-Synurex config get channels
-Synurex logs --follow
+SkyKoi status
+SkyKoi channels status --probe
+SkyKoi pairing list <channel>
+SkyKoi config get channels
+SkyKoi logs --follow
 ```
 
 Look for:
@@ -64,11 +64,11 @@ Related:
 When dashboard/control UI will not connect, validate URL, auth mode, and secure context assumptions.
 
 ```bash
-Synurex gateway status
-Synurex status
-Synurex logs --follow
-Synurex doctor
-Synurex gateway status --json
+SkyKoi gateway status
+SkyKoi status
+SkyKoi logs --follow
+SkyKoi doctor
+SkyKoi gateway status --json
 ```
 
 Look for:
@@ -94,11 +94,11 @@ Related:
 Use this when service is installed but process does not stay up.
 
 ```bash
-Synurex gateway status
-Synurex status
-Synurex logs --follow
-Synurex doctor
-Synurex gateway status --deep
+SkyKoi gateway status
+SkyKoi status
+SkyKoi logs --follow
+SkyKoi doctor
+SkyKoi gateway status --deep
 ```
 
 Look for:
@@ -124,11 +124,11 @@ Related:
 If channel state is connected but message flow is dead, focus on policy, permissions, and channel specific delivery rules.
 
 ```bash
-Synurex channels status --probe
-Synurex pairing list <channel>
-Synurex status --deep
-Synurex logs --follow
-Synurex config get channels
+SkyKoi channels status --probe
+SkyKoi pairing list <channel>
+SkyKoi status --deep
+SkyKoi logs --follow
+SkyKoi config get channels
 ```
 
 Look for:
@@ -155,11 +155,11 @@ Related:
 If cron or heartbeat did not run or did not deliver, verify scheduler state first, then delivery target.
 
 ```bash
-Synurex cron status
-Synurex cron list
-Synurex cron runs --id <jobId> --limit 20
-Synurex system heartbeat last
-Synurex logs --follow
+SkyKoi cron status
+SkyKoi cron list
+SkyKoi cron runs --id <jobId> --limit 20
+SkyKoi system heartbeat last
+SkyKoi logs --follow
 ```
 
 Look for:
@@ -186,11 +186,11 @@ Related:
 If a node is paired but tools fail, isolate foreground, permission, and approval state.
 
 ```bash
-Synurex nodes status
-Synurex nodes describe --node <idOrNameOrIp>
-Synurex approvals get --node <idOrNameOrIp>
-Synurex logs --follow
-Synurex status
+SkyKoi nodes status
+SkyKoi nodes describe --node <idOrNameOrIp>
+SkyKoi approvals get --node <idOrNameOrIp>
+SkyKoi logs --follow
+SkyKoi status
 ```
 
 Look for:
@@ -217,11 +217,11 @@ Related:
 Use this when browser tool actions fail even though the gateway itself is healthy.
 
 ```bash
-Synurex browser status
-Synurex browser start --browser-profile Synurex
-Synurex browser profiles
-Synurex logs --follow
-Synurex doctor
+SkyKoi browser status
+SkyKoi browser start --browser-profile SkyKoi
+SkyKoi browser profiles
+SkyKoi logs --follow
+SkyKoi doctor
 ```
 
 Look for:
@@ -250,10 +250,10 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
 ### 1) Auth and URL override behavior changed
 
 ```bash
-Synurex gateway status
-Synurex config get gateway.mode
-Synurex config get gateway.remote.url
-Synurex config get gateway.auth.mode
+SkyKoi gateway status
+SkyKoi config get gateway.mode
+SkyKoi config get gateway.remote.url
+SkyKoi config get gateway.auth.mode
 ```
 
 What to check:
@@ -269,10 +269,10 @@ Common signatures:
 ### 2) Bind and auth guardrails are stricter
 
 ```bash
-Synurex config get gateway.bind
-Synurex config get gateway.auth.token
-Synurex gateway status
-Synurex logs --follow
+SkyKoi config get gateway.bind
+SkyKoi config get gateway.auth.token
+SkyKoi gateway status
+SkyKoi logs --follow
 ```
 
 What to check:
@@ -288,10 +288,10 @@ Common signatures:
 ### 3) Pairing and device identity state changed
 
 ```bash
-Synurex devices list
-Synurex pairing list <channel>
-Synurex logs --follow
-Synurex doctor
+SkyKoi devices list
+SkyKoi pairing list <channel>
+SkyKoi logs --follow
+SkyKoi doctor
 ```
 
 What to check:
@@ -307,8 +307,8 @@ Common signatures:
 If the service config and runtime still disagree after checks, reinstall service metadata from the same profile/state directory:
 
 ```bash
-Synurex gateway install --force
-Synurex gateway restart
+SkyKoi gateway install --force
+SkyKoi gateway restart
 ```
 
 Related:

@@ -1,18 +1,18 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  SynurexConfig,
+  SkyKoiConfig,
   DmPolicy,
   WizardPrompter,
-} from "Synurex/plugin-sdk";
-import { addWildcardAllowFrom, DEFAULT_ACCOUNT_ID, formatDocsLink } from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
+import { addWildcardAllowFrom, DEFAULT_ACCOUNT_ID, formatDocsLink } from "SkyKoi/plugin-sdk";
 import type { FeishuConfig } from "./types.js";
 import { resolveFeishuCredentials } from "./accounts.js";
 import { probeFeishu } from "./probe.js";
 
 const channel = "feishu" as const;
 
-function setFeishuDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy): SynurexConfig {
+function setFeishuDmPolicy(cfg: SkyKoiConfig, dmPolicy: DmPolicy): SkyKoiConfig {
   const allowFrom =
     dmPolicy === "open"
       ? addWildcardAllowFrom(cfg.channels?.feishu?.allowFrom)?.map((entry) => String(entry))
@@ -30,7 +30,7 @@ function setFeishuDmPolicy(cfg: SynurexConfig, dmPolicy: DmPolicy): SynurexConfi
   };
 }
 
-function setFeishuAllowFrom(cfg: SynurexConfig, allowFrom: string[]): SynurexConfig {
+function setFeishuAllowFrom(cfg: SkyKoiConfig, allowFrom: string[]): SkyKoiConfig {
   return {
     ...cfg,
     channels: {
@@ -51,9 +51,9 @@ function parseAllowFromInput(raw: string): string[] {
 }
 
 async function promptFeishuAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   prompter: WizardPrompter;
-}): Promise<SynurexConfig> {
+}): Promise<SkyKoiConfig> {
   const existing = params.cfg.channels?.feishu?.allowFrom ?? [];
   await params.prompter.note(
     [
@@ -102,9 +102,9 @@ async function noteFeishuCredentialHelp(prompter: WizardPrompter): Promise<void>
 }
 
 function setFeishuGroupPolicy(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   groupPolicy: "open" | "allowlist" | "disabled",
-): SynurexConfig {
+): SkyKoiConfig {
   return {
     ...cfg,
     channels: {
@@ -118,7 +118,7 @@ function setFeishuGroupPolicy(
   };
 }
 
-function setFeishuGroupAllowFrom(cfg: SynurexConfig, groupAllowFrom: string[]): SynurexConfig {
+function setFeishuGroupAllowFrom(cfg: SkyKoiConfig, groupAllowFrom: string[]): SkyKoiConfig {
   return {
     ...cfg,
     channels: {

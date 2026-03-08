@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { ProviderAuthOverview } from "./list.types.js";
 import { formatRemainingShort } from "../../agents/auth-health.js";
 import {
@@ -14,7 +14,7 @@ import { maskApiKey } from "./list.format.js";
 
 export function resolveProviderAuthOverview(params: {
   provider: string;
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   store: AuthProfileStore;
   modelsPath: string;
 }): ProviderAuthOverview {

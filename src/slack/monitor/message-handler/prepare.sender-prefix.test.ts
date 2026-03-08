@@ -6,7 +6,7 @@ describe("prepareSlackMessage sender prefix", () => {
   it("prefixes channel bodies with sender label", async () => {
     const ctx = {
       cfg: {
-        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/Synurex" } },
+        agents: { defaults: { model: "anthropic/claude-opus-4-5", workspace: "/tmp/SkyKoi" } },
         channels: { slack: {} },
       },
       accountId: "default",
@@ -39,7 +39,7 @@ describe("prepareSlackMessage sender prefix", () => {
       replyToMode: "off",
       threadHistoryScope: "channel",
       threadInheritParent: false,
-      slashCommand: { command: "/Synurex", enabled: true },
+      slashCommand: { command: "/SkyKoi", enabled: true },
       textLimit: 2000,
       ackReactionScope: "off",
       mediaMaxBytes: 1000,

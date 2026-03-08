@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { DiscordAccountConfig } from "../config/types.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 import { resolveDiscordToken } from "./token.js";
@@ -12,7 +12,7 @@ export type ResolvedDiscordAccount = {
   config: DiscordAccountConfig;
 };
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SkyKoiConfig): string[] {
   const accounts = cfg.channels?.discord?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -20,7 +20,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listDiscordAccountIds(cfg: SynurexConfig): string[] {
+export function listDiscordAccountIds(cfg: SkyKoiConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -28,7 +28,7 @@ export function listDiscordAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultDiscordAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultDiscordAccountId(cfg: SkyKoiConfig): string {
   const ids = listDiscordAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -37,7 +37,7 @@ export function resolveDefaultDiscordAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
 ): DiscordAccountConfig | undefined {
   const accounts = cfg.channels?.discord?.accounts;
@@ -47,7 +47,7 @@ function resolveAccountConfig(
   return accounts[accountId] as DiscordAccountConfig | undefined;
 }
 
-function mergeDiscordAccountConfig(cfg: SynurexConfig, accountId: string): DiscordAccountConfig {
+function mergeDiscordAccountConfig(cfg: SkyKoiConfig, accountId: string): DiscordAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.discord ?? {}) as DiscordAccountConfig & {
     accounts?: unknown;
   };
@@ -56,7 +56,7 @@ function mergeDiscordAccountConfig(cfg: SynurexConfig, accountId: string): Disco
 }
 
 export function resolveDiscordAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
 }): ResolvedDiscordAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -75,7 +75,7 @@ export function resolveDiscordAccount(params: {
   };
 }
 
-export function listEnabledDiscordAccounts(cfg: SynurexConfig): ResolvedDiscordAccount[] {
+export function listEnabledDiscordAccounts(cfg: SkyKoiConfig): ResolvedDiscordAccount[] {
   return listDiscordAccountIds(cfg)
     .map((accountId) => resolveDiscordAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

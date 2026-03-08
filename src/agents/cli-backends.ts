@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { CliBackendConfig } from "../config/types.js";
 import { normalizeProviderId } from "./model-selection.js";
 
@@ -109,7 +109,7 @@ function mergeBackendConfig(base: CliBackendConfig, override?: CliBackendConfig)
   };
 }
 
-export function resolveCliBackendIds(cfg?: SynurexConfig): Set<string> {
+export function resolveCliBackendIds(cfg?: SkyKoiConfig): Set<string> {
   const ids = new Set<string>([
     normalizeBackendKey("claude-cli"),
     normalizeBackendKey("codex-cli"),
@@ -123,7 +123,7 @@ export function resolveCliBackendIds(cfg?: SynurexConfig): Set<string> {
 
 export function resolveCliBackendConfig(
   provider: string,
-  cfg?: SynurexConfig,
+  cfg?: SkyKoiConfig,
 ): ResolvedCliBackend | null {
   const normalized = normalizeBackendKey(provider);
   const configured = cfg?.agents?.defaults?.cliBackends ?? {};

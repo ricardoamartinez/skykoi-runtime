@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "Synurex/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "SkyKoi/plugin-sdk";
 
 type ZaloAccountStatus = {
   accountId?: unknown;

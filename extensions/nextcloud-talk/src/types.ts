@@ -3,7 +3,7 @@ import type {
   DmConfig,
   DmPolicy,
   GroupPolicy,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 
 export type NextcloudTalkRoomConfig = {
   requireMention?: boolean;

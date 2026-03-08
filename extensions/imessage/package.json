@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/imessage",
+  "name": "@SkyKoi/imessage",
   "version": "2026.2.6-3",
-  "description": "Synurex iMessage channel plugin",
+  "description": "SkyKoi iMessage channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

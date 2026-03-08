@@ -88,11 +88,11 @@ export function assertSupportedRuntime(
 
   runtime.error(
     [
-      "synurex requires Node >=22.12.0.",
+      "skykoi requires Node >=22.12.0.",
       `Detected: ${runtimeLabel} (exec: ${execLabel}).`,
       `PATH searched: ${details.pathEnv}`,
       "Install Node: https://nodejs.org/en/download",
-      "Upgrade Node and re-run Synurex.",
+      "Upgrade Node and re-run SkyKoi.",
     ].join("\n"),
   );
   runtime.exit(1);

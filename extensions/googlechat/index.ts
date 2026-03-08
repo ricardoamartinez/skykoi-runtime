@@ -1,5 +1,5 @@
-import type { SynurexPluginApi } from "Synurex/plugin-sdk";
-import { emptyPluginConfigSchema } from "Synurex/plugin-sdk";
+import type { SkyKoiPluginApi } from "SkyKoi/plugin-sdk";
+import { emptyPluginConfigSchema } from "SkyKoi/plugin-sdk";
 import { googlechatDock, googlechatPlugin } from "./src/channel.js";
 import { handleGoogleChatWebhookRequest } from "./src/monitor.js";
 import { setGoogleChatRuntime } from "./src/runtime.js";
@@ -7,9 +7,9 @@ import { setGoogleChatRuntime } from "./src/runtime.js";
 const plugin = {
   id: "googlechat",
   name: "Google Chat",
-  description: "Synurex Google Chat channel plugin",
+  description: "SkyKoi Google Chat channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: SynurexPluginApi) {
+  register(api: SkyKoiPluginApi) {
     setGoogleChatRuntime(api.runtime);
     api.registerChannel({ plugin: googlechatPlugin, dock: googlechatDock });
     api.registerHttpHandler(handleGoogleChatWebhookRequest);

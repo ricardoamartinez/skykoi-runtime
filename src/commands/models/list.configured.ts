@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { ConfiguredEntry } from "./list.types.js";
 import {
   buildModelAliasIndex,
@@ -8,7 +8,7 @@ import {
 } from "../../agents/model-selection.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER, modelKey } from "./shared.js";
 
-export function resolveConfiguredEntries(cfg: SynurexConfig) {
+export function resolveConfiguredEntries(cfg: SkyKoiConfig) {
   const resolvedDefault = resolveConfiguredModelRef({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,

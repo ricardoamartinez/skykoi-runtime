@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { ModelAliasIndex } from "../../agents/model-selection.js";
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { handleDirectiveOnly } from "./directive-handling.impl.js";
 import { parseInlineDirectives } from "./directive-handling.js";
@@ -32,17 +32,17 @@ function baseAliasIndex(): ModelAliasIndex {
   return { byAlias: new Map(), byKey: new Map() };
 }
 
-function baseConfig(): SynurexConfig {
+function baseConfig(): SkyKoiConfig {
   return {
     commands: { text: true },
     agents: { defaults: {} },
-  } as unknown as SynurexConfig;
+  } as unknown as SkyKoiConfig;
 }
 
 describe("/model chat UX", () => {
   it("shows summary for /model with no args", async () => {
     const directives = parseInlineDirectives("/model");
-    const cfg = { commands: { text: true } } as unknown as SynurexConfig;
+    const cfg = { commands: { text: true } } as unknown as SkyKoiConfig;
 
     const reply = await maybeHandleModelDirectiveInfo({
       directives,
@@ -65,7 +65,7 @@ describe("/model chat UX", () => {
 
   it("auto-applies closest match for typos", () => {
     const directives = parseInlineDirectives("/model anthropic/claud-opus-4-5");
-    const cfg = { commands: { text: true } } as unknown as SynurexConfig;
+    const cfg = { commands: { text: true } } as unknown as SkyKoiConfig;
 
     const resolved = resolveModelSelectionFromDirective({
       directives,

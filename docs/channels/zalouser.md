@@ -1,7 +1,7 @@
 ---
 summary: "Zalo personal account support via zca-cli (QR login), capabilities, and configuration"
 read_when:
-  - Setting up Zalo Personal for Synurex
+  - Setting up Zalo Personal for SkyKoi
   - Debugging Zalo Personal login or message flow
 title: "Zalo Personal"
 ---
@@ -16,8 +16,8 @@ Status: experimental. This integration automates a **personal Zalo account** via
 
 Zalo Personal ships as a plugin and is not bundled with the core install.
 
-- Install via CLI: `Synurex plugins install @Synurex/zalouser`
-- Or from a source checkout: `Synurex plugins install ./extensions/zalouser`
+- Install via CLI: `SkyKoi plugins install @SkyKoi/zalouser`
+- Or from a source checkout: `SkyKoi plugins install ./extensions/zalouser`
 - Details: [Plugins](/tools/plugin)
 
 ## Prerequisite: zca-cli
@@ -31,7 +31,7 @@ The Gateway machine must have the `zca` binary available in `PATH`.
 
 1. Install the plugin (see above).
 2. Login (QR, on the Gateway machine):
-   - `Synurex channels login --channel zalouser`
+   - `SkyKoi channels login --channel zalouser`
    - Scan the QR code in the terminal with the Zalo mobile app.
 3. Enable the channel:
 
@@ -64,9 +64,9 @@ Channel id is `zalouser` to make it explicit this automates a **personal Zalo us
 Use the directory CLI to discover peers/groups and their IDs:
 
 ```bash
-Synurex directory self --channel zalouser
-Synurex directory peers list --channel zalouser --query "name"
-Synurex directory groups list --channel zalouser --query "work"
+SkyKoi directory self --channel zalouser
+SkyKoi directory peers list --channel zalouser --query "name"
+SkyKoi directory groups list --channel zalouser --query "work"
 ```
 
 ## Limits
@@ -81,8 +81,8 @@ Synurex directory groups list --channel zalouser --query "work"
 
 Approve via:
 
-- `Synurex pairing list zalouser`
-- `Synurex pairing approve zalouser <code>`
+- `SkyKoi pairing list zalouser`
+- `SkyKoi pairing approve zalouser <code>`
 
 ## Group access (optional)
 
@@ -92,7 +92,7 @@ Approve via:
   - `channels.zalouser.groups` (keys are group IDs or names)
 - Block all groups: `channels.zalouser.groupPolicy = "disabled"`.
 - The configure wizard can prompt for group allowlists.
-- On startup, Synurex resolves group/user names in allowlists to IDs and logs the mapping; unresolved entries are kept as typed.
+- On startup, SkyKoi resolves group/user names in allowlists to IDs and logs the mapping; unresolved entries are kept as typed.
 
 Example:
 
@@ -136,5 +136,5 @@ Accounts map to zca profiles. Example:
 
 **Login doesn’t stick:**
 
-- `Synurex channels status --probe`
-- Re-login: `Synurex channels logout --channel zalouser && Synurex channels login --channel zalouser`
+- `SkyKoi channels status --probe`
+- Re-login: `SkyKoi channels logout --channel zalouser && SkyKoi channels login --channel zalouser`

@@ -1,6 +1,6 @@
 import type { ProviderPlugin } from "./types.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { loadSynurexPlugins, type PluginLoadOptions } from "./loader.js";
+import { loadSkyKoiPlugins, type PluginLoadOptions } from "./loader.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -8,7 +8,7 @@ export function resolvePluginProviders(params: {
   config?: PluginLoadOptions["config"];
   workspaceDir?: string;
 }): ProviderPlugin[] {
-  const registry = loadSynurexPlugins({
+  const registry = loadSkyKoiPlugins({
     config: params.config,
     workspaceDir: params.workspaceDir,
     logger: {

@@ -1,9 +1,9 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "SkyKoi/plugin-sdk";
 import type { ResolvedZaloAccount, ZaloAccountConfig, ZaloConfig } from "./types.js";
 import { resolveZaloToken } from "./token.js";
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SkyKoiConfig): string[] {
   const accounts = (cfg.channels?.zalo as ZaloConfig | undefined)?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -11,7 +11,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listZaloAccountIds(cfg: SynurexConfig): string[] {
+export function listZaloAccountIds(cfg: SkyKoiConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -19,7 +19,7 @@ export function listZaloAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultZaloAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultZaloAccountId(cfg: SkyKoiConfig): string {
   const zaloConfig = cfg.channels?.zalo as ZaloConfig | undefined;
   if (zaloConfig?.defaultAccount?.trim()) {
     return zaloConfig.defaultAccount.trim();
@@ -32,7 +32,7 @@ export function resolveDefaultZaloAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
 ): ZaloAccountConfig | undefined {
   const accounts = (cfg.channels?.zalo as ZaloConfig | undefined)?.accounts;
@@ -42,7 +42,7 @@ function resolveAccountConfig(
   return accounts[accountId] as ZaloAccountConfig | undefined;
 }
 
-function mergeZaloAccountConfig(cfg: SynurexConfig, accountId: string): ZaloAccountConfig {
+function mergeZaloAccountConfig(cfg: SkyKoiConfig, accountId: string): ZaloAccountConfig {
   const raw = (cfg.channels?.zalo ?? {}) as ZaloConfig;
   const { accounts: _ignored, defaultAccount: _ignored2, ...base } = raw;
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -50,7 +50,7 @@ function mergeZaloAccountConfig(cfg: SynurexConfig, accountId: string): ZaloAcco
 }
 
 export function resolveZaloAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
 }): ResolvedZaloAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -73,7 +73,7 @@ export function resolveZaloAccount(params: {
   };
 }
 
-export function listEnabledZaloAccounts(cfg: SynurexConfig): ResolvedZaloAccount[] {
+export function listEnabledZaloAccounts(cfg: SkyKoiConfig): ResolvedZaloAccount[] {
   return listZaloAccountIds(cfg)
     .map((accountId) => resolveZaloAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

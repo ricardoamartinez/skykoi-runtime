@@ -3,9 +3,9 @@ import { resolveStateDir } from "../config/paths.js";
 import { DEFAULT_AGENT_ID } from "../routing/session-key.js";
 import { resolveUserPath } from "../utils.js";
 
-export function resolveSynurexAgentDir(): string {
+export function resolveSkyKoiAgentDir(): string {
   const override =
-    process.env.SYNUREX_AGENT_DIR?.trim() || process.env.PI_CODING_AGENT_DIR?.trim();
+    process.env.SKYKOI_AGENT_DIR?.trim() || process.env.PI_CODING_AGENT_DIR?.trim();
   if (override) {
     return resolveUserPath(override);
   }
@@ -13,10 +13,10 @@ export function resolveSynurexAgentDir(): string {
   return resolveUserPath(defaultAgentDir);
 }
 
-export function ensureSynurexAgentEnv(): string {
-  const dir = resolveSynurexAgentDir();
-  if (!process.env.SYNUREX_AGENT_DIR) {
-    process.env.SYNUREX_AGENT_DIR = dir;
+export function ensureSkyKoiAgentEnv(): string {
+  const dir = resolveSkyKoiAgentDir();
+  if (!process.env.SKYKOI_AGENT_DIR) {
+    process.env.SKYKOI_AGENT_DIR = dir;
   }
   if (!process.env.PI_CODING_AGENT_DIR) {
     process.env.PI_CODING_AGENT_DIR = dir;

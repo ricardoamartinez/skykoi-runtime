@@ -51,16 +51,16 @@ describe("resolveResponsePrefixTemplate", () => {
 
   it("resolves {identity.name} variable", () => {
     const result = resolveResponsePrefixTemplate("[{identity.name}]", {
-      identityName: "synurex",
+      identityName: "skykoi",
     });
-    expect(result).toBe("[Synurex]");
+    expect(result).toBe("[SkyKoi]");
   });
 
   it("resolves {identityName} as alias", () => {
     const result = resolveResponsePrefixTemplate("[{identityName}]", {
-      identityName: "synurex",
+      identityName: "skykoi",
     });
-    expect(result).toBe("[Synurex]");
+    expect(result).toBe("[SkyKoi]");
   });
 
   it("resolves multiple variables", () => {
@@ -103,13 +103,13 @@ describe("resolveResponsePrefixTemplate", () => {
     const result = resolveResponsePrefixTemplate(
       "[{identity.name}] {provider}/{model} (think:{thinkingLevel})",
       {
-        identityName: "synurex",
+        identityName: "skykoi",
         provider: "anthropic",
         model: "claude-opus-4-5",
         thinkingLevel: "high",
       },
     );
-    expect(result).toBe("[Synurex] anthropic/claude-opus-4-5 (think:high)");
+    expect(result).toBe("[SkyKoi] anthropic/claude-opus-4-5 (think:high)");
   });
 });
 

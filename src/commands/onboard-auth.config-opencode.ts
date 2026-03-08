@@ -1,7 +1,7 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { OPENCODE_ZEN_DEFAULT_MODEL_REF } from "../agents/opencode-zen-models.js";
 
-export function applyOpencodeZenProviderConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyOpencodeZenProviderConfig(cfg: SkyKoiConfig): SkyKoiConfig {
   // Use the built-in opencode provider from pi-ai; only seed the allowlist alias.
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENCODE_ZEN_DEFAULT_MODEL_REF] = {
@@ -21,7 +21,7 @@ export function applyOpencodeZenProviderConfig(cfg: SynurexConfig): SynurexConfi
   };
 }
 
-export function applyOpencodeZenConfig(cfg: SynurexConfig): SynurexConfig {
+export function applyOpencodeZenConfig(cfg: SkyKoiConfig): SkyKoiConfig {
   const next = applyOpencodeZenProviderConfig(cfg);
   return {
     ...next,

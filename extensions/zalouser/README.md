@@ -1,6 +1,6 @@
-# @Synurex/zalouser
+# @SkyKoi/zalouser
 
-Synurex extension for Zalo Personal Account messaging via [zca-cli](https://zca-cli.dev).
+SkyKoi extension for Zalo Personal Account messaging via [zca-cli](https://zca-cli.dev).
 
 > **Warning:** Using Zalo automation may result in account suspension or ban. Use at your own risk. This is an unofficial integration.
 
@@ -77,7 +77,7 @@ See [zca-cli](https://zca-cli.dev) for manual download (binaries for macOS/Linux
 ### Option 1: Onboarding Wizard (Recommended)
 
 ```bash
-Synurex onboard
+SkyKoi onboard
 # Select "Zalo Personal" from channel list
 # Follow QR code login flow
 ```
@@ -85,14 +85,14 @@ Synurex onboard
 ### Option 2: Login (QR, on the Gateway machine)
 
 ```bash
-Synurex channels login --channel zalouser
+SkyKoi channels login --channel zalouser
 # Scan QR code with Zalo app
 ```
 
 ### Send a Message
 
 ```bash
-Synurex message send --channel zalouser --target <threadId> --message "Hello from Synurex!"
+SkyKoi message send --channel zalouser --target <threadId> --message "Hello from SkyKoi!"
 ```
 
 ## Configuration
@@ -127,19 +127,19 @@ channels:
 ### Authentication
 
 ```bash
-Synurex channels login --channel zalouser              # Login via QR
-Synurex channels login --channel zalouser --account work
-Synurex channels status --probe
-Synurex channels logout --channel zalouser
+SkyKoi channels login --channel zalouser              # Login via QR
+SkyKoi channels login --channel zalouser --account work
+SkyKoi channels status --probe
+SkyKoi channels logout --channel zalouser
 ```
 
 ### Directory (IDs, contacts, groups)
 
 ```bash
-Synurex directory self --channel zalouser
-Synurex directory peers list --channel zalouser --query "name"
-Synurex directory groups list --channel zalouser --query "work"
-Synurex directory groups members --channel zalouser --group-id <id>
+SkyKoi directory self --channel zalouser
+SkyKoi directory peers list --channel zalouser --query "name"
+SkyKoi directory groups list --channel zalouser --query "work"
+SkyKoi directory groups members --channel zalouser --group-id <id>
 ```
 
 ### Account Management
@@ -156,16 +156,16 @@ zca account label <profile> "Work Account"
 
 ```bash
 # Text
-Synurex message send --channel zalouser --target <threadId> --message "message"
+SkyKoi message send --channel zalouser --target <threadId> --message "message"
 
 # Media (URL)
-Synurex message send --channel zalouser --target <threadId> --message "caption" --media-url "https://example.com/img.jpg"
+SkyKoi message send --channel zalouser --target <threadId> --message "caption" --media-url "https://example.com/img.jpg"
 ```
 
 ### Listener
 
 The listener runs inside the Gateway when the channel is enabled. For debugging,
-use `Synurex channels logs --channel zalouser` or run `zca listen` directly.
+use `SkyKoi channels logs --channel zalouser` or run `zca listen` directly.
 
 ### Data Access
 
@@ -191,8 +191,8 @@ zca me id
 Use `--profile` or `-p` to work with multiple accounts:
 
 ```bash
-Synurex channels login --channel zalouser --account work
-Synurex message send --channel zalouser --account work --target <id> --message "Hello"
+SkyKoi channels login --channel zalouser --account work
+SkyKoi message send --channel zalouser --account work --target <id> --message "Hello"
 ZCA_PROFILE=work zca listen
 ```
 

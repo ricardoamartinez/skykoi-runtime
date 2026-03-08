@@ -2,7 +2,7 @@
 read_when:
   - 你想添加/删除渠道账户（WhatsApp/Telegram/Discord/Google Chat/Slack/Mattermost（插件）/Signal/iMessage）
   - 你想检查渠道状态或跟踪渠道日志
-summary: "`Synurex channels` 的 CLI 参考（账户、状态、登录/登出、日志）"
+summary: "`SkyKoi channels` 的 CLI 参考（账户、状态、登录/登出、日志）"
 title: channels
 x-i18n:
   generated_at: "2026-02-03T07:44:51Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `Synurex channels`
+# `SkyKoi channels`
 
 管理 Gateway 网关上的聊天渠道账户及其运行时状态。
 
@@ -25,43 +25,43 @@ x-i18n:
 ## 常用命令
 
 ```bash
-Synurex channels list
-Synurex channels status
-Synurex channels capabilities
-Synurex channels capabilities --channel discord --target channel:123
-Synurex channels resolve --channel slack "#general" "@jane"
-Synurex channels logs --channel all
+SkyKoi channels list
+SkyKoi channels status
+SkyKoi channels capabilities
+SkyKoi channels capabilities --channel discord --target channel:123
+SkyKoi channels resolve --channel slack "#general" "@jane"
+SkyKoi channels logs --channel all
 ```
 
 ## 添加/删除账户
 
 ```bash
-Synurex channels add --channel telegram --token <bot-token>
-Synurex channels remove --channel telegram --delete
+SkyKoi channels add --channel telegram --token <bot-token>
+SkyKoi channels remove --channel telegram --delete
 ```
 
-提示：`Synurex channels add --help` 显示每个渠道的标志（token、app token、signal-cli 路径等）。
+提示：`SkyKoi channels add --help` 显示每个渠道的标志（token、app token、signal-cli 路径等）。
 
 ## 登录/登出（交互式）
 
 ```bash
-Synurex channels login --channel whatsapp
-Synurex channels logout --channel whatsapp
+SkyKoi channels login --channel whatsapp
+SkyKoi channels logout --channel whatsapp
 ```
 
 ## 故障排除
 
-- 运行 `Synurex status --deep` 进行全面探测。
-- 使用 `Synurex doctor` 获取引导式修复。
-- `Synurex channels list` 输出 `Claude: HTTP 403 ... user:profile` → 用量快照需要 `user:profile` 权限范围。使用 `--no-usage`，或提供 claude.ai 会话密钥（`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`），或通过 Claude Code CLI 重新授权。
+- 运行 `SkyKoi status --deep` 进行全面探测。
+- 使用 `SkyKoi doctor` 获取引导式修复。
+- `SkyKoi channels list` 输出 `Claude: HTTP 403 ... user:profile` → 用量快照需要 `user:profile` 权限范围。使用 `--no-usage`，或提供 claude.ai 会话密钥（`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`），或通过 Claude Code CLI 重新授权。
 
 ## 能力探测
 
 获取提供商能力提示（可用的 intents/scopes）以及静态功能支持：
 
 ```bash
-Synurex channels capabilities
-Synurex channels capabilities --channel discord --target channel:123
+SkyKoi channels capabilities
+SkyKoi channels capabilities --channel discord --target channel:123
 ```
 
 说明：
@@ -75,9 +75,9 @@ Synurex channels capabilities --channel discord --target channel:123
 使用提供商目录将渠道/用户名称解析为 ID：
 
 ```bash
-Synurex channels resolve --channel slack "#general" "@jane"
-Synurex channels resolve --channel discord "My Server/#support" "@someone"
-Synurex channels resolve --channel matrix "Project Room"
+SkyKoi channels resolve --channel slack "#general" "@jane"
+SkyKoi channels resolve --channel discord "My Server/#support" "@someone"
+SkyKoi channels resolve --channel matrix "Project Room"
 ```
 
 说明：

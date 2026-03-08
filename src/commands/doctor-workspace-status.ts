@@ -1,11 +1,11 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { buildWorkspaceSkillStatus } from "../agents/skills-status.js";
-import { loadSynurexPlugins } from "../plugins/loader.js";
+import { loadSkyKoiPlugins } from "../plugins/loader.js";
 import { note } from "../terminal/note.js";
 import { detectLegacyWorkspaceDirs, formatLegacyWorkspaceWarning } from "./doctor-workspace.js";
 
-export function noteWorkspaceStatus(cfg: SynurexConfig) {
+export function noteWorkspaceStatus(cfg: SkyKoiConfig) {
   const workspaceDir = resolveAgentWorkspaceDir(cfg, resolveDefaultAgentId(cfg));
   const legacyWorkspace = detectLegacyWorkspaceDirs({ workspaceDir });
   if (legacyWorkspace.legacyDirs.length > 0) {
@@ -25,7 +25,7 @@ export function noteWorkspaceStatus(cfg: SynurexConfig) {
     "Skills status",
   );
 
-  const pluginRegistry = loadSynurexPlugins({
+  const pluginRegistry = loadSkyKoiPlugins({
     config: cfg,
     workspaceDir,
     logger: {

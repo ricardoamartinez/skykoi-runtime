@@ -1,6 +1,6 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 import crypto from "node:crypto";
-import { stripMarkdown } from "Synurex/plugin-sdk";
+import { stripMarkdown } from "SkyKoi/plugin-sdk";
 import { resolveBlueBubblesAccount } from "./accounts.js";
 import {
   extractHandleFromChatGuid,
@@ -18,7 +18,7 @@ export type BlueBubblesSendOpts = {
   password?: string;
   accountId?: string;
   timeoutMs?: number;
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   /** Message GUID to reply to (reply threading) */
   replyToMessageGuid?: string;
   /** Part index for reply (default: 0) */

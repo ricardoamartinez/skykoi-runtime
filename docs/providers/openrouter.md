@@ -1,8 +1,8 @@
 ---
-summary: "Use OpenRouter's unified API to access many models in Synurex"
+summary: "Use OpenRouter's unified API to access many models in SkyKoi"
 read_when:
   - You want a single API key for many LLMs
-  - You want to run models via OpenRouter in Synurex
+  - You want to run models via OpenRouter in SkyKoi
 title: "OpenRouter"
 ---
 
@@ -14,7 +14,7 @@ endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switc
 ## CLI setup
 
 ```bash
-Synurex onboard --auth-choice apiKey --token-provider openrouter --token "$OPENROUTER_API_KEY"
+SkyKoi onboard --auth-choice apiKey --token-provider openrouter --token "$OPENROUTER_API_KEY"
 ```
 
 ## Config snippet

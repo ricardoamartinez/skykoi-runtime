@@ -34,13 +34,13 @@ Contents (examples):
 
 Delivery:
 
-- Publish as `Synurex/plugin-sdk` (or export from core under `Synurex/plugin-sdk`).
+- Publish as `SkyKoi/plugin-sdk` (or export from core under `SkyKoi/plugin-sdk`).
 - Semver with explicit stability guarantees.
 
 ### 2) Plugin Runtime (execution surface, injected)
 
 Scope: everything that touches core runtime behavior.
-Accessed via `SynurexPluginApi.runtime` so plugins never import `src/**`.
+Accessed via `SkyKoiPluginApi.runtime` so plugins never import `src/**`.
 
 Proposed surface (minimal but complete):
 
@@ -49,8 +49,8 @@ export type PluginRuntime = {
   channel: {
     text: {
       chunkMarkdownText(text: string, limit: number): string[];
-      resolveTextChunkLimit(cfg: SynurexConfig, channel: string, accountId?: string): number;
-      hasControlCommand(text: string, cfg: SynurexConfig): boolean;
+      resolveTextChunkLimit(cfg: SkyKoiConfig, channel: string, accountId?: string): number;
+      hasControlCommand(text: string, cfg: SkyKoiConfig): boolean;
     };
     reply: {
       dispatchReplyWithBufferedBlockDispatcher(params: {
@@ -94,12 +94,12 @@ export type PluginRuntime = {
       ): Promise<{ path: string; contentType?: string }>;
     };
     mentions: {
-      buildMentionRegexes(cfg: SynurexConfig, agentId?: string): RegExp[];
+      buildMentionRegexes(cfg: SkyKoiConfig, agentId?: string): RegExp[];
       matchesMentionPatterns(text: string, regexes: RegExp[]): boolean;
     };
     groups: {
       resolveGroupPolicy(
-        cfg: SynurexConfig,
+        cfg: SkyKoiConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -110,7 +110,7 @@ export type PluginRuntime = {
         defaultConfig?: unknown;
       };
       resolveRequireMention(
-        cfg: SynurexConfig,
+        cfg: SkyKoiConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -125,7 +125,7 @@ export type PluginRuntime = {
         onFlush: (entries: T[]) => Promise<void>;
         onError?: (err: unknown) => void;
       }): { push: (v: T) => void; flush: () => Promise<void> };
-      resolveInboundDebounceMs(cfg: SynurexConfig, channel: string): number;
+      resolveInboundDebounceMs(cfg: SkyKoiConfig, channel: string): number;
     };
     commands: {
       resolveCommandAuthorizedFromAuthorizers(params: {
@@ -139,7 +139,7 @@ export type PluginRuntime = {
     getChildLogger(name: string): PluginLogger;
   };
   state: {
-    resolveStateDir(cfg: SynurexConfig): string;
+    resolveStateDir(cfg: SkyKoiConfig): string;
   };
 };
 ```
@@ -154,8 +154,8 @@ Notes:
 
 ### Phase 0: scaffolding
 
-- Introduce `Synurex/plugin-sdk`.
-- Add `api.runtime` to `SynurexPluginApi` with the surface above.
+- Introduce `SkyKoi/plugin-sdk`.
+- Add `api.runtime` to `SkyKoiPluginApi` with the surface above.
 - Maintain existing imports during a transition window (deprecation warnings).
 
 ### Phase 1: bridge cleanup (low risk)
@@ -189,7 +189,7 @@ Notes:
 
 - SDK: semver, published, documented changes.
 - Runtime: versioned per core release. Add `api.runtime.version`.
-- Plugins declare a required runtime range (e.g., `SynurexRuntime: ">=2026.2.0"`).
+- Plugins declare a required runtime range (e.g., `SkyKoiRuntime: ">=2026.2.0"`).
 
 ## Testing strategy
 

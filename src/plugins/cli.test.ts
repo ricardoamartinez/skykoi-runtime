@@ -7,7 +7,7 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock("./loader.js", () => ({
-  loadSynurexPlugins: () => ({
+  loadSkyKoiPlugins: () => ({
     cliRegistrars: [
       {
         pluginId: "memory-core",

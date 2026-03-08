@@ -1,7 +1,7 @@
 ---
-summary: "Use OpenAI via API keys or Codex subscription in Synurex"
+summary: "Use OpenAI via API keys or Codex subscription in SkyKoi"
 read_when:
-  - You want to use OpenAI models in Synurex
+  - You want to use OpenAI models in SkyKoi
   - You want Codex subscription auth instead of API keys
 title: "OpenAI"
 ---
@@ -19,9 +19,9 @@ Get your API key from the OpenAI dashboard.
 ### CLI setup
 
 ```bash
-Synurex onboard --auth-choice openai-api-key
+SkyKoi onboard --auth-choice openai-api-key
 # or non-interactive
-Synurex onboard --openai-api-key "$OPENAI_API_KEY"
+SkyKoi onboard --openai-api-key "$OPENAI_API_KEY"
 ```
 
 ### Config snippet
@@ -42,10 +42,10 @@ Codex cloud requires ChatGPT sign-in, while the Codex CLI supports ChatGPT or AP
 
 ```bash
 # Run Codex OAuth in the wizard
-Synurex onboard --auth-choice openai-codex
+SkyKoi onboard --auth-choice openai-codex
 
 # Or run OAuth directly
-Synurex models auth login --provider openai-codex
+SkyKoi models auth login --provider openai-codex
 ```
 
 ### Config snippet (Codex subscription)

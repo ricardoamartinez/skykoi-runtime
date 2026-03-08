@@ -1,6 +1,6 @@
 # Bundled Hooks
 
-This directory contains hooks that ship with Synurex. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
+This directory contains hooks that ship with SkyKoi. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
 
 ## Available Hooks
 
@@ -10,12 +10,12 @@ Automatically saves session context to memory when you issue `/new`.
 
 **Events**: `command:new`
 **What it does**: Creates a dated memory file with LLM-generated slug based on conversation content.
-**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.synurex/workspace`)
+**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.skykoi/workspace`)
 
 **Enable**:
 
 ```bash
-Synurex hooks enable session-memory
+SkyKoi hooks enable session-memory
 ```
 
 ### 📝 command-logger
@@ -24,12 +24,12 @@ Logs all command events to a centralized audit file.
 
 **Events**: `command` (all commands)
 **What it does**: Appends JSONL entries to command log file.
-**Output**: `~/.synurex/logs/commands.log`
+**Output**: `~/.skykoi/logs/commands.log`
 
 **Enable**:
 
 ```bash
-Synurex hooks enable command-logger
+SkyKoi hooks enable command-logger
 ```
 
 ### 😈 soul-evil
@@ -39,12 +39,12 @@ Swaps injected `SOUL.md` content with `SOUL_EVIL.md` during a purge window or by
 **Events**: `agent:bootstrap`
 **What it does**: Overrides the injected SOUL content before the system prompt is built.
 **Output**: No files written; swaps happen in-memory only.
-**Docs**: https://docs.synurex.com/hooks/soul-evil
+**Docs**: https://docs.skykoi.com/hooks/soul-evil
 
 **Enable**:
 
 ```bash
-Synurex hooks enable soul-evil
+SkyKoi hooks enable soul-evil
 ```
 
 ### 🚀 boot-md
@@ -58,7 +58,7 @@ Runs `BOOT.md` whenever the gateway starts (after channels start).
 **Enable**:
 
 ```bash
-Synurex hooks enable boot-md
+SkyKoi hooks enable boot-md
 ```
 
 ## Hook Structure
@@ -82,9 +82,9 @@ session-memory/
 ---
 name: my-hook
 description: "Short description"
-homepage: https://docs.synurex.com/hooks#my-hook
+homepage: https://docs.skykoi.com/hooks#my-hook
 metadata:
-  { "synurex": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
+  { "skykoi": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
 ---
 # Hook Title
 
@@ -108,7 +108,7 @@ Documentation goes here...
 To create your own hooks, place them in:
 
 - **Workspace hooks**: `<workspace>/hooks/` (highest precedence)
-- **Managed hooks**: `~/.synurex/hooks/` (shared across workspaces)
+- **Managed hooks**: `~/.skykoi/hooks/` (shared across workspaces)
 
 Custom hooks follow the same structure as bundled hooks.
 
@@ -117,31 +117,31 @@ Custom hooks follow the same structure as bundled hooks.
 List all hooks:
 
 ```bash
-Synurex hooks list
+SkyKoi hooks list
 ```
 
 Show hook details:
 
 ```bash
-Synurex hooks info session-memory
+SkyKoi hooks info session-memory
 ```
 
 Check hook status:
 
 ```bash
-Synurex hooks check
+SkyKoi hooks check
 ```
 
 Enable/disable:
 
 ```bash
-Synurex hooks enable session-memory
-Synurex hooks disable command-logger
+SkyKoi hooks enable session-memory
+SkyKoi hooks disable command-logger
 ```
 
 ## Configuration
 
-Hooks can be configured in `~/.synurex/synurex.json`:
+Hooks can be configured in `~/.skykoi/skykoi.json`:
 
 ```json
 {
@@ -214,11 +214,11 @@ export default myHandler;
 Test your hooks by:
 
 1. Place hook in workspace hooks directory
-2. Restart gateway: `pkill -9 -f 'Synurex.*gateway' && pnpm Synurex gateway`
-3. Enable the hook: `Synurex hooks enable my-hook`
+2. Restart gateway: `pkill -9 -f 'SkyKoi.*gateway' && pnpm SkyKoi gateway`
+3. Enable the hook: `SkyKoi hooks enable my-hook`
 4. Trigger the event (e.g., send `/new` command)
 5. Check gateway logs for hook execution
 
 ## Documentation
 
-Full documentation: https://docs.synurex.com/hooks
+Full documentation: https://docs.skykoi.com/hooks

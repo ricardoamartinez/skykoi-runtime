@@ -36,8 +36,8 @@ export const TOOL_GROUPS: Record<string, string[]> = {
   "group:messaging": ["message"],
   // Nodes + device tools
   "group:nodes": ["nodes"],
-  // All Synurex native tools (excludes provider plugins).
-  "group:Synurex": [
+  // All SkyKoi native tools (excludes provider plugins).
+  "group:SkyKoi": [
     "browser",
     "canvas",
     "nodes",

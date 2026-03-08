@@ -32,7 +32,7 @@ async function loadDevTemplate(name: string, fallback: string): Promise<string> 
 
 const resolveDevWorkspaceDir = (env: NodeJS.ProcessEnv = process.env): string => {
   const baseDir = resolveDefaultAgentWorkspaceDir(env, os.homedir);
-  const profile = env.SYNUREX_PROFILE?.trim().toLowerCase();
+  const profile = env.SKYKOI_PROFILE?.trim().toLowerCase();
   if (profile === "dev") {
     return baseDir;
   }
@@ -60,7 +60,7 @@ async function ensureDevWorkspace(dir: string) {
   const [agents, soul, tools, identity, user] = await Promise.all([
     loadDevTemplate(
       "AGENTS.dev.md",
-      `# AGENTS.md - Synurex Dev Workspace\n\nDefault dev workspace for synurex gateway --dev.\n`,
+      `# AGENTS.md - SkyKoi Dev Workspace\n\nDefault dev workspace for skykoi gateway --dev.\n`,
     ),
     loadDevTemplate(
       "SOUL.dev.md",

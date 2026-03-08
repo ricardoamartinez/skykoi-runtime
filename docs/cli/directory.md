@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex directory` (self, peers, groups)"
+summary: "CLI reference for `SkyKoi directory` (self, peers, groups)"
 read_when:
   - You want to look up contacts/groups/self ids for a channel
   - You are developing a channel directory adapter
 title: "directory"
 ---
 
-# `Synurex directory`
+# `SkyKoi directory`
 
 Directory lookups for channels that support it (contacts/peers, groups, and “me”).
 
@@ -18,15 +18,15 @@ Directory lookups for channels that support it (contacts/peers, groups, and “m
 
 ## Notes
 
-- `directory` is meant to help you find IDs you can paste into other commands (especially `Synurex message send --target ...`).
+- `directory` is meant to help you find IDs you can paste into other commands (especially `SkyKoi message send --target ...`).
 - For many channels, results are config-backed (allowlists / configured groups) rather than a live provider directory.
 - Default output is `id` (and sometimes `name`) separated by a tab; use `--json` for scripting.
 
 ## Using results with `message send`
 
 ```bash
-Synurex directory peers list --channel slack --query "U0"
-Synurex message send --channel slack --target user:U012ABCDEF --message "hello"
+SkyKoi directory peers list --channel slack --query "U0"
+SkyKoi message send --channel slack --target user:U012ABCDEF --message "hello"
 ```
 
 ## ID formats (by channel)
@@ -43,21 +43,21 @@ Synurex message send --channel slack --target user:U012ABCDEF --message "hello"
 ## Self (“me”)
 
 ```bash
-Synurex directory self --channel zalouser
+SkyKoi directory self --channel zalouser
 ```
 
 ## Peers (contacts/users)
 
 ```bash
-Synurex directory peers list --channel zalouser
-Synurex directory peers list --channel zalouser --query "name"
-Synurex directory peers list --channel zalouser --limit 50
+SkyKoi directory peers list --channel zalouser
+SkyKoi directory peers list --channel zalouser --query "name"
+SkyKoi directory peers list --channel zalouser --limit 50
 ```
 
 ## Groups
 
 ```bash
-Synurex directory groups list --channel zalouser
-Synurex directory groups list --channel zalouser --query "work"
-Synurex directory groups members --channel zalouser --group-id <id>
+SkyKoi directory groups list --channel zalouser
+SkyKoi directory groups list --channel zalouser --query "work"
+SkyKoi directory groups members --channel zalouser --group-id <id>
 ```

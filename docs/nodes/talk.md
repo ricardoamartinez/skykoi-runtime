@@ -47,7 +47,7 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.synurex/synurex.json`)
+## Config (`~/.skykoi/skykoi.json`)
 
 ```json5
 {

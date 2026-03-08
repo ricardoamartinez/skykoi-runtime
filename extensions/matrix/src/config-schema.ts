@@ -1,4 +1,4 @@
-import { MarkdownConfigSchema, ToolPolicySchema } from "Synurex/plugin-sdk";
+import { MarkdownConfigSchema, ToolPolicySchema } from "SkyKoi/plugin-sdk";
 import { z } from "zod";
 
 const allowFromEntry = z.union([z.string(), z.number()]);

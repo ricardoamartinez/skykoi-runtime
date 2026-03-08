@@ -1,6 +1,6 @@
 import type { GatewayRequestHandlers } from "./types.js";
 import { loadConfig } from "../../config/config.js";
-import { resolveSynurexPackageRoot } from "../../infra/Synurex-root.js";
+import { resolveSkyKoiPackageRoot } from "../../infra/SkyKoi-root.js";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
@@ -53,7 +53,7 @@ export const updateHandlers: GatewayRequestHandlers = {
       const config = loadConfig();
       const configChannel = normalizeUpdateChannel(config.update?.channel);
       const root =
-        (await resolveSynurexPackageRoot({
+        (await resolveSkyKoiPackageRoot({
           moduleUrl: import.meta.url,
           argv1: process.argv[1],
           cwd: process.cwd(),

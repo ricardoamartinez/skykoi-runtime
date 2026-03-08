@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import process from "node:process";
 
-declare const __SYNUREX_VERSION__: string | undefined;
+declare const __SKYKOI_VERSION__: string | undefined;
 
 const BUNDLED_VERSION =
-  (typeof __SYNUREX_VERSION__ === "string" && __SYNUREX_VERSION__) ||
-  process.env.SYNUREX_BUNDLED_VERSION ||
+  (typeof __SKYKOI_VERSION__ === "string" && __SKYKOI_VERSION__) ||
+  process.env.SKYKOI_BUNDLED_VERSION ||
   "0.0.0";
 
 function hasFlag(args: string[], flag: string): boolean {
@@ -49,8 +49,8 @@ async function main() {
   const { loadDotEnv } = await import("../infra/dotenv.js");
   loadDotEnv({ quiet: true });
 
-  const { ensureSynurexCliOnPath } = await import("../infra/path-env.js");
-  ensureSynurexCliOnPath();
+  const { ensureSkyKoiCliOnPath } = await import("../infra/path-env.js");
+  ensureSkyKoiCliOnPath();
 
   const { enableConsoleCapture } = await import("../logging.js");
   enableConsoleCapture();
@@ -66,7 +66,7 @@ async function main() {
   installUnhandledRejectionHandler();
 
   process.on("uncaughtException", (error) => {
-    console.error("[Synurex] Uncaught exception:", formatUncaughtError(error));
+    console.error("[SkyKoi] Uncaught exception:", formatUncaughtError(error));
     process.exit(1);
   });
 
@@ -75,7 +75,7 @@ async function main() {
 
 void main().catch((err) => {
   console.error(
-    "[Synurex] Relay failed:",
+    "[SkyKoi] Relay failed:",
     err instanceof Error ? (err.stack ?? err.message) : err,
   );
   process.exit(1);

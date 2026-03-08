@@ -1,17 +1,17 @@
 ---
-summary: "Synurex on Raspberry Pi (budget self-hosted setup)"
+summary: "SkyKoi on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up Synurex on a Raspberry Pi
-  - Running Synurex on ARM devices
+  - Setting up SkyKoi on a Raspberry Pi
+  - Running SkyKoi on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi"
 ---
 
-# Synurex on Raspberry Pi
+# SkyKoi on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on synurex gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on skykoi gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 
@@ -107,19 +107,19 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install Synurex
+## 6) Install SkyKoi
 
 ### Option A: Standard Install (Recommended)
 
 ```bash
-curl -fsSL https://synurex.com/install.sh | bash
+curl -fsSL https://skykoi.com/install.sh | bash
 ```
 
 ### Option B: Hackable Install (For tinkering)
 
 ```bash
-git clone https://github.com/Synurex/Synurex.git
-cd Synurex
+git clone https://github.com/SkyKoi/SkyKoi.git
+cd SkyKoi
 npm install
 npm run build
 npm link
@@ -130,7 +130,7 @@ The hackable install gives you direct access to logs and code — useful for deb
 ## 7) Run Onboarding
 
 ```bash
-synurex onboard --install-daemon
+skykoi onboard --install-daemon
 ```
 
 Follow the wizard:
@@ -144,13 +144,13 @@ Follow the wizard:
 
 ```bash
 # Check status
-Synurex status
+SkyKoi status
 
 # Check service
-sudo systemctl status Synurex
+sudo systemctl status SkyKoi
 
 # View logs
-journalctl -u Synurex -f
+journalctl -u SkyKoi -f
 ```
 
 ## 9) Access the Dashboard
@@ -173,8 +173,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 
 # Update config
-synurex config set gateway.bind tailnet
-sudo systemctl restart Synurex
+skykoi config set gateway.bind tailnet
+sudo systemctl restart SkyKoi
 ```
 
 ---
@@ -221,7 +221,7 @@ htop
 
 ### Binary Compatibility
 
-Most Synurex features work on ARM64, but some external binaries may need ARM builds:
+Most SkyKoi features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool               | ARM64 Status | Notes                               |
 | ------------------ | ------------ | ----------------------------------- |
@@ -271,13 +271,13 @@ The onboarding wizard sets this up, but to verify:
 
 ```bash
 # Check service is enabled
-sudo systemctl is-enabled Synurex
+sudo systemctl is-enabled SkyKoi
 
 # Enable if not
-sudo systemctl enable Synurex
+sudo systemctl enable SkyKoi
 
 # Start on boot
-sudo systemctl start Synurex
+sudo systemctl start SkyKoi
 ```
 
 ---
@@ -304,12 +304,12 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u Synurex --no-pager -n 100
+journalctl -u SkyKoi --no-pager -n 100
 
 # Common fix: rebuild
-cd ~/Synurex  # if using hackable install
+cd ~/SkyKoi  # if using hackable install
 npm run build
-sudo systemctl restart Synurex
+sudo systemctl restart SkyKoi
 ```
 
 ### ARM Binary Issues

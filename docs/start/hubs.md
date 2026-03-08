@@ -1,5 +1,5 @@
 ---
-summary: "Hubs that link to every Synurex doc"
+summary: "Hubs that link to every SkyKoi doc"
 read_when:
   - You want a complete map of the documentation
 title: "Docs Hubs"
@@ -8,7 +8,7 @@ title: "Docs Hubs"
 # Docs hubs
 
 <Note>
-If you are new to Synurex, start with [Getting Started](/start/getting-started).
+If you are new to SkyKoi, start with [Getting Started](/start/getting-started).
 </Note>
 
 Use these hubs to discover every page, including deep dives and reference docs that don’t appear in the left nav.
@@ -26,7 +26,7 @@ Use these hubs to discover every page, including deep dives and reference docs t
 - [Docs directory](/start/docs-directory)
 - [Configuration](/gateway/configuration)
 - [Configuration examples](/gateway/configuration-examples)
-- [Synurex assistant](/start/Synurex)
+- [SkyKoi assistant](/start/SkyKoi)
 - [Showcase](/start/showcase)
 - [Lore](/start/lore)
 
@@ -167,7 +167,7 @@ Use these hubs to discover every page, including deep dives and reference docs t
 ## Workspace + templates
 
 - [Skills](/tools/skills)
-- [Synurex Skills](/tools/Synurex Skills)
+- [SkyKoi Skills](/tools/SkyKoi Skills)
 - [Skills config](/tools/skills-config)
 - [Default AGENTS](/reference/AGENTS.default)
 - [Templates: AGENTS](/reference/templates/AGENTS)

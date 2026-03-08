@@ -6,31 +6,31 @@ read_when:
 title: "Skills"
 ---
 
-# Skills (Synurex)
+# Skills (SkyKoi)
 
-Synurex uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. Synurex loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
+SkyKoi uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. SkyKoi loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
 
 ## Locations and precedence
 
 Skills are loaded from **three** places:
 
-1. **Bundled skills**: shipped with the install (npm package or Synurex.app)
-2. **Managed/local skills**: `~/.synurex/skills`
+1. **Bundled skills**: shipped with the install (npm package or SkyKoi.app)
+2. **Managed/local skills**: `~/.skykoi/skills`
 3. **Workspace skills**: `<workspace>/skills`
 
 If a skill name conflicts, precedence is:
 
-`<workspace>/skills` (highest) → `~/.synurex/skills` → bundled skills (lowest)
+`<workspace>/skills` (highest) → `~/.skykoi/skills` → bundled skills (lowest)
 
 Additionally, you can configure extra skill folders (lowest precedence) via
-`skills.load.extraDirs` in `~/.synurex/synurex.json`.
+`skills.load.extraDirs` in `~/.skykoi/skykoi.json`.
 
 ## Per-agent vs shared skills
 
 In **multi-agent** setups, each agent has its own workspace. That means:
 
 - **Per-agent skills** live in `<workspace>/skills` for that agent only.
-- **Shared skills** live in `~/.synurex/skills` (managed/local) and are visible
+- **Shared skills** live in `~/.skykoi/skills` (managed/local) and are visible
   to **all agents** on the same machine.
 - **Shared folders** can also be added via `skills.load.extraDirs` (lowest
   precedence) if you want a common skills pack used by multiple agents.
@@ -41,29 +41,29 @@ applies: workspace wins, then managed/local, then bundled.
 ## Plugins + skills
 
 Plugins can ship their own skills by listing `skills` directories in
-`Synurex.plugin.json` (paths relative to the plugin root). Plugin skills load
+`SkyKoi.plugin.json` (paths relative to the plugin root). Plugin skills load
 when the plugin is enabled and participate in the normal skill precedence rules.
-You can gate them via `metadata.Synurex.requires.config` on the plugin’s config
+You can gate them via `metadata.SkyKoi.requires.config` on the plugin’s config
 entry. See [Plugins](/tools/plugin) for discovery/config and [Tools](/tools) for the
 tool surface those skills teach.
 
-## Synurex Skills (install + sync)
+## SkyKoi Skills (install + sync)
 
-Synurex Skills is the public skills registry for Synurex. Browse at
-[https://synurex.com/skills](https://synurex.com/skills). Use it to discover, install, update, and back up skills.
-Full guide: [Synurex Skills](/tools/Synurex Skills).
+SkyKoi Skills is the public skills registry for SkyKoi. Browse at
+[https://skykoi.com/skills](https://skykoi.com/skills). Use it to discover, install, update, and back up skills.
+Full guide: [SkyKoi Skills](/tools/SkyKoi Skills).
 
 Common flows:
 
 - Install a skill into your workspace:
-  - `Synurex Skills install <skill-slug>`
+  - `SkyKoi Skills install <skill-slug>`
 - Update all installed skills:
-  - `Synurex Skills update --all`
+  - `SkyKoi Skills update --all`
 - Sync (scan + publish updates):
-  - `Synurex Skills sync --all`
+  - `SkyKoi Skills sync --all`
 
-By default, `Synurex Skills` installs into `./skills` under your current working
-directory (or falls back to the configured Synurex workspace). Synurex picks
+By default, `SkyKoi Skills` installs into `./skills` under your current working
+directory (or falls back to the configured SkyKoi workspace). SkyKoi picks
 that up as `<workspace>/skills` on the next session.
 
 ## Security notes
@@ -92,7 +92,7 @@ Notes:
 - `metadata` should be a **single-line JSON object**.
 - Use `{baseDir}` in instructions to reference the skill folder path.
 - Optional frontmatter keys:
-  - `homepage` — URL surfaced as “Website” in the macOS Skills UI (also supported via `metadata.Synurex.homepage`).
+  - `homepage` — URL surfaced as “Website” in the macOS Skills UI (also supported via `metadata.SkyKoi.homepage`).
   - `user-invocable` — `true|false` (default: `true`). When `true`, the skill is exposed as a user slash command.
   - `disable-model-invocation` — `true|false` (default: `false`). When `true`, the skill is excluded from the model prompt (still available via user invocation).
   - `command-dispatch` — `tool` (optional). When set to `tool`, the slash command bypasses the model and dispatches directly to a tool.
@@ -104,7 +104,7 @@ Notes:
 
 ## Gating (load-time filters)
 
-Synurex **filters skills at load time** using `metadata` (single-line JSON):
+SkyKoi **filters skills at load time** using `metadata` (single-line JSON):
 
 ```markdown
 ---
@@ -112,7 +112,7 @@ name: nano-banana-pro
 description: Generate or edit images via Gemini 3 Pro Image
 metadata:
   {
-    "Synurex":
+    "SkyKoi":
       {
         "requires": { "bins": ["uv"], "env": ["GEMINI_API_KEY"], "config": ["browser.enabled"] },
         "primaryEnv": "GEMINI_API_KEY",
@@ -121,7 +121,7 @@ metadata:
 ---
 ```
 
-Fields under `metadata.Synurex`:
+Fields under `metadata.SkyKoi`:
 
 - `always: true` — always include the skill (skip other gates).
 - `emoji` — optional emoji used by the macOS Skills UI.
@@ -130,7 +130,7 @@ Fields under `metadata.Synurex`:
 - `requires.bins` — list; each must exist on `PATH`.
 - `requires.anyBins` — list; at least one must exist on `PATH`.
 - `requires.env` — list; env var must exist **or** be provided in config.
-- `requires.config` — list of `Synurex.json` paths that must be truthy.
+- `requires.config` — list of `SkyKoi.json` paths that must be truthy.
 - `primaryEnv` — env var name associated with `skills.entries.<name>.apiKey`.
 - `install` — optional array of installer specs used by the macOS Skills UI (brew/node/go/uv/download).
 
@@ -152,7 +152,7 @@ name: gemini
 description: Use Gemini CLI for coding assistance and Google search lookups.
 metadata:
   {
-    "Synurex":
+    "SkyKoi":
       {
         "emoji": "♊️",
         "requires": { "bins": ["gemini"] },
@@ -174,18 +174,18 @@ metadata:
 Notes:
 
 - If multiple installers are listed, the gateway picks a **single** preferred option (brew when available, otherwise node).
-- If all installers are `download`, Synurex lists each entry so you can see the available artifacts.
+- If all installers are `download`, SkyKoi lists each entry so you can see the available artifacts.
 - Installer specs can include `os: ["darwin"|"linux"|"win32"]` to filter options by platform.
-- Node installs honor `skills.install.nodeManager` in `Synurex.json` (default: npm; options: npm/pnpm/yarn/bun).
+- Node installs honor `skills.install.nodeManager` in `SkyKoi.json` (default: npm; options: npm/pnpm/yarn/bun).
   This only affects **skill installs**; the Gateway runtime should still be Node
   (Bun is not recommended for WhatsApp/Telegram).
 - Go installs: if `go` is missing and `brew` is available, the gateway installs Go via Homebrew first and sets `GOBIN` to Homebrew’s `bin` when possible.
-- Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.synurex/tools/<skillKey>`).
+- Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.skykoi/tools/<skillKey>`).
 
-If no `metadata.Synurex` is present, the skill is always eligible (unless
+If no `metadata.SkyKoi` is present, the skill is always eligible (unless
 disabled in config or blocked by `skills.allowBundled` for bundled skills).
 
-## Config overrides (`~/.synurex/synurex.json`)
+## Config overrides (`~/.skykoi/skykoi.json`)
 
 Bundled/managed skills can be toggled and supplied with env values:
 
@@ -214,20 +214,20 @@ Bundled/managed skills can be toggled and supplied with env values:
 Note: if the skill name contains hyphens, quote the key (JSON5 allows quoted keys).
 
 Config keys match the **skill name** by default. If a skill defines
-`metadata.Synurex.skillKey`, use that key under `skills.entries`.
+`metadata.SkyKoi.skillKey`, use that key under `skills.entries`.
 
 Rules:
 
 - `enabled: false` disables the skill even if it’s bundled/installed.
 - `env`: injected **only if** the variable isn’t already set in the process.
-- `apiKey`: convenience for skills that declare `metadata.Synurex.primaryEnv`.
+- `apiKey`: convenience for skills that declare `metadata.SkyKoi.primaryEnv`.
 - `config`: optional bag for custom per-skill fields; custom keys must live here.
 - `allowBundled`: optional allowlist for **bundled** skills only. If set, only
   bundled skills in the list are eligible (managed/workspace skills unaffected).
 
 ## Environment injection (per agent run)
 
-When an agent run starts, Synurex:
+When an agent run starts, SkyKoi:
 
 1. Reads skill metadata.
 2. Applies any `skills.entries.<key>.env` or `skills.entries.<key>.apiKey` to
@@ -239,19 +239,19 @@ This is **scoped to the agent run**, not a global shell environment.
 
 ## Session snapshot (performance)
 
-Synurex snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
+SkyKoi snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
 
 Skills can also refresh mid-session when the skills watcher is enabled or when a new eligible remote node appears (see below). Think of this as a **hot reload**: the refreshed list is picked up on the next agent turn.
 
 ## Remote macOS nodes (Linux gateway)
 
-If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), Synurex can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
+If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), SkyKoi can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
 
 This relies on the node reporting its command support and on a bin probe via `system.run`. If the macOS node goes offline later, the skills remain visible; invocations may fail until the node reconnects.
 
 ## Skills watcher (auto-refresh)
 
-By default, Synurex watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
+By default, SkyKoi watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
 
 ```json5
 {
@@ -266,7 +266,7 @@ By default, Synurex watches skill folders and bumps the skills snapshot when `SK
 
 ## Token impact (skills list)
 
-When skills are eligible, Synurex injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
+When skills are eligible, SkyKoi injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
 
 - **Base overhead (only when ≥1 skill):** 195 characters.
 - **Per skill:** 97 characters + the length of the XML-escaped `<name>`, `<description>`, and `<location>` values.
@@ -284,8 +284,8 @@ Notes:
 
 ## Managed skills lifecycle
 
-Synurex ships a baseline set of skills as **bundled skills** as part of the
-install (npm package or Synurex.app). `~/.synurex/skills` exists for local
+SkyKoi ships a baseline set of skills as **bundled skills** as part of the
+install (npm package or SkyKoi.app). `~/.skykoi/skills` exists for local
 overrides (for example, pinning/patching a skill without changing the bundled
 copy). Workspace skills are user-owned and override both on name conflicts.
 
@@ -295,6 +295,6 @@ See [Skills config](/tools/skills-config) for the full configuration schema.
 
 ## Looking for more skills?
 
-Browse [https://synurex.com/skills](https://synurex.com/skills).
+Browse [https://skykoi.com/skills](https://skykoi.com/skills).
 
 ---

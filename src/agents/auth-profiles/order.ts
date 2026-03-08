@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { AuthProfileStore } from "./types.js";
 import { normalizeProviderId } from "../model-selection.js";
 import { listProfilesForProvider } from "./profiles.js";
@@ -18,7 +18,7 @@ function resolveProfileUnusableUntil(stats: {
 }
 
 export function resolveAuthProfileOrder(params: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   store: AuthProfileStore;
   provider: string;
   preferredProfile?: string;

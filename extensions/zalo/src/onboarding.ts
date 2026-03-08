@@ -1,15 +1,15 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  SynurexConfig,
+  SkyKoiConfig,
   WizardPrompter,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import {
   addWildcardAllowFrom,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   promptAccountId,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import { listZaloAccountIds, resolveDefaultZaloAccountId, resolveZaloAccount } from "./accounts.js";
 
 const channel = "zalo" as const;
@@ -17,7 +17,7 @@ const channel = "zalo" as const;
 type UpdateMode = "polling" | "webhook";
 
 function setZaloDmPolicy(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   dmPolicy: "pairing" | "allowlist" | "open" | "disabled",
 ) {
   const allowFrom =
@@ -32,17 +32,17 @@ function setZaloDmPolicy(
         ...(allowFrom ? { allowFrom } : {}),
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 function setZaloUpdateMode(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
   mode: UpdateMode,
   webhookUrl?: string,
   webhookSecret?: string,
   webhookPath?: string,
-): SynurexConfig {
+): SkyKoiConfig {
   const isDefault = accountId === DEFAULT_ACCOUNT_ID;
   if (mode === "polling") {
     if (isDefault) {
@@ -58,7 +58,7 @@ function setZaloUpdateMode(
           ...cfg.channels,
           zalo: rest,
         },
-      } as SynurexConfig;
+      } as SkyKoiConfig;
     }
     const accounts = { ...cfg.channels?.zalo?.accounts } as Record<string, Record<string, unknown>>;
     const existing = accounts[accountId] ?? {};
@@ -73,7 +73,7 @@ function setZaloUpdateMode(
           accounts,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
 
   if (isDefault) {
@@ -88,7 +88,7 @@ function setZaloUpdateMode(
           webhookPath,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
 
   const accounts = { ...cfg.channels?.zalo?.accounts } as Record<string, Record<string, unknown>>;
@@ -107,7 +107,7 @@ function setZaloUpdateMode(
         accounts,
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 async function noteZaloTokenHelp(prompter: WizardPrompter): Promise<void> {
@@ -117,17 +117,17 @@ async function noteZaloTokenHelp(prompter: WizardPrompter): Promise<void> {
       "2) Create a bot and get the token",
       "3) Token looks like 12345689:abc-xyz",
       "Tip: you can also set ZALO_BOT_TOKEN in your env.",
-      "Docs: https://docs.synurex.ai/channels/zalo",
+      "Docs: https://docs.skykoi.ai/channels/zalo",
     ].join("\n"),
     "Zalo bot token",
   );
 }
 
 async function promptZaloAllowFrom(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<SynurexConfig> {
+}): Promise<SkyKoiConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZaloAccount({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -165,7 +165,7 @@ async function promptZaloAllowFrom(params: {
           allowFrom: unique,
         },
       },
-    } as SynurexConfig;
+    } as SkyKoiConfig;
   }
 
   return {
@@ -186,7 +186,7 @@ async function promptZaloAllowFrom(params: {
         },
       },
     },
-  } as SynurexConfig;
+  } as SkyKoiConfig;
 }
 
 const dmPolicy: ChannelOnboardingDmPolicy = {
@@ -273,7 +273,7 @@ export const zaloOnboardingAdapter: ChannelOnboardingAdapter = {
               enabled: true,
             },
           },
-        } as SynurexConfig;
+        } as SkyKoiConfig;
       } else {
         token = String(
           await prompter.text({
@@ -316,7 +316,7 @@ export const zaloOnboardingAdapter: ChannelOnboardingAdapter = {
               botToken: token,
             },
           },
-        } as SynurexConfig;
+        } as SkyKoiConfig;
       } else {
         next = {
           ...next,
@@ -335,7 +335,7 @@ export const zaloOnboardingAdapter: ChannelOnboardingAdapter = {
               },
             },
           },
-        } as SynurexConfig;
+        } as SkyKoiConfig;
       }
     }
 

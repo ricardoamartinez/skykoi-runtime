@@ -270,7 +270,7 @@ function wrapSandboxPathGuard(tool: AnyAgentTool, root: string): AnyAgentTool {
 
 export function createSandboxedReadTool(root: string) {
   const base = createReadTool(root) as unknown as AnyAgentTool;
-  return wrapSandboxPathGuard(createSynurexReadTool(base), root);
+  return wrapSandboxPathGuard(createSkyKoiReadTool(base), root);
 }
 
 export function createSandboxedWriteTool(root: string) {
@@ -283,7 +283,7 @@ export function createSandboxedEditTool(root: string) {
   return wrapSandboxPathGuard(wrapToolParamNormalization(base, CLAUDE_PARAM_GROUPS.edit), root);
 }
 
-export function createSynurexReadTool(base: AnyAgentTool): AnyAgentTool {
+export function createSkyKoiReadTool(base: AnyAgentTool): AnyAgentTool {
   const patched = patchToolSchemaForClaudeCompatibility(base);
   return {
     ...patched,

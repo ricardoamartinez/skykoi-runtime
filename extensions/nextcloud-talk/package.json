@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/nextcloud-talk",
+  "name": "@SkyKoi/nextcloud-talk",
   "version": "2026.2.6-3",
-  "description": "Synurex Nextcloud Talk channel plugin",
+  "description": "SkyKoi Nextcloud Talk channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -25,7 +25,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@Synurex/nextcloud-talk",
+      "npmSpec": "@SkyKoi/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }

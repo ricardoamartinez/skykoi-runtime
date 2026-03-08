@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { ThinkLevel } from "./directives.js";
 import { clearSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.js";
 import { lookupContextTokens } from "../../agents/context.js";
@@ -259,8 +259,8 @@ function scoreFuzzyMatch(params: {
 }
 
 export async function createModelSelectionState(params: {
-  cfg: SynurexConfig;
-  agentCfg: NonNullable<NonNullable<SynurexConfig["agents"]>["defaults"]> | undefined;
+  cfg: SkyKoiConfig;
+  agentCfg: NonNullable<NonNullable<SkyKoiConfig["agents"]>["defaults"]> | undefined;
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
   sessionKey?: string;
@@ -575,7 +575,7 @@ export function resolveModelDirectiveSelection(params: {
 }
 
 export function resolveContextTokens(params: {
-  agentCfg: NonNullable<NonNullable<SynurexConfig["agents"]>["defaults"]> | undefined;
+  agentCfg: NonNullable<NonNullable<SkyKoiConfig["agents"]>["defaults"]> | undefined;
   model: string;
 }): number {
   return (

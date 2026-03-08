@@ -1,18 +1,18 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 
 const DEFAULT_AGENT_TIMEOUT_SECONDS = 600;
 
 const normalizeNumber = (value: unknown): number | undefined =>
   typeof value === "number" && Number.isFinite(value) ? Math.floor(value) : undefined;
 
-export function resolveAgentTimeoutSeconds(cfg?: SynurexConfig): number {
+export function resolveAgentTimeoutSeconds(cfg?: SkyKoiConfig): number {
   const raw = normalizeNumber(cfg?.agents?.defaults?.timeoutSeconds);
   const seconds = raw ?? DEFAULT_AGENT_TIMEOUT_SECONDS;
   return Math.max(seconds, 1);
 }
 
 export function resolveAgentTimeoutMs(opts: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   overrideMs?: number | null;
   overrideSeconds?: number | null;
   minMs?: number;

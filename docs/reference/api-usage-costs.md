@@ -10,7 +10,7 @@ title: "API Usage and Costs"
 # API usage & costs
 
 This doc lists **features that can invoke API keys** and where their costs show up. It focuses on
-Synurex features that can generate provider usage or paid API calls.
+SkyKoi features that can generate provider usage or paid API calls.
 
 ## Where costs show up (chat + CLI)
 
@@ -26,14 +26,14 @@ Synurex features that can generate provider usage or paid API calls.
 
 **CLI usage windows (provider quotas)**
 
-- `Synurex status --usage` and `Synurex channels list` show provider **usage windows**
+- `SkyKoi status --usage` and `SkyKoi channels list` show provider **usage windows**
   (quota snapshots, not per-message costs).
 
 See [Token use & costs](/reference/token-use) for details and examples.
 
 ## How keys are discovered
 
-Synurex can pick up credentials from:
+SkyKoi can pick up credentials from:
 
 - **Auth profiles** (per-agent, stored in `auth-profiles.json`).
 - **Environment variables** (e.g. `OPENAI_API_KEY`, `BRAVE_API_KEY`, `FIRECRAWL_API_KEY`).
@@ -103,8 +103,8 @@ See [Web tools](/tools/web).
 Some status commands call **provider usage endpoints** to display quota windows or auth health.
 These are typically low-volume calls but still hit provider APIs:
 
-- `Synurex status --usage`
-- `Synurex models status --json`
+- `SkyKoi status --usage`
+- `SkyKoi models status --json`
 
 See [Models CLI](/cli/models).
 
@@ -117,7 +117,7 @@ See [Session management + compaction](/reference/session-management-compaction).
 
 ### 8) Model scan / probe
 
-`Synurex models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when
+`SkyKoi models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when
 probing is enabled.
 
 See [Models CLI](/cli/models).

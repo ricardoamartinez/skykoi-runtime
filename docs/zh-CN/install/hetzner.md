@@ -1,10 +1,10 @@
 ---
 read_when:
-  - 你想让 Synurex 在云 VPS 上 24/7 运行（而不是你的笔记本电脑）
+  - 你想让 SkyKoi 在云 VPS 上 24/7 运行（而不是你的笔记本电脑）
   - 你想在自己的 VPS 上运行生产级、永久在线的 Gateway 网关
   - 你想完全控制持久化、二进制文件和重启行为
-  - 你在 Hetzner 或类似提供商上用 Docker 运行 Synurex
-summary: 在廉价的 Hetzner VPS（Docker）上 24/7 运行 Synurex Gateway 网关，带持久状态和内置二进制文件
+  - 你在 Hetzner 或类似提供商上用 Docker 运行 SkyKoi
+summary: 在廉价的 Hetzner VPS（Docker）上 24/7 运行 SkyKoi Gateway 网关，带持久状态和内置二进制文件
 title: Hetzner
 x-i18n:
   generated_at: "2026-02-03T07:52:17Z"
@@ -15,21 +15,21 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 Hetzner 上运行 Synurex（Docker，生产 VPS 指南）
+# 在 Hetzner 上运行 SkyKoi（Docker，生产 VPS 指南）
 
 ## 目标
 
-使用 Docker 在 Hetzner VPS 上运行持久的 Synurex Gateway 网关，带持久状态、内置二进制文件和安全的重启行为。
+使用 Docker 在 Hetzner VPS 上运行持久的 SkyKoi Gateway 网关，带持久状态、内置二进制文件和安全的重启行为。
 
-如果你想要"约 $5 实现 Synurex 24/7"，这是最简单可靠的设置。
+如果你想要"约 $5 实现 SkyKoi 24/7"，这是最简单可靠的设置。
 Hetzner 定价会变化；选择最小的 Debian/Ubuntu VPS，如果遇到 OOM 再扩容。
 
 ## 我们在做什么（简单说明）？
 
 - 租用一台小型 Linux 服务器（Hetzner VPS）
 - 安装 Docker（隔离的应用运行时）
-- 在 Docker 中启动 Synurex Gateway 网关
-- 在主机上持久化 `~/.synurex` + `~/.synurex/workspace`（重启/重建后保留）
+- 在 Docker 中启动 SkyKoi Gateway 网关
+- 在主机上持久化 `~/.skykoi` + `~/.skykoi/workspace`（重启/重建后保留）
 - 通过 SSH 隧道从你的笔记本电脑访问控制 UI
 
 Gateway 网关可以通过以下方式访问：
@@ -47,7 +47,7 @@ Gateway 网关可以通过以下方式访问：
 
 1. 配置 Hetzner VPS
 2. 安装 Docker
-3. 克隆 Synurex 仓库
+3. 克隆 SkyKoi 仓库
 4. 创建持久化主机目录
 5. 配置 `.env` 和 `docker-compose.yml`
 6. 将所需二进制文件烘焙到镜像中
@@ -103,11 +103,11 @@ docker compose version
 
 ---
 
-## 3) 克隆 Synurex 仓库
+## 3) 克隆 SkyKoi 仓库
 
 ```bash
-git clone https://github.com/Synurex/Synurex.git
-cd Synurex
+git clone https://github.com/SkyKoi/SkyKoi.git
+cd SkyKoi
 ```
 
 本指南假设你将构建自定义镜像以保证二进制文件持久化。
@@ -120,12 +120,12 @@ Docker 容器是临时的。
 所有长期状态必须存储在主机上。
 
 ```bash
-mkdir -p /root/.synurex
-mkdir -p /root/.synurex/workspace
+mkdir -p /root/.skykoi
+mkdir -p /root/.skykoi/workspace
 
 # 将所有权设置为容器用户（uid 1000）：
-chown -R 1000:1000 /root/.synurex
-chown -R 1000:1000 /root/.synurex/workspace
+chown -R 1000:1000 /root/.skykoi
+chown -R 1000:1000 /root/.skykoi/workspace
 ```
 
 ---
@@ -135,16 +135,16 @@ chown -R 1000:1000 /root/.synurex/workspace
 在仓库根目录创建 `.env`。
 
 ```bash
-SYNUREX_IMAGE=Synurex:latest
-SYNUREX_GATEWAY_TOKEN=change-me-now
-SYNUREX_GATEWAY_BIND=lan
-SYNUREX_GATEWAY_PORT=18789
+SKYKOI_IMAGE=SkyKoi:latest
+SKYKOI_GATEWAY_TOKEN=change-me-now
+SKYKOI_GATEWAY_BIND=lan
+SKYKOI_GATEWAY_PORT=18789
 
-SYNUREX_CONFIG_DIR=/root/.synurex
-SYNUREX_WORKSPACE_DIR=/root/.synurex/workspace
+SKYKOI_CONFIG_DIR=/root/.skykoi
+SKYKOI_WORKSPACE_DIR=/root/.skykoi/workspace
 
 GOG_KEYRING_PASSWORD=change-me-now
-XDG_CONFIG_HOME=/home/node/.synurex
+XDG_CONFIG_HOME=/home/node/.skykoi
 ```
 
 生成强密钥：
@@ -163,8 +163,8 @@ openssl rand -hex 32
 
 ```yaml
 services:
-  Synurex-gateway:
-    image: ${SYNUREX_IMAGE}
+  SkyKoi-gateway:
+    image: ${SKYKOI_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -173,19 +173,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - SYNUREX_GATEWAY_BIND=${SYNUREX_GATEWAY_BIND}
-      - SYNUREX_GATEWAY_PORT=${SYNUREX_GATEWAY_PORT}
-      - SYNUREX_GATEWAY_TOKEN=${SYNUREX_GATEWAY_TOKEN}
+      - SKYKOI_GATEWAY_BIND=${SKYKOI_GATEWAY_BIND}
+      - SKYKOI_GATEWAY_PORT=${SKYKOI_GATEWAY_PORT}
+      - SKYKOI_GATEWAY_TOKEN=${SKYKOI_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${SYNUREX_CONFIG_DIR}:/home/node/.synurex
-      - ${SYNUREX_WORKSPACE_DIR}:/home/node/.synurex/workspace
+      - ${SKYKOI_CONFIG_DIR}:/home/node/.skykoi
+      - ${SKYKOI_WORKSPACE_DIR}:/home/node/.skykoi/workspace
     ports:
       # 推荐：在 VPS 上保持 Gateway 网关仅限 loopback；通过 SSH 隧道访问。
       # 要公开暴露，移除 `127.0.0.1:` 前缀并相应配置防火墙。
-      - "127.0.0.1:${SYNUREX_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${SKYKOI_GATEWAY_PORT}:18789"
 
       # 可选：仅当你对此 VPS 运行 iOS/Android 节点并需要 Canvas 主机时。
       # 如果你公开暴露此端口，请阅读 /gateway/security 并相应配置防火墙。
@@ -196,9 +196,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${SYNUREX_GATEWAY_BIND}",
+        "${SKYKOI_GATEWAY_BIND}",
         "--port",
-        "${SYNUREX_GATEWAY_PORT}",
+        "${SKYKOI_GATEWAY_PORT}",
       ]
 ```
 
@@ -271,15 +271,15 @@ CMD ["node","dist/index.js"]
 
 ```bash
 docker compose build
-docker compose up -d Synurex-gateway
+docker compose up -d SkyKoi-gateway
 ```
 
 验证二进制文件：
 
 ```bash
-docker compose exec Synurex-gateway which gog
-docker compose exec Synurex-gateway which goplaces
-docker compose exec Synurex-gateway which wacli
+docker compose exec SkyKoi-gateway which gog
+docker compose exec SkyKoi-gateway which goplaces
+docker compose exec SkyKoi-gateway which wacli
 ```
 
 预期输出：
@@ -295,7 +295,7 @@ docker compose exec Synurex-gateway which wacli
 ## 9) 验证 Gateway 网关
 
 ```bash
-docker compose logs -f Synurex-gateway
+docker compose logs -f SkyKoi-gateway
 ```
 
 成功：
@@ -320,17 +320,17 @@ ssh -N -L 18789:127.0.0.1:18789 root@YOUR_VPS_IP
 
 ## 持久化位置（事实来源）
 
-Synurex 在 Docker 中运行，但 Docker 不是事实来源。
+SkyKoi 在 Docker 中运行，但 Docker 不是事实来源。
 所有长期状态必须在重启、重建和重启后保留。
 
 | 组件             | 位置                              | 持久化机制    | 说明                        |
 | ---------------- | --------------------------------- | ------------- | --------------------------- |
-| Gateway 网关配置 | `/home/node/.synurex/`           | 主机卷挂载    | 包括 `synurex.json`、令牌  |
-| 模型认证配置文件 | `/home/node/.synurex/`           | 主机卷挂载    | OAuth 令牌、API 密钥        |
-| Skill 配置       | `/home/node/.synurex/skills/`    | 主机卷挂载    | Skill 级别状态              |
-| 智能体工作区     | `/home/node/.synurex/workspace/` | 主机卷挂载    | 代码和智能体产物            |
-| WhatsApp 会话    | `/home/node/.synurex/`           | 主机卷挂载    | 保留二维码登录              |
-| Gmail 密钥环     | `/home/node/.synurex/`           | 主机卷 + 密码 | 需要 `GOG_KEYRING_PASSWORD` |
+| Gateway 网关配置 | `/home/node/.skykoi/`           | 主机卷挂载    | 包括 `skykoi.json`、令牌  |
+| 模型认证配置文件 | `/home/node/.skykoi/`           | 主机卷挂载    | OAuth 令牌、API 密钥        |
+| Skill 配置       | `/home/node/.skykoi/skills/`    | 主机卷挂载    | Skill 级别状态              |
+| 智能体工作区     | `/home/node/.skykoi/workspace/` | 主机卷挂载    | 代码和智能体产物            |
+| WhatsApp 会话    | `/home/node/.skykoi/`           | 主机卷挂载    | 保留二维码登录              |
+| Gmail 密钥环     | `/home/node/.skykoi/`           | 主机卷 + 密码 | 需要 `GOG_KEYRING_PASSWORD` |
 | 外部二进制文件   | `/usr/local/bin/`                 | Docker 镜像   | 必须在构建时烘焙            |
 | Node 运行时      | 容器文件系统                      | Docker 镜像   | 每次镜像构建时重建          |
 | 操作系统包       | 容器文件系统                      | Docker 镜像   | 不要在运行时安装            |

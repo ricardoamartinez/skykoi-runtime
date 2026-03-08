@@ -79,22 +79,22 @@ describe("gateway SIGTERM", () => {
   });
 
   it("exits 0 on SIGTERM", { timeout: 180_000 }, async () => {
-    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "Synurex-gateway-test-"));
+    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "SkyKoi-gateway-test-"));
     const out: string[] = [];
     const err: string[] = [];
 
     const nodeBin = process.execPath;
     const env = {
       ...process.env,
-      SYNUREX_NO_RESPAWN: "1",
-      SYNUREX_STATE_DIR: stateDir,
-      SYNUREX_SKIP_CHANNELS: "1",
-      SYNUREX_SKIP_GMAIL_WATCHER: "1",
-      SYNUREX_SKIP_CRON: "1",
-      SYNUREX_SKIP_BROWSER_CONTROL_SERVER: "1",
-      SYNUREX_SKIP_CANVAS_HOST: "1",
+      SKYKOI_NO_RESPAWN: "1",
+      SKYKOI_STATE_DIR: stateDir,
+      SKYKOI_SKIP_CHANNELS: "1",
+      SKYKOI_SKIP_GMAIL_WATCHER: "1",
+      SKYKOI_SKIP_CRON: "1",
+      SKYKOI_SKIP_BROWSER_CONTROL_SERVER: "1",
+      SKYKOI_SKIP_CANVAS_HOST: "1",
     };
-    const bootstrapPath = path.join(stateDir, "Synurex-entry-bootstrap.mjs");
+    const bootstrapPath = path.join(stateDir, "SkyKoi-entry-bootstrap.mjs");
     const runLoopPath = path.resolve("src/cli/gateway-cli/run-loop.ts");
     const runtimePath = path.resolve("src/runtime.ts");
     fs.writeFileSync(

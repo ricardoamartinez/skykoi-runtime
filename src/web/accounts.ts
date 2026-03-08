@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { DmPolicy, GroupPolicy, WhatsAppAccountConfig } from "../config/types.js";
 import { resolveOAuthDir } from "../config/paths.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
@@ -29,7 +29,7 @@ export type ResolvedWhatsAppAccount = {
   debounceMs?: number;
 };
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SkyKoiConfig): string[] {
   const accounts = cfg.channels?.whatsapp?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -37,7 +37,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listWhatsAppAuthDirs(cfg: SynurexConfig): string[] {
+export function listWhatsAppAuthDirs(cfg: SkyKoiConfig): string[] {
   const oauthDir = resolveOAuthDir();
   const whatsappDir = path.join(oauthDir, "whatsapp");
   const authDirs = new Set<string>([oauthDir, path.join(whatsappDir, DEFAULT_ACCOUNT_ID)]);
@@ -62,11 +62,11 @@ export function listWhatsAppAuthDirs(cfg: SynurexConfig): string[] {
   return Array.from(authDirs);
 }
 
-export function hasAnyWhatsAppAuth(cfg: SynurexConfig): boolean {
+export function hasAnyWhatsAppAuth(cfg: SkyKoiConfig): boolean {
   return listWhatsAppAuthDirs(cfg).some((authDir) => hasWebCredsSync(authDir));
 }
 
-export function listWhatsAppAccountIds(cfg: SynurexConfig): string[] {
+export function listWhatsAppAccountIds(cfg: SkyKoiConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -74,7 +74,7 @@ export function listWhatsAppAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultWhatsAppAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultWhatsAppAccountId(cfg: SkyKoiConfig): string {
   const ids = listWhatsAppAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -83,7 +83,7 @@ export function resolveDefaultWhatsAppAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
 ): WhatsAppAccountConfig | undefined {
   const accounts = cfg.channels?.whatsapp?.accounts;
@@ -111,7 +111,7 @@ function legacyAuthExists(authDir: string): boolean {
   }
 }
 
-export function resolveWhatsAppAuthDir(params: { cfg: SynurexConfig; accountId: string }): {
+export function resolveWhatsAppAuthDir(params: { cfg: SkyKoiConfig; accountId: string }): {
   authDir: string;
   isLegacy: boolean;
 } {
@@ -134,7 +134,7 @@ export function resolveWhatsAppAuthDir(params: { cfg: SynurexConfig; accountId: 
 }
 
 export function resolveWhatsAppAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
 }): ResolvedWhatsAppAccount {
   const rootCfg = params.cfg.channels?.whatsapp;
@@ -169,7 +169,7 @@ export function resolveWhatsAppAccount(params: {
   };
 }
 
-export function listEnabledWhatsAppAccounts(cfg: SynurexConfig): ResolvedWhatsAppAccount[] {
+export function listEnabledWhatsAppAccounts(cfg: SkyKoiConfig): ResolvedWhatsAppAccount[] {
   return listWhatsAppAccountIds(cfg)
     .map((accountId) => resolveWhatsAppAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

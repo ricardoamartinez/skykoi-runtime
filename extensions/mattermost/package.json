@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/mattermost",
+  "name": "@SkyKoi/mattermost",
   "version": "2026.2.6-3",
-  "description": "Synurex Mattermost channel plugin",
+  "description": "SkyKoi Mattermost channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -20,7 +20,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@Synurex/mattermost",
+      "npmSpec": "@SkyKoi/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

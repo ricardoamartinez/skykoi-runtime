@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { discordPlugin } from "../../extensions/discord/src/channel.js";
@@ -75,7 +75,7 @@ describe("setupChannels", () => {
       }),
     };
 
-    await setupChannels({} as SynurexConfig, runtime, prompter, {
+    await setupChannels({} as SkyKoiConfig, runtime, prompter, {
       skipConfirm: true,
       quickstartDefaults: true,
       forceAllowFromChannels: ["whatsapp"],
@@ -130,7 +130,7 @@ describe("setupChannels", () => {
             botToken: "token",
           },
         },
-      } as SynurexConfig,
+      } as SkyKoiConfig,
       runtime,
       prompter,
       {
@@ -194,7 +194,7 @@ describe("setupChannels", () => {
             enabled: false,
           },
         },
-      } as SynurexConfig,
+      } as SkyKoiConfig,
       runtime,
       prompter,
       {

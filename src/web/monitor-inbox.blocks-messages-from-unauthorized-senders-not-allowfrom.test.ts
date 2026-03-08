@@ -86,7 +86,7 @@ describe("web monitor inbox", () => {
       created: true,
     });
     resetWebInboundDedupe();
-    authDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "Synurex-auth-"));
+    authDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "SkyKoi-auth-"));
   });
 
   afterEach(() => {

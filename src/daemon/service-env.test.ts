@@ -223,25 +223,25 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.SYNUREX_GATEWAY_PORT).toBe("18789");
-    expect(env.SYNUREX_GATEWAY_TOKEN).toBe("secret");
-    expect(env.SYNUREX_SERVICE_MARKER).toBe("synurex");
-    expect(env.SYNUREX_SERVICE_KIND).toBe("gateway");
-    expect(typeof env.SYNUREX_SERVICE_VERSION).toBe("string");
-    expect(env.SYNUREX_SYSTEMD_UNIT).toBe("Synurex-gateway.service");
+    expect(env.SKYKOI_GATEWAY_PORT).toBe("18789");
+    expect(env.SKYKOI_GATEWAY_TOKEN).toBe("secret");
+    expect(env.SKYKOI_SERVICE_MARKER).toBe("skykoi");
+    expect(env.SKYKOI_SERVICE_KIND).toBe("gateway");
+    expect(typeof env.SKYKOI_SERVICE_VERSION).toBe("string");
+    expect(env.SKYKOI_SYSTEMD_UNIT).toBe("SkyKoi-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.SYNUREX_LAUNCHD_LABEL).toBe("ai.synurex.gateway");
+      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.skykoi.gateway");
     }
   });
 
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/home/user", SYNUREX_PROFILE: "work" },
+      env: { HOME: "/home/user", SKYKOI_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.SYNUREX_SYSTEMD_UNIT).toBe("Synurex-gateway-work.service");
+    expect(env.SKYKOI_SYSTEMD_UNIT).toBe("SkyKoi-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.SYNUREX_LAUNCHD_LABEL).toBe("ai.synurex.work");
+      expect(env.SKYKOI_LAUNCHD_LABEL).toBe("ai.skykoi.work");
     }
   });
 });

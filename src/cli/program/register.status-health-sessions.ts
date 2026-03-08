@@ -39,21 +39,21 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["synurex status", "Show channel health + session summary."],
-          ["synurex status --all", "Full diagnosis (read-only)."],
-          ["synurex status --json", "Machine-readable output."],
-          ["synurex status --usage", "Show model provider usage/quota snapshots."],
+          ["skykoi status", "Show channel health + session summary."],
+          ["skykoi status --all", "Full diagnosis (read-only)."],
+          ["skykoi status --json", "Machine-readable output."],
+          ["skykoi status --usage", "Show model provider usage/quota snapshots."],
           [
-            "synurex status --deep",
+            "skykoi status --deep",
             "Run channel probes (WA + Telegram + Discord + Slack + Signal).",
           ],
-          ["synurex status --deep --timeout 5000", "Tighten probe timeout."],
+          ["skykoi status --deep --timeout 5000", "Tighten probe timeout."],
         ])}`,
     )
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.synurex.com/cli/status")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.skykoi.com/cli/status")}\n`,
     )
     .action(async (opts) => {
       const verbose = resolveVerbose(opts);
@@ -87,7 +87,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.synurex.com/cli/health")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.skykoi.com/cli/health")}\n`,
     )
     .action(async (opts) => {
       const verbose = resolveVerbose(opts);
@@ -119,10 +119,10 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["synurex sessions", "List all sessions."],
-          ["synurex sessions --active 120", "Only last 2 hours."],
-          ["synurex sessions --json", "Machine-readable output."],
-          ["synurex sessions --store ./tmp/sessions.json", "Use a specific session store."],
+          ["skykoi sessions", "List all sessions."],
+          ["skykoi sessions --active 120", "Only last 2 hours."],
+          ["skykoi sessions --json", "Machine-readable output."],
+          ["skykoi sessions --store ./tmp/sessions.json", "Use a specific session store."],
         ])}\n\n${theme.muted(
           "Shows token usage per session when the agent reports it; set agents.defaults.contextTokens to cap the window and show %.",
         )}`,
@@ -130,7 +130,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.synurex.com/cli/sessions")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.skykoi.com/cli/sessions")}\n`,
     )
     .action(async (opts) => {
       setVerbose(Boolean(opts.verbose));

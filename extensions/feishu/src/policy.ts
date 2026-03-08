@@ -1,4 +1,4 @@
-import type { ChannelGroupContext, GroupToolPolicyConfig } from "Synurex/plugin-sdk";
+import type { ChannelGroupContext, GroupToolPolicyConfig } from "SkyKoi/plugin-sdk";
 import type { FeishuConfig, FeishuGroupConfig } from "./types.js";
 
 export type FeishuAllowlistMatch = {

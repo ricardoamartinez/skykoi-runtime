@@ -4,7 +4,7 @@ Adds an **optional** agent tool `llm-task` for running **JSON-only** LLM tasks
 (drafting, summarizing, classifying) with optional JSON Schema validation.
 
 Designed to be called from workflow engines (for example, Lobster via
-`Synurex.invoke --each`) without adding new Synurex code per workflow.
+`SkyKoi.invoke --each`) without adding new SkyKoi code per workflow.
 
 ## Enable
 
@@ -89,9 +89,9 @@ Returns `details.json` containing the parsed JSON (and validates against
 
 ## Bundled extension note
 
-This extension depends on Synurex internal modules (the embedded agent runner).
-It is intended to ship as a **bundled** Synurex extension (like `lobster`) and
+This extension depends on SkyKoi internal modules (the embedded agent runner).
+It is intended to ship as a **bundled** SkyKoi extension (like `lobster`) and
 be enabled via `plugins.entries` + tool allowlists.
 
 It is **not** currently designed to be copied into
-`~/.synurex/extensions` as a standalone plugin directory.
+`~/.skykoi/extensions` as a standalone plugin directory.

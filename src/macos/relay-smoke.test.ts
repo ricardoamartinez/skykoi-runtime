@@ -15,8 +15,8 @@ describe("parseRelaySmokeTest", () => {
   });
 
   it("parses env var smoke mode only when no args", () => {
-    expect(parseRelaySmokeTest([], { SYNUREX_SMOKE_QR: "1" })).toBe("qr");
-    expect(parseRelaySmokeTest(["send"], { SYNUREX_SMOKE_QR: "1" })).toBe(null);
+    expect(parseRelaySmokeTest([], { SKYKOI_SMOKE_QR: "1" })).toBe("qr");
+    expect(parseRelaySmokeTest(["send"], { SKYKOI_SMOKE_QR: "1" })).toBe(null);
   });
 
   it("rejects unknown smoke values", () => {

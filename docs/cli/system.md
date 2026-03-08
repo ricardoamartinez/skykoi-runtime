@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `Synurex system` (system events, heartbeat, presence)"
+summary: "CLI reference for `SkyKoi system` (system events, heartbeat, presence)"
 read_when:
   - You want to enqueue a system event without creating a cron job
   - You need to enable or disable heartbeats
@@ -7,7 +7,7 @@ read_when:
 title: "system"
 ---
 
-# `Synurex system`
+# `SkyKoi system`
 
 System-level helpers for the Gateway: enqueue system events, control heartbeats,
 and view presence.
@@ -15,10 +15,10 @@ and view presence.
 ## Common commands
 
 ```bash
-Synurex system event --text "Check for urgent follow-ups" --mode now
-Synurex system heartbeat enable
-Synurex system heartbeat last
-Synurex system presence
+SkyKoi system event --text "Check for urgent follow-ups" --mode now
+SkyKoi system heartbeat enable
+SkyKoi system heartbeat last
+SkyKoi system presence
 ```
 
 ## `system event`

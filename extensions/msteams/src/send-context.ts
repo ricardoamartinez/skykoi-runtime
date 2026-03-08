@@ -1,8 +1,8 @@
 import {
   resolveChannelMediaMaxBytes,
-  type SynurexConfig,
+  type SkyKoiConfig,
   type PluginRuntime,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import type {
   MSTeamsConversationStore,
@@ -92,7 +92,7 @@ async function findConversationReference(recipient: {
 }
 
 export async function resolveMSTeamsSendContext(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   to: string;
 }): Promise<MSTeamsProactiveContext> {
   const msteamsCfg = params.cfg.channels?.msteams;

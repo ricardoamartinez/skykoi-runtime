@@ -1,4 +1,4 @@
-import type { ChannelGroupContext } from "Synurex/plugin-sdk";
+import type { ChannelGroupContext } from "SkyKoi/plugin-sdk";
 import { resolveMattermostAccount } from "./mattermost/accounts.js";
 
 export function resolveMattermostGroupRequireMention(

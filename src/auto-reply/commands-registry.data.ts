@@ -355,7 +355,7 @@ function buildChatCommands(): ChatCommandDefinition[] {
     defineChatCommand({
       key: "restart",
       nativeName: "restart",
-      description: "Restart Synurex.",
+      description: "Restart SkyKoi.",
       textAlias: "/restart",
       category: "tools",
     }),

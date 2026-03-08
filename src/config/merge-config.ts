@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "./config.js";
+import type { SkyKoiConfig } from "./config.js";
 import type { WhatsAppConfig } from "./types.js";
 
 export type MergeSectionOptions<T> = {
@@ -24,10 +24,10 @@ export function mergeConfigSection<T extends Record<string, unknown>>(
 }
 
 export function mergeWhatsAppConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   patch: Partial<WhatsAppConfig>,
   options?: MergeSectionOptions<WhatsAppConfig>,
-): SynurexConfig {
+): SkyKoiConfig {
   return {
     ...cfg,
     channels: {

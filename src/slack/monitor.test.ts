@@ -158,16 +158,16 @@ describe("resolveSlackThreadTs", () => {
 
 describe("buildSlackSlashCommandMatcher", () => {
   it("matches with or without a leading slash", () => {
-    const matcher = buildSlackSlashCommandMatcher("synurex");
+    const matcher = buildSlackSlashCommandMatcher("skykoi");
 
-    expect(matcher.test("synurex")).toBe(true);
-    expect(matcher.test("/Synurex")).toBe(true);
+    expect(matcher.test("skykoi")).toBe(true);
+    expect(matcher.test("/SkyKoi")).toBe(true);
   });
 
   it("does not match similar names", () => {
-    const matcher = buildSlackSlashCommandMatcher("synurex");
+    const matcher = buildSlackSlashCommandMatcher("skykoi");
 
-    expect(matcher.test("/Synurex-bot")).toBe(false);
-    expect(matcher.test("Synurex-bot")).toBe(false);
+    expect(matcher.test("/SkyKoi-bot")).toBe(false);
+    expect(matcher.test("SkyKoi-bot")).toBe(false);
   });
 });

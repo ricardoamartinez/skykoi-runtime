@@ -37,11 +37,11 @@ Pending requests expire automatically after **5 minutes**.
 ## CLI workflow (headless friendly)
 
 ```bash
-Synurex nodes pending
-Synurex nodes approve <requestId>
-Synurex nodes reject <requestId>
-Synurex nodes status
-Synurex nodes rename --node <id|name|ip> --name "Living Room iPad"
+SkyKoi nodes pending
+SkyKoi nodes approve <requestId>
+SkyKoi nodes reject <requestId>
+SkyKoi nodes status
+SkyKoi nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` shows paired/connected nodes and their capabilities.
@@ -80,12 +80,12 @@ If silent approval fails, it falls back to the normal “Approve/Reject” promp
 
 ## Storage (local, private)
 
-Pairing state is stored under the Gateway state directory (default `~/.synurex`):
+Pairing state is stored under the Gateway state directory (default `~/.skykoi`):
 
-- `~/.synurex/nodes/paired.json`
-- `~/.synurex/nodes/pending.json`
+- `~/.skykoi/nodes/paired.json`
+- `~/.skykoi/nodes/pending.json`
 
-If you override `SYNUREX_STATE_DIR`, the `nodes/` folder moves with it.
+If you override `SKYKOI_STATE_DIR`, the `nodes/` folder moves with it.
 
 Security notes:
 

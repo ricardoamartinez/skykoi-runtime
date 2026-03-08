@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { MsgContext } from "../templating.js";
 import type { CommandContext } from "./commands-types.js";
 import { resolveCommandAuthorization } from "../command-auth.js";
@@ -7,7 +7,7 @@ import { stripMentions } from "./mentions.js";
 
 export function buildCommandContext(params: {
   ctx: MsgContext;
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   agentId?: string;
   sessionKey?: string;
   isGroup: boolean;

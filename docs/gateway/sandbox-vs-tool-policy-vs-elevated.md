@@ -7,7 +7,7 @@ status: active
 
 # Sandbox vs Tool Policy vs Elevated
 
-Synurex has three related (but different) controls:
+SkyKoi has three related (but different) controls:
 
 1. **Sandbox** (`agents.defaults.sandbox.*` / `agents.list[].sandbox.*`) decides **where tools run** (Docker vs host).
 2. **Tool policy** (`tools.*`, `tools.sandbox.tools.*`, `agents.list[].tools.*`) decides **which tools are available/allowed**.
@@ -15,13 +15,13 @@ Synurex has three related (but different) controls:
 
 ## Quick debug
 
-Use the inspector to see what Synurex is _actually_ doing:
+Use the inspector to see what SkyKoi is _actually_ doing:
 
 ```bash
-Synurex sandbox explain
-Synurex sandbox explain --session agent:main:main
-Synurex sandbox explain --agent work
-Synurex sandbox explain --json
+SkyKoi sandbox explain
+SkyKoi sandbox explain --session agent:main:main
+SkyKoi sandbox explain --agent work
+SkyKoi sandbox explain --json
 ```
 
 It prints:
@@ -93,7 +93,7 @@ Available groups:
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:Synurex`: all built-in Synurex tools (excludes provider plugins)
+- `group:SkyKoi`: all built-in SkyKoi tools (excludes provider plugins)
 
 ## Elevated: exec-only “run on host”
 

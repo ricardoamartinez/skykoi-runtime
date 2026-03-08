@@ -1,56 +1,56 @@
 ---
-summary: "CLI reference for `Synurex devices` (device pairing + token rotation/revocation)"
+summary: "CLI reference for `SkyKoi devices` (device pairing + token rotation/revocation)"
 read_when:
   - You are approving device pairing requests
   - You need to rotate or revoke device tokens
 title: "devices"
 ---
 
-# `Synurex devices`
+# `SkyKoi devices`
 
 Manage device pairing requests and device-scoped tokens.
 
 ## Commands
 
-### `Synurex devices list`
+### `SkyKoi devices list`
 
 List pending pairing requests and paired devices.
 
 ```
-Synurex devices list
-Synurex devices list --json
+SkyKoi devices list
+SkyKoi devices list --json
 ```
 
-### `Synurex devices approve <requestId>`
+### `SkyKoi devices approve <requestId>`
 
 Approve a pending device pairing request.
 
 ```
-Synurex devices approve <requestId>
+SkyKoi devices approve <requestId>
 ```
 
-### `Synurex devices reject <requestId>`
+### `SkyKoi devices reject <requestId>`
 
 Reject a pending device pairing request.
 
 ```
-Synurex devices reject <requestId>
+SkyKoi devices reject <requestId>
 ```
 
-### `Synurex devices rotate --device <id> --role <role> [--scope <scope...>]`
+### `SkyKoi devices rotate --device <id> --role <role> [--scope <scope...>]`
 
 Rotate a device token for a specific role (optionally updating scopes).
 
 ```
-Synurex devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
+SkyKoi devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
 ```
 
-### `Synurex devices revoke --device <id> --role <role>`
+### `SkyKoi devices revoke --device <id> --role <role>`
 
 Revoke a device token for a specific role.
 
 ```
-Synurex devices revoke --device <deviceId> --role node
+SkyKoi devices revoke --device <deviceId> --role node
 ```
 
 ## Common options

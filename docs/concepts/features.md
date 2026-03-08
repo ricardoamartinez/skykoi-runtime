@@ -1,7 +1,7 @@
 ---
-summary: "Synurex capabilities across channels, routing, media, and UX."
+summary: "SkyKoi capabilities across channels, routing, media, and UX."
 read_when:
-  - You want a full list of what Synurex supports
+  - You want a full list of what SkyKoi supports
 title: "Features"
 ---
 

@@ -16,17 +16,17 @@ describe("browser config", () => {
     expect(profile?.cdpPort).toBe(18792);
     expect(profile?.cdpUrl).toBe("http://127.0.0.1:18792");
 
-    const Synurex = resolveProfile(resolved, "synurex");
-    expect(Synurex?.driver).toBe("synurex");
-    expect(Synurex?.cdpPort).toBe(18800);
-    expect(Synurex?.cdpUrl).toBe("http://127.0.0.1:18800");
+    const SkyKoi = resolveProfile(resolved, "skykoi");
+    expect(SkyKoi?.driver).toBe("skykoi");
+    expect(SkyKoi?.cdpPort).toBe(18800);
+    expect(SkyKoi?.cdpUrl).toBe("http://127.0.0.1:18800");
     expect(resolved.remoteCdpTimeoutMs).toBe(1500);
     expect(resolved.remoteCdpHandshakeTimeoutMs).toBe(3000);
   });
 
-  it("derives default ports from SYNUREX_GATEWAY_PORT when unset", () => {
-    const prev = process.env.SYNUREX_GATEWAY_PORT;
-    process.env.SYNUREX_GATEWAY_PORT = "19001";
+  it("derives default ports from SKYKOI_GATEWAY_PORT when unset", () => {
+    const prev = process.env.SKYKOI_GATEWAY_PORT;
+    process.env.SKYKOI_GATEWAY_PORT = "19001";
     try {
       const resolved = resolveBrowserConfig(undefined);
       expect(resolved.controlPort).toBe(19003);
@@ -35,21 +35,21 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19004);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19004");
 
-      const Synurex = resolveProfile(resolved, "synurex");
-      expect(Synurex?.cdpPort).toBe(19012);
-      expect(Synurex?.cdpUrl).toBe("http://127.0.0.1:19012");
+      const SkyKoi = resolveProfile(resolved, "skykoi");
+      expect(SkyKoi?.cdpPort).toBe(19012);
+      expect(SkyKoi?.cdpUrl).toBe("http://127.0.0.1:19012");
     } finally {
       if (prev === undefined) {
-        delete process.env.SYNUREX_GATEWAY_PORT;
+        delete process.env.SKYKOI_GATEWAY_PORT;
       } else {
-        process.env.SYNUREX_GATEWAY_PORT = prev;
+        process.env.SKYKOI_GATEWAY_PORT = prev;
       }
     }
   });
 
   it("derives default ports from gateway.port when env is unset", () => {
-    const prev = process.env.SYNUREX_GATEWAY_PORT;
-    delete process.env.SYNUREX_GATEWAY_PORT;
+    const prev = process.env.SKYKOI_GATEWAY_PORT;
+    delete process.env.SKYKOI_GATEWAY_PORT;
     try {
       const resolved = resolveBrowserConfig(undefined, { gateway: { port: 19011 } });
       expect(resolved.controlPort).toBe(19013);
@@ -58,14 +58,14 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19014);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19014");
 
-      const Synurex = resolveProfile(resolved, "synurex");
-      expect(Synurex?.cdpPort).toBe(19022);
-      expect(Synurex?.cdpUrl).toBe("http://127.0.0.1:19022");
+      const SkyKoi = resolveProfile(resolved, "skykoi");
+      expect(SkyKoi?.cdpPort).toBe(19022);
+      expect(SkyKoi?.cdpUrl).toBe("http://127.0.0.1:19022");
     } finally {
       if (prev === undefined) {
-        delete process.env.SYNUREX_GATEWAY_PORT;
+        delete process.env.SKYKOI_GATEWAY_PORT;
       } else {
-        process.env.SYNUREX_GATEWAY_PORT = prev;
+        process.env.SKYKOI_GATEWAY_PORT = prev;
       }
     }
   });
@@ -97,7 +97,7 @@ describe("browser config", () => {
     const resolved = resolveBrowserConfig({
       cdpUrl: "http://example.com:9222",
     });
-    const profile = resolveProfile(resolved, "synurex");
+    const profile = resolveProfile(resolved, "skykoi");
     expect(profile?.cdpIsLoopback).toBe(false);
   });
 
@@ -105,7 +105,7 @@ describe("browser config", () => {
     const resolved = resolveBrowserConfig({
       cdpUrl: "http://example.com:9222",
     });
-    const profile = resolveProfile(resolved, "synurex");
+    const profile = resolveProfile(resolved, "skykoi");
     expect(profile?.cdpPort).toBe(9222);
     expect(profile?.cdpUrl).toBe("http://example.com:9222");
     expect(profile?.cdpIsLoopback).toBe(false);
@@ -143,10 +143,10 @@ describe("browser config", () => {
   it("does not add the built-in chrome extension profile if the derived relay port is already used", () => {
     const resolved = resolveBrowserConfig({
       profiles: {
-        Synurex: { cdpPort: 18792, color: "#FF4500" },
+        SkyKoi: { cdpPort: 18792, color: "#FF4500" },
       },
     });
     expect(resolveProfile(resolved, "chrome")).toBe(null);
-    expect(resolved.defaultProfile).toBe("synurex");
+    expect(resolved.defaultProfile).toBe("skykoi");
   });
 });

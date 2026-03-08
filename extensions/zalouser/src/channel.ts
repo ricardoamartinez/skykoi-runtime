@@ -4,9 +4,9 @@ import type {
   ChannelDock,
   ChannelGroupContext,
   ChannelPlugin,
-  SynurexConfig,
+  SkyKoiConfig,
   GroupToolPolicyConfig,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -16,7 +16,7 @@ import {
   migrateBaseNameToDefaultAccount,
   normalizeAccountId,
   setAccountEnabledInConfigSection,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { ZcaFriend, ZcaGroup, ZcaUserInfo } from "./types.js";
 import {
   listZalouserAccountIds,
@@ -257,7 +257,7 @@ export const zalouserPlugin: ChannelPlugin<ResolvedZalouserAccount> = {
               enabled: true,
             },
           },
-        } as SynurexConfig;
+        } as SkyKoiConfig;
       }
       return {
         ...next,
@@ -275,7 +275,7 @@ export const zalouserPlugin: ChannelPlugin<ResolvedZalouserAccount> = {
             },
           },
         },
-      } as SynurexConfig;
+      } as SkyKoiConfig;
     },
   },
   messaging: {
@@ -505,7 +505,7 @@ export const zalouserPlugin: ChannelPlugin<ResolvedZalouserAccount> = {
       const ok = await checkZcaInstalled();
       if (!ok) {
         throw new Error(
-          "Missing dependency: `zca` not found in PATH. See docs.synurex.ai/channels/zalouser",
+          "Missing dependency: `zca` not found in PATH. See docs.skykoi.ai/channels/zalouser",
         );
       }
       runtime.log(

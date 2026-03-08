@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { type SynurexConfig, loadConfig } from "../config/config.js";
-import { resolveSynurexAgentDir } from "./agent-paths.js";
+import { type SkyKoiConfig, loadConfig } from "../config/config.js";
+import { resolveSkyKoiAgentDir } from "./agent-paths.js";
 import {
   normalizeProviders,
   type ProviderConfig,
@@ -10,7 +10,7 @@ import {
   resolveImplicitProviders,
 } from "./models-config.providers.js";
 
-type ModelsConfig = NonNullable<SynurexConfig["models"]>;
+type ModelsConfig = NonNullable<SkyKoiConfig["models"]>;
 
 const DEFAULT_MODE: NonNullable<ModelsConfig["mode"]> = "merge";
 
@@ -81,12 +81,12 @@ async function readJson(pathname: string): Promise<unknown> {
   }
 }
 
-export async function ensureSynurexModelsJson(
-  config?: SynurexConfig,
+export async function ensureSkyKoiModelsJson(
+  config?: SkyKoiConfig,
   agentDirOverride?: string,
 ): Promise<{ agentDir: string; wrote: boolean }> {
   const cfg = config ?? loadConfig();
-  const agentDir = agentDirOverride?.trim() ? agentDirOverride.trim() : resolveSynurexAgentDir();
+  const agentDir = agentDirOverride?.trim() ? agentDirOverride.trim() : resolveSkyKoiAgentDir();
 
   const explicitProviders = cfg.models?.providers ?? {};
   const implicitProviders = await resolveImplicitProviders({ agentDir });

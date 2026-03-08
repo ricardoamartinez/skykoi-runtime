@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseFrontmatter,
-  resolveSynurexMetadata,
+  resolveSkyKoiMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
 
@@ -41,7 +41,7 @@ name: session-memory
 description: "Save session context"
 metadata:
   {
-    "synurex": {
+    "skykoi": {
       "emoji": "💾",
       "events": ["command:new"]
     }
@@ -58,8 +58,8 @@ metadata:
 
     // Verify the metadata is valid JSON
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.synurex.emoji).toBe("💾");
-    expect(parsed.synurex.events).toEqual(["command:new"]);
+    expect(parsed.skykoi.emoji).toBe("💾");
+    expect(parsed.skykoi.events).toEqual(["command:new"]);
   });
 
   it("parses multi-line metadata with complex nested structure", () => {
@@ -68,7 +68,7 @@ name: command-logger
 description: "Log all command events"
 metadata:
   {
-    "synurex":
+    "skykoi":
       {
         "emoji": "📝",
         "events": ["command"],
@@ -83,21 +83,21 @@ metadata:
     expect(result.metadata).toBeDefined();
 
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.synurex.emoji).toBe("📝");
-    expect(parsed.synurex.events).toEqual(["command"]);
-    expect(parsed.synurex.requires.config).toEqual(["workspace.dir"]);
-    expect(parsed.synurex.install[0].kind).toBe("bundled");
+    expect(parsed.skykoi.emoji).toBe("📝");
+    expect(parsed.skykoi.events).toEqual(["command"]);
+    expect(parsed.skykoi.requires.config).toEqual(["workspace.dir"]);
+    expect(parsed.skykoi.install[0].kind).toBe("bundled");
   });
 
   it("handles single-line metadata (inline JSON)", () => {
     const content = `---
 name: simple-hook
-metadata: {"synurex": {"events": ["test"]}}
+metadata: {"skykoi": {"events": ["test"]}}
 ---
 `;
     const result = parseFrontmatter(content);
     expect(result.name).toBe("simple-hook");
-    expect(result.metadata).toBe('{"synurex": {"events": ["test"]}}');
+    expect(result.metadata).toBe('{"skykoi": {"events": ["test"]}}');
   });
 
   it("handles mixed single-line and multi-line values", () => {
@@ -107,7 +107,7 @@ description: "A hook with mixed values"
 homepage: https://example.com
 metadata:
   {
-    "synurex": {
+    "skykoi": {
       "events": ["command:new"]
     }
   }
@@ -148,12 +148,12 @@ description: 'single-quoted'
   });
 });
 
-describe("resolveSynurexMetadata", () => {
-  it("extracts Synurex metadata from parsed frontmatter", () => {
+describe("resolveSkyKoiMetadata", () => {
+  it("extracts SkyKoi metadata from parsed frontmatter", () => {
     const frontmatter = {
       name: "test-hook",
       metadata: JSON.stringify({
-        Synurex: {
+        SkyKoi: {
           emoji: "🔥",
           events: ["command:new", "command:reset"],
           requires: {
@@ -164,7 +164,7 @@ describe("resolveSynurexMetadata", () => {
       }),
     };
 
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result).toBeDefined();
     expect(result?.emoji).toBe("🔥");
     expect(result?.events).toEqual(["command:new", "command:reset"]);
@@ -174,15 +174,15 @@ describe("resolveSynurexMetadata", () => {
 
   it("returns undefined when metadata is missing", () => {
     const frontmatter = { name: "no-metadata" };
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
-  it("returns undefined when Synurex key is missing", () => {
+  it("returns undefined when SkyKoi key is missing", () => {
     const frontmatter = {
       metadata: JSON.stringify({ other: "data" }),
     };
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -190,41 +190,41 @@ describe("resolveSynurexMetadata", () => {
     const frontmatter = {
       metadata: "not valid json {",
     };
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
   it("handles install specs", () => {
     const frontmatter = {
       metadata: JSON.stringify({
-        Synurex: {
+        SkyKoi: {
           events: ["command"],
           install: [
-            { id: "bundled", kind: "bundled", label: "Bundled with Synurex" },
-            { id: "npm", kind: "npm", package: "@Synurex/hook" },
+            { id: "bundled", kind: "bundled", label: "Bundled with SkyKoi" },
+            { id: "npm", kind: "npm", package: "@SkyKoi/hook" },
           ],
         },
       }),
     };
 
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result?.install).toHaveLength(2);
     expect(result?.install?.[0].kind).toBe("bundled");
     expect(result?.install?.[1].kind).toBe("npm");
-    expect(result?.install?.[1].package).toBe("@Synurex/hook");
+    expect(result?.install?.[1].package).toBe("@SkyKoi/hook");
   });
 
   it("handles os restrictions", () => {
     const frontmatter = {
       metadata: JSON.stringify({
-        Synurex: {
+        SkyKoi: {
           events: ["command"],
           os: ["darwin", "linux"],
         },
       }),
     };
 
-    const result = resolveSynurexMetadata(frontmatter);
+    const result = resolveSkyKoiMetadata(frontmatter);
     expect(result?.os).toEqual(["darwin", "linux"]);
   });
 
@@ -233,15 +233,15 @@ describe("resolveSynurexMetadata", () => {
     const content = `---
 name: session-memory
 description: "Save session context to memory when /new command is issued"
-homepage: https://docs.synurex.ai/hooks#session-memory
+homepage: https://docs.skykoi.ai/hooks#session-memory
 metadata:
   {
-    "synurex":
+    "skykoi":
       {
         "emoji": "💾",
         "events": ["command:new"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Synurex" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with SkyKoi" }],
       },
   }
 ---
@@ -253,28 +253,28 @@ metadata:
     expect(frontmatter.name).toBe("session-memory");
     expect(frontmatter.metadata).toBeDefined();
 
-    const Synurex = resolveSynurexMetadata(frontmatter);
-    expect(Synurex).toBeDefined();
-    expect(Synurex?.emoji).toBe("💾");
-    expect(Synurex?.events).toEqual(["command:new"]);
-    expect(Synurex?.requires?.config).toEqual(["workspace.dir"]);
-    expect(Synurex?.install?.[0].kind).toBe("bundled");
+    const SkyKoi = resolveSkyKoiMetadata(frontmatter);
+    expect(SkyKoi).toBeDefined();
+    expect(SkyKoi?.emoji).toBe("💾");
+    expect(SkyKoi?.events).toEqual(["command:new"]);
+    expect(SkyKoi?.requires?.config).toEqual(["workspace.dir"]);
+    expect(SkyKoi?.install?.[0].kind).toBe("bundled");
   });
 
   it("parses YAML metadata map", () => {
     const content = `---
 name: yaml-metadata
 metadata:
-  Synurex:
+  SkyKoi:
     emoji: disk
     events:
       - command:new
 ---
 `;
     const frontmatter = parseFrontmatter(content);
-    const Synurex = resolveSynurexMetadata(frontmatter);
-    expect(Synurex?.emoji).toBe("disk");
-    expect(Synurex?.events).toEqual(["command:new"]);
+    const SkyKoi = resolveSkyKoiMetadata(frontmatter);
+    expect(SkyKoi?.emoji).toBe("disk");
+    expect(SkyKoi?.events).toEqual(["command:new"]);
   });
 });
 

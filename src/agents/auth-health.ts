@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import {
   type AuthProfileCredential,
   type AuthProfileStore,
@@ -84,7 +84,7 @@ function buildProfileHealth(params: {
   profileId: string;
   credential: AuthProfileCredential;
   store: AuthProfileStore;
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   now: number;
   warnAfterMs: number;
 }): AuthProfileHealth {
@@ -155,7 +155,7 @@ function buildProfileHealth(params: {
 
 export function buildAuthHealthSummary(params: {
   store: AuthProfileStore;
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   warnAfterMs?: number;
   providers?: string[];
 }): AuthHealthSummary {

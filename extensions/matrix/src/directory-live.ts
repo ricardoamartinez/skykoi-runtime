@@ -1,4 +1,4 @@
-import type { ChannelDirectoryEntry } from "Synurex/plugin-sdk";
+import type { ChannelDirectoryEntry } from "SkyKoi/plugin-sdk";
 import { resolveMatrixAuth } from "./matrix/client.js";
 
 type MatrixUserResult = {

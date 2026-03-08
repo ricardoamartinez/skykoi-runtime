@@ -20,8 +20,8 @@ describe("tool-policy", () => {
     expect(resolveToolProfilePolicy("nope")).toBeUndefined();
   });
 
-  it("includes core tool groups in group:Synurex", () => {
-    const group = TOOL_GROUPS["group:Synurex"];
+  it("includes core tool groups in group:SkyKoi", () => {
+    const group = TOOL_GROUPS["group:SkyKoi"];
     expect(group).toContain("browser");
     expect(group).toContain("message");
     expect(group).toContain("session_status");

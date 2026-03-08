@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { loadCronStore } from "./store.js";
 
 async function makeStorePath() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-cron-store-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-cron-store-"));
   return {
     dir,
     storePath: path.join(dir, "jobs.json"),

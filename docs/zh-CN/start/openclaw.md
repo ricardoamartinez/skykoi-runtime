@@ -2,20 +2,20 @@
 read_when:
   - 新手引导新助手实例时
   - 审查安全/权限影响时
-summary: 将 Synurex 作为个人助手运行的端到端指南，包含安全注意事项
+summary: 将 SkyKoi 作为个人助手运行的端到端指南，包含安全注意事项
 title: 个人助手设置
 x-i18n:
   generated_at: "2026-02-03T07:54:35Z"
   model: claude-opus-4-5
   provider: pi
   source_hash: 2763668c053abe34ea72c40d1306d3d1143099c58b1e3ef91c2e5a20cb2769e0
-  source_path: start/Synurex.md
+  source_path: start/SkyKoi.md
   workflow: 15
 ---
 
-# 使用 Synurex 构建个人助手
+# 使用 SkyKoi 构建个人助手
 
-Synurex 是 **Pi** 智能体的 WhatsApp + Telegram + Discord + iMessage Gateway 网关。插件可添加 Mattermost。本指南是"个人助手"设置：一个专用的 WhatsApp 号码，表现得像你的常驻智能体。
+SkyKoi 是 **Pi** 智能体的 WhatsApp + Telegram + Discord + iMessage Gateway 网关。插件可添加 Mattermost。本指南是"个人助手"设置：一个专用的 WhatsApp 号码，表现得像你的常驻智能体。
 
 ## ⚠️ 安全第一
 
@@ -34,19 +34,19 @@ Synurex 是 **Pi** 智能体的 WhatsApp + Telegram + Discord + iMessage Gateway
 ## 先决条件
 
 - Node **22+**
-- Synurex 在 PATH 中可用（推荐：全局安装）
+- SkyKoi 在 PATH 中可用（推荐：全局安装）
 - 助手的第二个手机号码（SIM/eSIM/预付费）
 
 ```bash
-npm install -g Synurex@latest
-# 或：pnpm add -g synurex@latest
+npm install -g SkyKoi@latest
+# 或：pnpm add -g skykoi@latest
 ```
 
 从源代码（开发）：
 
 ```bash
-git clone https://github.com/Synurex/Synurex.git
-cd Synurex
+git clone https://github.com/SkyKoi/SkyKoi.git
+cd SkyKoi
 pnpm install
 pnpm ui:build # 首次运行时自动安装 UI 依赖
 pnpm build
@@ -67,28 +67,28 @@ pnpm link --global
                                        ▼
                               ┌─────────────────┐
                               │  你的 Mac       │
-                              │  (Synurex)     │
+                              │  (SkyKoi)     │
                               │    Pi 智能体    │
                               └─────────────────┘
 ```
 
-如果你将个人 WhatsApp 关联到 Synurex，发给你的每条消息都会变成"智能体输入"。这通常不是你想要的。
+如果你将个人 WhatsApp 关联到 SkyKoi，发给你的每条消息都会变成"智能体输入"。这通常不是你想要的。
 
 ## 5 分钟快速开始
 
 1. 配对 WhatsApp Web（显示二维码；用助手手机扫描）：
 
 ```bash
-synurex channels login
+skykoi channels login
 ```
 
 2. 启动 Gateway 网关（保持运行）：
 
 ```bash
-synurex gateway --port 18789
+skykoi gateway --port 18789
 ```
 
-3. 在 `~/.synurex/synurex.json` 中放置最小配置：
+3. 在 `~/.skykoi/skykoi.json` 中放置最小配置：
 
 ```json5
 {
@@ -98,18 +98,18 @@ synurex gateway --port 18789
 
 现在从你允许列表中的手机向助手号码发消息。
 
-新手引导完成后，我们会自动打开带有 Gateway 网关令牌的仪表板并打印带令牌的链接。稍后重新打开：`synurex dashboard`。
+新手引导完成后，我们会自动打开带有 Gateway 网关令牌的仪表板并打印带令牌的链接。稍后重新打开：`skykoi dashboard`。
 
 ## 给智能体一个工作区（AGENTS）
 
-Synurex 从其工作区目录读取操作指令和"记忆"。
+SkyKoi 从其工作区目录读取操作指令和"记忆"。
 
-默认情况下，Synurex 使用 `~/.synurex/workspace` 作为智能体工作区，并会在设置/首次智能体运行时自动创建它（加上起始的 `AGENTS.md`、`SOUL.md`、`TOOLS.md`、`IDENTITY.md`、`USER.md`）。`BOOTSTRAP.md` 仅在工作区是全新的时候创建（删除后不应再出现）。
+默认情况下，SkyKoi 使用 `~/.skykoi/workspace` 作为智能体工作区，并会在设置/首次智能体运行时自动创建它（加上起始的 `AGENTS.md`、`SOUL.md`、`TOOLS.md`、`IDENTITY.md`、`USER.md`）。`BOOTSTRAP.md` 仅在工作区是全新的时候创建（删除后不应再出现）。
 
-提示：将此文件夹视为 Synurex 的"记忆"，并将其设为 git 仓库（最好是私有的），这样你的 `AGENTS.md` + 记忆文件就有了备份。如果安装了 git，全新的工作区会自动初始化。
+提示：将此文件夹视为 SkyKoi 的"记忆"，并将其设为 git 仓库（最好是私有的），这样你的 `AGENTS.md` + 记忆文件就有了备份。如果安装了 git，全新的工作区会自动初始化。
 
 ```bash
-Synurex setup
+SkyKoi setup
 ```
 
 完整工作区布局 + 备份指南：[智能体工作区](/concepts/agent-workspace)
@@ -120,7 +120,7 @@ Synurex setup
 ```json5
 {
   agent: {
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
   },
 }
 ```
@@ -137,7 +137,7 @@ Synurex setup
 
 ## 将其变成"助手"的配置
 
-Synurex 默认为良好的助手设置，但你通常需要调整：
+SkyKoi 默认为良好的助手设置，但你通常需要调整：
 
 - `SOUL.md` 中的人设/指令
 - 思考默认值（如果需要）
@@ -150,7 +150,7 @@ Synurex 默认为良好的助手设置，但你通常需要调整：
   logging: { level: "info" },
   agent: {
     model: "anthropic/claude-opus-4-5",
-    workspace: "~/.synurex/workspace",
+    workspace: "~/.skykoi/workspace",
     thinkingDefault: "high",
     timeoutSeconds: 1800,
     // 从 0 开始；稍后启用。
@@ -166,7 +166,7 @@ Synurex 默认为良好的助手设置，但你通常需要调整：
   },
   routing: {
     groupChat: {
-      mentionPatterns: ["@Synurex", "Synurex"],
+      mentionPatterns: ["@SkyKoi", "SkyKoi"],
     },
   },
   session: {
@@ -183,20 +183,20 @@ Synurex 默认为良好的助手设置，但你通常需要调整：
 
 ## 会话和记忆
 
-- 会话文件：`~/.synurex/agents/<agentId>/sessions/{{SessionId}}.jsonl`
-- 会话元数据（token 使用量、最后路由等）：`~/.synurex/agents/<agentId>/sessions/sessions.json`（旧版：`~/.synurex/sessions/sessions.json`）
+- 会话文件：`~/.skykoi/agents/<agentId>/sessions/{{SessionId}}.jsonl`
+- 会话元数据（token 使用量、最后路由等）：`~/.skykoi/agents/<agentId>/sessions/sessions.json`（旧版：`~/.skykoi/sessions/sessions.json`）
 - `/new` 或 `/reset` 为该聊天启动新会话（可通过 `resetTriggers` 配置）。如果单独发送，智能体会回复一个简短的问候来确认重置。
 - `/compact [instructions]` 压缩会话上下文并报告剩余的上下文预算。
 
 ## 心跳（主动模式）
 
-默认情况下，Synurex 每 30 分钟运行一次心跳，提示词为：
+默认情况下，SkyKoi 每 30 分钟运行一次心跳，提示词为：
 `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.`
 设置 `agents.defaults.heartbeat.every: "0m"` 来禁用。
 
-- 如果 `HEARTBEAT.md` 存在但实际上是空的（只有空行和 markdown 标题如 `# Heading`），Synurex 会跳过心跳运行以节省 API 调用。
+- 如果 `HEARTBEAT.md` 存在但实际上是空的（只有空行和 markdown 标题如 `# Heading`），SkyKoi 会跳过心跳运行以节省 API 调用。
 - 如果文件不存在，心跳仍然运行，模型决定做什么。
-- 如果智能体回复 `HEARTBEAT_OK`（可选带有短填充；参见 `agents.defaults.heartbeat.ackMaxChars`），Synurex 会为该心跳抑制出站投递。
+- 如果智能体回复 `HEARTBEAT_OK`（可选带有短填充；参见 `agents.defaults.heartbeat.ackMaxChars`），SkyKoi 会为该心跳抑制出站投递。
 - 心跳运行完整的智能体轮次 — 更短的间隔会消耗更多 token。
 
 ```json5
@@ -222,25 +222,25 @@ Synurex 默认为良好的助手设置，但你通常需要调整：
 MEDIA:https://example.com/screenshot.png
 ```
 
-Synurex 会提取这些并将它们作为媒体与文本一起发送。
+SkyKoi 会提取这些并将它们作为媒体与文本一起发送。
 
 ## 运维检查清单
 
 ```bash
-Synurex status          # 本地状态（凭证、会话、排队事件）
-Synurex status --all    # 完整诊断（只读，可粘贴）
-Synurex status --deep   # 添加 Gateway 网关健康探测（Telegram + Discord）
-Synurex health --json   # Gateway 网关健康快照（WS）
+SkyKoi status          # 本地状态（凭证、会话、排队事件）
+SkyKoi status --all    # 完整诊断（只读，可粘贴）
+SkyKoi status --deep   # 添加 Gateway 网关健康探测（Telegram + Discord）
+SkyKoi health --json   # Gateway 网关健康快照（WS）
 ```
 
-日志位于 `/tmp/Synurex/`（默认：`Synurex-YYYY-MM-DD.log`）。
+日志位于 `/tmp/SkyKoi/`（默认：`SkyKoi-YYYY-MM-DD.log`）。
 
 ## 下一步
 
 - WebChat：[WebChat](/web/webchat)
 - Gateway 网关运维：[Gateway 网关运行手册](/gateway)
 - 定时任务 + 唤醒：[定时任务](/automation/cron-jobs)
-- macOS 菜单栏配套应用：[Synurex macOS 应用](/platforms/macos)
+- macOS 菜单栏配套应用：[SkyKoi macOS 应用](/platforms/macos)
 - iOS 节点应用：[iOS 应用](/platforms/ios)
 - Android 节点应用：[Android 应用](/platforms/android)
 - Windows 状态：[Windows (WSL2)](/platforms/windows)

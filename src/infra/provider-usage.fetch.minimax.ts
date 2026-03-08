@@ -319,7 +319,7 @@ export async function fetchMinimaxUsage(
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "MM-API-Source": "synurex",
+        "MM-API-Source": "skykoi",
       },
     },
     timeoutMs,

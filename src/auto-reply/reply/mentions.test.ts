@@ -2,11 +2,11 @@ import { describe, expect, it } from "vitest";
 import { matchesMentionWithExplicit } from "./mentions.js";
 
 describe("matchesMentionWithExplicit", () => {
-  const mentionRegexes = [/\bSynurex\b/i];
+  const mentionRegexes = [/\bSkyKoi\b/i];
 
   it("checks mentionPatterns even when explicit mention is available", () => {
     const result = matchesMentionWithExplicit({
-      text: "@Synurex hello",
+      text: "@SkyKoi hello",
       mentionRegexes,
       explicit: {
         hasAnyMention: true,
@@ -45,7 +45,7 @@ describe("matchesMentionWithExplicit", () => {
 
   it("falls back to regex matching when explicit mention cannot be resolved", () => {
     const result = matchesMentionWithExplicit({
-      text: "synurex please",
+      text: "skykoi please",
       mentionRegexes,
       explicit: {
         hasAnyMention: true,

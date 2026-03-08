@@ -7,19 +7,19 @@ title: "Groups"
 
 # Groups
 
-Synurex treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams.
+SkyKoi treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams.
 
 ## Beginner intro (2 minutes)
 
-Synurex “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
-If **you** are in a group, Synurex can see that group and respond there.
+SkyKoi “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
+If **you** are in a group, SkyKoi can see that group and respond there.
 
 Default behavior:
 
 - Groups are restricted (`groupPolicy: "allowlist"`).
 - Replies require a mention unless you explicitly disable mention gating.
 
-Translation: allowlisted senders can trigger Synurex by mentioning it.
+Translation: allowlisted senders can trigger SkyKoi by mentioning it.
 
 > TL;DR
 >
@@ -230,7 +230,7 @@ Replying to a bot message counts as an implicit mention (when the channel suppor
       {
         id: "main",
         groupChat: {
-          mentionPatterns: ["@Synurex", "Synurex", "\\+15555550123"],
+          mentionPatterns: ["@SkyKoi", "SkyKoi", "\\+15555550123"],
           historyLimit: 50,
         },
       },

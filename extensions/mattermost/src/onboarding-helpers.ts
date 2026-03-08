@@ -1,12 +1,12 @@
-import type { SynurexConfig, WizardPrompter } from "Synurex/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig, WizardPrompter } from "SkyKoi/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "SkyKoi/plugin-sdk";
 
 type PromptAccountIdParams = {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   prompter: WizardPrompter;
   label: string;
   currentId?: string;
-  listAccountIds: (cfg: SynurexConfig) => string[];
+  listAccountIds: (cfg: SkyKoiConfig) => string[];
   defaultAccountId: string;
 };
 

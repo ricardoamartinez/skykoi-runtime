@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/bluebubbles",
+  "name": "@SkyKoi/bluebubbles",
   "version": "2026.2.6-3",
-  "description": "Synurex BlueBubbles channel plugin",
+  "description": "SkyKoi BlueBubbles channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "order": 75
     },
     "install": {
-      "npmSpec": "@Synurex/bluebubbles",
+      "npmSpec": "@SkyKoi/bluebubbles",
       "localPath": "extensions/bluebubbles",
       "defaultChoice": "npm"
     }

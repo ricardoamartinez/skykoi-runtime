@@ -1,9 +1,9 @@
 {
-  "name": "synurex",
+  "name": "skykoi",
   "version": "2026.3.3",
-  "description": "Synurex â€” AI agent runtime. Multi-channel gateway CLI with RPC agent. Forked from Synurex.",
+  "description": "SkyKoi â€” AI agent runtime. Multi-channel gateway CLI with RPC agent. Forked from SkyKoi.",
   "keywords": [
-    "synurex",
+    "skykoi",
     "ai",
     "agent",
     "runtime",
@@ -14,10 +14,10 @@
   "author": "Ricardo Martinez",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ricardoamartinez/synurex-runtime.git"
+    "url": "https://github.com/ricardoamartinez/skykoi-runtime.git"
   },
   "bin": {
-    "synurex": "synurex.mjs"
+    "skykoi": "skykoi.mjs"
   },
   "files": [
     "assets/",
@@ -27,7 +27,7 @@
     "extensions/",
     "LICENSE",
     "THIRD_PARTY_LICENSES.txt",
-    "Synurex.mjs",
+    "SkyKoi.mjs",
     "README-header.png",
     "README.md",
     "skills/"
@@ -37,12 +37,12 @@
   "exports": {
     ".": "./dist/index.js",
     "./plugin-sdk": "./dist/plugin-sdk/index.js",
-    "./cli-entry": "./Synurex.mjs"
+    "./cli-entry": "./SkyKoi.mjs"
   },
   "scripts": {
     "android:assemble": "cd apps/android && ./gradlew :app:assembleDebug",
     "android:install": "cd apps/android && ./gradlew :app:installDebug",
-    "android:run": "cd apps/android && ./gradlew :app:installDebug && adb shell am start -n ai.synurex.android/.MainActivity",
+    "android:run": "cd apps/android && ./gradlew :app:installDebug && adb shell am start -n ai.skykoi.android/.MainActivity",
     "android:test": "cd apps/android && ./gradlew :app:testDebugUnitTest",
     "build": "pnpm canvas:a2ui:bundle && tsdown && pnpm build:plugin-sdk:dts && node --import tsx scripts/write-plugin-sdk-entry-dts.ts && node --import tsx scripts/canvas-a2ui-copy.ts && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts && node --import tsx scripts/write-cli-compat.ts",
     "build:plugin-sdk:dts": "tsc -p tsconfig.plugin-sdk.dts.json",
@@ -61,30 +61,30 @@
     "format:docs": "git ls-files 'docs/**/*.md' 'docs/**/*.mdx' 'README.md' | xargs oxfmt --check",
     "format:docs:fix": "git ls-files 'docs/**/*.md' 'docs/**/*.mdx' 'README.md' | xargs oxfmt --write",
     "format:fix": "oxfmt --write",
-    "format:swift": "swiftformat --lint --config .swiftformat apps/macos/Sources apps/ios/Sources apps/shared/SynurexKit/Sources",
-    "gateway:dev": "SYNUREX_SKIP_CHANNELS=1 SYNUREX_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway",
-    "gateway:dev:reset": "SYNUREX_SKIP_CHANNELS=1 SYNUREX_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway --reset",
+    "format:swift": "swiftformat --lint --config .swiftformat apps/macos/Sources apps/ios/Sources apps/shared/SkyKoiKit/Sources",
+    "gateway:dev": "SKYKOI_SKIP_CHANNELS=1 SKYKOI_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway",
+    "gateway:dev:reset": "SKYKOI_SKIP_CHANNELS=1 SKYKOI_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway --reset",
     "gateway:watch": "node scripts/watch-node.mjs gateway --force",
-    "ios:build": "bash -lc 'cd apps/ios && xcodegen generate && xcodebuild -project Synurex.xcodeproj -scheme Synurex -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build'",
+    "ios:build": "bash -lc 'cd apps/ios && xcodegen generate && xcodebuild -project SkyKoi.xcodeproj -scheme SkyKoi -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build'",
     "ios:gen": "cd apps/ios && xcodegen generate",
-    "ios:open": "cd apps/ios && xcodegen generate && open Synurex.xcodeproj",
-    "ios:run": "bash -lc 'cd apps/ios && xcodegen generate && xcodebuild -project Synurex.xcodeproj -scheme Synurex -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build && xcrun simctl boot \"${IOS_SIM:-iPhone 17}\" || true && xcrun simctl launch booted ai.synurex.ios'",
+    "ios:open": "cd apps/ios && xcodegen generate && open SkyKoi.xcodeproj",
+    "ios:run": "bash -lc 'cd apps/ios && xcodegen generate && xcodebuild -project SkyKoi.xcodeproj -scheme SkyKoi -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build && xcrun simctl boot \"${IOS_SIM:-iPhone 17}\" || true && xcrun simctl launch booted ai.skykoi.ios'",
     "lint": "oxlint --type-aware",
     "lint:all": "pnpm lint && pnpm lint:swift",
     "lint:docs": "pnpm dlx markdownlint-cli2",
     "lint:docs:fix": "pnpm dlx markdownlint-cli2 --fix",
     "lint:fix": "oxlint --type-aware --fix && pnpm format:fix",
     "lint:swift": "swiftlint lint --config .swiftlint.yml && (cd apps/ios && swiftlint lint --config .swiftlint.yml)",
-    "mac:open": "open dist/Synurex.app",
+    "mac:open": "open dist/SkyKoi.app",
     "mac:package": "bash scripts/package-mac-app.sh",
     "mac:restart": "bash scripts/restart-mac.sh",
     "moltbot:rpc": "node scripts/run-node.mjs agent --mode rpc --json",
-    "Synurex": "node scripts/run-node.mjs",
-    "Synurex:rpc": "node scripts/run-node.mjs agent --mode rpc --json",
+    "SkyKoi": "node scripts/run-node.mjs",
+    "SkyKoi:rpc": "node scripts/run-node.mjs agent --mode rpc --json",
     "plugins:sync": "node --import tsx scripts/sync-plugin-versions.ts",
     "prepack": "pnpm build && pnpm ui:build",
     "prepare": "command -v git >/dev/null 2>&1 && git config core.hooksPath git-hooks || exit 0",
-    "protocol:check": "pnpm protocol:gen && pnpm protocol:gen:swift && git diff --exit-code -- dist/protocol.schema.json apps/macos/Sources/SynurexProtocol/GatewayModels.swift",
+    "protocol:check": "pnpm protocol:gen && pnpm protocol:gen:swift && git diff --exit-code -- dist/protocol.schema.json apps/macos/Sources/SkyKoiProtocol/GatewayModels.swift",
     "protocol:gen": "node --import tsx scripts/protocol-gen.ts",
     "protocol:gen:swift": "node --import tsx scripts/protocol-gen-swift.ts",
     "release:check": "node --import tsx scripts/release-check.ts",
@@ -104,14 +104,14 @@
     "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:force": "node --import tsx scripts/test-force.ts",
     "test:install:e2e": "bash scripts/test-install-sh-e2e-docker.sh",
-    "test:install:e2e:anthropic": "SYNUREX_E2E_MODELS=anthropic SYNUREX_E2E_MODELS=anthropic bash scripts/test-install-sh-e2e-docker.sh",
-    "test:install:e2e:openai": "SYNUREX_E2E_MODELS=openai SYNUREX_E2E_MODELS=openai bash scripts/test-install-sh-e2e-docker.sh",
+    "test:install:e2e:anthropic": "SKYKOI_E2E_MODELS=anthropic SKYKOI_E2E_MODELS=anthropic bash scripts/test-install-sh-e2e-docker.sh",
+    "test:install:e2e:openai": "SKYKOI_E2E_MODELS=openai SKYKOI_E2E_MODELS=openai bash scripts/test-install-sh-e2e-docker.sh",
     "test:install:smoke": "bash scripts/test-install-sh-docker.sh",
-    "test:live": "SYNUREX_LIVE_TEST=1 SYNUREX_LIVE_TEST=1 vitest run --config vitest.live.config.ts",
+    "test:live": "SKYKOI_LIVE_TEST=1 SKYKOI_LIVE_TEST=1 vitest run --config vitest.live.config.ts",
     "test:ui": "pnpm --dir ui test",
     "test:watch": "vitest",
     "tui": "node scripts/run-node.mjs tui",
-    "tui:dev": "SYNUREX_PROFILE=dev SYNUREX_PROFILE=dev node scripts/run-node.mjs --dev tui",
+    "tui:dev": "SKYKOI_PROFILE=dev SKYKOI_PROFILE=dev node scripts/run-node.mjs --dev tui",
     "ui:build": "node scripts/ui.js build",
     "ui:dev": "node scripts/ui.js dev",
     "ui:install": "node scripts/ui.js install"
@@ -257,7 +257,7 @@
       "apps/macos/.build/**",
       "**/vendor/**",
       "apps/macos/.build/**",
-      "dist/Synurex.app/**"
+      "dist/SkyKoi.app/**"
     ]
   }
 }

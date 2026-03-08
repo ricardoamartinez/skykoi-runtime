@@ -16,8 +16,8 @@ Native Linux companion apps are planned. Contributions are welcome if you want t
 ## Beginner quick path (VPS)
 
 1. Install Node 22+
-2. `npm i -g synurex@latest`
-3. `synurex onboard --install-daemon`
+2. `npm i -g skykoi@latest`
+3. `skykoi onboard --install-daemon`
 4. From your laptop: `ssh -N -L 18789:127.0.0.1:18789 <user>@<host>`
 5. Open `http://127.0.0.1:18789/` and paste your token
 
@@ -39,19 +39,19 @@ Step-by-step VPS guide: [exe.dev](/install/exe-dev)
 Use one of these:
 
 ```
-synurex onboard --install-daemon
+skykoi onboard --install-daemon
 ```
 
 Or:
 
 ```
-synurex gateway install
+skykoi gateway install
 ```
 
 Or:
 
 ```
-synurex configure
+skykoi configure
 ```
 
 Select **Gateway service** when prompted.
@@ -59,27 +59,27 @@ Select **Gateway service** when prompted.
 Repair/migrate:
 
 ```
-synurex doctor
+skykoi doctor
 ```
 
 ## System control (systemd user unit)
 
-Synurex installs a systemd **user** service by default. Use a **system**
+SkyKoi installs a systemd **user** service by default. Use a **system**
 service for shared or always-on servers. The full unit example and guidance
 live in the [Gateway runbook](/gateway).
 
 Minimal setup:
 
-Create `~/.config/systemd/user/Synurex-gateway[-<profile>].service`:
+Create `~/.config/systemd/user/SkyKoi-gateway[-<profile>].service`:
 
 ```
 [Unit]
-Description=synurex gateway (profile: <profile>, v<version>)
+Description=skykoi gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/synurex gateway --port 18789
+ExecStart=/usr/local/bin/skykoi gateway --port 18789
 Restart=always
 RestartSec=5
 
@@ -90,5 +90,5 @@ WantedBy=default.target
 Enable it:
 
 ```
-systemctl --user enable --now Synurex-gateway[-<profile>].service
+systemctl --user enable --now SkyKoi-gateway[-<profile>].service
 ```

@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { SynurexPluginApi, SynurexPluginToolContext } from "../../../src/plugins/types.js";
+import type { SkyKoiPluginApi, SkyKoiPluginToolContext } from "../../../src/plugins/types.js";
 import { createLobsterTool } from "./lobster-tool.js";
 
-async function writeFakeLobsterScript(scriptBody: string, prefix = "Synurex-lobster-plugin-") {
+async function writeFakeLobsterScript(scriptBody: string, prefix = "SkyKoi-lobster-plugin-") {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
   const isWindows = process.platform === "win32";
 
@@ -31,7 +31,7 @@ async function writeFakeLobster(params: { payload: unknown }) {
   return await writeFakeLobsterScript(scriptBody);
 }
 
-function fakeApi(overrides: Partial<SynurexPluginApi> = {}): SynurexPluginApi {
+function fakeApi(overrides: Partial<SkyKoiPluginApi> = {}): SkyKoiPluginApi {
   return {
     id: "lobster",
     name: "lobster",
@@ -57,7 +57,7 @@ function fakeApi(overrides: Partial<SynurexPluginApi> = {}): SynurexPluginApi {
   };
 }
 
-function fakeCtx(overrides: Partial<SynurexPluginToolContext> = {}): SynurexPluginToolContext {
+function fakeCtx(overrides: Partial<SkyKoiPluginToolContext> = {}): SkyKoiPluginToolContext {
   return {
     config: {},
     workspaceDir: "/tmp",
@@ -100,7 +100,7 @@ describe("lobster plugin tool", () => {
       `const payload = ${JSON.stringify(payload)};\n` +
         `console.log("noise before json");\n` +
         `process.stdout.write(JSON.stringify(payload));\n`,
-      "Synurex-lobster-plugin-noisy-",
+      "SkyKoi-lobster-plugin-noisy-",
     );
 
     const originalPath = process.env.PATH;
@@ -213,7 +213,7 @@ describe("lobster plugin tool", () => {
   it("rejects invalid JSON from lobster", async () => {
     const { dir } = await writeFakeLobsterScript(
       `process.stdout.write("nope");\n`,
-      "Synurex-lobster-plugin-bad-",
+      "SkyKoi-lobster-plugin-bad-",
     );
 
     const originalPath = process.env.PATH;
@@ -234,7 +234,7 @@ describe("lobster plugin tool", () => {
 
   it("can be gated off in sandboxed contexts", async () => {
     const api = fakeApi();
-    const factoryTool = (ctx: SynurexPluginToolContext) => {
+    const factoryTool = (ctx: SkyKoiPluginToolContext) => {
       if (ctx.sandboxed) {
         return null;
       }

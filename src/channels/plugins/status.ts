@@ -1,10 +1,10 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { ChannelAccountSnapshot, ChannelPlugin } from "./types.js";
 
 // Channel docking: status snapshots flow through plugin.status hooks here.
 export async function buildChannelAccountSnapshot<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId: string;
   runtime?: ChannelAccountSnapshot;
   probe?: unknown;

@@ -15,7 +15,7 @@ Quick provider overview + examples: [/concepts/model-providers](/concepts/model-
 
 ## How model selection works
 
-Synurex selects models in this order:
+SkyKoi selects models in this order:
 
 1. **Primary** model (`agents.defaults.model.primary` or `agents.defaults.model`).
 2. **Fallbacks** in `agents.defaults.model.fallbacks` (in order).
@@ -24,7 +24,7 @@ Synurex selects models in this order:
 
 Related:
 
-- `agents.defaults.models` is the allowlist/catalog of models Synurex can use (plus aliases).
+- `agents.defaults.models` is the allowlist/catalog of models SkyKoi can use (plus aliases).
 - `agents.defaults.imageModel` is used **only when** the primary model can’t accept images.
 - Per-agent defaults can override `agents.defaults.model` via `agents.list[].model` plus bindings (see [/concepts/multi-agent](/concepts/multi-agent)).
 
@@ -38,7 +38,7 @@ Related:
 If you don’t want to hand-edit config, run the onboarding wizard:
 
 ```bash
-Synurex onboard
+SkyKoi onboard
 ```
 
 It can set up model + auth for common providers, including **OpenAI Code (Codex)
@@ -62,7 +62,7 @@ Provider configuration examples (including OpenCode Zen) live in
 
 If `agents.defaults.models` is set, it becomes the **allowlist** for `/model` and for
 session overrides. When a user selects a model that isn’t in that allowlist,
-Synurex returns:
+SkyKoi returns:
 
 ```
 Model "provider/model" is not allowed. Use /model to list available models.
@@ -108,34 +108,34 @@ Notes:
 - `/model status` is the detailed view (auth candidates and, when configured, provider endpoint `baseUrl` + `api` mode).
 - Model refs are parsed by splitting on the **first** `/`. Use `provider/model` when typing `/model <ref>`.
 - If the model ID itself contains `/` (OpenRouter-style), you must include the provider prefix (example: `/model openrouter/moonshotai/kimi-k2`).
-- If you omit the provider, Synurex treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
+- If you omit the provider, SkyKoi treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
 
 Full command behavior/config: [Slash commands](/tools/slash-commands).
 
 ## CLI commands
 
 ```bash
-Synurex models list
-Synurex models status
-Synurex models set <provider/model>
-Synurex models set-image <provider/model>
+SkyKoi models list
+SkyKoi models status
+SkyKoi models set <provider/model>
+SkyKoi models set-image <provider/model>
 
-Synurex models aliases list
-Synurex models aliases add <alias> <provider/model>
-Synurex models aliases remove <alias>
+SkyKoi models aliases list
+SkyKoi models aliases add <alias> <provider/model>
+SkyKoi models aliases remove <alias>
 
-Synurex models fallbacks list
-Synurex models fallbacks add <provider/model>
-Synurex models fallbacks remove <provider/model>
-Synurex models fallbacks clear
+SkyKoi models fallbacks list
+SkyKoi models fallbacks add <provider/model>
+SkyKoi models fallbacks remove <provider/model>
+SkyKoi models fallbacks clear
 
-Synurex models image-fallbacks list
-Synurex models image-fallbacks add <provider/model>
-Synurex models image-fallbacks remove <provider/model>
-Synurex models image-fallbacks clear
+SkyKoi models image-fallbacks list
+SkyKoi models image-fallbacks add <provider/model>
+SkyKoi models image-fallbacks remove <provider/model>
+SkyKoi models image-fallbacks clear
 ```
 
-`Synurex models` (no subcommand) is a shortcut for `models status`.
+`SkyKoi models` (no subcommand) is a shortcut for `models status`.
 
 ### `models list`
 
@@ -163,12 +163,12 @@ Preferred Anthropic auth is the Claude Code CLI setup-token (run anywhere; paste
 
 ```bash
 claude setup-token
-Synurex models status
+SkyKoi models status
 ```
 
 ## Scanning (OpenRouter free models)
 
-`Synurex models scan` inspects OpenRouter’s **free model catalog** and can
+`SkyKoi models scan` inspects OpenRouter’s **free model catalog** and can
 optionally probe models for tool and image support.
 
 Key flags:
@@ -204,5 +204,5 @@ mode, pass `--yes` to accept defaults.
 ## Models registry (`models.json`)
 
 Custom providers in `models.providers` are written into `models.json` under the
-agent directory (default `~/.synurex/agents/<agentId>/models.json`). This file
+agent directory (default `~/.skykoi/agents/<agentId>/models.json`). This file
 is merged by default unless `models.mode` is set to `replace`.

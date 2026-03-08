@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "Synurex-models-" });
+  return withTempHomeBase(fn, { prefix: "SkyKoi-models-" });
 }
 
-const _MODELS_CONFIG: SynurexConfig = {
+const _MODELS_CONFIG: SkyKoiConfig = {
   models: {
     providers: {
       "custom-proxy": {
@@ -46,10 +46,10 @@ describe("models-config", () => {
   it("normalizes gemini 3 ids to preview for google providers", async () => {
     await withTempHome(async () => {
       vi.resetModules();
-      const { ensureSynurexModelsJson } = await import("./models-config.js");
-      const { resolveSynurexAgentDir } = await import("./agent-paths.js");
+      const { ensureSkyKoiModelsJson } = await import("./models-config.js");
+      const { resolveSkyKoiAgentDir } = await import("./agent-paths.js");
 
-      const cfg: SynurexConfig = {
+      const cfg: SkyKoiConfig = {
         models: {
           providers: {
             google: {
@@ -83,9 +83,9 @@ describe("models-config", () => {
         },
       };
 
-      await ensureSynurexModelsJson(cfg);
+      await ensureSkyKoiModelsJson(cfg);
 
-      const modelPath = path.join(resolveSynurexAgentDir(), "models.json");
+      const modelPath = path.join(resolveSkyKoiAgentDir(), "models.json");
       const raw = await fs.readFile(modelPath, "utf8");
       const parsed = JSON.parse(raw) as {
         providers: Record<string, { models: Array<{ id: string }> }>;

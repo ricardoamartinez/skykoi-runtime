@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
 
 export type TlonResolvedAccount = {
   accountId: string;
@@ -15,7 +15,7 @@ export type TlonResolvedAccount = {
 };
 
 export function resolveTlonAccount(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId?: string | null,
 ): TlonResolvedAccount {
   const base = cfg.channels?.tlon as
@@ -80,7 +80,7 @@ export function resolveTlonAccount(
   };
 }
 
-export function listTlonAccountIds(cfg: SynurexConfig): string[] {
+export function listTlonAccountIds(cfg: SkyKoiConfig): string[] {
   const base = cfg.channels?.tlon as
     | { ship?: string; accounts?: Record<string, Record<string, unknown>> }
     | undefined;

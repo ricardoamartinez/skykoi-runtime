@@ -131,14 +131,14 @@ describe("DiscordMessageListener", () => {
 
 describe("discord allowlist helpers", () => {
   it("normalizes slugs", () => {
-    expect(normalizeDiscordSlug("Friends of Synurex")).toBe("friends-of-Synurex");
+    expect(normalizeDiscordSlug("Friends of SkyKoi")).toBe("friends-of-SkyKoi");
     expect(normalizeDiscordSlug("#General")).toBe("general");
     expect(normalizeDiscordSlug("Dev__Chat")).toBe("dev-chat");
   });
 
   it("matches ids or names", () => {
     const allow = normalizeDiscordAllowList(
-      ["123", "steipete", "Friends of Synurex"],
+      ["123", "steipete", "Friends of SkyKoi"],
       ["discord:", "user:", "guild:", "channel:"],
     );
     expect(allow).not.toBeNull();
@@ -147,7 +147,7 @@ describe("discord allowlist helpers", () => {
     }
     expect(allowListMatches(allow, { id: "123" })).toBe(true);
     expect(allowListMatches(allow, { name: "steipete" })).toBe(true);
-    expect(allowListMatches(allow, { name: "friends-of-Synurex" })).toBe(true);
+    expect(allowListMatches(allow, { name: "friends-of-SkyKoi" })).toBe(true);
     expect(allowListMatches(allow, { name: "other" })).toBe(false);
   });
 
@@ -165,26 +165,26 @@ describe("discord allowlist helpers", () => {
 describe("discord guild/channel resolution", () => {
   it("resolves guild entry by id", () => {
     const guildEntries = makeEntries({
-      "123": { slug: "friends-of-Synurex" },
+      "123": { slug: "friends-of-SkyKoi" },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of Synurex"),
+      guild: fakeGuild("123", "Friends of SkyKoi"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
-    expect(resolved?.slug).toBe("friends-of-Synurex");
+    expect(resolved?.slug).toBe("friends-of-SkyKoi");
   });
 
   it("resolves guild entry by slug key", () => {
     const guildEntries = makeEntries({
-      "friends-of-Synurex": { slug: "friends-of-Synurex" },
+      "friends-of-SkyKoi": { slug: "friends-of-SkyKoi" },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of Synurex"),
+      guild: fakeGuild("123", "Friends of SkyKoi"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
-    expect(resolved?.slug).toBe("friends-of-Synurex");
+    expect(resolved?.slug).toBe("friends-of-SkyKoi");
   });
 
   it("falls back to wildcard guild entry", () => {
@@ -192,7 +192,7 @@ describe("discord guild/channel resolution", () => {
       "*": { requireMention: false },
     });
     const resolved = resolveDiscordGuildEntry({
-      guild: fakeGuild("123", "Friends of Synurex"),
+      guild: fakeGuild("123", "Friends of SkyKoi"),
       guildEntries,
     });
     expect(resolved?.id).toBe("123");
@@ -558,15 +558,15 @@ describe("discord group DM gating", () => {
   it("matches group DM allowlist", () => {
     expect(
       resolveGroupDmAllow({
-        channels: ["Synurex-dm"],
+        channels: ["SkyKoi-dm"],
         channelId: "1",
-        channelName: "Synurex DM",
-        channelSlug: "Synurex-dm",
+        channelName: "SkyKoi DM",
+        channelSlug: "SkyKoi-dm",
       }),
     ).toBe(true);
     expect(
       resolveGroupDmAllow({
-        channels: ["Synurex-dm"],
+        channels: ["SkyKoi-dm"],
         channelId: "1",
         channelName: "Other",
         channelSlug: "other",

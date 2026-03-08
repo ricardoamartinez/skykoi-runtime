@@ -7,7 +7,7 @@ title: "Credits"
 
 ## The name
 
-Synurex = CLAW + TARDIS, because every space lobster needs a time and space machine.
+SkyKoi = CLAW + TARDIS, because every space lobster needs a time and space machine.
 
 ## Credits
 

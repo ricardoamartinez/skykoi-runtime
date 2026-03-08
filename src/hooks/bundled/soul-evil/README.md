@@ -1,11 +1,11 @@
 # SOUL Evil Hook
 
-Small persona swap hook for Synurex.
+Small persona swap hook for SkyKoi.
 
-Docs: https://docs.synurex.com/hooks/soul-evil
+Docs: https://docs.skykoi.com/hooks/soul-evil
 
 ## Setup
 
-1. `Synurex hooks enable soul-evil`
+1. `SkyKoi hooks enable soul-evil`
 2. Create `SOUL_EVIL.md` next to `SOUL.md` in your agent workspace
 3. Configure `hooks.internal.entries.soul-evil` (see docs)

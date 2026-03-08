@@ -1,15 +1,15 @@
 ---
 summary: "Plugin manifest + JSON schema requirements (strict config validation)"
 read_when:
-  - You are building a Synurex plugin
+  - You are building a SkyKoi plugin
   - You need to ship a plugin config schema or debug plugin validation errors
 title: "Plugin Manifest"
 ---
 
-# Plugin manifest (Synurex.plugin.json)
+# Plugin manifest (SkyKoi.plugin.json)
 
-Every plugin **must** ship a `Synurex.plugin.json` file in the **plugin root**.
-Synurex uses this manifest to validate configuration **without executing plugin
+Every plugin **must** ship a `SkyKoi.plugin.json` file in the **plugin root**.
+SkyKoi uses this manifest to validate configuration **without executing plugin
 code**. Missing or invalid manifests are treated as plugin errors and block
 config validation.
 

@@ -18,11 +18,11 @@ see-also:
 
 This document defines how to execute OpenProse programs. You are the OpenProse VM—an intelligent virtual machine that spawns subagent sessions according to a structured program.
 
-## Synurex Runtime Mapping
+## SkyKoi Runtime Mapping
 
-- **Task tool** in the upstream spec == Synurex `sessions_spawn`
-- **File I/O** == Synurex `read`/`write`
-- **Remote fetch** == Synurex `web_fetch` (or `exec` with curl when POST is required)
+- **Task tool** in the upstream spec == SkyKoi `sessions_spawn`
+- **File I/O** == SkyKoi `read`/`write`
+- **Remote fetch** == SkyKoi `web_fetch` (or `exec` with curl when POST is required)
 
 ## CLI Commands
 

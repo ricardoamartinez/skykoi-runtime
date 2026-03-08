@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/types.js";
+import type { SkyKoiConfig } from "../config/types.js";
 import type { GatewayDaemonRuntime } from "./daemon-runtime.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { collectConfigEnvVars } from "../config/env-vars.js";
@@ -34,7 +34,7 @@ export async function buildGatewayInstallPlan(params: {
   nodePath?: string;
   warn?: WarnFn;
   /** Full config to extract env vars from (env vars + inline env keys). */
-  config?: SynurexConfig;
+  config?: SkyKoiConfig;
 }): Promise<GatewayInstallPlan> {
   const devMode = params.devMode ?? resolveGatewayDevMode();
   const nodePath =
@@ -62,7 +62,7 @@ export async function buildGatewayInstallPlan(params: {
     token: params.token,
     launchdLabel:
       process.platform === "darwin"
-        ? resolveGatewayLaunchAgentLabel(params.env.SYNUREX_PROFILE)
+        ? resolveGatewayLaunchAgentLabel(params.env.SKYKOI_PROFILE)
         : undefined,
   });
 
@@ -79,5 +79,5 @@ export async function buildGatewayInstallPlan(params: {
 export function gatewayInstallErrorHint(platform = process.platform): string {
   return platform === "win32"
     ? "Tip: rerun from an elevated PowerShell (Start → type PowerShell → right-click → Run as administrator) or skip service install."
-    : `Tip: rerun \`${formatCliCommand("synurex gateway install")}\` after fixing the error.`;
+    : `Tip: rerun \`${formatCliCommand("skykoi gateway install")}\` after fixing the error.`;
 }

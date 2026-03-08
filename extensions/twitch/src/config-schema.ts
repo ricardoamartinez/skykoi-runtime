@@ -1,4 +1,4 @@
-import { MarkdownConfigSchema } from "Synurex/plugin-sdk";
+import { MarkdownConfigSchema } from "SkyKoi/plugin-sdk";
 import { z } from "zod";
 
 /**

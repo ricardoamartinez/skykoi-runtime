@@ -1,5 +1,5 @@
 ---
-summary: "Synurex Gateway CLI (`Synurex gateway`) — run, query, and discover gateways"
+summary: "SkyKoi Gateway CLI (`SkyKoi gateway`) — run, query, and discover gateways"
 read_when:
   - Running the Gateway from the CLI (dev or servers)
   - Debugging Gateway auth, bind modes, and connectivity
@@ -9,9 +9,9 @@ title: "gateway"
 
 # Gateway CLI
 
-The Gateway is Synurex’s WebSocket server (channels, nodes, sessions, hooks).
+The Gateway is SkyKoi’s WebSocket server (channels, nodes, sessions, hooks).
 
-Subcommands in this page live under `Synurex gateway …`.
+Subcommands in this page live under `SkyKoi gateway …`.
 
 Related docs:
 
@@ -24,18 +24,18 @@ Related docs:
 Run a local Gateway process:
 
 ```bash
-Synurex gateway
+SkyKoi gateway
 ```
 
 Foreground alias:
 
 ```bash
-Synurex gateway run
+SkyKoi gateway run
 ```
 
 Notes:
 
-- By default, the Gateway refuses to start unless `gateway.mode=local` is set in `~/.synurex/synurex.json`. Use `--allow-unconfigured` for ad-hoc/dev runs.
+- By default, the Gateway refuses to start unless `gateway.mode=local` is set in `~/.skykoi/skykoi.json`. Use `--allow-unconfigured` for ad-hoc/dev runs.
 - Binding beyond loopback without auth is blocked (safety guardrail).
 - `SIGUSR1` triggers an in-process restart when authorized (enable `commands.restart` or use the gateway tool/config apply/update).
 - `SIGINT`/`SIGTERM` handlers stop the gateway process, but they don’t restore any custom terminal state. If you wrap the CLI with a TUI or raw-mode input, restore the terminal before exit.
@@ -45,8 +45,8 @@ Notes:
 - `--port <port>`: WebSocket port (default comes from config/env; usually `18789`).
 - `--bind <loopback|lan|tailnet|auto|custom>`: listener bind mode.
 - `--auth <token|password>`: auth mode override.
-- `--token <token>`: token override (also sets `SYNUREX_GATEWAY_TOKEN` for the process).
-- `--password <password>`: password override (also sets `SYNUREX_GATEWAY_PASSWORD` for the process).
+- `--token <token>`: token override (also sets `SKYKOI_GATEWAY_TOKEN` for the process).
+- `--password <password>`: password override (also sets `SKYKOI_GATEWAY_PASSWORD` for the process).
 - `--tailscale <off|serve|funnel>`: expose the Gateway via Tailscale.
 - `--tailscale-reset-on-exit`: reset Tailscale serve/funnel config on shutdown.
 - `--allow-unconfigured`: allow gateway start without `gateway.mode=local` in config.
@@ -84,7 +84,7 @@ Pass `--token` or `--password` explicitly. Missing explicit credentials is an er
 ### `gateway health`
 
 ```bash
-Synurex gateway health --url ws://127.0.0.1:18789
+SkyKoi gateway health --url ws://127.0.0.1:18789
 ```
 
 ### `gateway status`
@@ -92,8 +92,8 @@ Synurex gateway health --url ws://127.0.0.1:18789
 `gateway status` shows the Gateway service (launchd/systemd/schtasks) plus an optional RPC probe.
 
 ```bash
-Synurex gateway status
-Synurex gateway status --json
+SkyKoi gateway status
+SkyKoi gateway status --json
 ```
 
 Options:
@@ -115,8 +115,8 @@ Options:
 If multiple gateways are reachable, it prints all of them. Multiple gateways are supported when you use isolated profiles/ports (e.g., a rescue bot), but most installs still run a single gateway.
 
 ```bash
-Synurex gateway probe
-Synurex gateway probe --json
+SkyKoi gateway probe
+SkyKoi gateway probe --json
 ```
 
 #### Remote over SSH (Mac app parity)
@@ -126,7 +126,7 @@ The macOS app “Remote over SSH” mode uses a local port-forward so the remote
 CLI equivalent:
 
 ```bash
-Synurex gateway probe --ssh user@gateway-host
+SkyKoi gateway probe --ssh user@gateway-host
 ```
 
 Options:
@@ -145,18 +145,18 @@ Config (optional, used as defaults):
 Low-level RPC helper.
 
 ```bash
-Synurex gateway call status
-Synurex gateway call logs.tail --params '{"sinceMs": 60000}'
+SkyKoi gateway call status
+SkyKoi gateway call logs.tail --params '{"sinceMs": 60000}'
 ```
 
 ## Manage the Gateway service
 
 ```bash
-Synurex gateway install
-Synurex gateway start
-Synurex gateway stop
-Synurex gateway restart
-Synurex gateway uninstall
+SkyKoi gateway install
+SkyKoi gateway start
+SkyKoi gateway stop
+SkyKoi gateway restart
+SkyKoi gateway uninstall
 ```
 
 Notes:
@@ -166,10 +166,10 @@ Notes:
 
 ## Discover gateways (Bonjour)
 
-`gateway discover` scans for Gateway beacons (`_Synurex-gw._tcp`).
+`gateway discover` scans for Gateway beacons (`_SkyKoi-gw._tcp`).
 
 - Multicast DNS-SD: `local.`
-- Unicast DNS-SD (Wide-Area Bonjour): choose a domain (example: `Synurex.internal.`) and set up split DNS + a DNS server; see [/gateway/bonjour](/gateway/bonjour)
+- Unicast DNS-SD (Wide-Area Bonjour): choose a domain (example: `SkyKoi.internal.`) and set up split DNS + a DNS server; see [/gateway/bonjour](/gateway/bonjour)
 
 Only gateways with Bonjour discovery enabled (default) advertise the beacon.
 
@@ -186,7 +186,7 @@ Wide-Area discovery records include (TXT):
 ### `gateway discover`
 
 ```bash
-Synurex gateway discover
+SkyKoi gateway discover
 ```
 
 Options:
@@ -197,6 +197,6 @@ Options:
 Examples:
 
 ```bash
-Synurex gateway discover --timeout 4000
-Synurex gateway discover --json | jq '.beacons[].wsUrl'
+SkyKoi gateway discover --timeout 4000
+SkyKoi gateway discover --json | jq '.beacons[].wsUrl'
 ```

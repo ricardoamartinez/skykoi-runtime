@@ -8,7 +8,7 @@ title: Feishu
 
 # Feishu bot
 
-Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects Synurex to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
+Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects SkyKoi to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
 
 ---
 
@@ -17,13 +17,13 @@ Feishu (Lark) is a team chat platform used by companies for messaging and collab
 Install the Feishu plugin:
 
 ```bash
-Synurex plugins install @Synurex/feishu
+SkyKoi plugins install @SkyKoi/feishu
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-Synurex plugins install ./extensions/feishu
+SkyKoi plugins install ./extensions/feishu
 ```
 
 ---
@@ -34,38 +34,38 @@ There are two ways to add the Feishu channel:
 
 ### Method 1: onboarding wizard (recommended)
 
-If you just installed Synurex, run the wizard:
+If you just installed SkyKoi, run the wizard:
 
 ```bash
-Synurex onboard
+SkyKoi onboard
 ```
 
 The wizard guides you through:
 
 1. Creating a Feishu app and collecting credentials
-2. Configuring app credentials in Synurex
+2. Configuring app credentials in SkyKoi
 3. Starting the gateway
 
 ✅ **After configuration**, check gateway status:
 
-- `Synurex gateway status`
-- `Synurex logs --follow`
+- `SkyKoi gateway status`
+- `SkyKoi logs --follow`
 
 ### Method 2: CLI setup
 
 If you already completed initial install, add the channel via CLI:
 
 ```bash
-Synurex channels add
+SkyKoi channels add
 ```
 
 Choose **Feishu**, then enter the App ID and App Secret.
 
 ✅ **After configuration**, manage the gateway:
 
-- `Synurex gateway status`
-- `Synurex gateway restart`
-- `Synurex logs --follow`
+- `SkyKoi gateway status`
+- `SkyKoi gateway restart`
+- `SkyKoi logs --follow`
 
 ---
 
@@ -141,8 +141,8 @@ In **App Capability** > **Bot**:
 
 ⚠️ **Important:** before setting event subscription, make sure:
 
-1. You already ran `Synurex channels add` for Feishu
-2. The gateway is running (`Synurex gateway status`)
+1. You already ran `SkyKoi channels add` for Feishu
+2. The gateway is running (`SkyKoi gateway status`)
 
 In **Event Subscription**:
 
@@ -161,19 +161,19 @@ In **Event Subscription**:
 
 ---
 
-## Step 2: Configure Synurex
+## Step 2: Configure SkyKoi
 
 ### Configure with the wizard (recommended)
 
 ```bash
-Synurex channels add
+SkyKoi channels add
 ```
 
 Choose **Feishu** and paste your App ID + App Secret.
 
 ### Configure via config file
 
-Edit `~/.synurex/synurex.json`:
+Edit `~/.skykoi/skykoi.json`:
 
 ```json5
 {
@@ -227,7 +227,7 @@ If your tenant is on Lark (international), set the domain to `lark` (or a full d
 ### 1. Start the gateway
 
 ```bash
-Synurex gateway
+SkyKoi gateway
 ```
 
 ### 2. Send a test message
@@ -239,7 +239,7 @@ In Feishu, find your bot and send a message.
 By default, the bot replies with a pairing code. Approve it:
 
 ```bash
-Synurex pairing approve feishu <CODE>
+SkyKoi pairing approve feishu <CODE>
 ```
 
 After approval, you can chat normally.
@@ -263,8 +263,8 @@ After approval, you can chat normally.
 - **Approve pairing**:
 
   ```bash
-  Synurex pairing list feishu
-  Synurex pairing approve feishu <CODE>
+  SkyKoi pairing list feishu
+  SkyKoi pairing approve feishu <CODE>
   ```
 
 - **Allowlist mode**: set `channels.feishu.allowFrom` with allowed Open IDs
@@ -337,7 +337,7 @@ Group IDs look like `oc_xxx`.
 **Method 1 (recommended)**
 
 1. Start the gateway and @mention the bot in the group
-2. Run `Synurex logs --follow` and look for `chat_id`
+2. Run `SkyKoi logs --follow` and look for `chat_id`
 
 **Method 2**
 
@@ -350,14 +350,14 @@ User IDs look like `ou_xxx`.
 **Method 1 (recommended)**
 
 1. Start the gateway and DM the bot
-2. Run `Synurex logs --follow` and look for `open_id`
+2. Run `SkyKoi logs --follow` and look for `open_id`
 
 **Method 2**
 
 Check pairing requests for user Open IDs:
 
 ```bash
-Synurex pairing list feishu
+SkyKoi pairing list feishu
 ```
 
 ---
@@ -376,11 +376,11 @@ Synurex pairing list feishu
 
 | Command                    | Description                   |
 | -------------------------- | ----------------------------- |
-| `Synurex gateway status`  | Show gateway status           |
-| `Synurex gateway install` | Install/start gateway service |
-| `Synurex gateway stop`    | Stop gateway service          |
-| `Synurex gateway restart` | Restart gateway service       |
-| `Synurex logs --follow`   | Tail gateway logs             |
+| `SkyKoi gateway status`  | Show gateway status           |
+| `SkyKoi gateway install` | Install/start gateway service |
+| `SkyKoi gateway stop`    | Stop gateway service          |
+| `SkyKoi gateway restart` | Restart gateway service       |
+| `SkyKoi logs --follow`   | Tail gateway logs             |
 
 ---
 
@@ -391,7 +391,7 @@ Synurex pairing list feishu
 1. Ensure the bot is added to the group
 2. Ensure you @mention the bot (default behavior)
 3. Check `groupPolicy` is not set to `"disabled"`
-4. Check logs: `Synurex logs --follow`
+4. Check logs: `SkyKoi logs --follow`
 
 ### Bot does not receive messages
 
@@ -399,8 +399,8 @@ Synurex pairing list feishu
 2. Ensure event subscription includes `im.message.receive_v1`
 3. Ensure **long connection** is enabled
 4. Ensure app permissions are complete
-5. Ensure the gateway is running: `Synurex gateway status`
-6. Check logs: `Synurex logs --follow`
+5. Ensure the gateway is running: `SkyKoi gateway status`
+6. Check logs: `SkyKoi logs --follow`
 
 ### App Secret leak
 
@@ -476,12 +476,12 @@ Use `bindings` to route Feishu DMs or groups to different agents.
       {
         id: "clawd-fan",
         workspace: "/home/user/clawd-fan",
-        agentDir: "/home/user/.synurex/agents/clawd-fan/agent",
+        agentDir: "/home/user/.skykoi/agents/clawd-fan/agent",
       },
       {
         id: "clawd-xi",
         workspace: "/home/user/clawd-xi",
-        agentDir: "/home/user/.synurex/agents/clawd-xi/agent",
+        agentDir: "/home/user/.skykoi/agents/clawd-xi/agent",
       },
     ],
   },

@@ -18,7 +18,7 @@ Broadcast Groups enable multiple agents to process and respond to the same messa
 
 Current scope: **WhatsApp only** (web channel).
 
-Broadcast groups are evaluated after channel allowlists and group activation rules. In WhatsApp groups, this means broadcasts happen when Synurex would normally reply (for example: on mention, depending on your group settings).
+Broadcast groups are evaluated after channel allowlists and group activation rules. In WhatsApp groups, this means broadcasts happen when SkyKoi would normally reply (for example: on mention, depending on your group settings).
 
 ## Use Cases
 
@@ -83,7 +83,7 @@ Add a top-level `broadcast` section (next to `bindings`). Keys are WhatsApp peer
 }
 ```
 
-**Result:** When Synurex would reply in this chat, it will run all three agents.
+**Result:** When SkyKoi would reply in this chat, it will run all three agents.
 
 ### Processing Strategy
 
@@ -192,7 +192,7 @@ In group `120363403215116621@g.us` with agents `["alfred", "baerbel"]`:
 ```
 Session: agent:alfred:whatsapp:group:120363403215116621@g.us
 History: [user message, alfred's previous responses]
-Workspace: /Users/pascal/Synurex-alfred/
+Workspace: /Users/pascal/SkyKoi-alfred/
 Tools: read, write, exec
 ```
 
@@ -201,7 +201,7 @@ Tools: read, write, exec
 ```
 Session: agent:baerbel:whatsapp:group:120363403215116621@g.us
 History: [user message, baerbel's previous responses]
-Workspace: /Users/pascal/Synurex-baerbel/
+Workspace: /Users/pascal/SkyKoi-baerbel/
 Tools: read only
 ```
 
@@ -317,7 +317,7 @@ Broadcast groups work alongside existing routing:
 **Debug:**
 
 ```bash
-tail -f ~/.synurex/logs/gateway.log | grep broadcast
+tail -f ~/.skykoi/logs/gateway.log | grep broadcast
 ```
 
 ### Only One Agent Responding
@@ -403,7 +403,7 @@ tail -f ~/.synurex/logs/gateway.log | grep broadcast
 ### Config Schema
 
 ```typescript
-interface SynurexConfig {
+interface SkyKoiConfig {
   broadcast?: {
     strategy?: "parallel" | "sequential";
     [peerId: string]: string[];

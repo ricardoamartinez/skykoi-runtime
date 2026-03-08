@@ -1,5 +1,5 @@
-import type { SynurexConfig } from "Synurex/plugin-sdk";
-import { createReplyPrefixOptions } from "Synurex/plugin-sdk";
+import type { SkyKoiConfig } from "SkyKoi/plugin-sdk";
+import { createReplyPrefixOptions } from "SkyKoi/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import { mattermostPlugin } from "./channel.js";
 
@@ -48,7 +48,7 @@ describe("mattermostPlugin", () => {
     });
 
     it("uses account responsePrefix overrides", () => {
-      const cfg: SynurexConfig = {
+      const cfg: SkyKoiConfig = {
         channels: {
           mattermost: {
             responsePrefix: "[Channel]",

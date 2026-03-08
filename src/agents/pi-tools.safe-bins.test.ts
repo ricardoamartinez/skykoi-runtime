@@ -2,23 +2,23 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { ExecApprovalsResolved } from "../infra/exec-approvals.js";
 
-const previousBundledPluginsDir = process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
+const previousBundledPluginsDir = process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
 
 beforeAll(() => {
-  process.env.SYNUREX_BUNDLED_PLUGINS_DIR = path.join(
+  process.env.SKYKOI_BUNDLED_PLUGINS_DIR = path.join(
     os.tmpdir(),
-    "Synurex-test-no-bundled-extensions",
+    "SkyKoi-test-no-bundled-extensions",
   );
 });
 
 afterAll(() => {
   if (previousBundledPluginsDir === undefined) {
-    delete process.env.SYNUREX_BUNDLED_PLUGINS_DIR;
+    delete process.env.SKYKOI_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.SYNUREX_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
+    process.env.SKYKOI_BUNDLED_PLUGINS_DIR = previousBundledPluginsDir;
   }
 });
 
@@ -80,15 +80,15 @@ vi.mock("../infra/exec-approvals.js", async (importOriginal) => {
   return { ...mod, resolveExecApprovals: () => approvals };
 });
 
-describe("createSynurexCodingTools safeBins", () => {
+describe("createSkyKoiCodingTools safeBins", () => {
   it("threads tools.exec.safeBins into exec allowlist checks", async () => {
     if (process.platform === "win32") {
       return;
     }
 
-    const { createSynurexCodingTools } = await import("./pi-tools.js");
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "Synurex-safe-bins-"));
-    const cfg: SynurexConfig = {
+    const { createSkyKoiCodingTools } = await import("./pi-tools.js");
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "SkyKoi-safe-bins-"));
+    const cfg: SkyKoiConfig = {
       tools: {
         exec: {
           host: "gateway",
@@ -99,7 +99,7 @@ describe("createSynurexCodingTools safeBins", () => {
       },
     };
 
-    const tools = createSynurexCodingTools({
+    const tools = createSkyKoiCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: tmpDir,
@@ -109,8 +109,8 @@ describe("createSynurexCodingTools safeBins", () => {
     expect(execTool).toBeDefined();
 
     const marker = `safe-bins-${Date.now()}`;
-    const prevShellEnvTimeoutMs = process.env.SYNUREX_SHELL_ENV_TIMEOUT_MS;
-    process.env.SYNUREX_SHELL_ENV_TIMEOUT_MS = "1000";
+    const prevShellEnvTimeoutMs = process.env.SKYKOI_SHELL_ENV_TIMEOUT_MS;
+    process.env.SKYKOI_SHELL_ENV_TIMEOUT_MS = "1000";
     const result = await (async () => {
       try {
         return await execTool!.execute("call1", {
@@ -119,9 +119,9 @@ describe("createSynurexCodingTools safeBins", () => {
         });
       } finally {
         if (prevShellEnvTimeoutMs === undefined) {
-          delete process.env.SYNUREX_SHELL_ENV_TIMEOUT_MS;
+          delete process.env.SKYKOI_SHELL_ENV_TIMEOUT_MS;
         } else {
-          process.env.SYNUREX_SHELL_ENV_TIMEOUT_MS = prevShellEnvTimeoutMs;
+          process.env.SKYKOI_SHELL_ENV_TIMEOUT_MS = prevShellEnvTimeoutMs;
         }
       }
     })();

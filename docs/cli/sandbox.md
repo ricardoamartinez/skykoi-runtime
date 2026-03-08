@@ -11,29 +11,29 @@ Manage Docker-based sandbox containers for isolated agent execution.
 
 ## Overview
 
-Synurex can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
+SkyKoi can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
 
 ## Commands
 
-### `Synurex sandbox explain`
+### `SkyKoi sandbox explain`
 
 Inspect the **effective** sandbox mode/scope/workspace access, sandbox tool policy, and elevated gates (with fix-it config key paths).
 
 ```bash
-Synurex sandbox explain
-Synurex sandbox explain --session agent:main:main
-Synurex sandbox explain --agent work
-Synurex sandbox explain --json
+SkyKoi sandbox explain
+SkyKoi sandbox explain --session agent:main:main
+SkyKoi sandbox explain --agent work
+SkyKoi sandbox explain --json
 ```
 
-### `Synurex sandbox list`
+### `SkyKoi sandbox list`
 
 List all sandbox containers with their status and configuration.
 
 ```bash
-Synurex sandbox list
-Synurex sandbox list --browser  # List only browser containers
-Synurex sandbox list --json     # JSON output
+SkyKoi sandbox list
+SkyKoi sandbox list --browser  # List only browser containers
+SkyKoi sandbox list --json     # JSON output
 ```
 
 **Output includes:**
@@ -44,16 +44,16 @@ Synurex sandbox list --json     # JSON output
 - Idle time (time since last use)
 - Associated session/agent
 
-### `Synurex sandbox recreate`
+### `SkyKoi sandbox recreate`
 
 Remove sandbox containers to force recreation with updated images/config.
 
 ```bash
-Synurex sandbox recreate --all                # Recreate all containers
-Synurex sandbox recreate --session main       # Specific session
-Synurex sandbox recreate --agent mybot        # Specific agent
-Synurex sandbox recreate --browser            # Only browser containers
-Synurex sandbox recreate --all --force        # Skip confirmation
+SkyKoi sandbox recreate --all                # Recreate all containers
+SkyKoi sandbox recreate --session main       # Specific session
+SkyKoi sandbox recreate --agent mybot        # Specific agent
+SkyKoi sandbox recreate --browser            # Only browser containers
+SkyKoi sandbox recreate --all --force        # Skip confirmation
 ```
 
 **Options:**
@@ -72,14 +72,14 @@ Synurex sandbox recreate --all --force        # Skip confirmation
 
 ```bash
 # Pull new image
-docker pull Synurex-sandbox:latest
-docker tag Synurex-sandbox:latest Synurex-sandbox:bookworm-slim
+docker pull SkyKoi-sandbox:latest
+docker tag SkyKoi-sandbox:latest SkyKoi-sandbox:bookworm-slim
 
 # Update config to use new image
 # Edit config: agents.defaults.sandbox.docker.image (or agents.list[].sandbox.docker.image)
 
 # Recreate containers
-Synurex sandbox recreate --all
+SkyKoi sandbox recreate --all
 ```
 
 ### After changing sandbox configuration
@@ -88,22 +88,22 @@ Synurex sandbox recreate --all
 # Edit config: agents.defaults.sandbox.* (or agents.list[].sandbox.*)
 
 # Recreate to apply new config
-Synurex sandbox recreate --all
+SkyKoi sandbox recreate --all
 ```
 
 ### After changing setupCommand
 
 ```bash
-Synurex sandbox recreate --all
+SkyKoi sandbox recreate --all
 # or just one agent:
-Synurex sandbox recreate --agent family
+SkyKoi sandbox recreate --agent family
 ```
 
 ### For a specific agent only
 
 ```bash
 # Update only one agent's containers
-Synurex sandbox recreate --agent alfred
+SkyKoi sandbox recreate --agent alfred
 ```
 
 ## Why is this needed?
@@ -114,14 +114,14 @@ Synurex sandbox recreate --agent alfred
 - Containers are only pruned after 24h of inactivity
 - Regularly-used agents keep old containers running indefinitely
 
-**Solution:** Use `Synurex sandbox recreate` to force removal of old containers. They'll be recreated automatically with current settings when next needed.
+**Solution:** Use `SkyKoi sandbox recreate` to force removal of old containers. They'll be recreated automatically with current settings when next needed.
 
-Tip: prefer `Synurex sandbox recreate` over manual `docker rm`. It uses the
+Tip: prefer `SkyKoi sandbox recreate` over manual `docker rm`. It uses the
 Gateway’s container naming and avoids mismatches when scope/session keys change.
 
 ## Configuration
 
-Sandbox settings live in `~/.synurex/synurex.json` under `agents.defaults.sandbox` (per-agent overrides go in `agents.list[].sandbox`):
+Sandbox settings live in `~/.skykoi/skykoi.json` under `agents.defaults.sandbox` (per-agent overrides go in `agents.list[].sandbox`):
 
 ```jsonc
 {
@@ -131,8 +131,8 @@ Sandbox settings live in `~/.synurex/synurex.json` under `agents.defaults.sandbo
         "mode": "all", // off, non-main, all
         "scope": "agent", // session, agent, shared
         "docker": {
-          "image": "Synurex-sandbox:bookworm-slim",
-          "containerPrefix": "Synurex-sbx-",
+          "image": "SkyKoi-sandbox:bookworm-slim",
+          "containerPrefix": "SkyKoi-sbx-",
           // ... more Docker options
         },
         "prune": {

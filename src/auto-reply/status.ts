@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import type { SkillCommandSpec } from "../agents/skills.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { MediaUnderstandingDecision } from "../media-understanding/types.js";
 import type { CommandCategory } from "./commands-registry.types.js";
 import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./thinking.js";
@@ -39,7 +39,7 @@ import {
   type ChatCommandDefinition,
 } from "./commands-registry.js";
 
-type AgentConfig = Partial<NonNullable<NonNullable<SynurexConfig["agents"]>["defaults"]>>;
+type AgentConfig = Partial<NonNullable<NonNullable<SkyKoiConfig["agents"]>["defaults"]>>;
 
 export const formatTokenCount = formatTokenCountShared;
 
@@ -53,7 +53,7 @@ type QueueStatus = {
 };
 
 type StatusArgs = {
-  config?: SynurexConfig;
+  config?: SkyKoiConfig;
   agent: AgentConfig;
   sessionEntry?: SessionEntry;
   sessionKey?: string;
@@ -192,7 +192,7 @@ const readUsageFromSessionLog = (
       model?: string;
     }
   | undefined => {
-  // Transcripts are stored at the session file path (fallback: ~/.synurex/sessions/<SessionId>.jsonl)
+  // Transcripts are stored at the session file path (fallback: ~/.skykoi/sessions/<SessionId>.jsonl)
   if (!sessionId) {
     return undefined;
   }
@@ -302,7 +302,7 @@ const formatMediaUnderstandingLine = (decisions?: MediaUnderstandingDecision[]) 
 };
 
 const formatVoiceModeLine = (
-  config?: SynurexConfig,
+  config?: SkyKoiConfig,
   sessionEntry?: SessionEntry,
 ): string | null => {
   if (!config) {
@@ -332,7 +332,7 @@ export function buildStatusMessage(args: StatusArgs): string {
       agents: {
         defaults: args.agent ?? {},
       },
-    } as SynurexConfig,
+    } as SkyKoiConfig,
     defaultProvider: DEFAULT_PROVIDER,
     defaultModel: DEFAULT_MODEL,
   });
@@ -459,7 +459,7 @@ export function buildStatusMessage(args: StatusArgs): string {
   const authLabel = authLabelValue ? ` · 🔑 ${authLabelValue}` : "";
   const modelLine = `🧠 Model: ${modelLabel}${authLabel}`;
   const commit = resolveCommitHash();
-  const versionLine = `🦞 Synurex ${VERSION}${commit ? ` (${commit})` : ""}`;
+  const versionLine = `🦞 SkyKoi ${VERSION}${commit ? ` (${commit})` : ""}`;
   const usagePair = formatUsagePair(inputTokens, outputTokens);
   const costLine = costLabel ? `💵 Cost: ${costLabel}` : null;
   const usageCostLine =
@@ -521,7 +521,7 @@ function groupCommandsByCategory(
   return grouped;
 }
 
-export function buildHelpMessage(cfg?: SynurexConfig): string {
+export function buildHelpMessage(cfg?: SkyKoiConfig): string {
   const lines = ["ℹ️ Help", ""];
 
   lines.push("Session");
@@ -642,7 +642,7 @@ function formatCommandList(items: CommandsListItem[]): string {
 }
 
 export function buildCommandsMessage(
-  cfg?: SynurexConfig,
+  cfg?: SkyKoiConfig,
   skillCommands?: SkillCommandSpec[],
   options?: CommandsMessageOptions,
 ): string {
@@ -651,7 +651,7 @@ export function buildCommandsMessage(
 }
 
 export function buildCommandsMessagePaginated(
-  cfg?: SynurexConfig,
+  cfg?: SkyKoiConfig,
   skillCommands?: SkillCommandSpec[],
   options?: CommandsMessageOptions,
 ): CommandsMessageResult {

@@ -1,15 +1,15 @@
 ---
 name: session-memory
 description: "Save session context to memory when /new command is issued"
-homepage: https://docs.synurex.com/hooks#session-memory
+homepage: https://docs.skykoi.com/hooks#session-memory
 metadata:
   {
-    "synurex":
+    "skykoi":
       {
         "emoji": "💾",
         "events": ["command:new"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Synurex" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with SkyKoi" }],
       },
   }
 ---
@@ -82,7 +82,7 @@ Example configuration:
 
 The hook automatically:
 
-- Uses your workspace directory (`~/.synurex/workspace` by default)
+- Uses your workspace directory (`~/.skykoi/workspace` by default)
 - Uses your configured LLM for slug generation
 - Falls back to timestamp slugs if LLM is unavailable
 
@@ -91,7 +91,7 @@ The hook automatically:
 To disable this hook:
 
 ```bash
-Synurex hooks disable session-memory
+SkyKoi hooks disable session-memory
 ```
 
 Or remove it from your config:

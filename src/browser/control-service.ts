@@ -73,7 +73,7 @@ export async function stopBrowserControlService(): Promise<void> {
       }
     }
   } catch (err) {
-    logService.warn(`Synurex browser stop failed: ${String(err)}`);
+    logService.warn(`SkyKoi browser stop failed: ${String(err)}`);
   }
 
   state = null;

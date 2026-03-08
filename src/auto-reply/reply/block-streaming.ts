@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { BlockStreamingCoalesceConfig } from "../../config/types.js";
 import { getChannelDock } from "../../channels/dock.js";
 import { normalizeChannelId } from "../../channels/plugins/index.js";
@@ -31,7 +31,7 @@ type ProviderBlockStreamingConfig = {
 };
 
 function resolveProviderBlockStreamingCoalesce(params: {
-  cfg: SynurexConfig | undefined;
+  cfg: SkyKoiConfig | undefined;
   providerKey?: TextChunkProvider;
   accountId?: string | null;
 }): BlockStreamingCoalesceConfig | undefined {
@@ -59,7 +59,7 @@ export type BlockStreamingCoalescing = {
 };
 
 export function resolveBlockStreamingChunking(
-  cfg: SynurexConfig | undefined,
+  cfg: SkyKoiConfig | undefined,
   provider?: string,
   accountId?: string | null,
 ): {
@@ -102,7 +102,7 @@ export function resolveBlockStreamingChunking(
 }
 
 export function resolveBlockStreamingCoalescing(
-  cfg: SynurexConfig | undefined,
+  cfg: SkyKoiConfig | undefined,
   provider?: string,
   accountId?: string | null,
   chunking?: {

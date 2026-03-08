@@ -39,7 +39,7 @@ const runtime: RuntimeEnv = {
 };
 
 const _baseSnapshot = {
-  path: "/tmp/synurex.json",
+  path: "/tmp/skykoi.json",
   exists: true,
   raw: "{}",
   parsed: {},

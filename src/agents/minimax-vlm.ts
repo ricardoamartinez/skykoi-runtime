@@ -71,7 +71,7 @@ export async function minimaxUnderstandImage(params: {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "MM-API-Source": "Synurex",
+      "MM-API-Source": "SkyKoi",
     },
     body: JSON.stringify({
       prompt,

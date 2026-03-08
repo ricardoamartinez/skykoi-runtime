@@ -1,6 +1,6 @@
-import type { SynurexConfig } from "./types.js";
+import type { SkyKoiConfig } from "./types.js";
 
-export function collectConfigEnvVars(cfg?: SynurexConfig): Record<string, string> {
+export function collectConfigEnvVars(cfg?: SkyKoiConfig): Record<string, string> {
   const envConfig = cfg?.env;
   if (!envConfig) {
     return {};

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ConfigFileSnapshot } from "./types.synurex.js";
+import type { ConfigFileSnapshot } from "./types.skykoi.js";
 import {
   REDACTED_SENTINEL,
   redactConfigSnapshot,
@@ -8,7 +8,7 @@ import {
 
 function makeSnapshot(config: Record<string, unknown>, raw?: string): ConfigFileSnapshot {
   return {
-    path: "/home/user/.synurex/config.json5",
+    path: "/home/user/.skykoi/config.json5",
     exists: true,
     raw: raw ?? JSON.stringify(config),
     parsed: config,

@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
@@ -6,16 +6,16 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { buildWorkspaceHookStatus } from "../hooks/hooks-status.js";
 
 export async function setupInternalHooks(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
-): Promise<SynurexConfig> {
+): Promise<SkyKoiConfig> {
   await prompter.note(
     [
       "Hooks let you automate actions when agent commands are issued.",
       "Example: Save session context to memory when you issue /new.",
       "",
-      "Learn more: https://docs.synurex.com/hooks",
+      "Learn more: https://docs.skykoi.com/hooks",
     ].join("\n"),
     "Hooks",
   );
@@ -58,7 +58,7 @@ export async function setupInternalHooks(
     entries[name] = { enabled: true };
   }
 
-  const next: SynurexConfig = {
+  const next: SkyKoiConfig = {
     ...cfg,
     hooks: {
       ...cfg.hooks,
@@ -74,9 +74,9 @@ export async function setupInternalHooks(
       `Enabled ${selected.length} hook${selected.length > 1 ? "s" : ""}: ${selected.join(", ")}`,
       "",
       "You can manage hooks later with:",
-      `  ${formatCliCommand("synurex hooks list")}`,
-      `  ${formatCliCommand("synurex hooks enable <name>")}`,
-      `  ${formatCliCommand("synurex hooks disable <name>")}`,
+      `  ${formatCliCommand("skykoi hooks list")}`,
+      `  ${formatCliCommand("skykoi hooks enable <name>")}`,
+      `  ${formatCliCommand("skykoi hooks disable <name>")}`,
     ].join("\n"),
     "Hooks Configured",
   );

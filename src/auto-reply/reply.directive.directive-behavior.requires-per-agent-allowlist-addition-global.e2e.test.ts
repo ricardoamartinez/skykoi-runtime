@@ -27,10 +27,10 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        SYNUREX_AGENT_DIR: (home) => path.join(home, ".synurex", "agent"),
-        PI_CODING_AGENT_DIR: (home) => path.join(home, ".synurex", "agent"),
+        SKYKOI_AGENT_DIR: (home) => path.join(home, ".skykoi", "agent"),
+        PI_CODING_AGENT_DIR: (home) => path.join(home, ".skykoi", "agent"),
       },
-      prefix: "Synurex-reply-",
+      prefix: "SkyKoi-reply-",
     },
   );
 }
@@ -79,7 +79,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "synurex"),
+              workspace: path.join(home, "skykoi"),
             },
             list: [
               {
@@ -126,7 +126,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "synurex"),
+              workspace: path.join(home, "skykoi"),
             },
             list: [
               {
@@ -172,7 +172,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "synurex"),
+              workspace: path.join(home, "skykoi"),
               sandbox: { mode: "off" },
             },
           },
@@ -210,7 +210,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "synurex"),
+              workspace: path.join(home, "skykoi"),
             },
           },
           tools: {
@@ -246,7 +246,7 @@ describe("directive behavior", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "synurex"),
+              workspace: path.join(home, "skykoi"),
             },
           },
           tools: {

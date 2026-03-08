@@ -1,6 +1,6 @@
-// Synurex palette tokens for CLI/UI theming.
+// SkyKoi palette tokens for CLI/UI theming.
 // Keep in sync with docs/cli/index.md (CLI palette section).
-export const SYNUREX_PALETTE = {
+export const SKYKOI_PALETTE = {
   accent: "#8B5CF6",
   accentBright: "#A78BFA",
   accentDim: "#6D28D9",

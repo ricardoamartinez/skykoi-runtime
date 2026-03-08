@@ -1,13 +1,13 @@
 // Default service labels (canonical + legacy compatibility)
-export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.synurex.gateway";
-export const GATEWAY_SYSTEMD_SERVICE_NAME = "synurex-gateway";
-export const GATEWAY_WINDOWS_TASK_NAME = "Synurex Gateway";
-export const GATEWAY_SERVICE_MARKER = "synurex";
+export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.skykoi.gateway";
+export const GATEWAY_SYSTEMD_SERVICE_NAME = "skykoi-gateway";
+export const GATEWAY_WINDOWS_TASK_NAME = "SkyKoi Gateway";
+export const GATEWAY_SERVICE_MARKER = "skykoi";
 export const GATEWAY_SERVICE_KIND = "gateway";
-export const NODE_LAUNCH_AGENT_LABEL = "ai.synurex.node";
-export const NODE_SYSTEMD_SERVICE_NAME = "synurex-node";
-export const NODE_WINDOWS_TASK_NAME = "Synurex Node";
-export const NODE_SERVICE_MARKER = "synurex";
+export const NODE_LAUNCH_AGENT_LABEL = "ai.skykoi.node";
+export const NODE_SYSTEMD_SERVICE_NAME = "skykoi-node";
+export const NODE_WINDOWS_TASK_NAME = "SkyKoi Node";
+export const NODE_SERVICE_MARKER = "skykoi";
 export const NODE_SERVICE_KIND = "node";
 export const NODE_WINDOWS_TASK_SCRIPT_NAME = "node.cmd";
 export const LEGACY_GATEWAY_LAUNCH_AGENT_LABELS: string[] = [];
@@ -32,7 +32,7 @@ export function resolveGatewayLaunchAgentLabel(profile?: string): string {
   if (!normalized) {
     return GATEWAY_LAUNCH_AGENT_LABEL;
   }
-  return `ai.synurex.${normalized}`;
+  return `ai.skykoi.${normalized}`;
 }
 
 export function resolveLegacyGatewayLaunchAgentLabels(profile?: string): string[] {
@@ -45,7 +45,7 @@ export function resolveGatewaySystemdServiceName(profile?: string): string {
   if (!suffix) {
     return GATEWAY_SYSTEMD_SERVICE_NAME;
   }
-  return `synurex-gateway${suffix}`;
+  return `skykoi-gateway${suffix}`;
 }
 
 export function resolveGatewayWindowsTaskName(profile?: string): string {
@@ -53,7 +53,7 @@ export function resolveGatewayWindowsTaskName(profile?: string): string {
   if (!normalized) {
     return GATEWAY_WINDOWS_TASK_NAME;
   }
-  return `Synurex Gateway (${normalized})`;
+  return `SkyKoi Gateway (${normalized})`;
 }
 
 export function formatGatewayServiceDescription(params?: {
@@ -70,9 +70,9 @@ export function formatGatewayServiceDescription(params?: {
     parts.push(`v${version}`);
   }
   if (parts.length === 0) {
-    return "Synurex Gateway";
+    return "SkyKoi Gateway";
   }
-  return `Synurex Gateway (${parts.join(", ")})`;
+  return `SkyKoi Gateway (${parts.join(", ")})`;
 }
 
 export function resolveNodeLaunchAgentLabel(): string {
@@ -90,7 +90,7 @@ export function resolveNodeWindowsTaskName(): string {
 export function formatNodeServiceDescription(params?: { version?: string }): string {
   const version = params?.version?.trim();
   if (!version) {
-    return "Synurex Node Host";
+    return "SkyKoi Node Host";
   }
-  return `Synurex Node Host (v${version})`;
+  return `SkyKoi Node Host (v${version})`;
 }

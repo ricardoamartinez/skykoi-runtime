@@ -2,7 +2,7 @@
 read_when:
   - 你正在管理已配对的节点（摄像头、屏幕、画布）
   - 你需要批准请求或调用节点命令
-summary: "`Synurex nodes` 的 CLI 参考（列表/状态/批准/调用，摄像头/画布/屏幕）"
+summary: "`SkyKoi nodes` 的 CLI 参考（列表/状态/批准/调用，摄像头/画布/屏幕）"
 title: nodes
 x-i18n:
   generated_at: "2026-02-03T10:04:26Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `Synurex nodes`
+# `SkyKoi nodes`
 
 管理已配对的节点（设备）并调用节点功能。
 
@@ -30,14 +30,14 @@ x-i18n:
 ## 常用命令
 
 ```bash
-Synurex nodes list
-Synurex nodes list --connected
-Synurex nodes list --last-connected 24h
-Synurex nodes pending
-Synurex nodes approve <requestId>
-Synurex nodes status
-Synurex nodes status --connected
-Synurex nodes status --last-connected 24h
+SkyKoi nodes list
+SkyKoi nodes list --connected
+SkyKoi nodes list --last-connected 24h
+SkyKoi nodes pending
+SkyKoi nodes approve <requestId>
+SkyKoi nodes status
+SkyKoi nodes status --connected
+SkyKoi nodes status --last-connected 24h
 ```
 
 `nodes list` 打印待处理/已配对表格。已配对行包含最近连接时长（Last Connect）。
@@ -47,10 +47,10 @@ Synurex nodes status --last-connected 24h
 ## 调用 / 运行
 
 ```bash
-Synurex nodes invoke --node <id|name|ip> --command <command> --params <json>
-Synurex nodes run --node <id|name|ip> <command...>
-Synurex nodes run --raw "git status"
-Synurex nodes run --agent main --node <id|name|ip> --raw "git status"
+SkyKoi nodes invoke --node <id|name|ip> --command <command> --params <json>
+SkyKoi nodes run --node <id|name|ip> <command...>
+SkyKoi nodes run --raw "git status"
+SkyKoi nodes run --agent main --node <id|name|ip> --raw "git status"
 ```
 
 调用标志：

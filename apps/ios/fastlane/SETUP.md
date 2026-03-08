@@ -1,4 +1,4 @@
-# fastlane setup (SYNUREX iOS)
+# fastlane setup (SKYKOI iOS)
 
 Install:
 

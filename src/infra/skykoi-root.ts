@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const CORE_PACKAGE_NAMES = new Set(["synurex"]);
+const CORE_PACKAGE_NAMES = new Set(["skykoi"]);
 
 async function readPackageName(dir: string): Promise<string | null> {
   try {
@@ -70,7 +70,7 @@ function candidateDirsFromArgv1(argv1: string): string[] {
   return candidates;
 }
 
-export async function resolveSynurexPackageRoot(opts: {
+export async function resolveSkyKoiPackageRoot(opts: {
   cwd?: string;
   argv1?: string;
   moduleUrl?: string;
@@ -97,7 +97,7 @@ export async function resolveSynurexPackageRoot(opts: {
   return null;
 }
 
-export function resolveSynurexPackageRootSync(opts: {
+export function resolveSkyKoiPackageRootSync(opts: {
   cwd?: string;
   argv1?: string;
   moduleUrl?: string;

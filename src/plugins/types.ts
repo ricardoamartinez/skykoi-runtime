@@ -7,7 +7,7 @@ import type { ReplyPayload } from "../auto-reply/types.js";
 import type { ChannelDock } from "../channels/dock.js";
 import type { ChannelPlugin } from "../channels/plugins/types.js";
 import type { createVpsAwareOAuthHandlers } from "../commands/oauth-flow.js";
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { ModelProviderConfig } from "../config/types.js";
 import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
 import type { InternalHookHandler } from "../hooks/internal-hooks.js";
@@ -39,7 +39,7 @@ export type PluginConfigValidation =
   | { ok: true; value?: unknown }
   | { ok: false; errors: string[] };
 
-export type SynurexPluginConfigSchema = {
+export type SkyKoiPluginConfigSchema = {
   safeParse?: (value: unknown) => {
     success: boolean;
     data?: unknown;
@@ -53,8 +53,8 @@ export type SynurexPluginConfigSchema = {
   jsonSchema?: Record<string, unknown>;
 };
 
-export type SynurexPluginToolContext = {
-  config?: SynurexConfig;
+export type SkyKoiPluginToolContext = {
+  config?: SkyKoiConfig;
   workspaceDir?: string;
   agentDir?: string;
   agentId?: string;
@@ -64,17 +64,17 @@ export type SynurexPluginToolContext = {
   sandboxed?: boolean;
 };
 
-export type SynurexPluginToolFactory = (
-  ctx: SynurexPluginToolContext,
+export type SkyKoiPluginToolFactory = (
+  ctx: SkyKoiPluginToolContext,
 ) => AnyAgentTool | AnyAgentTool[] | null | undefined;
 
-export type SynurexPluginToolOptions = {
+export type SkyKoiPluginToolOptions = {
   name?: string;
   names?: string[];
   optional?: boolean;
 };
 
-export type SynurexPluginHookOptions = {
+export type SkyKoiPluginHookOptions = {
   entry?: HookEntry;
   name?: string;
   description?: string;
@@ -85,13 +85,13 @@ export type ProviderAuthKind = "oauth" | "api_key" | "token" | "device_code" | "
 
 export type ProviderAuthResult = {
   profiles: Array<{ profileId: string; credential: AuthProfileCredential }>;
-  configPatch?: Partial<SynurexConfig>;
+  configPatch?: Partial<SkyKoiConfig>;
   defaultModel?: string;
   notes?: string[];
 };
 
 export type ProviderAuthContext = {
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   agentDir?: string;
   workspaceDir?: string;
   prompter: WizardPrompter;
@@ -123,7 +123,7 @@ export type ProviderPlugin = {
   refreshOAuth?: (cred: OAuthCredential) => Promise<OAuthCredential>;
 };
 
-export type SynurexPluginGatewayMethod = {
+export type SkyKoiPluginGatewayMethod = {
   method: string;
   handler: GatewayRequestHandler;
 };
@@ -146,8 +146,8 @@ export type PluginCommandContext = {
   args?: string;
   /** The full normalized command body */
   commandBody: string;
-  /** Current Synurex configuration */
-  config: SynurexConfig;
+  /** Current SkyKoi configuration */
+  config: SkyKoiConfig;
 };
 
 /**
@@ -165,7 +165,7 @@ export type PluginCommandHandler = (
 /**
  * Definition for a plugin-registered command.
  */
-export type SynurexPluginCommandDefinition = {
+export type SkyKoiPluginCommandDefinition = {
   /** Command name without leading slash (e.g., "tts") */
   name: string;
   /** Description shown in /help and command menus */
@@ -178,90 +178,90 @@ export type SynurexPluginCommandDefinition = {
   handler: PluginCommandHandler;
 };
 
-export type SynurexPluginHttpHandler = (
+export type SkyKoiPluginHttpHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<boolean> | boolean;
 
-export type SynurexPluginHttpRouteHandler = (
+export type SkyKoiPluginHttpRouteHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<void> | void;
 
-export type SynurexPluginCliContext = {
+export type SkyKoiPluginCliContext = {
   program: Command;
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   workspaceDir?: string;
   logger: PluginLogger;
 };
 
-export type SynurexPluginCliRegistrar = (ctx: SynurexPluginCliContext) => void | Promise<void>;
+export type SkyKoiPluginCliRegistrar = (ctx: SkyKoiPluginCliContext) => void | Promise<void>;
 
-export type SynurexPluginServiceContext = {
-  config: SynurexConfig;
+export type SkyKoiPluginServiceContext = {
+  config: SkyKoiConfig;
   workspaceDir?: string;
   stateDir: string;
   logger: PluginLogger;
 };
 
-export type SynurexPluginService = {
+export type SkyKoiPluginService = {
   id: string;
-  start: (ctx: SynurexPluginServiceContext) => void | Promise<void>;
-  stop?: (ctx: SynurexPluginServiceContext) => void | Promise<void>;
+  start: (ctx: SkyKoiPluginServiceContext) => void | Promise<void>;
+  stop?: (ctx: SkyKoiPluginServiceContext) => void | Promise<void>;
 };
 
-export type SynurexPluginChannelRegistration = {
+export type SkyKoiPluginChannelRegistration = {
   plugin: ChannelPlugin;
   dock?: ChannelDock;
 };
 
-export type SynurexPluginDefinition = {
+export type SkyKoiPluginDefinition = {
   id?: string;
   name?: string;
   description?: string;
   version?: string;
   kind?: PluginKind;
-  configSchema?: SynurexPluginConfigSchema;
-  register?: (api: SynurexPluginApi) => void | Promise<void>;
-  activate?: (api: SynurexPluginApi) => void | Promise<void>;
+  configSchema?: SkyKoiPluginConfigSchema;
+  register?: (api: SkyKoiPluginApi) => void | Promise<void>;
+  activate?: (api: SkyKoiPluginApi) => void | Promise<void>;
 };
 
-export type SynurexPluginModule =
-  | SynurexPluginDefinition
-  | ((api: SynurexPluginApi) => void | Promise<void>);
+export type SkyKoiPluginModule =
+  | SkyKoiPluginDefinition
+  | ((api: SkyKoiPluginApi) => void | Promise<void>);
 
-export type SynurexPluginApi = {
+export type SkyKoiPluginApi = {
   id: string;
   name: string;
   version?: string;
   description?: string;
   source: string;
-  config: SynurexConfig;
+  config: SkyKoiConfig;
   pluginConfig?: Record<string, unknown>;
   runtime: PluginRuntime;
   logger: PluginLogger;
   registerTool: (
-    tool: AnyAgentTool | SynurexPluginToolFactory,
-    opts?: SynurexPluginToolOptions,
+    tool: AnyAgentTool | SkyKoiPluginToolFactory,
+    opts?: SkyKoiPluginToolOptions,
   ) => void;
   registerHook: (
     events: string | string[],
     handler: InternalHookHandler,
-    opts?: SynurexPluginHookOptions,
+    opts?: SkyKoiPluginHookOptions,
   ) => void;
-  registerHttpHandler: (handler: SynurexPluginHttpHandler) => void;
-  registerHttpRoute: (params: { path: string; handler: SynurexPluginHttpRouteHandler }) => void;
-  registerChannel: (registration: SynurexPluginChannelRegistration | ChannelPlugin) => void;
+  registerHttpHandler: (handler: SkyKoiPluginHttpHandler) => void;
+  registerHttpRoute: (params: { path: string; handler: SkyKoiPluginHttpRouteHandler }) => void;
+  registerChannel: (registration: SkyKoiPluginChannelRegistration | ChannelPlugin) => void;
   registerGatewayMethod: (method: string, handler: GatewayRequestHandler) => void;
-  registerCli: (registrar: SynurexPluginCliRegistrar, opts?: { commands?: string[] }) => void;
-  registerService: (service: SynurexPluginService) => void;
+  registerCli: (registrar: SkyKoiPluginCliRegistrar, opts?: { commands?: string[] }) => void;
+  registerService: (service: SkyKoiPluginService) => void;
   registerProvider: (provider: ProviderPlugin) => void;
   /**
    * Register a custom command that bypasses the LLM agent.
    * Plugin commands are processed before built-in commands and before agent invocation.
    * Use this for simple state-toggling or status commands that don't need AI reasoning.
    */
-  registerCommand: (command: SynurexPluginCommandDefinition) => void;
+  registerCommand: (command: SkyKoiPluginCommandDefinition) => void;
   resolvePath: (input: string) => string;
   /** Register a lifecycle hook handler */
   on: <K extends PluginHookName>(

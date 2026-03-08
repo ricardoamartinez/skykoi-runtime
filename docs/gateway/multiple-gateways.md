@@ -1,5 +1,5 @@
 ---
-summary: "Run multiple Synurex Gateways on one host (isolation, ports, and profiles)"
+summary: "Run multiple SkyKoi Gateways on one host (isolation, ports, and profiles)"
 read_when:
   - Running more than one Gateway on the same machine
   - You need isolated config/state/ports per Gateway
@@ -12,8 +12,8 @@ Most setups should use one Gateway because a single Gateway can handle multiple 
 
 ## Isolation checklist (required)
 
-- `SYNUREX_CONFIG_PATH` — per-instance config file
-- `SYNUREX_STATE_DIR` — per-instance sessions, creds, caches
+- `SKYKOI_CONFIG_PATH` — per-instance config file
+- `SKYKOI_STATE_DIR` — per-instance sessions, creds, caches
 - `agents.defaults.workspace` — per-instance workspace root
 - `gateway.port` (or `--port`) — unique per instance
 - Derived ports (browser/canvas) must not overlap
@@ -22,23 +22,23 @@ If these are shared, you will hit config races and port conflicts.
 
 ## Recommended: profiles (`--profile`)
 
-Profiles auto-scope `SYNUREX_STATE_DIR` + `SYNUREX_CONFIG_PATH` and suffix service names.
+Profiles auto-scope `SKYKOI_STATE_DIR` + `SKYKOI_CONFIG_PATH` and suffix service names.
 
 ```bash
 # main
-Synurex --profile main setup
-Synurex --profile main gateway --port 18789
+SkyKoi --profile main setup
+SkyKoi --profile main gateway --port 18789
 
 # rescue
-Synurex --profile rescue setup
-Synurex --profile rescue gateway --port 19001
+SkyKoi --profile rescue setup
+SkyKoi --profile rescue gateway --port 19001
 ```
 
 Per-profile services:
 
 ```bash
-Synurex --profile main gateway install
-Synurex --profile rescue gateway install
+SkyKoi --profile main gateway install
+SkyKoi --profile rescue gateway install
 ```
 
 ## Rescue-bot guide
@@ -59,11 +59,11 @@ Port spacing: leave at least 20 ports between base ports so the derived browser/
 ```bash
 # Main bot (existing or fresh, without --profile param)
 # Runs on port 18789 + Chrome CDC/Canvas/... Ports
-Synurex onboard
-Synurex gateway install
+SkyKoi onboard
+SkyKoi gateway install
 
 # Rescue bot (isolated profile + ports)
-Synurex --profile rescue onboard
+SkyKoi --profile rescue onboard
 # Notes:
 # - workspace name will be postfixed with -rescue per default
 # - Port should be at least 18789 + 20 Ports,
@@ -71,12 +71,12 @@ Synurex --profile rescue onboard
 # - rest of the onboarding is the same as normal
 
 # To install the service (if not happened automatically during onboarding)
-Synurex --profile rescue gateway install
+SkyKoi --profile rescue gateway install
 ```
 
 ## Port mapping (derived)
 
-Base port = `gateway.port` (or `SYNUREX_GATEWAY_PORT` / `--port`).
+Base port = `gateway.port` (or `SKYKOI_GATEWAY_PORT` / `--port`).
 
 - browser control service port = base + 2 (loopback only)
 - `canvasHost.port = base + 4`
@@ -94,19 +94,19 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-SYNUREX_CONFIG_PATH=~/.synurex/main.json \
-SYNUREX_STATE_DIR=~/.synurex-main \
-Synurex gateway --port 18789
+SKYKOI_CONFIG_PATH=~/.skykoi/main.json \
+SKYKOI_STATE_DIR=~/.skykoi-main \
+SkyKoi gateway --port 18789
 
-SYNUREX_CONFIG_PATH=~/.synurex/rescue.json \
-SYNUREX_STATE_DIR=~/.synurex-rescue \
-Synurex gateway --port 19001
+SKYKOI_CONFIG_PATH=~/.skykoi/rescue.json \
+SKYKOI_STATE_DIR=~/.skykoi-rescue \
+SkyKoi gateway --port 19001
 ```
 
 ## Quick checks
 
 ```bash
-Synurex --profile main status
-Synurex --profile rescue status
-Synurex --profile rescue browser status
+SkyKoi --profile main status
+SkyKoi --profile rescue status
+SkyKoi --profile rescue browser status
 ```

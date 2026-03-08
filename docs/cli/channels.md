@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `Synurex channels` (accounts, status, login/logout, logs)"
+summary: "CLI reference for `SkyKoi channels` (accounts, status, login/logout, logs)"
 read_when:
   - You want to add/remove channel accounts (WhatsApp/Telegram/Discord/Google Chat/Slack/Mattermost (plugin)/Signal/iMessage)
   - You want to check channel status or tail channel logs
 title: "channels"
 ---
 
-# `Synurex channels`
+# `SkyKoi channels`
 
 Manage chat channel accounts and their runtime status on the Gateway.
 
@@ -18,43 +18,43 @@ Related docs:
 ## Common commands
 
 ```bash
-Synurex channels list
-Synurex channels status
-Synurex channels capabilities
-Synurex channels capabilities --channel discord --target channel:123
-Synurex channels resolve --channel slack "#general" "@jane"
-Synurex channels logs --channel all
+SkyKoi channels list
+SkyKoi channels status
+SkyKoi channels capabilities
+SkyKoi channels capabilities --channel discord --target channel:123
+SkyKoi channels resolve --channel slack "#general" "@jane"
+SkyKoi channels logs --channel all
 ```
 
 ## Add / remove accounts
 
 ```bash
-Synurex channels add --channel telegram --token <bot-token>
-Synurex channels remove --channel telegram --delete
+SkyKoi channels add --channel telegram --token <bot-token>
+SkyKoi channels remove --channel telegram --delete
 ```
 
-Tip: `Synurex channels add --help` shows per-channel flags (token, app token, signal-cli paths, etc).
+Tip: `SkyKoi channels add --help` shows per-channel flags (token, app token, signal-cli paths, etc).
 
 ## Login / logout (interactive)
 
 ```bash
-Synurex channels login --channel whatsapp
-Synurex channels logout --channel whatsapp
+SkyKoi channels login --channel whatsapp
+SkyKoi channels logout --channel whatsapp
 ```
 
 ## Troubleshooting
 
-- Run `Synurex status --deep` for a broad probe.
-- Use `Synurex doctor` for guided fixes.
-- `Synurex channels list` prints `Claude: HTTP 403 ... user:profile` → usage snapshot needs the `user:profile` scope. Use `--no-usage`, or provide a claude.ai session key (`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`), or re-auth via Claude Code CLI.
+- Run `SkyKoi status --deep` for a broad probe.
+- Use `SkyKoi doctor` for guided fixes.
+- `SkyKoi channels list` prints `Claude: HTTP 403 ... user:profile` → usage snapshot needs the `user:profile` scope. Use `--no-usage`, or provide a claude.ai session key (`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`), or re-auth via Claude Code CLI.
 
 ## Capabilities probe
 
 Fetch provider capability hints (intents/scopes where available) plus static feature support:
 
 ```bash
-Synurex channels capabilities
-Synurex channels capabilities --channel discord --target channel:123
+SkyKoi channels capabilities
+SkyKoi channels capabilities --channel discord --target channel:123
 ```
 
 Notes:
@@ -68,9 +68,9 @@ Notes:
 Resolve channel/user names to IDs using the provider directory:
 
 ```bash
-Synurex channels resolve --channel slack "#general" "@jane"
-Synurex channels resolve --channel discord "My Server/#support" "@someone"
-Synurex channels resolve --channel matrix "Project Room"
+SkyKoi channels resolve --channel slack "#general" "@jane"
+SkyKoi channels resolve --channel discord "My Server/#support" "@someone"
+SkyKoi channels resolve --channel matrix "Project Room"
 ```
 
 Notes:

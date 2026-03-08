@@ -1,5 +1,5 @@
 ---
-summary: "Mattermost bot setup and Synurex config"
+summary: "Mattermost bot setup and SkyKoi config"
 read_when:
   - Setting up Mattermost
   - Debugging Mattermost routing
@@ -19,17 +19,17 @@ Mattermost ships as a plugin and is not bundled with the core install.
 Install via CLI (npm registry):
 
 ```bash
-Synurex plugins install @Synurex/mattermost
+SkyKoi plugins install @SkyKoi/mattermost
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-Synurex plugins install ./extensions/mattermost
+SkyKoi plugins install ./extensions/mattermost
 ```
 
 If you choose Mattermost during configure/onboarding and a git checkout is detected,
-Synurex will offer the local install path automatically.
+SkyKoi will offer the local install path automatically.
 
 Details: [Plugins](/tools/plugin)
 
@@ -38,7 +38,7 @@ Details: [Plugins](/tools/plugin)
 1. Install the Mattermost plugin.
 2. Create a Mattermost bot account and copy the **bot token**.
 3. Copy the Mattermost **base URL** (e.g., `https://chat.example.com`).
-4. Configure Synurex and start the gateway.
+4. Configure SkyKoi and start the gateway.
 
 Minimal config:
 
@@ -94,8 +94,8 @@ Notes:
 
 - Default: `channels.mattermost.dmPolicy = "pairing"` (unknown senders get a pairing code).
 - Approve via:
-  - `Synurex pairing list mattermost`
-  - `Synurex pairing approve mattermost <CODE>`
+  - `SkyKoi pairing list mattermost`
+  - `SkyKoi pairing approve mattermost <CODE>`
 - Public DMs: `channels.mattermost.dmPolicy="open"` plus `channels.mattermost.allowFrom=["*"]`.
 
 ## Channels (groups)
@@ -106,7 +106,7 @@ Notes:
 
 ## Targets for outbound delivery
 
-Use these target formats with `Synurex message send` or cron/webhooks:
+Use these target formats with `SkyKoi message send` or cron/webhooks:
 
 - `channel:<id>` for a channel
 - `user:<id>` for a DM

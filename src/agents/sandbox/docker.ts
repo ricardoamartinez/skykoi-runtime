@@ -132,11 +132,11 @@ export function buildSandboxCreateArgs(params: {
 }) {
   const createdAtMs = params.createdAtMs ?? Date.now();
   const args = ["create", "--name", params.name];
-  args.push("--label", "Synurex.sandbox=1");
-  args.push("--label", `Synurex.sessionKey=${params.scopeKey}`);
-  args.push("--label", `Synurex.createdAtMs=${createdAtMs}`);
+  args.push("--label", "SkyKoi.sandbox=1");
+  args.push("--label", `SkyKoi.sessionKey=${params.scopeKey}`);
+  args.push("--label", `SkyKoi.createdAtMs=${createdAtMs}`);
   if (params.configHash) {
-    args.push("--label", `Synurex.configHash=${params.configHash}`);
+    args.push("--label", `SkyKoi.configHash=${params.configHash}`);
   }
   for (const [key, value] of Object.entries(params.labels ?? {})) {
     if (key && value) {
@@ -259,18 +259,18 @@ async function readContainerConfigHash(containerName: string): Promise<string | 
     }
     return raw;
   };
-  return await readLabel("Synurex.configHash");
+  return await readLabel("SkyKoi.configHash");
 }
 
 function formatSandboxRecreateHint(params: { scope: SandboxConfig["scope"]; sessionKey: string }) {
   if (params.scope === "session") {
-    return formatCliCommand(`Synurex sandbox recreate --session ${params.sessionKey}`);
+    return formatCliCommand(`SkyKoi sandbox recreate --session ${params.sessionKey}`);
   }
   if (params.scope === "agent") {
     const agentId = resolveSandboxAgentId(params.sessionKey) ?? "main";
-    return formatCliCommand(`Synurex sandbox recreate --agent ${agentId}`);
+    return formatCliCommand(`SkyKoi sandbox recreate --agent ${agentId}`);
   }
-  return formatCliCommand("synurex sandbox recreate --all");
+  return formatCliCommand("skykoi sandbox recreate --all");
 }
 
 export async function ensureSandboxContainer(params: {

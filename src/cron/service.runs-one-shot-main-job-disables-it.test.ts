@@ -14,7 +14,7 @@ const noopLogger = {
 };
 
 async function makeStorePath() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-cron-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-cron-"));
   return {
     storePath: path.join(dir, "cron", "jobs.json"),
     cleanup: async () => {

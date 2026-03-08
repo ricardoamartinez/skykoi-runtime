@@ -1,7 +1,7 @@
 ---
-summary: "Uninstall Synurex completely (CLI, service, state, workspace)"
+summary: "Uninstall SkyKoi completely (CLI, service, state, workspace)"
 read_when:
-  - You want to remove Synurex from a machine
+  - You want to remove SkyKoi from a machine
   - The gateway service is still running after uninstall
 title: "Uninstall"
 ---
@@ -10,7 +10,7 @@ title: "Uninstall"
 
 Two paths:
 
-- **Easy path** if `Synurex` is still installed.
+- **Easy path** if `SkyKoi` is still installed.
 - **Manual service removal** if the CLI is gone but the service is still running.
 
 ## Easy path (CLI still installed)
@@ -18,14 +18,14 @@ Two paths:
 Recommended: use the built-in uninstaller:
 
 ```bash
-Synurex uninstall
+SkyKoi uninstall
 ```
 
 Non-interactive (automation / npx):
 
 ```bash
-Synurex uninstall --all --yes --non-interactive
-npx -y Synurex uninstall --all --yes --non-interactive
+SkyKoi uninstall --all --yes --non-interactive
+npx -y SkyKoi uninstall --all --yes --non-interactive
 ```
 
 Manual steps (same result):
@@ -33,95 +33,95 @@ Manual steps (same result):
 1. Stop the gateway service:
 
 ```bash
-synurex gateway stop
+skykoi gateway stop
 ```
 
 2. Uninstall the gateway service (launchd/systemd/schtasks):
 
 ```bash
-synurex gateway uninstall
+skykoi gateway uninstall
 ```
 
 3. Delete state + config:
 
 ```bash
-rm -rf "${Synurex_STATE_DIR:-$HOME/.Synurex}"
+rm -rf "${SkyKoi_STATE_DIR:-$HOME/.SkyKoi}"
 ```
 
-If you set `Synurex_CONFIG_PATH` to a custom location outside the state dir, delete that file too.
+If you set `SkyKoi_CONFIG_PATH` to a custom location outside the state dir, delete that file too.
 
 4. Delete your workspace (optional, removes agent files):
 
 ```bash
-rm -rf ~/.synurex/workspace
+rm -rf ~/.skykoi/workspace
 ```
 
 5. Remove the CLI install (pick the one you used):
 
 ```bash
-npm rm -g Synurex
-pnpm remove -g Synurex
-bun remove -g Synurex
+npm rm -g SkyKoi
+pnpm remove -g SkyKoi
+bun remove -g SkyKoi
 ```
 
 6. If you installed the macOS app:
 
 ```bash
-rm -rf /Applications/Synurex.app
+rm -rf /Applications/SkyKoi.app
 ```
 
 Notes:
 
-- If you used profiles (`--profile` / `Synurex_PROFILE`), repeat step 3 for each state dir (defaults are `~/.Synurex-<profile>`).
+- If you used profiles (`--profile` / `SkyKoi_PROFILE`), repeat step 3 for each state dir (defaults are `~/.SkyKoi-<profile>`).
 - In remote mode, the state dir lives on the **gateway host**, so run steps 1-4 there too.
 
 ## Manual service removal (CLI not installed)
 
-Use this if the gateway service keeps running but `Synurex` is missing.
+Use this if the gateway service keeps running but `SkyKoi` is missing.
 
 ### macOS (launchd)
 
-Default label is `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.Synurex.*` may still exist):
+Default label is `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.SkyKoi.*` may still exist):
 
 ```bash
 launchctl bootout gui/$UID/bot.molt.gateway
 rm -f ~/Library/LaunchAgents/bot.molt.gateway.plist
 ```
 
-If you used a profile, replace the label and plist name with `bot.molt.<profile>`. Remove any legacy `com.Synurex.*` plists if present.
+If you used a profile, replace the label and plist name with `bot.molt.<profile>`. Remove any legacy `com.SkyKoi.*` plists if present.
 
 ### Linux (systemd user unit)
 
-Default unit name is `Synurex-gateway.service` (or `Synurex-gateway-<profile>.service`):
+Default unit name is `SkyKoi-gateway.service` (or `SkyKoi-gateway-<profile>.service`):
 
 ```bash
-systemctl --user disable --now Synurex-gateway.service
-rm -f ~/.config/systemd/user/Synurex-gateway.service
+systemctl --user disable --now SkyKoi-gateway.service
+rm -f ~/.config/systemd/user/SkyKoi-gateway.service
 systemctl --user daemon-reload
 ```
 
 ### Windows (Scheduled Task)
 
-Default task name is `synurex Gateway` (or `synurex Gateway (<profile>)`).
+Default task name is `skykoi Gateway` (or `skykoi Gateway (<profile>)`).
 The task script lives under your state dir.
 
 ```powershell
-schtasks /Delete /F /TN "synurex gateway"
-Remove-Item -Force "$env:USERPROFILE\.Synurex\gateway.cmd"
+schtasks /Delete /F /TN "skykoi gateway"
+Remove-Item -Force "$env:USERPROFILE\.SkyKoi\gateway.cmd"
 ```
 
-If you used a profile, delete the matching task name and `~\.Synurex-<profile>\gateway.cmd`.
+If you used a profile, delete the matching task name and `~\.SkyKoi-<profile>\gateway.cmd`.
 
 ## Normal install vs source checkout
 
 ### Normal install (install.sh / npm / pnpm / bun)
 
-If you used `https://synurex.com/install.sh` or `install.ps1`, the CLI was installed with `npm install -g Synurex@latest`.
-Remove it with `npm rm -g Synurex` (or `pnpm remove -g` / `bun remove -g` if you installed that way).
+If you used `https://skykoi.com/install.sh` or `install.ps1`, the CLI was installed with `npm install -g SkyKoi@latest`.
+Remove it with `npm rm -g SkyKoi` (or `pnpm remove -g` / `bun remove -g` if you installed that way).
 
 ### Source checkout (git clone)
 
-If you run from a repo checkout (`git clone` + `synurex ...` / `bun run Synurex ...`):
+If you run from a repo checkout (`git clone` + `skykoi ...` / `bun run SkyKoi ...`):
 
 1. Uninstall the gateway service **before** deleting the repo (use the easy path above or manual service removal).
 2. Delete the repo directory.

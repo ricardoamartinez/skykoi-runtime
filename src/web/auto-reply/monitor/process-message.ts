@@ -268,7 +268,7 @@ export async function processMessage(params: {
   const responsePrefix =
     prefixOptions.responsePrefix ??
     (configuredResponsePrefix === undefined && isSelfChat
-      ? (resolveIdentityNamePrefix(params.cfg, params.route.agentId) ?? "[Synurex]")
+      ? (resolveIdentityNamePrefix(params.cfg, params.route.agentId) ?? "[SkyKoi]")
       : undefined);
 
   const ctxPayload = finalizeInboundContext({

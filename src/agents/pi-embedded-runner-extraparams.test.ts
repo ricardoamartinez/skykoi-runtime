@@ -86,8 +86,8 @@ describe("applyExtraParamsToAgent", () => {
 
     expect(calls).toHaveLength(1);
     expect(calls[0]?.headers).toEqual({
-      "HTTP-Referer": "https://Synurex.ai",
-      "X-Title": "synurex",
+      "HTTP-Referer": "https://SkyKoi.ai",
+      "X-Title": "skykoi",
       "X-Custom": "1",
     });
   });

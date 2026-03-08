@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../config/config.js";
+import type { SkyKoiConfig } from "../config/config.js";
 import type { IMessageAccountConfig } from "../config/types.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 
@@ -10,7 +10,7 @@ export type ResolvedIMessageAccount = {
   configured: boolean;
 };
 
-function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
+function listConfiguredAccountIds(cfg: SkyKoiConfig): string[] {
   const accounts = cfg.channels?.imessage?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -18,7 +18,7 @@ function listConfiguredAccountIds(cfg: SynurexConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listIMessageAccountIds(cfg: SynurexConfig): string[] {
+export function listIMessageAccountIds(cfg: SkyKoiConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -26,7 +26,7 @@ export function listIMessageAccountIds(cfg: SynurexConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultIMessageAccountId(cfg: SynurexConfig): string {
+export function resolveDefaultIMessageAccountId(cfg: SkyKoiConfig): string {
   const ids = listIMessageAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -35,7 +35,7 @@ export function resolveDefaultIMessageAccountId(cfg: SynurexConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: SynurexConfig,
+  cfg: SkyKoiConfig,
   accountId: string,
 ): IMessageAccountConfig | undefined {
   const accounts = cfg.channels?.imessage?.accounts;
@@ -45,7 +45,7 @@ function resolveAccountConfig(
   return accounts[accountId] as IMessageAccountConfig | undefined;
 }
 
-function mergeIMessageAccountConfig(cfg: SynurexConfig, accountId: string): IMessageAccountConfig {
+function mergeIMessageAccountConfig(cfg: SkyKoiConfig, accountId: string): IMessageAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.imessage ??
     {}) as IMessageAccountConfig & { accounts?: unknown };
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -53,7 +53,7 @@ function mergeIMessageAccountConfig(cfg: SynurexConfig, accountId: string): IMes
 }
 
 export function resolveIMessageAccount(params: {
-  cfg: SynurexConfig;
+  cfg: SkyKoiConfig;
   accountId?: string | null;
 }): ResolvedIMessageAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -83,7 +83,7 @@ export function resolveIMessageAccount(params: {
   };
 }
 
-export function listEnabledIMessageAccounts(cfg: SynurexConfig): ResolvedIMessageAccount[] {
+export function listEnabledIMessageAccounts(cfg: SkyKoiConfig): ResolvedIMessageAccount[] {
   return listIMessageAccountIds(cfg)
     .map((accountId) => resolveIMessageAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

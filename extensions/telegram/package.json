@@ -1,12 +1,12 @@
 {
-  "name": "@Synurex/telegram",
+  "name": "@SkyKoi/telegram",
   "version": "2026.2.6-3",
-  "description": "Synurex Telegram channel plugin",
+  "description": "SkyKoi Telegram channel plugin",
   "type": "module",
   "devDependencies": {
-    "Synurex": "workspace:*"
+    "SkyKoi": "workspace:*"
   },
-  "Synurex": {
+  "SkyKoi": {
     "extensions": [
       "./index.ts"
     ]

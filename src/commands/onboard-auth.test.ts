@@ -27,16 +27,16 @@ import {
 
 const authProfilePathFor = (agentDir: string) => path.join(agentDir, "auth-profiles.json");
 const requireAgentDir = () => {
-  const agentDir = process.env.SYNUREX_AGENT_DIR;
+  const agentDir = process.env.SKYKOI_AGENT_DIR;
   if (!agentDir) {
-    throw new Error("SYNUREX_AGENT_DIR not set");
+    throw new Error("SKYKOI_AGENT_DIR not set");
   }
   return agentDir;
 };
 
 describe("writeOAuthCredentials", () => {
-  const previousStateDir = process.env.SYNUREX_STATE_DIR;
-  const previousAgentDir = process.env.SYNUREX_AGENT_DIR;
+  const previousStateDir = process.env.SKYKOI_STATE_DIR;
+  const previousAgentDir = process.env.SKYKOI_AGENT_DIR;
   const previousPiAgentDir = process.env.PI_CODING_AGENT_DIR;
   let tempStateDir: string | null = null;
 
@@ -46,28 +46,28 @@ describe("writeOAuthCredentials", () => {
       tempStateDir = null;
     }
     if (previousStateDir === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = previousStateDir;
+      process.env.SKYKOI_STATE_DIR = previousStateDir;
     }
     if (previousAgentDir === undefined) {
-      delete process.env.SYNUREX_AGENT_DIR;
+      delete process.env.SKYKOI_AGENT_DIR;
     } else {
-      process.env.SYNUREX_AGENT_DIR = previousAgentDir;
+      process.env.SKYKOI_AGENT_DIR = previousAgentDir;
     }
     if (previousPiAgentDir === undefined) {
       delete process.env.PI_CODING_AGENT_DIR;
     } else {
       process.env.PI_CODING_AGENT_DIR = previousPiAgentDir;
     }
-    delete process.env.SYNUREX_OAUTH_DIR;
+    delete process.env.SKYKOI_OAUTH_DIR;
   });
 
-  it("writes auth-profiles.json under SYNUREX_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-oauth-"));
-    process.env.SYNUREX_STATE_DIR = tempStateDir;
-    process.env.SYNUREX_AGENT_DIR = path.join(tempStateDir, "agent");
-    process.env.PI_CODING_AGENT_DIR = process.env.SYNUREX_AGENT_DIR;
+  it("writes auth-profiles.json under SKYKOI_AGENT_DIR when set", async () => {
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-oauth-"));
+    process.env.SKYKOI_STATE_DIR = tempStateDir;
+    process.env.SKYKOI_AGENT_DIR = path.join(tempStateDir, "agent");
+    process.env.PI_CODING_AGENT_DIR = process.env.SKYKOI_AGENT_DIR;
 
     const creds = {
       refresh: "refresh-token",
@@ -95,8 +95,8 @@ describe("writeOAuthCredentials", () => {
 });
 
 describe("setMinimaxApiKey", () => {
-  const previousStateDir = process.env.SYNUREX_STATE_DIR;
-  const previousAgentDir = process.env.SYNUREX_AGENT_DIR;
+  const previousStateDir = process.env.SKYKOI_STATE_DIR;
+  const previousAgentDir = process.env.SKYKOI_AGENT_DIR;
   const previousPiAgentDir = process.env.PI_CODING_AGENT_DIR;
   let tempStateDir: string | null = null;
 
@@ -106,14 +106,14 @@ describe("setMinimaxApiKey", () => {
       tempStateDir = null;
     }
     if (previousStateDir === undefined) {
-      delete process.env.SYNUREX_STATE_DIR;
+      delete process.env.SKYKOI_STATE_DIR;
     } else {
-      process.env.SYNUREX_STATE_DIR = previousStateDir;
+      process.env.SKYKOI_STATE_DIR = previousStateDir;
     }
     if (previousAgentDir === undefined) {
-      delete process.env.SYNUREX_AGENT_DIR;
+      delete process.env.SKYKOI_AGENT_DIR;
     } else {
-      process.env.SYNUREX_AGENT_DIR = previousAgentDir;
+      process.env.SKYKOI_AGENT_DIR = previousAgentDir;
     }
     if (previousPiAgentDir === undefined) {
       delete process.env.PI_CODING_AGENT_DIR;
@@ -122,11 +122,11 @@ describe("setMinimaxApiKey", () => {
     }
   });
 
-  it("writes to SYNUREX_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "Synurex-minimax-"));
-    process.env.SYNUREX_STATE_DIR = tempStateDir;
-    process.env.SYNUREX_AGENT_DIR = path.join(tempStateDir, "custom-agent");
-    process.env.PI_CODING_AGENT_DIR = process.env.SYNUREX_AGENT_DIR;
+  it("writes to SKYKOI_AGENT_DIR when set", async () => {
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "SkyKoi-minimax-"));
+    process.env.SKYKOI_STATE_DIR = tempStateDir;
+    process.env.SKYKOI_AGENT_DIR = path.join(tempStateDir, "custom-agent");
+    process.env.PI_CODING_AGENT_DIR = process.env.SKYKOI_AGENT_DIR;
 
     await setMinimaxApiKey("sk-minimax-test");
 

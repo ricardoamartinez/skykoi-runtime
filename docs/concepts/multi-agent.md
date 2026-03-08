@@ -15,12 +15,12 @@ An **agent** is a fully scoped brain with its own:
 
 - **Workspace** (files, AGENTS.md/SOUL.md/USER.md, local notes, persona rules).
 - **State directory** (`agentDir`) for auth profiles, model registry, and per-agent config.
-- **Session store** (chat history + routing state) under `~/.synurex/agents/<agentId>/sessions`.
+- **Session store** (chat history + routing state) under `~/.skykoi/agents/<agentId>/sessions`.
 
 Auth profiles are **per-agent**. Each agent reads from its own:
 
 ```
-~/.synurex/agents/<agentId>/agent/auth-profiles.json
+~/.skykoi/agents/<agentId>/agent/auth-profiles.json
 ```
 
 Main agent credentials are **not** shared automatically. Never reuse `agentDir`
@@ -28,7 +28,7 @@ across agents (it causes auth/session collisions). If you want to share creds,
 copy `auth-profiles.json` into the other agent's `agentDir`.
 
 Skills are per-agent via each workspace’s `skills/` folder, with shared skills
-available from `~/.synurex/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
+available from `~/.skykoi/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
 
 The Gateway can host **one agent** (default) or **many agents** side-by-side.
 
@@ -39,27 +39,27 @@ reach other host locations unless sandboxing is enabled. See
 
 ## Paths (quick map)
 
-- Config: `~/.synurex/synurex.json` (or `SYNUREX_CONFIG_PATH`)
-- State dir: `~/.synurex` (or `SYNUREX_STATE_DIR`)
-- Workspace: `~/.synurex/workspace` (or `~/.synurex/workspace-<agentId>`)
-- Agent dir: `~/.synurex/agents/<agentId>/agent` (or `agents.list[].agentDir`)
-- Sessions: `~/.synurex/agents/<agentId>/sessions`
+- Config: `~/.skykoi/skykoi.json` (or `SKYKOI_CONFIG_PATH`)
+- State dir: `~/.skykoi` (or `SKYKOI_STATE_DIR`)
+- Workspace: `~/.skykoi/workspace` (or `~/.skykoi/workspace-<agentId>`)
+- Agent dir: `~/.skykoi/agents/<agentId>/agent` (or `agents.list[].agentDir`)
+- Sessions: `~/.skykoi/agents/<agentId>/sessions`
 
 ### Single-agent mode (default)
 
-If you do nothing, Synurex runs a single agent:
+If you do nothing, SkyKoi runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/.synurex/workspace` (or `~/.synurex/workspace-<profile>` when `SYNUREX_PROFILE` is set).
-- State defaults to `~/.synurex/agents/main/agent`.
+- Workspace defaults to `~/.skykoi/workspace` (or `~/.skykoi/workspace-<profile>` when `SKYKOI_PROFILE` is set).
+- State defaults to `~/.skykoi/agents/main/agent`.
 
 ## Agent helper
 
 Use the agent wizard to add a new isolated agent:
 
 ```bash
-Synurex agents add work
+SkyKoi agents add work
 ```
 
 Then add `bindings` (or let the wizard do it) to route inbound messages.
@@ -67,7 +67,7 @@ Then add `bindings` (or let the wizard do it) to route inbound messages.
 Verify with:
 
 ```bash
-Synurex agents list --bindings
+SkyKoi agents list --bindings
 ```
 
 ## Multiple agents = multiple people, multiple personalities
@@ -92,8 +92,8 @@ Example:
 {
   agents: {
     list: [
-      { id: "alex", workspace: "~/.synurex/workspace-alex" },
-      { id: "mia", workspace: "~/.synurex/workspace-mia" },
+      { id: "alex", workspace: "~/.skykoi/workspace-alex" },
+      { id: "mia", workspace: "~/.skykoi/workspace-mia" },
     ],
   },
   bindings: [
@@ -140,7 +140,7 @@ multiple phone numbers without mixing sessions.
 
 ## Example: two WhatsApps → two agents
 
-`~/.synurex/synurex.json` (JSON5):
+`~/.skykoi/skykoi.json` (JSON5):
 
 ```js
 {
@@ -150,14 +150,14 @@ multiple phone numbers without mixing sessions.
         id: "home",
         default: true,
         name: "Home",
-        workspace: "~/.synurex/workspace-home",
-        agentDir: "~/.synurex/agents/home/agent",
+        workspace: "~/.skykoi/workspace-home",
+        agentDir: "~/.skykoi/agents/home/agent",
       },
       {
         id: "work",
         name: "Work",
-        workspace: "~/.synurex/workspace-work",
-        agentDir: "~/.synurex/agents/work/agent",
+        workspace: "~/.skykoi/workspace-work",
+        agentDir: "~/.skykoi/agents/work/agent",
       },
     ],
   },
@@ -190,12 +190,12 @@ multiple phone numbers without mixing sessions.
     whatsapp: {
       accounts: {
         personal: {
-          // Optional override. Default: ~/.synurex/credentials/whatsapp/personal
-          // authDir: "~/.synurex/credentials/whatsapp/personal",
+          // Optional override. Default: ~/.skykoi/credentials/whatsapp/personal
+          // authDir: "~/.skykoi/credentials/whatsapp/personal",
         },
         biz: {
-          // Optional override. Default: ~/.synurex/credentials/whatsapp/biz
-          // authDir: "~/.synurex/credentials/whatsapp/biz",
+          // Optional override. Default: ~/.skykoi/credentials/whatsapp/biz
+          // authDir: "~/.skykoi/credentials/whatsapp/biz",
         },
       },
     },
@@ -214,13 +214,13 @@ Split by channel: route WhatsApp to a fast everyday agent and Telegram to an Opu
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.synurex/workspace-chat",
+        workspace: "~/.skykoi/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.synurex/workspace-opus",
+        workspace: "~/.skykoi/workspace-opus",
         model: "anthropic/claude-opus-4-6",
       },
     ],
@@ -248,13 +248,13 @@ Keep WhatsApp on the fast agent, but route one DM to Opus:
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.synurex/workspace-chat",
+        workspace: "~/.skykoi/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.synurex/workspace-opus",
+        workspace: "~/.skykoi/workspace-opus",
         model: "anthropic/claude-opus-4-6",
       },
     ],
@@ -280,7 +280,7 @@ and a tighter tool policy:
       {
         id: "family",
         name: "Family",
-        workspace: "~/.synurex/workspace-family",
+        workspace: "~/.skykoi/workspace-family",
         identity: { name: "Family Bot" },
         groupChat: {
           mentionPatterns: ["@family", "@familybot", "@Family Bot"],
@@ -333,7 +333,7 @@ Starting with v2026.1.6, each agent can have its own sandbox and tool restrictio
     list: [
       {
         id: "personal",
-        workspace: "~/.synurex/workspace-personal",
+        workspace: "~/.skykoi/workspace-personal",
         sandbox: {
           mode: "off",  // No sandbox for personal agent
         },
@@ -341,7 +341,7 @@ Starting with v2026.1.6, each agent can have its own sandbox and tool restrictio
       },
       {
         id: "family",
-        workspace: "~/.synurex/workspace-family",
+        workspace: "~/.skykoi/workspace-family",
         sandbox: {
           mode: "all",     // Always sandboxed
           scope: "agent",  // One container per agent

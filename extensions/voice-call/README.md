@@ -1,6 +1,6 @@
-# @Synurex/voice-call
+# @SkyKoi/voice-call
 
-Official Voice Call plugin for **Synurex**.
+Official Voice Call plugin for **SkyKoi**.
 
 Providers:
 
@@ -9,15 +9,15 @@ Providers:
 - **Plivo** (Voice API + XML transfer + GetInput speech)
 - **Mock** (dev/no network)
 
-Docs: `https://docs.synurex.ai/plugins/voice-call`
-Plugin system: `https://docs.synurex.ai/plugin`
+Docs: `https://docs.skykoi.ai/plugins/voice-call`
+Plugin system: `https://docs.skykoi.ai/plugin`
 
 ## Install (local dev)
 
-### Option A: install via Synurex (recommended)
+### Option A: install via SkyKoi (recommended)
 
 ```bash
-Synurex plugins install @Synurex/voice-call
+SkyKoi plugins install @SkyKoi/voice-call
 ```
 
 Restart the Gateway afterwards.
@@ -25,9 +25,9 @@ Restart the Gateway afterwards.
 ### Option B: copy into your global extensions folder (dev)
 
 ```bash
-mkdir -p ~/.synurex/extensions
-cp -R extensions/voice-call ~/.synurex/extensions/voice-call
-cd ~/.synurex/extensions/voice-call && pnpm install
+mkdir -p ~/.skykoi/extensions
+cp -R extensions/voice-call ~/.skykoi/extensions/voice-call
+cd ~/.skykoi/extensions/voice-call && pnpm install
 ```
 
 ## Config
@@ -103,13 +103,13 @@ Notes:
 ## CLI
 
 ```bash
-Synurex voicecall call --to "+15555550123" --message "Hello from Synurex"
-Synurex voicecall continue --call-id <id> --message "Any questions?"
-Synurex voicecall speak --call-id <id> --message "One moment"
-Synurex voicecall end --call-id <id>
-Synurex voicecall status --call-id <id>
-Synurex voicecall tail
-Synurex voicecall expose --mode funnel
+SkyKoi voicecall call --to "+15555550123" --message "Hello from SkyKoi"
+SkyKoi voicecall continue --call-id <id> --message "Any questions?"
+SkyKoi voicecall speak --call-id <id> --message "One moment"
+SkyKoi voicecall end --call-id <id>
+SkyKoi voicecall status --call-id <id>
+SkyKoi voicecall tail
+SkyKoi voicecall expose --mode funnel
 ```
 
 ## Tool

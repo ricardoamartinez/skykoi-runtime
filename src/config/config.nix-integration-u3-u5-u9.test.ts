@@ -5,29 +5,29 @@ import { withEnvOverride, withTempHome } from "./test-helpers.js";
 
 describe("Nix integration (U3, U5, U9)", () => {
   describe("U3: isNixMode env var detection", () => {
-    it("isNixMode is false when SYNUREX_NIX_MODE is not set", async () => {
-      await withEnvOverride({ SYNUREX_NIX_MODE: undefined }, async () => {
+    it("isNixMode is false when SKYKOI_NIX_MODE is not set", async () => {
+      await withEnvOverride({ SKYKOI_NIX_MODE: undefined }, async () => {
         const { isNixMode } = await import("./config.js");
         expect(isNixMode).toBe(false);
       });
     });
 
-    it("isNixMode is false when SYNUREX_NIX_MODE is empty", async () => {
-      await withEnvOverride({ SYNUREX_NIX_MODE: "" }, async () => {
+    it("isNixMode is false when SKYKOI_NIX_MODE is empty", async () => {
+      await withEnvOverride({ SKYKOI_NIX_MODE: "" }, async () => {
         const { isNixMode } = await import("./config.js");
         expect(isNixMode).toBe(false);
       });
     });
 
-    it("isNixMode is false when SYNUREX_NIX_MODE is not '1'", async () => {
-      await withEnvOverride({ SYNUREX_NIX_MODE: "true" }, async () => {
+    it("isNixMode is false when SKYKOI_NIX_MODE is not '1'", async () => {
+      await withEnvOverride({ SKYKOI_NIX_MODE: "true" }, async () => {
         const { isNixMode } = await import("./config.js");
         expect(isNixMode).toBe(false);
       });
     });
 
-    it("isNixMode is true when SYNUREX_NIX_MODE=1", async () => {
-      await withEnvOverride({ SYNUREX_NIX_MODE: "1" }, async () => {
+    it("isNixMode is true when SKYKOI_NIX_MODE=1", async () => {
+      await withEnvOverride({ SKYKOI_NIX_MODE: "1" }, async () => {
         const { isNixMode } = await import("./config.js");
         expect(isNixMode).toBe(true);
       });
@@ -35,42 +35,42 @@ describe("Nix integration (U3, U5, U9)", () => {
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.synurex when env not set", async () => {
-      await withEnvOverride({ SYNUREX_STATE_DIR: undefined }, async () => {
+    it("STATE_DIR defaults to ~/.skykoi when env not set", async () => {
+      await withEnvOverride({ SKYKOI_STATE_DIR: undefined }, async () => {
         const { STATE_DIR } = await import("./config.js");
-        expect(STATE_DIR).toMatch(/\.synurex$/);
+        expect(STATE_DIR).toMatch(/\.skykoi$/);
       });
     });
 
-    it("STATE_DIR respects SYNUREX_STATE_DIR override", async () => {
-      await withEnvOverride({ SYNUREX_STATE_DIR: "/custom/state/dir" }, async () => {
+    it("STATE_DIR respects SKYKOI_STATE_DIR override", async () => {
+      await withEnvOverride({ SKYKOI_STATE_DIR: "/custom/state/dir" }, async () => {
         const { STATE_DIR } = await import("./config.js");
         expect(STATE_DIR).toBe(path.resolve("/custom/state/dir"));
       });
     });
 
-    it("CONFIG_PATH defaults to ~/.synurex/synurex.json when env not set", async () => {
+    it("CONFIG_PATH defaults to ~/.skykoi/skykoi.json when env not set", async () => {
       await withEnvOverride(
-        { SYNUREX_CONFIG_PATH: undefined, SYNUREX_STATE_DIR: undefined },
+        { SKYKOI_CONFIG_PATH: undefined, SKYKOI_STATE_DIR: undefined },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toMatch(/\.synurex[\\/]Synurex\.json$/);
+          expect(CONFIG_PATH).toMatch(/\.skykoi[\\/]SkyKoi\.json$/);
         },
       );
     });
 
-    it("CONFIG_PATH respects SYNUREX_CONFIG_PATH override", async () => {
-      await withEnvOverride({ SYNUREX_CONFIG_PATH: "/nix/store/abc/synurex.json" }, async () => {
+    it("CONFIG_PATH respects SKYKOI_CONFIG_PATH override", async () => {
+      await withEnvOverride({ SKYKOI_CONFIG_PATH: "/nix/store/abc/skykoi.json" }, async () => {
         const { CONFIG_PATH } = await import("./config.js");
-        expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/synurex.json"));
+        expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/skykoi.json"));
       });
     });
 
-    it("CONFIG_PATH expands ~ in SYNUREX_CONFIG_PATH override", async () => {
+    it("CONFIG_PATH expands ~ in SKYKOI_CONFIG_PATH override", async () => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ SYNUREX_CONFIG_PATH: "~/.synurex/custom.json" }, async () => {
+        await withEnvOverride({ SKYKOI_CONFIG_PATH: "~/.skykoi/custom.json" }, async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(home, ".synurex", "custom.json"));
+          expect(CONFIG_PATH).toBe(path.join(home, ".skykoi", "custom.json"));
         });
       });
     });
@@ -78,12 +78,12 @@ describe("Nix integration (U3, U5, U9)", () => {
     it("CONFIG_PATH uses STATE_DIR when only state dir is overridden", async () => {
       await withEnvOverride(
         {
-          SYNUREX_CONFIG_PATH: undefined,
-          SYNUREX_STATE_DIR: "/custom/state",
+          SKYKOI_CONFIG_PATH: undefined,
+          SKYKOI_STATE_DIR: "/custom/state",
         },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "synurex.json"));
+          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "skykoi.json"));
         },
       );
     });
@@ -92,7 +92,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U5b: tilde expansion for config paths", () => {
     it("expands ~ in common path-ish config fields", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".synurex");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         const pluginDir = path.join(home, "plugins", "demo-plugin");
         await fs.mkdir(pluginDir, { recursive: true });
@@ -102,7 +102,7 @@ describe("Nix integration (U3, U5, U9)", () => {
           "utf-8",
         );
         await fs.writeFile(
-          path.join(pluginDir, "synurex.plugin.json"),
+          path.join(pluginDir, "skykoi.plugin.json"),
           JSON.stringify(
             {
               id: "demo-plugin",
@@ -114,7 +114,7 @@ describe("Nix integration (U3, U5, U9)", () => {
           "utf-8",
         );
         await fs.writeFile(
-          path.join(configDir, "synurex.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify(
             {
               plugins: {
@@ -128,7 +128,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                   {
                     id: "main",
                     workspace: "~/ws-agent",
-                    agentDir: "~/.synurex/agents/main",
+                    agentDir: "~/.skykoi/agents/main",
                     sandbox: { workspaceRoot: "~/sandbox-root" },
                   },
                 ],
@@ -137,7 +137,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                 whatsapp: {
                   accounts: {
                     personal: {
-                      authDir: "~/.synurex/credentials/wa-personal",
+                      authDir: "~/.skykoi/credentials/wa-personal",
                     },
                   },
                 },
@@ -157,11 +157,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         expect(cfg.agents?.defaults?.workspace).toBe(path.join(home, "ws-default"));
         expect(cfg.agents?.list?.[0]?.workspace).toBe(path.join(home, "ws-agent"));
         expect(cfg.agents?.list?.[0]?.agentDir).toBe(
-          path.join(home, ".synurex", "agents", "main"),
+          path.join(home, ".skykoi", "agents", "main"),
         );
         expect(cfg.agents?.list?.[0]?.sandbox?.workspaceRoot).toBe(path.join(home, "sandbox-root"));
         expect(cfg.channels?.whatsapp?.accounts?.personal?.authDir).toBe(
-          path.join(home, ".synurex", "credentials", "wa-personal"),
+          path.join(home, ".skykoi", "credentials", "wa-personal"),
         );
       });
     });
@@ -169,21 +169,21 @@ describe("Nix integration (U3, U5, U9)", () => {
 
   describe("U6: gateway port resolution", () => {
     it("uses default when env and config are unset", async () => {
-      await withEnvOverride({ SYNUREX_GATEWAY_PORT: undefined }, async () => {
+      await withEnvOverride({ SKYKOI_GATEWAY_PORT: undefined }, async () => {
         const { DEFAULT_GATEWAY_PORT, resolveGatewayPort } = await import("./config.js");
         expect(resolveGatewayPort({})).toBe(DEFAULT_GATEWAY_PORT);
       });
     });
 
-    it("prefers SYNUREX_GATEWAY_PORT over config", async () => {
-      await withEnvOverride({ SYNUREX_GATEWAY_PORT: "19001" }, async () => {
+    it("prefers SKYKOI_GATEWAY_PORT over config", async () => {
+      await withEnvOverride({ SKYKOI_GATEWAY_PORT: "19001" }, async () => {
         const { resolveGatewayPort } = await import("./config.js");
         expect(resolveGatewayPort({ gateway: { port: 19002 } })).toBe(19001);
       });
     });
 
     it("falls back to config when env is invalid", async () => {
-      await withEnvOverride({ SYNUREX_GATEWAY_PORT: "nope" }, async () => {
+      await withEnvOverride({ SKYKOI_GATEWAY_PORT: "nope" }, async () => {
         const { resolveGatewayPort } = await import("./config.js");
         expect(resolveGatewayPort({ gateway: { port: 19003 } })).toBe(19003);
       });
@@ -193,10 +193,10 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U9: telegram.tokenFile schema validation", () => {
     it("accepts config with only botToken", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".synurex");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "synurex.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: { telegram: { botToken: "123:ABC" } },
           }),
@@ -213,10 +213,10 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with only tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".synurex");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "synurex.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: { telegram: { tokenFile: "/run/agenix/telegram-token" } },
           }),
@@ -233,10 +233,10 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with both botToken and tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".synurex");
+        const configDir = path.join(home, ".skykoi");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
-          path.join(configDir, "synurex.json"),
+          path.join(configDir, "skykoi.json"),
           JSON.stringify({
             channels: {
               telegram: {

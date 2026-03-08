@@ -1,4 +1,4 @@
-import type { SynurexConfig } from "../../config/config.js";
+import type { SkyKoiConfig } from "../../config/config.js";
 import type { SandboxConfig, SandboxToolPolicyResolved } from "./types.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { canonicalizeMainSessionAlias, resolveAgentMainSessionKey } from "../../config/sessions.js";
@@ -18,7 +18,7 @@ function shouldSandboxSession(cfg: SandboxConfig, sessionKey: string, mainSessio
 }
 
 function resolveMainSessionKeyForSandbox(params: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   agentId: string;
 }): string {
   if (params.cfg?.session?.scope === "global") {
@@ -31,7 +31,7 @@ function resolveMainSessionKeyForSandbox(params: {
 }
 
 function resolveComparableSessionKeyForSandbox(params: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   agentId: string;
   sessionKey: string;
 }): string {
@@ -43,7 +43,7 @@ function resolveComparableSessionKeyForSandbox(params: {
 }
 
 export function resolveSandboxRuntimeStatus(params: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   sessionKey?: string;
 }): {
   agentId: string;
@@ -79,7 +79,7 @@ export function resolveSandboxRuntimeStatus(params: {
 }
 
 export function formatSandboxToolPolicyBlockedMessage(params: {
-  cfg?: SynurexConfig;
+  cfg?: SkyKoiConfig;
   sessionKey?: string;
   toolName: string;
 }): string | undefined {
@@ -131,7 +131,7 @@ export function formatSandboxToolPolicyBlockedMessage(params: {
     lines.push(`- Use main session key (direct): ${runtime.mainSessionKey}`);
   }
   lines.push(
-    `- See: ${formatCliCommand(`Synurex sandbox explain --session ${runtime.sessionKey}`)}`,
+    `- See: ${formatCliCommand(`SkyKoi sandbox explain --session ${runtime.sessionKey}`)}`,
   );
 
   return lines.join("\n");

@@ -5,7 +5,7 @@ import {
   readNumberParam,
   readReactionParams,
   readStringParam,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { CoreConfig } from "./types.js";
 import {
   deleteMatrixMessage,

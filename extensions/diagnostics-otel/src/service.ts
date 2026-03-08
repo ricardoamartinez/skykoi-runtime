@@ -1,5 +1,5 @@
 import type { SeverityNumber } from "@opentelemetry/api-logs";
-import type { DiagnosticEventPayload, SynurexPluginService } from "Synurex/plugin-sdk";
+import type { DiagnosticEventPayload, SkyKoiPluginService } from "SkyKoi/plugin-sdk";
 import { metrics, trace, SpanStatusCode } from "@opentelemetry/api";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
@@ -10,9 +10,9 @@ import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { ParentBasedSampler, TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-import { onDiagnosticEvent, registerLogTransport } from "Synurex/plugin-sdk";
+import { onDiagnosticEvent, registerLogTransport } from "SkyKoi/plugin-sdk";
 
-const DEFAULT_SERVICE_NAME = "Synurex";
+const DEFAULT_SERVICE_NAME = "SkyKoi";
 
 function normalizeEndpoint(endpoint?: string): string | undefined {
   const trimmed = endpoint?.trim();
@@ -39,7 +39,7 @@ function resolveSampleRate(value: number | undefined): number | undefined {
   return value;
 }
 
-export function createDiagnosticsOtelService(): SynurexPluginService {
+export function createDiagnosticsOtelService(): SkyKoiPluginService {
   let sdk: NodeSDK | null = null;
   let logProvider: LoggerProvider | null = null;
   let stopLogTransport: (() => void) | null = null;
@@ -129,78 +129,78 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         FATAL: 21 as SeverityNumber,
       };
 
-      const meter = metrics.getMeter("Synurex");
-      const tracer = trace.getTracer("Synurex");
+      const meter = metrics.getMeter("SkyKoi");
+      const tracer = trace.getTracer("SkyKoi");
 
-      const tokensCounter = meter.createCounter("Synurex.tokens", {
+      const tokensCounter = meter.createCounter("SkyKoi.tokens", {
         unit: "1",
         description: "Token usage by type",
       });
-      const costCounter = meter.createCounter("Synurex.cost.usd", {
+      const costCounter = meter.createCounter("SkyKoi.cost.usd", {
         unit: "1",
         description: "Estimated model cost (USD)",
       });
-      const durationHistogram = meter.createHistogram("Synurex.run.duration_ms", {
+      const durationHistogram = meter.createHistogram("SkyKoi.run.duration_ms", {
         unit: "ms",
         description: "Agent run duration",
       });
-      const contextHistogram = meter.createHistogram("Synurex.context.tokens", {
+      const contextHistogram = meter.createHistogram("SkyKoi.context.tokens", {
         unit: "1",
         description: "Context window size and usage",
       });
-      const webhookReceivedCounter = meter.createCounter("Synurex.webhook.received", {
+      const webhookReceivedCounter = meter.createCounter("SkyKoi.webhook.received", {
         unit: "1",
         description: "Webhook requests received",
       });
-      const webhookErrorCounter = meter.createCounter("Synurex.webhook.error", {
+      const webhookErrorCounter = meter.createCounter("SkyKoi.webhook.error", {
         unit: "1",
         description: "Webhook processing errors",
       });
-      const webhookDurationHistogram = meter.createHistogram("Synurex.webhook.duration_ms", {
+      const webhookDurationHistogram = meter.createHistogram("SkyKoi.webhook.duration_ms", {
         unit: "ms",
         description: "Webhook processing duration",
       });
-      const messageQueuedCounter = meter.createCounter("Synurex.message.queued", {
+      const messageQueuedCounter = meter.createCounter("SkyKoi.message.queued", {
         unit: "1",
         description: "Messages queued for processing",
       });
-      const messageProcessedCounter = meter.createCounter("Synurex.message.processed", {
+      const messageProcessedCounter = meter.createCounter("SkyKoi.message.processed", {
         unit: "1",
         description: "Messages processed by outcome",
       });
-      const messageDurationHistogram = meter.createHistogram("Synurex.message.duration_ms", {
+      const messageDurationHistogram = meter.createHistogram("SkyKoi.message.duration_ms", {
         unit: "ms",
         description: "Message processing duration",
       });
-      const queueDepthHistogram = meter.createHistogram("Synurex.queue.depth", {
+      const queueDepthHistogram = meter.createHistogram("SkyKoi.queue.depth", {
         unit: "1",
         description: "Queue depth on enqueue/dequeue",
       });
-      const queueWaitHistogram = meter.createHistogram("Synurex.queue.wait_ms", {
+      const queueWaitHistogram = meter.createHistogram("SkyKoi.queue.wait_ms", {
         unit: "ms",
         description: "Queue wait time before execution",
       });
-      const laneEnqueueCounter = meter.createCounter("Synurex.queue.lane.enqueue", {
+      const laneEnqueueCounter = meter.createCounter("SkyKoi.queue.lane.enqueue", {
         unit: "1",
         description: "Command queue lane enqueue events",
       });
-      const laneDequeueCounter = meter.createCounter("Synurex.queue.lane.dequeue", {
+      const laneDequeueCounter = meter.createCounter("SkyKoi.queue.lane.dequeue", {
         unit: "1",
         description: "Command queue lane dequeue events",
       });
-      const sessionStateCounter = meter.createCounter("Synurex.session.state", {
+      const sessionStateCounter = meter.createCounter("SkyKoi.session.state", {
         unit: "1",
         description: "Session state transitions",
       });
-      const sessionStuckCounter = meter.createCounter("Synurex.session.stuck", {
+      const sessionStuckCounter = meter.createCounter("SkyKoi.session.stuck", {
         unit: "1",
         description: "Sessions stuck in processing",
       });
-      const sessionStuckAgeHistogram = meter.createHistogram("Synurex.session.stuck_age_ms", {
+      const sessionStuckAgeHistogram = meter.createHistogram("SkyKoi.session.stuck_age_ms", {
         unit: "ms",
         description: "Age of stuck sessions",
       });
-      const runAttemptCounter = meter.createCounter("Synurex.run.attempt", {
+      const runAttemptCounter = meter.createCounter("SkyKoi.run.attempt", {
         unit: "1",
         description: "Run attempts",
       });
@@ -219,7 +219,7 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
               : {},
           ),
         );
-        const otelLogger = logProvider.getLogger("Synurex");
+        const otelLogger = logProvider.getLogger("SkyKoi");
 
         stopLogTransport = registerLogTransport((logObj) => {
           const safeStringify = (value: unknown) => {
@@ -277,13 +277,13 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
           }
 
           const attributes: Record<string, string | number | boolean> = {
-            "Synurex.log.level": logLevelName,
+            "SkyKoi.log.level": logLevelName,
           };
           if (meta?.name) {
-            attributes["Synurex.logger"] = meta.name;
+            attributes["SkyKoi.logger"] = meta.name;
           }
           if (meta?.parentNames?.length) {
-            attributes["Synurex.logger.parents"] = meta.parentNames.join(".");
+            attributes["SkyKoi.logger.parents"] = meta.parentNames.join(".");
           }
           if (bindings) {
             for (const [key, value] of Object.entries(bindings)) {
@@ -292,14 +292,14 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
                 typeof value === "number" ||
                 typeof value === "boolean"
               ) {
-                attributes[`Synurex.${key}`] = value;
+                attributes[`SkyKoi.${key}`] = value;
               } else if (value != null) {
-                attributes[`Synurex.${key}`] = safeStringify(value);
+                attributes[`SkyKoi.${key}`] = safeStringify(value);
               }
             }
           }
           if (numericArgs.length > 0) {
-            attributes["Synurex.log.args"] = safeStringify(numericArgs);
+            attributes["SkyKoi.log.args"] = safeStringify(numericArgs);
           }
           if (meta?.path?.filePath) {
             attributes["code.filepath"] = meta.path.filePath;
@@ -311,7 +311,7 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
             attributes["code.function"] = meta.path.method;
           }
           if (meta?.path?.filePathWithLine) {
-            attributes["Synurex.code.location"] = meta.path.filePathWithLine;
+            attributes["SkyKoi.code.location"] = meta.path.filePathWithLine;
           }
 
           otelLogger.emit({
@@ -340,29 +340,29 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
 
       const recordModelUsage = (evt: Extract<DiagnosticEventPayload, { type: "model.usage" }>) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.provider": evt.provider ?? "unknown",
-          "Synurex.model": evt.model ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.provider": evt.provider ?? "unknown",
+          "SkyKoi.model": evt.model ?? "unknown",
         };
 
         const usage = evt.usage;
         if (usage.input) {
-          tokensCounter.add(usage.input, { ...attrs, "Synurex.token": "input" });
+          tokensCounter.add(usage.input, { ...attrs, "SkyKoi.token": "input" });
         }
         if (usage.output) {
-          tokensCounter.add(usage.output, { ...attrs, "Synurex.token": "output" });
+          tokensCounter.add(usage.output, { ...attrs, "SkyKoi.token": "output" });
         }
         if (usage.cacheRead) {
-          tokensCounter.add(usage.cacheRead, { ...attrs, "Synurex.token": "cache_read" });
+          tokensCounter.add(usage.cacheRead, { ...attrs, "SkyKoi.token": "cache_read" });
         }
         if (usage.cacheWrite) {
-          tokensCounter.add(usage.cacheWrite, { ...attrs, "Synurex.token": "cache_write" });
+          tokensCounter.add(usage.cacheWrite, { ...attrs, "SkyKoi.token": "cache_write" });
         }
         if (usage.promptTokens) {
-          tokensCounter.add(usage.promptTokens, { ...attrs, "Synurex.token": "prompt" });
+          tokensCounter.add(usage.promptTokens, { ...attrs, "SkyKoi.token": "prompt" });
         }
         if (usage.total) {
-          tokensCounter.add(usage.total, { ...attrs, "Synurex.token": "total" });
+          tokensCounter.add(usage.total, { ...attrs, "SkyKoi.token": "total" });
         }
 
         if (evt.costUsd) {
@@ -374,13 +374,13 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         if (evt.context?.limit) {
           contextHistogram.record(evt.context.limit, {
             ...attrs,
-            "Synurex.context": "limit",
+            "SkyKoi.context": "limit",
           });
         }
         if (evt.context?.used) {
           contextHistogram.record(evt.context.used, {
             ...attrs,
-            "Synurex.context": "used",
+            "SkyKoi.context": "used",
           });
         }
 
@@ -389,16 +389,16 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         }
         const spanAttrs: Record<string, string | number> = {
           ...attrs,
-          "Synurex.sessionKey": evt.sessionKey ?? "",
-          "Synurex.sessionId": evt.sessionId ?? "",
-          "Synurex.tokens.input": usage.input ?? 0,
-          "Synurex.tokens.output": usage.output ?? 0,
-          "Synurex.tokens.cache_read": usage.cacheRead ?? 0,
-          "Synurex.tokens.cache_write": usage.cacheWrite ?? 0,
-          "Synurex.tokens.total": usage.total ?? 0,
+          "SkyKoi.sessionKey": evt.sessionKey ?? "",
+          "SkyKoi.sessionId": evt.sessionId ?? "",
+          "SkyKoi.tokens.input": usage.input ?? 0,
+          "SkyKoi.tokens.output": usage.output ?? 0,
+          "SkyKoi.tokens.cache_read": usage.cacheRead ?? 0,
+          "SkyKoi.tokens.cache_write": usage.cacheWrite ?? 0,
+          "SkyKoi.tokens.total": usage.total ?? 0,
         };
 
-        const span = spanWithDuration("Synurex.model.usage", spanAttrs, evt.durationMs);
+        const span = spanWithDuration("SkyKoi.model.usage", spanAttrs, evt.durationMs);
         span.end();
       };
 
@@ -406,8 +406,8 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         evt: Extract<DiagnosticEventPayload, { type: "webhook.received" }>,
       ) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.webhook": evt.updateType ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.webhook": evt.updateType ?? "unknown",
         };
         webhookReceivedCounter.add(1, attrs);
       };
@@ -416,8 +416,8 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         evt: Extract<DiagnosticEventPayload, { type: "webhook.processed" }>,
       ) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.webhook": evt.updateType ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.webhook": evt.updateType ?? "unknown",
         };
         if (typeof evt.durationMs === "number") {
           webhookDurationHistogram.record(evt.durationMs, attrs);
@@ -427,9 +427,9 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         }
         const spanAttrs: Record<string, string | number> = { ...attrs };
         if (evt.chatId !== undefined) {
-          spanAttrs["Synurex.chatId"] = String(evt.chatId);
+          spanAttrs["SkyKoi.chatId"] = String(evt.chatId);
         }
-        const span = spanWithDuration("Synurex.webhook.processed", spanAttrs, evt.durationMs);
+        const span = spanWithDuration("SkyKoi.webhook.processed", spanAttrs, evt.durationMs);
         span.end();
       };
 
@@ -437,8 +437,8 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         evt: Extract<DiagnosticEventPayload, { type: "webhook.error" }>,
       ) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.webhook": evt.updateType ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.webhook": evt.updateType ?? "unknown",
         };
         webhookErrorCounter.add(1, attrs);
         if (!tracesEnabled) {
@@ -446,12 +446,12 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         }
         const spanAttrs: Record<string, string | number> = {
           ...attrs,
-          "Synurex.error": evt.error,
+          "SkyKoi.error": evt.error,
         };
         if (evt.chatId !== undefined) {
-          spanAttrs["Synurex.chatId"] = String(evt.chatId);
+          spanAttrs["SkyKoi.chatId"] = String(evt.chatId);
         }
-        const span = tracer.startSpan("Synurex.webhook.error", {
+        const span = tracer.startSpan("SkyKoi.webhook.error", {
           attributes: spanAttrs,
         });
         span.setStatus({ code: SpanStatusCode.ERROR, message: evt.error });
@@ -462,8 +462,8 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         evt: Extract<DiagnosticEventPayload, { type: "message.queued" }>,
       ) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.source": evt.source ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.source": evt.source ?? "unknown",
         };
         messageQueuedCounter.add(1, attrs);
         if (typeof evt.queueDepth === "number") {
@@ -475,8 +475,8 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         evt: Extract<DiagnosticEventPayload, { type: "message.processed" }>,
       ) => {
         const attrs = {
-          "Synurex.channel": evt.channel ?? "unknown",
-          "Synurex.outcome": evt.outcome ?? "unknown",
+          "SkyKoi.channel": evt.channel ?? "unknown",
+          "SkyKoi.outcome": evt.outcome ?? "unknown",
         };
         messageProcessedCounter.add(1, attrs);
         if (typeof evt.durationMs === "number") {
@@ -487,21 +487,21 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         }
         const spanAttrs: Record<string, string | number> = { ...attrs };
         if (evt.sessionKey) {
-          spanAttrs["Synurex.sessionKey"] = evt.sessionKey;
+          spanAttrs["SkyKoi.sessionKey"] = evt.sessionKey;
         }
         if (evt.sessionId) {
-          spanAttrs["Synurex.sessionId"] = evt.sessionId;
+          spanAttrs["SkyKoi.sessionId"] = evt.sessionId;
         }
         if (evt.chatId !== undefined) {
-          spanAttrs["Synurex.chatId"] = String(evt.chatId);
+          spanAttrs["SkyKoi.chatId"] = String(evt.chatId);
         }
         if (evt.messageId !== undefined) {
-          spanAttrs["Synurex.messageId"] = String(evt.messageId);
+          spanAttrs["SkyKoi.messageId"] = String(evt.messageId);
         }
         if (evt.reason) {
-          spanAttrs["Synurex.reason"] = evt.reason;
+          spanAttrs["SkyKoi.reason"] = evt.reason;
         }
-        const span = spanWithDuration("Synurex.message.processed", spanAttrs, evt.durationMs);
+        const span = spanWithDuration("SkyKoi.message.processed", spanAttrs, evt.durationMs);
         if (evt.outcome === "error") {
           span.setStatus({ code: SpanStatusCode.ERROR, message: evt.error });
         }
@@ -511,7 +511,7 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
       const recordLaneEnqueue = (
         evt: Extract<DiagnosticEventPayload, { type: "queue.lane.enqueue" }>,
       ) => {
-        const attrs = { "Synurex.lane": evt.lane };
+        const attrs = { "SkyKoi.lane": evt.lane };
         laneEnqueueCounter.add(1, attrs);
         queueDepthHistogram.record(evt.queueSize, attrs);
       };
@@ -519,7 +519,7 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
       const recordLaneDequeue = (
         evt: Extract<DiagnosticEventPayload, { type: "queue.lane.dequeue" }>,
       ) => {
-        const attrs = { "Synurex.lane": evt.lane };
+        const attrs = { "SkyKoi.lane": evt.lane };
         laneDequeueCounter.add(1, attrs);
         queueDepthHistogram.record(evt.queueSize, attrs);
         if (typeof evt.waitMs === "number") {
@@ -530,9 +530,9 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
       const recordSessionState = (
         evt: Extract<DiagnosticEventPayload, { type: "session.state" }>,
       ) => {
-        const attrs: Record<string, string> = { "Synurex.state": evt.state };
+        const attrs: Record<string, string> = { "SkyKoi.state": evt.state };
         if (evt.reason) {
-          attrs["Synurex.reason"] = evt.reason;
+          attrs["SkyKoi.reason"] = evt.reason;
         }
         sessionStateCounter.add(1, attrs);
       };
@@ -540,7 +540,7 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
       const recordSessionStuck = (
         evt: Extract<DiagnosticEventPayload, { type: "session.stuck" }>,
       ) => {
-        const attrs: Record<string, string> = { "Synurex.state": evt.state };
+        const attrs: Record<string, string> = { "SkyKoi.state": evt.state };
         sessionStuckCounter.add(1, attrs);
         if (typeof evt.ageMs === "number") {
           sessionStuckAgeHistogram.record(evt.ageMs, attrs);
@@ -550,26 +550,26 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         }
         const spanAttrs: Record<string, string | number> = { ...attrs };
         if (evt.sessionKey) {
-          spanAttrs["Synurex.sessionKey"] = evt.sessionKey;
+          spanAttrs["SkyKoi.sessionKey"] = evt.sessionKey;
         }
         if (evt.sessionId) {
-          spanAttrs["Synurex.sessionId"] = evt.sessionId;
+          spanAttrs["SkyKoi.sessionId"] = evt.sessionId;
         }
-        spanAttrs["Synurex.queueDepth"] = evt.queueDepth ?? 0;
-        spanAttrs["Synurex.ageMs"] = evt.ageMs;
-        const span = tracer.startSpan("Synurex.session.stuck", { attributes: spanAttrs });
+        spanAttrs["SkyKoi.queueDepth"] = evt.queueDepth ?? 0;
+        spanAttrs["SkyKoi.ageMs"] = evt.ageMs;
+        const span = tracer.startSpan("SkyKoi.session.stuck", { attributes: spanAttrs });
         span.setStatus({ code: SpanStatusCode.ERROR, message: "session stuck" });
         span.end();
       };
 
       const recordRunAttempt = (evt: Extract<DiagnosticEventPayload, { type: "run.attempt" }>) => {
-        runAttemptCounter.add(1, { "Synurex.attempt": evt.attempt });
+        runAttemptCounter.add(1, { "SkyKoi.attempt": evt.attempt });
       };
 
       const recordHeartbeat = (
         evt: Extract<DiagnosticEventPayload, { type: "diagnostic.heartbeat" }>,
       ) => {
-        queueDepthHistogram.record(evt.queued, { "Synurex.channel": "heartbeat" });
+        queueDepthHistogram.record(evt.queued, { "SkyKoi.channel": "heartbeat" });
       };
 
       unsubscribe = onDiagnosticEvent((evt: DiagnosticEventPayload) => {
@@ -631,5 +631,5 @@ export function createDiagnosticsOtelService(): SynurexPluginService {
         sdk = null;
       }
     },
-  } satisfies SynurexPluginService;
+  } satisfies SkyKoiPluginService;
 }

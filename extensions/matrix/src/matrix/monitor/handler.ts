@@ -7,7 +7,7 @@ import {
   logTypingFailure,
   resolveControlCommandGate,
   type RuntimeEnv,
-} from "Synurex/plugin-sdk";
+} from "SkyKoi/plugin-sdk";
 import type { CoreConfig, ReplyToMode } from "../../types.js";
 import type { MatrixRawEvent, RoomMessageEventContent } from "./types.js";
 import {
@@ -41,7 +41,7 @@ export type MatrixMonitorHandlerParams = {
     logging: {
       shouldLogVerbose: () => boolean;
     };
-    channel: (typeof import("Synurex/plugin-sdk"))["channel"];
+    channel: (typeof import("SkyKoi/plugin-sdk"))["channel"];
     system: {
       enqueueSystemEvent: (
         text: string,
@@ -63,7 +63,7 @@ export type MatrixMonitorHandlerParams = {
       : Record<string, unknown> | undefined
     : Record<string, unknown> | undefined;
   mentionRegexes: ReturnType<
-    (typeof import("Synurex/plugin-sdk"))["channel"]["mentions"]["buildMentionRegexes"]
+    (typeof import("SkyKoi/plugin-sdk"))["channel"]["mentions"]["buildMentionRegexes"]
   >;
   groupPolicy: "open" | "allowlist" | "disabled";
   replyToMode: ReplyToMode;
@@ -266,12 +266,12 @@ export function createMatrixRoomMessageHandler(params: MatrixMonitorHandlerParam
                   await sendMessageMatrix(
                     `room:${roomId}`,
                     [
-                      "Synurex: access not configured.",
+                      "SkyKoi: access not configured.",
                       "",
                       `Pairing code: ${code}`,
                       "",
                       "Ask the bot owner to approve with:",
-                      "Synurex pairing approve matrix <code>",
+                      "SkyKoi pairing approve matrix <code>",
                     ].join("\n"),
                     { client },
                   );
