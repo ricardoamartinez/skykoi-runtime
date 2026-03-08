@@ -1,7 +1,7 @@
 {
-  "name": "@SkyKoi/memory-lancedb",
+  "name": "@skykoi/memory-lancedb",
   "version": "2026.2.6-3",
-  "description": "SkyKoi LanceDB-backed long-term memory plugin with auto-recall/capture",
+  "description": "skykoi LanceDB-backed long-term memory plugin with auto-recall/capture",
   "type": "module",
   "dependencies": {
     "@lancedb/lancedb": "^0.24.1",
@@ -9,9 +9,9 @@
     "openai": "^6.18.0"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

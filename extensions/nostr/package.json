@@ -1,17 +1,17 @@
 {
-  "name": "@SkyKoi/nostr",
+  "name": "@skykoi/nostr",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Nostr channel plugin for NIP-04 encrypted DMs",
+  "description": "skykoi Nostr channel plugin for NIP-04 encrypted DMs",
   "type": "module",
   "dependencies": {
     "nostr-tools": "^2.23.0",
-    "SkyKoi": "workspace:*",
+    "skykoi": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -26,7 +26,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@SkyKoi/nostr",
+      "npmSpec": "@skykoi/nostr",
       "localPath": "extensions/nostr",
       "defaultChoice": "npm"
     }

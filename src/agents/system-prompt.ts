@@ -153,7 +153,7 @@ function buildDocsSection(params: { docsPath?: string; isMinimal: boolean; readT
     `SkyKoi docs: ${docsPath}`,
     "Mirror: https://skykoi.com/docs",
     "Source: https://github.com/ricardoamartinez/skykoi-runtime",
-    "Community: https://discord.com/invite/clawd",
+    "Community: https://discord.com/invite/skykoi",
     "Find new skills: https://skykoi.com",
     "For SkyKoi behavior, commands, config, or architecture: consult local docs first.",
     "When diagnosing issues, run `skykoi status` yourself when possible; only ask the user if you lack access (e.g., sandboxed).",

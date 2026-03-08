@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/slack",
+  "name": "@skykoi/slack",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Slack channel plugin",
+  "description": "skykoi Slack channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

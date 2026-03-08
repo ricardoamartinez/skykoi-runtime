@@ -1,7 +1,7 @@
 {
-  "name": "@SkyKoi/voice-call",
+  "name": "@skykoi/voice-call",
   "version": "2026.2.6-3",
-  "description": "SkyKoi voice-call plugin",
+  "description": "skykoi voice-call plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
@@ -9,9 +9,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

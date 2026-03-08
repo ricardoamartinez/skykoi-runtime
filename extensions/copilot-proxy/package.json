@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/copilot-proxy",
+  "name": "@skykoi/copilot-proxy",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Copilot Proxy provider plugin",
+  "description": "skykoi Copilot Proxy provider plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

@@ -1,20 +1,20 @@
 {
-  "name": "@SkyKoi/msteams",
+  "name": "@skykoi/msteams",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Microsoft Teams channel plugin",
+  "description": "skykoi Microsoft Teams channel plugin",
   "type": "module",
   "dependencies": {
     "@microsoft/agents-hosting": "^1.2.3",
     "@microsoft/agents-hosting-express": "^1.2.3",
     "@microsoft/agents-hosting-extensions-teams": "^1.2.3",
     "express": "^5.2.1",
-    "SkyKoi": "workspace:*",
+    "skykoi": "workspace:*",
     "proper-lockfile": "^4.1.2"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -31,7 +31,7 @@
       "order": 60
     },
     "install": {
-      "npmSpec": "@SkyKoi/msteams",
+      "npmSpec": "@skykoi/msteams",
       "localPath": "extensions/msteams",
       "defaultChoice": "npm"
     }

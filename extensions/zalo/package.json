@@ -1,16 +1,16 @@
 {
-  "name": "@SkyKoi/zalo",
+  "name": "@skykoi/zalo",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Zalo channel plugin",
+  "description": "skykoi Zalo channel plugin",
   "type": "module",
   "dependencies": {
-    "SkyKoi": "workspace:*",
+    "skykoi": "workspace:*",
     "undici": "7.21.0"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@SkyKoi/zalo",
+      "npmSpec": "@skykoi/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm"
     }

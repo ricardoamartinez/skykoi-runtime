@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/google-gemini-cli-auth",
+  "name": "@skykoi/google-gemini-cli-auth",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Gemini CLI OAuth provider plugin",
+  "description": "skykoi Gemini CLI OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

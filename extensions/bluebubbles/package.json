@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/bluebubbles",
+  "name": "@skykoi/bluebubbles",
   "version": "2026.2.6-3",
-  "description": "SkyKoi BlueBubbles channel plugin",
+  "description": "skykoi BlueBubbles channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "order": 75
     },
     "install": {
-      "npmSpec": "@SkyKoi/bluebubbles",
+      "npmSpec": "@skykoi/bluebubbles",
       "localPath": "extensions/bluebubbles",
       "defaultChoice": "npm"
     }

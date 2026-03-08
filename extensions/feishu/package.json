@@ -1,7 +1,7 @@
 {
-  "name": "@SkyKoi/feishu",
+  "name": "@skykoi/feishu",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Feishu/Lark channel plugin (community maintained by @m1heng)",
+  "description": "skykoi Feishu/Lark channel plugin (community maintained by @m1heng)",
   "type": "module",
   "dependencies": {
     "@larksuiteoapi/node-sdk": "^1.58.0",
@@ -9,9 +9,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -29,7 +29,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@SkyKoi/feishu",
+      "npmSpec": "@skykoi/feishu",
       "localPath": "extensions/feishu",
       "defaultChoice": "npm"
     }

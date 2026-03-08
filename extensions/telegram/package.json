@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/telegram",
+  "name": "@skykoi/telegram",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Telegram channel plugin",
+  "description": "skykoi Telegram channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

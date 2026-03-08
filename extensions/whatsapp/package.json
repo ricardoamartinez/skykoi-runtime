@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/whatsapp",
+  "name": "@skykoi/whatsapp",
   "version": "2026.2.6-3",
-  "description": "SkyKoi WhatsApp channel plugin",
+  "description": "skykoi WhatsApp channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

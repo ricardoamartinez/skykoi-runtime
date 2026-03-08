@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/minimax-portal-auth",
+  "name": "@skykoi/minimax-portal-auth",
   "version": "2026.2.6-3",
-  "description": "SkyKoi MiniMax Portal OAuth provider plugin",
+  "description": "skykoi MiniMax Portal OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

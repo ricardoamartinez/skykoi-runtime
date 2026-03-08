@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/nextcloud-talk",
+  "name": "@skykoi/nextcloud-talk",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Nextcloud Talk channel plugin",
+  "description": "skykoi Nextcloud Talk channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -25,7 +25,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@SkyKoi/nextcloud-talk",
+      "npmSpec": "@skykoi/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }

@@ -1,18 +1,18 @@
 {
-  "name": "@SkyKoi/googlechat",
+  "name": "@skykoi/googlechat",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Google Chat channel plugin",
+  "description": "skykoi Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.5.0"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
   "peerDependencies": {
-    "SkyKoi": ">=2026.1.26"
+    "skykoi": ">=2026.1.26"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -31,7 +31,7 @@
       "order": 55
     },
     "install": {
-      "npmSpec": "@SkyKoi/googlechat",
+      "npmSpec": "@skykoi/googlechat",
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     }

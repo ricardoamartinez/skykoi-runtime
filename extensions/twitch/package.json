@@ -1,7 +1,7 @@
 {
-  "name": "@SkyKoi/twitch",
+  "name": "@skykoi/twitch",
   "version": "2026.2.6-3",
-  "description": "SkyKoi Twitch channel plugin",
+  "description": "skykoi Twitch channel plugin",
   "type": "module",
   "dependencies": {
     "@twurple/api": "^8.0.3",
@@ -10,9 +10,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

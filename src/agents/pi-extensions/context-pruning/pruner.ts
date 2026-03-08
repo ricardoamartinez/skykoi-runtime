@@ -19,7 +19,7 @@ const IMAGE_CHAR_ESTIMATE = 8_000;
  * Try to extract a file path reference from the surrounding text context
  * of a message that contains an image block. Looks for common patterns:
  * - "Read image file [image/png]" preceded by a read tool call to a path
- * - File paths like /home/ubuntu/clawd/generated-image-*.png
+ * - File paths like /home/ubuntu/skykoi/generated-image-*.png
  * - [media attached: /path/to/file.jpg ...]
  */
 function extractImagePath(content: ReadonlyArray<TextContent | ImageContent>): string | null {

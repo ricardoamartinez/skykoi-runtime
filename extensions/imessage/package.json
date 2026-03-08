@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/imessage",
+  "name": "@skykoi/imessage",
   "version": "2026.2.6-3",
-  "description": "SkyKoi iMessage channel plugin",
+  "description": "skykoi iMessage channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

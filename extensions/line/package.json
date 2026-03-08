@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/line",
+  "name": "@skykoi/line",
   "version": "2026.2.6-3",
-  "description": "SkyKoi LINE channel plugin",
+  "description": "skykoi LINE channel plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ],
@@ -21,7 +21,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@SkyKoi/line",
+      "npmSpec": "@skykoi/line",
       "localPath": "extensions/line",
       "defaultChoice": "npm"
     }

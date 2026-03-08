@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/llm-task",
+  "name": "@skykoi/llm-task",
   "version": "2026.2.6-3",
-  "description": "SkyKoi JSON-only LLM task plugin",
+  "description": "skykoi JSON-only LLM task plugin",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]

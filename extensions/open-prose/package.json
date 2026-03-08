@@ -1,12 +1,12 @@
 {
-  "name": "@SkyKoi/open-prose",
+  "name": "@skykoi/open-prose",
   "version": "2026.2.6-3",
   "description": "OpenProse VM skill pack plugin (slash command + telemetry).",
   "type": "module",
   "devDependencies": {
-    "SkyKoi": "workspace:*"
+    "skykoi": "workspace:*"
   },
-  "SkyKoi": {
+  "skykoi": {
     "extensions": [
       "./index.ts"
     ]
